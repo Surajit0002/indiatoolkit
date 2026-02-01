@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Copy, Trash2, FileText, Hash, AlignLeft, RefreshCw, BarChart3 } from "lucide-react";
+import { ToolTextarea } from "@/components/ui/ToolInput";
 
 export default function WordCounter() {
   const [text, setText] = useState("");
@@ -40,15 +41,13 @@ export default function WordCounter() {
                 </div>
             </div>
             
-            <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[32px] blur opacity-0 group-focus-within:opacity-10 transition duration-500"></div>
-                <textarea
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Type or paste your content here for instant analysis..."
-                    className="relative w-full h-[450px] p-8 bg-slate-50/50 border border-slate-100 rounded-[32px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition-all font-bold text-slate-700 resize-none text-xl leading-relaxed shadow-inner placeholder:text-slate-300"
-                />
-            </div>
+            <ToolTextarea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Type or paste your content here for instant analysis..."
+                className="h-[450px] text-xl leading-relaxed resize-none"
+                label="Content Repository"
+            />
 
             <div className="flex flex-wrap gap-4">
                 <button

@@ -191,27 +191,7 @@ export default async function ToolPage({ params }: PageProps) {
               {tool.description}
            </p>
              
-           {/* SEO Content Section */}
-           <div className="w-full mt-12 max-w-3xl">
-             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">About {tool.name}</h2>
-             <p className="text-slate-600 mb-6 leading-relaxed">
-               {seoContent.introduction}
-             </p>
-               
-             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">How to Use {tool.name}</h2>
-             <p className="text-slate-600 mb-6 leading-relaxed">
-               {seoContent.howToUse}
-             </p>
-               
-             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">Features and Benefits</h2>
-             <ul className="list-disc pl-6 text-slate-600 mb-6 space-y-2">
-               {seoContent.benefits.map((benefit, index) => (
-                 <li key={index}>{benefit}</li>
-               ))}
-             </ul>
-               
-             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">FAQs</h2>
-           </div>
+          
         </div>
 
         {/* Responsive 3-Column Layout */}
@@ -319,7 +299,7 @@ export default async function ToolPage({ params }: PageProps) {
                 </Link>
               </div>
             </div>
-
+                
             <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
                <h5 className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-900 mb-6 flex items-center justify-between">
                  DIAGNOSTICS
@@ -357,7 +337,7 @@ export default async function ToolPage({ params }: PageProps) {
             </div>
           </div>
         </div>
-
+              
 
         {/* Global Similar Tools Footer */}
         <div className="mt-16 pt-16 border-t border-slate-200/60">
@@ -368,6 +348,97 @@ export default async function ToolPage({ params }: PageProps) {
             subtitle="Power Grid"
           />
         </div>
+
+         {/* Enhanced SEO Content Cards Section */}
+           <div className="w-full mt-16 max-w-7xl mx-auto px-4">
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+               {/* About Card - Enhanced */}
+               <div className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-3xl border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-2">
+                 <div className="flex items-center gap-4 mb-6">
+                   <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                     <Info className="h-6 w-6 text-white" />
+                   </div>
+                   <h2 className="text-2xl font-black text-slate-800 tracking-tight">About {tool.name}</h2>
+                 </div>
+                 <p className="text-slate-600 text-base leading-relaxed mb-6">
+                   {seoContent.introduction}
+                 </p>
+                 <button className="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl text-base font-bold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                   Learn More
+                 </button>
+               </div>
+           
+               {/* How to Use Card - Enhanced */}
+               <div className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-3xl border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-2">
+                 <div className="flex items-center gap-4 mb-6">
+                   <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                     <Zap className="h-6 w-6 text-white" />
+                   </div>
+                   <h2 className="text-2xl font-black text-slate-800 tracking-tight">How to Use</h2>
+                 </div>
+                 <p className="text-slate-600 text-base leading-relaxed mb-6">
+                   {seoContent.howToUse}
+                 </p>
+                 <button className="w-full py-3 px-6 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl text-base font-bold hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                   Get Started
+                 </button>
+               </div>
+           
+               {/* Features Card - Enhanced */}
+               <div className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-3xl border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-2">
+                 <div className="flex items-center gap-4 mb-6">
+                   <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                     <Star className="h-6 w-6 text-white" />
+                   </div>
+                   <h2 className="text-2xl font-black text-slate-800 tracking-tight">Key Features</h2>
+                 </div>
+                 <ul className="text-slate-600 text-base space-y-3 mb-6">
+                   {seoContent.benefits.slice(0, 4).map((benefit, index) => (
+                     <li key={index} className="flex items-start gap-3">
+                       <span className="text-green-500 mt-1.5 flex-shrink-0">
+                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                         </svg>
+                       </span>
+                       <span className="leading-relaxed">{benefit}</span>
+                     </li>
+                   ))}
+                 </ul>
+                 <button className="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl text-base font-bold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                   View All Features
+                 </button>
+               </div>
+             </div>
+           
+             {/* Enhanced FAQ Section */}
+             <div className="mt-20">
+               <div className="text-center mb-12">
+                 <h2 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">Frequently Asked Questions</h2>
+                 <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                 {[...tool.faqs.slice(0, 1), ...dynamicFaqs.slice(0, 3)].map((faq, i) => (
+                   <div key={i} className="bg-white p-7 rounded-2xl border border-slate-200/50 shadow-md hover:shadow-lg transition-all duration-300 group hover:border-blue-300 hover:-translate-y-1">
+                     <div className="flex items-start gap-4">
+                       <div className="flex-shrink-0 mt-1">
+                         <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                           <span className="text-blue-600 font-bold text-sm">Q</span>
+                         </div>
+                       </div>
+                       <div>
+                         <h3 className="font-bold text-slate-800 text-lg mb-3 group-hover:text-blue-600 transition-colors">
+                           {faq.question}
+                         </h3>
+                         <p className="text-slate-600 text-base leading-relaxed">
+                           {faq.answer}
+                         </p>
+                       </div>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+             </div>
+           </div>
       </div>
     </div>
   );
