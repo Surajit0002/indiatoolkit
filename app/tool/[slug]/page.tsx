@@ -8,6 +8,7 @@ import ToolRenderer from "@/components/ToolRenderer";
 import ToolSwitcher from "@/components/ToolSwitcher";
 import ToolGrid from "@/components/ToolGrid";
 import ToolActions from "@/components/ToolActions";
+import { generateSeoContent, generateFaqsByType } from "@/lib/seo-content-generator";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -18,6 +19,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const tool = getToolBySlug(slug);
   if (!tool) return { title: "Tool Not Found" };
 
+  // Enhanced SEO metadata
+  const title = `${tool.name} – Free Online Tool | India Toolkit`;
+  const description = `Use ${tool.name} online for free. Fast, secure, and easy tool for developers and students.`;
+  const canonicalUrl = `https://www.indiatoolkit.in/tool/${tool.slug}`;
+  
+  // FAQ Schema
   const faqSchema = tool.faqs.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -31,13 +38,63 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }))
   } : null;
 
+  // Software Application Schema
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": tool.name,
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": tool.description,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
   return {
-    title: tool.seo.title,
-    description: tool.seo.description,
-    keywords: tool.seo.keywords,
-    other: faqSchema ? {
-      "application/ld+json": JSON.stringify(faqSchema)
-    } : {}
+    title: title,
+    description: description,
+    keywords: tool.seo.keywords?.join(", "),
+    openGraph: {
+      title: title,
+      description: description,
+      url: canonicalUrl,
+      type: "website",
+      siteName: "India Toolkit",
+      images: [
+        {
+          url: `/api/og?tool=${tool.slug}&title=${encodeURIComponent(tool.name)}`,
+          width: 1200,
+          height: 630,
+          alt: tool.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [`/api/og?tool=${tool.slug}&title=${encodeURIComponent(tool.name)}`],
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    other: {
+      "application/ld+json": JSON.stringify([softwareSchema, faqSchema].filter(Boolean))
+    }
   };
 }
 
@@ -49,10 +106,14 @@ export default async function ToolPage({ params }: PageProps) {
   const category = getCategoryBySlug(tool.category);
   const categories = getAllCategories();
   const allTools = getAllTools();
-  
+    
+  // Generate SEO content
+  const seoContent = generateSeoContent(tool);
+  const dynamicFaqs = generateFaqsByType(tool);
+    
   // @ts-ignore
   const CategoryIcon = Icons[category?.icon || "Folder"] || Icons.Folder;
-
+  
   return (
     <div className="bg-[#fcfdfe] min-h-screen pb-24 relative overflow-hidden" style={{ "--accent-color": category?.color } as any}>
       {/* Immersive Background Glow */}
@@ -70,22 +131,9 @@ export default async function ToolPage({ params }: PageProps) {
           style={{ backgroundColor: category?.color }}
         ></div>
       </div>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": tool.name,
-            "description": tool.description,
-            "applicationCategory": "UtilitiesApplication",
-            "operatingSystem": "Any",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-          })
-        }}
-      />
-
+  
+        
+  
       <div className="max-w-[1600px] mx-auto px-4 md:px-10 pt-25">
         {/* Row 1: Top Navigation & Controls Bar */}
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 mb-16 relative">
@@ -98,10 +146,10 @@ export default async function ToolPage({ params }: PageProps) {
               {category?.name}
             </Link>
           </nav>
-          
+            
           <div className="flex items-center gap-6  ">
             <div className="flex flex-col items-end">
-              
+                
               <div className="scale-110 origin-right">
                 <ToolSwitcher categories={categories} tools={allTools} currentToolSlug={tool.slug} filterByCategory={tool.category} />
               </div>
@@ -114,7 +162,7 @@ export default async function ToolPage({ params }: PageProps) {
             </div>
           </div>
         </div>
-
+  
         {/* Row 2: Mid-Center Integrated Identity */}
         <div className="flex flex-col items-center text-center mb-16 max-w-4xl mx-auto group">
            <div className="relative mb-8">
@@ -125,7 +173,7 @@ export default async function ToolPage({ params }: PageProps) {
               <div 
                 className="relative h-24 w-24 rounded-[32px] flex items-center justify-center text-white shadow-2xl border-4 border-white transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500"
                 style={{ 
-                  background: `linear-gradient(145deg, ${category?.color}, ${category?.color}cc)`,
+                  background: `linear-gradient(145deg, ${category?.color}, ${category?.color}cc)`
                 }}
               >
                 <CategoryIcon className="h-11 w-11 stroke-[2.5]" />
@@ -142,6 +190,28 @@ export default async function ToolPage({ params }: PageProps) {
            <p className="text-sm md:text-lg text-slate-400 font-bold uppercase tracking-[0.15em] italic max-w-3xl leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">
               {tool.description}
            </p>
+             
+           {/* SEO Content Section */}
+           <div className="w-full mt-12 max-w-3xl">
+             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">About {tool.name}</h2>
+             <p className="text-slate-600 mb-6 leading-relaxed">
+               {seoContent.introduction}
+             </p>
+               
+             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">How to Use {tool.name}</h2>
+             <p className="text-slate-600 mb-6 leading-relaxed">
+               {seoContent.howToUse}
+             </p>
+               
+             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">Features and Benefits</h2>
+             <ul className="list-disc pl-6 text-slate-600 mb-6 space-y-2">
+               {seoContent.benefits.map((benefit, index) => (
+                 <li key={index}>{benefit}</li>
+               ))}
+             </ul>
+               
+             <h2 className="text-2xl font-bold text-slate-800 mb-6 pb-2 border-b border-slate-200">FAQs</h2>
+           </div>
         </div>
 
         {/* Responsive 3-Column Layout */}
@@ -275,7 +345,8 @@ export default async function ToolPage({ params }: PageProps) {
 
             {/* Quick FAQ */}
             <div className="space-y-5">
-              {tool.faqs.slice(0, 2).map((faq, i) => (
+              {/* Show both static FAQs from the tool data and generated FAQs */}
+              {[...tool.faqs.slice(0, 1), ...dynamicFaqs.slice(0, 1)].map((faq, i) => (
                 <div key={i} className="bg-white p-7 rounded-[36px] border border-slate-100 shadow-sm hover:border-blue-200 transition-colors group">
                   <h4 className="font-black text-[11px] text-slate-900 uppercase mb-3 italic flex items-start gap-2 leading-tight tracking-tight">
                     <span className="h-2 w-2 rounded-full bg-blue-600 mt-1 shrink-0 group-hover:scale-150 transition-transform"></span> {faq.question}

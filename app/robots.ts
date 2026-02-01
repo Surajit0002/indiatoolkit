@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/private/", "/login/", "/profile/"],
     },
-    sitemap: "https://omnitools.example.com/sitemap.xml",
+    sitemap: "https://www.indiatoolkit.in/sitemap.xml",
   };
 }
