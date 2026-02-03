@@ -6,20 +6,43 @@ import { useRouter } from "next/navigation";
 import { tools } from "@/data/tools";
 import { Tool } from "@/types/tool";
 import Link from "next/link";
+import Fuse from "fuse.js";
 
 export default function GlobalSearch() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Tool[]>([]);
+
+  // Define extended tool type for search results
+  interface ExtendedTool extends Tool {
+    keywords: string;
+  }
+
+  const [results, setResults] = useState<ExtendedTool[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
+  // Prepare tools data with flattened keywords for search
+  const toolsWithKeywords = tools.map(tool => ({
+    ...tool,
+    keywords: tool.seo.keywords?.join(' ') || ''
+  }));
+
+  // Initialize Fuse.js for fuzzy search
+  const fuse = new Fuse(toolsWithKeywords, {
+    keys: ['name', 'description', 'category', 'keywords'],
+    includeScore: true,
+    threshold: 0.3, // Adjust for sensitivity (0 = exact match, 1 = match anything)
+    minMatchCharLength: 2,
+    shouldSort: true,
+    findAllMatches: true,
+  });
+
   useEffect(() => {
     if (query.length > 1) {
-      const filtered = tools.filter(tool => 
-        tool.name.toLowerCase().includes(query.toLowerCase()) ||
-        tool.description.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 5);
+      // Use Fuse.js for fuzzy search
+      const fuseResults = fuse.search(query);
+      // Extract the tool objects and limit to 5
+      const filtered = fuseResults.slice(0, 5).map(result => result.item);
       setResults(filtered);
       setIsOpen(true);
     } else {
@@ -37,6 +60,28 @@ export default function GlobalSearch() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Helper function to highlight matched terms in text
+  const highlightMatch = (text: string, query: string) => {
+    if (!query) return <span>{text}</span>;
+    
+    const regex = new RegExp(`(${query})`, 'gi');
+    const parts = text.split(regex);
+
+    return (
+      <>
+        {parts.map((part, index) => 
+          regex.test(part) ? (
+            <span key={index} className="bg-yellow-200 text-slate-900 px-0.5 rounded">
+              {part}
+            </span>
+          ) : (
+            <span key={index}>{part}</span>
+          )
+        )}
+      </>
+    );
+  };
 
   return (
     <div className="relative w-full" ref={searchRef}>
@@ -89,10 +134,12 @@ export default function GlobalSearch() {
                 </div>
                 <div className="flex-grow">
                   <div className="text-[11px] font-black text-slate-900 flex items-center justify-between uppercase italic tracking-tight mb-0.5">
-                    {tool.name}
+                    {highlightMatch(tool.name, query)}
                     <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-blue-600" />
                   </div>
-                  <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider line-clamp-1 opacity-80 group-hover:text-slate-600">{tool.description}</div>
+                  <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider line-clamp-1 opacity-80 group-hover:text-slate-600">
+                    {highlightMatch(tool.description, query)}
+                  </div>
                 </div>
               </Link>
             ))}
