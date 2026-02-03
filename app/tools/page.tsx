@@ -1,78 +1,183 @@
-import { getAllTools, getAllCategories, getPopularTools } from "@/lib/utils";
-import ToolsList from "@/components/ToolsList";
-import ToolGrid from "@/components/ToolGrid";
-import { Zap, Layout } from "lucide-react";
+'use client';
 
-export const metadata = {
-  title: "All Tools - OMNITOOLS",
-  description: "Browse our complete collection of free online tools. From calculators to developer utilities, find everything you need.",
-};
+import React from 'react';
+import { Calculator, Globe, Currency, Timer, Scale, Database, PieChart, FileText, Image, Code, Calendar, Music, Map, Search, Filter, Grid, List } from 'lucide-react';
+import Link from 'next/link';
 
-export default function AllToolsPage() {
-  const tools = getAllTools();
-  const categories = getAllCategories();
-  const popularTools = getPopularTools();
+const toolsData = [
+  { id: 1, icon: Calculator, title: "Basic Calculator", description: "Simple arithmetic operations and calculations", slug: "basic-calculator", category: "Math", color: "from-blue-500 to-cyan-600" },
+  { id: 2, icon: Globe, title: "Currency Converter", description: "Real-time currency exchange rates and conversion", slug: "currency-converter", category: "Finance", color: "from-green-500 to-teal-600" },
+  { id: 3, icon: Timer, title: "Time Zone Converter", description: "Convert time between different time zones globally", slug: "time-zone-converter", category: "Time", color: "from-purple-500 to-indigo-600" },
+  { id: 4, icon: Scale, title: "Unit Converter", description: "Convert between various measurement units", slug: "unit-converter", category: "Measurement", color: "from-pink-500 to-rose-600" },
+  { id: 5, icon: Database, title: "Data Size Converter", description: "Convert between bytes, KB, MB, GB, and TB", slug: "data-size-converter", category: "Technology", color: "from-orange-500 to-red-600" },
+  { id: 6, icon: PieChart, title: "Percentage Calculator", description: "Calculate percentages, increases, and decreases", slug: "percentage-calculator", category: "Math", color: "from-emerald-500 to-teal-600" },
+  { id: 7, icon: FileText, title: "Word Counter", description: "Count words, characters, and sentences in text", slug: "word-counter", category: "Text", color: "from-violet-500 to-purple-600" },
+  { id: 8, icon: Image, title: "Image Resizer", description: "Resize and compress images for web optimization", slug: "image-resizer", category: "Media", color: "from-amber-500 to-orange-600" },
+  { id: 9, icon: Code, title: "JSON Formatter", description: "Format and validate JSON data structures", slug: "json-formatter", category: "Development", color: "from-sky-500 to-blue-600" },
+  { id: 10, icon: Calendar, title: "Age Calculator", description: "Calculate exact age and time differences", slug: "age-calculator", category: "Time", color: "from-rose-500 to-pink-600" },
+  { id: 11, icon: Music, title: "BPM Calculator", description: "Calculate beats per minute for music and audio", slug: "bpm-calculator", category: "Audio", color: "from-indigo-500 to-purple-600" },
+  { id: 12, icon: Map, title: "Distance Calculator", description: "Calculate distances between locations and coordinates", slug: "distance-calculator", category: "Geography", color: "from-teal-500 to-emerald-600" },
+];
+
+export default function ToolsPage() {
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState('All');
+
+  const categories = ['All', ...new Set(toolsData.map(tool => tool.category))];
+  const filteredTools = toolsData.filter(tool => {
+    const matchesSearch = tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                         tool.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || tool.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
-    <div className="bg-[#fcfdfe] min-h-screen pb-32 relative overflow-hidden">
-      {/* Immersive Background Effects */}
-      <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute -top-[10%] -left-[10%] w-[50%] h-[70%] bg-blue-600/5 blur-[160px] rounded-full"></div>
-        <div className="absolute top-[5%] -right-[5%] w-[40%] h-[60%] bg-indigo-600/5 blur-[140px] rounded-full"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.8)_0%,transparent_100%)]"></div>
-      </div>
-
-      <div className="pt-32 pb-16 relative overflow-hidden">
-        <div className="container max-w-7xl mx-auto px-4 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-900 text-white rounded-2xl shadow-2xl mb-8 animate-bounce">
-            <Zap className="h-4 w-4 fill-blue-500 text-blue-500" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em]">Omni Engine V2</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic text-slate-900 leading-[0.85]">
-            Power <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700">Inventory.</span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-bold leading-relaxed italic opacity-80 uppercase tracking-tight">
-            Advanced processing matrix. Explore our vast collection of browser-native utilities optimized for peak performance.
-          </p>
-        </div>
-      </div>
-
-      <div className="container max-w-7xl mx-auto px-4 relative z-10 space-y-24">
-        {/* Popular Section with New Styling */}
-        <div className="relative group">
-           <div className="absolute -inset-1 bg-gradient-to-tr from-blue-600/10 via-indigo-600/10 to-blue-600/10 rounded-[48px] blur-2xl"></div>
-           <div className="relative bg-white/60 backdrop-blur-xl p-10 rounded-[48px] border border-white/80 shadow-[0_40px_80px_-24px_rgba(0,0,0,0.05)]">
-            <ToolGrid 
-              tools={popularTools.slice(0, 4)} 
-              categories={categories}
-              title="High Performance"
-              subtitle="The Popular Grid"
-            />
+    <div className="w-full min-h-screen bg-gradient-to-br from-slate-50 to-green-50 tools-platform">
+      {/* Hero Section */}
+      <section className="hero py-16 md:py-24 lg:py-32">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl mb-8 shadow-xl">
+              <Calculator className="h-10 w-10 text-white" />
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6 leading-tight bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              INDIA'S TOOLKIT
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+              Professional tools and utilities for every Indian professional. Fast, secure, and completely free to use.
+            </p>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+              {[
+                { value: "100+", label: "Indian Tools" },
+                { value: "500K+", label: "Monthly Users" },
+                { value: "24/7", label: "Availability" },
+                { value: "100%", label: "Free Forever" }
+              ].map((stat, index) => (
+                <div key={index} className="bg-white/70 backdrop-blur-sm rounded-xl p-4 border border-white/20 shadow-lg">
+                  <div className="text-2xl font-black text-slate-900">{stat.value}</div>
+                  <div className="text-sm font-bold text-slate-600 uppercase tracking-wider">{stat.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="pt-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-900 text-white">
-                <Layout className="h-3 w-3" />
-                <span className="text-[8px] font-black uppercase tracking-[0.3em]">Core Collection</span>
+      {/* Tools Grid Section */}
+      <section className="tools-section py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          {/* Filters and Controls */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div className="relative flex-1 max-w-md">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-slate-400" />
               </div>
-              <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">Global Repository</h2>
+              <input
+                type="text"
+                placeholder="Search tools..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+              />
             </div>
-            <div className="text-right">
-              <span className="text-5xl md:text-7xl font-black text-slate-200 tracking-tighter leading-none select-none italic">
-                {tools.length}
-              </span>
+            
+            <div className="flex items-center gap-2">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
+              >
+                {categories.map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))}
+              </select>
+              
+              <div className="flex border border-slate-200 rounded-xl overflow-hidden">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-3 ${viewMode === 'grid' ? 'bg-green-500 text-white' : 'bg-white text-slate-600'} transition-colors`}
+                >
+                  <Grid className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-3 ${viewMode === 'list' ? 'bg-green-500 text-white' : 'bg-white text-slate-600'} transition-colors`}
+                >
+                  <List className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </div>
-          
-          <ToolsList initialTools={tools} categories={categories} />
+
+          {/* Tools Grid */}
+          <div className={viewMode === 'grid' 
+            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" 
+            : "flex flex-col gap-4"
+          }>
+            {filteredTools.map((tool) => {
+              const IconComponent = tool.icon;
+              return (
+                <Link 
+                  key={tool.id} 
+                  href={`/tool/${tool.slug}`}
+                  className={viewMode === 'grid' 
+                    ? "block group" 
+                    : "flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-all"
+                  }
+                >
+                  <div className={viewMode === 'grid' 
+                    ? "bg-white rounded-2xl p-6 shadow-sm border border-slate-100 hover:shadow-xl hover:border-slate-200 transition-all duration-300 h-full" 
+                    : "flex items-center gap-4"
+                  }>
+                    <div className={viewMode === 'grid' 
+                      ? "flex items-start gap-4" 
+                      : "flex items-center gap-4 w-full"
+                    }>
+                      <div className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-r ${tool.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                        <IconComponent className="h-7 w-7 text-white" />
+                      </div>
+                      <div className={viewMode === 'grid' 
+                        ? "flex-1 min-w-0" 
+                        : "flex-1"
+                      }>
+                        <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-green-600 transition-colors">
+                          {tool.title}
+                        </h3>
+                        <p className="text-slate-600 text-sm mb-4 leading-relaxed">
+                          {tool.description}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-slate-100 to-slate-200 text-slate-700 text-xs font-bold rounded-lg">
+                            {tool.category}
+                          </span>
+                          <div className="text-green-600 group-hover:translate-x-1 transition-transform">
+                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Load More Button */}
+          <div className="text-center mt-12">
+            <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg transition-all duration-300">
+              Load More Tools
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

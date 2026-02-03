@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!category) return { title: "Category Not Found" };
 
   return {
-    title: `${category.name} Tools - OMNITOOLS`,
+    title: `${category.name} Tools - India Toolkit`,
     description: category.description,
   };
 }
@@ -53,11 +53,11 @@ export default async function CategoryPage({ params }: PageProps) {
         {/* Navigation & Breadcrumbs */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
           <nav className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em]">
-            <Link href="/" className="text-slate-400 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+            <Link href="/" className="text-slate-400 hover:text-green-600 transition-colors flex items-center gap-1.5">
               <Home className="h-3 w-3" /> Home
             </Link>
             <ChevronRight className="h-3 w-3 text-slate-300" />
-            <Link href="/categories" className="text-slate-400 hover:text-blue-600 transition-colors">
+            <Link href="/categories" className="text-slate-400 hover:text-green-600 transition-colors">
               Categories
             </Link>
             <ChevronRight className="h-3 w-3 text-slate-300" />
@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: PageProps) {
           <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-sm">
              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Inventory</span>
              <div className="h-4 w-px bg-slate-100 mx-1"></div>
-             <span className="text-[10px] font-black text-blue-600">{tools.length} Tools</span>
+             <span className="text-[10px] font-black text-green-600">{tools.length} Tools</span>
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export default async function CategoryPage({ params }: PageProps) {
             
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
                <div className="px-3 py-1.5 bg-slate-900 text-white rounded-full text-[8px] font-black uppercase tracking-[0.2em] shadow-xl flex items-center gap-2">
-                  <Zap className="h-3 w-3 fill-blue-500 text-blue-500" /> High Performance
+                  <Zap className="h-3 w-3 fill-green-500 text-green-500" /> High Performance
                </div>
                <div className="px-3 py-1.5 bg-white text-slate-400 border border-slate-200 rounded-full text-[8px] font-black uppercase tracking-[0.2em] shadow-sm flex items-center gap-2">
                   <Layout className="h-3 w-3" /> Fully Integrated
@@ -123,7 +123,7 @@ export default async function CategoryPage({ params }: PageProps) {
               <input 
                 type="text" 
                 placeholder="Filter these tools..." 
-                className="pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-bold uppercase tracking-widest outline-none focus:border-blue-500 focus:shadow-md transition-all w-64 shadow-sm"
+                className="pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-[10px] font-bold uppercase tracking-widest outline-none focus:border-green-500 focus:shadow-md transition-all w-64 shadow-sm"
               />
             </div>
           </div>
@@ -173,7 +173,7 @@ export default async function CategoryPage({ params }: PageProps) {
 function InfoCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
   return (
     <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-xl transition-all group">
-      <div className="h-10 w-10 bg-slate-900 text-white rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors shadow-lg">
+      <div className="h-10 w-10 bg-slate-900 text-white rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600 transition-colors shadow-lg">
         {icon}
       </div>
       <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest italic mb-2">{title}</h4>

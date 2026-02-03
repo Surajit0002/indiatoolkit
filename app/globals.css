@@ -24,8 +24,8 @@ body {
 input, textarea, select {
   @apply bg-white text-slate-900 border-slate-200 placeholder:text-slate-400 focus:border-current focus:ring-0 focus:ring-offset-0;
   &:focus {
-    border-color: var(--accent-color, #3b82f6);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #3b82f6) 15%, transparent);
+    border-color: var(--accent-color, #10b981);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #10b981) 15%, transparent);
   }
 }
 
@@ -56,12 +56,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .brutal-btn {
   @apply px-6 py-3 rounded-2xl font-black uppercase tracking-wider transition-all duration-300 active:scale-95 shadow-lg flex items-center justify-center gap-2;
-  background-color: var(--accent-color, #0f172a);
+  background-color: var(--accent-color, #059669);
   color: white;
   &:hover {
     opacity: 0.9;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--accent-color, #0f172a) 30%, transparent);
+    box-shadow: 0 10px 20px -5px color-mix(in srgb, var(--accent-color, #059669) 30%, transparent);
   }
 }
 
@@ -71,8 +71,8 @@ h1, h2, h3, h4, h5, h6 {
     @apply text-slate-400;
   }
   &:focus {
-    border-color: var(--accent-color, #3b82f6);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #3b82f6) 15%, transparent);
+    border-color: var(--accent-color, #10b981);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #10b981) 15%, transparent);
     @apply ring-0;
   }
 }
@@ -84,8 +84,8 @@ h1, h2, h3, h4, h5, h6 {
     @apply text-slate-400;
   }
   &:focus {
-    border-color: var(--accent-color, #3b82f6);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #3b82f6) 15%, transparent);
+    border-color: var(--accent-color, #10b981);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #10b981) 15%, transparent);
     @apply ring-0;
   }
 }
@@ -99,8 +99,8 @@ h1, h2, h3, h4, h5, h6 {
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
   &:focus {
-    border-color: var(--accent-color, #3b82f6);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #3b82f6) 15%, transparent);
+    border-color: var(--accent-color, #10b981);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color, #10b981) 15%, transparent);
     @apply ring-0;
   }
 }
@@ -122,15 +122,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .colorful-highlight {
-  color: var(--accent-color, #3b82f6);
+  color: var(--accent-color, #10b981);
 }
 
 .colorful-bg {
-  background-color: var(--accent-color, #3b82f6);
+  background-color: var(--accent-color, #10b981);
 }
 
 .colorful-border {
-  border-color: var(--accent-color, #3b82f6);
+  border-color: var(--accent-color, #10b981);
 }
 
 /* Custom scrollbar for better look */

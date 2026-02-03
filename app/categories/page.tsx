@@ -5,8 +5,8 @@ import * as Icons from "lucide-react";
 import { ArrowRight, ChevronRight } from "lucide-react";
 
 export const metadata = {
-  title: "Tool Categories - OMNITOOLS",
-  description: "Browse our tools by category. Find exactly what you need for calculations, conversions, and more.",
+  title: "Tool Categories - India Toolkit",
+  description: "Browse our tools by category. Find exactly what you need for calculations, conversions, and more in India.",
 };
 
 export default function CategoriesPage() {
@@ -16,7 +16,7 @@ export default function CategoriesPage() {
       <div className="bg-white/50 backdrop-blur-sm border-b border-slate-100">
         <div className="container px-4 py-3">
           <nav className="flex items-center gap-2 text-[8px] font-black uppercase tracking-[0.4em] text-slate-400">
-            <Link href="/" className="hover:text-blue-600 transition-colors flex items-center gap-1.5">
+            <Link href="/" className="hover:text-green-600 transition-colors flex items-center gap-1.5">
               <Icons.Home className="h-2.5 w-2.5" /> Home
             </Link>
             <ChevronRight className="h-2 w-2" />
@@ -34,17 +34,17 @@ export default function CategoriesPage() {
       <div className="pt-24 pb-16 relative overflow-hidden">
         <div className="container px-4 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-slate-100 mb-8">
-            <Icons.Layout className="h-4 w-4 text-blue-600" />
+            <Icons.Layout className="h-4 w-4 text-green-600" />
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-800">Browse Library</span>
           </div>
           
           <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic text-slate-900 leading-[0.9]">
             Explore <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Categories.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Categories.</span>
           </h1>
           
           <p className="text-base md:text-lg text-slate-500 max-w-2xl mx-auto font-bold leading-relaxed italic opacity-80">
-            Find the perfect utility for your workflow, organized by function.
+            Find the perfect utility for your Indian workflow, organized by function.
           </p>
         </div>
       </div>
@@ -88,7 +88,7 @@ export default function CategoriesPage() {
                 </p>
 
                 <div className="mt-auto pt-4 border-t border-black/5 w-full flex justify-center">
-                  <span className="text-[9px] font-black uppercase tracking-tighter text-blue-600 flex items-center gap-1 group-hover:gap-2 transition-all">
+                  <span className="text-[9px] font-black uppercase tracking-tighter text-green-600 flex items-center gap-1 group-hover:gap-2 transition-all">
                     Explore Now <ArrowRight className="h-3 w-3" />
                   </span>
                 </div>
