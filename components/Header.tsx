@@ -1,13 +1,11 @@
 "use client";
 
-import Script from "next/script";
 import Link from "next/link";
 import { Search, Menu, User, X, ChevronDown, Zap, Star, Settings, LogOut, ArrowRight, ChevronRight, Layers, FileText, Info, Mail, Sparkles, Brain, Database, TrendingUp, Users, Share2, BarChart3 } from "lucide-react";
 import * as Icons from "lucide-react";
 import React, { useState, useEffect } from "react";
 import GlobalSearch from "./GlobalSearch";
 import { categories } from "../data/categories";
-import { advancedToolCategories } from "../data/dynamicTools";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,24 +19,7 @@ export default function Header() {
   }, []);
 
   return (
-    <>
-      <Script
-        strategy="beforeInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-BBHVWNTSWB"
-      />
-      <Script
-        id="google-analytics"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-BBHVWNTSWB');
-          `
-        }}
-      />
-      <header className="fixed top-0 left-0 right-0 z-[100] px-4 py-4 pointer-events-none">
+    <header className="fixed top-0 left-0 right-0 z-100 px-4 py-4 pointer-events-none">
       <div className="max-w-7xl mx-auto flex justify-center">
         <nav className={`
           pointer-events-auto
@@ -217,7 +198,7 @@ export default function Header() {
         </div>
       )}
     </header>
-  </>;
+  );
 }
 
 function HeaderLink({ href, label, icon, isScrolled }: { href: string, label: string, icon: React.ReactNode, isScrolled: boolean }) {
