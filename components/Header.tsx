@@ -39,7 +39,7 @@ export default function Header() {
       className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
       role="banner"
     >
-      <div className="max-w-7xl mx-auto flex justify-center">
+      <div className="max-w-8xl mx-auto flex justify-center">
         <nav 
           className={`
             pointer-events-auto
@@ -47,7 +47,7 @@ export default function Header() {
             rounded-2xl transition-all duration-500 border
             ${isScrolled 
               ? "w-full bg-white/80 backdrop-blur-xl border-slate-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)]" 
-              : "w-full md:w-[95%] bg-slate-900/95 backdrop-blur-md border-slate-800 shadow-2xl"
+              : "w-full md:w-[95%] bg-black backdrop-blur-md border-blue-800 shadow-2xl"
             }
           `}
           role="navigation"
@@ -122,34 +122,28 @@ export default function Header() {
                     </Link>
                   </div>
 
-                  {/* Categories Grid */}
-                  <div className="grid grid-cols-3 gap-1">
-                    {categories.slice(0, 9).map((category) => {
+                  {/* Categories List - 3 Columns */}
+                  <div className="grid grid-cols-3 gap-2">
+                    {categories.map((category) => {
                       const IconComponent = getCategoryIcon(category.icon);
                       return (
                         <Link
                           key={category.slug}
                           href={`/category/${category.slug}`}
-                          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-all group/item"
+                          className="flex items-center gap-2 p-2.5 rounded-xl hover:bg-slate-50 transition-all group/item"
                           role="menuitem"
                         >
                           <div 
-                            className="h-10 w-10 rounded-xl flex items-center justify-center text-white shadow-md transition-transform duration-200 group-hover/item:scale-105"
+                            className="h-9 w-9 rounded-lg flex items-center justify-center text-white shadow-md transition-transform duration-200 group-hover/item:scale-105"
                             style={{ backgroundColor: category.color }}
                             aria-hidden="true"
                           >
-                            <IconComponent className="h-5 w-5" />
+                            <IconComponent className="h-4 w-4" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs font-bold text-slate-900 truncate">{category.name}</span>
-                              {category.slug === 'ai-tools' && (
-                                <span className="px-1.5 py-0.5 bg-purple-100 text-purple-600 rounded text-[9px] font-bold">AI</span>
-                              )}
-                            </div>
-                            <span className="text-[10px] text-slate-400 truncate block">{category.description}</span>
+                            <span className="text-xs font-bold text-slate-700 truncate block">{category.name}</span>
                           </div>
-                          <ArrowRight className="h-4 w-4 text-slate-300 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" aria-hidden="true" />
+                          <ArrowRight className="h-3.5 w-3.5 text-slate-300 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" aria-hidden="true" />
                         </Link>
                       );
                     })}

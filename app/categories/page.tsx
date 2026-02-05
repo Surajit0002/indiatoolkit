@@ -20,7 +20,7 @@ const categoriesData = categories;
 
 export default function CategoriesPage() {
   return (
-    <div className="bg-slate-50 min-h-screen pb-24 relative overflow-hidden">
+    <div className="bg-slate-50 min-h-screen pb-4 pt-8 relative overflow-hidden">
       {/* Top Breadcrumbs - Absolute Top */}
       <div className="bg-white/70 backdrop-blur-sm border-b border-slate-100">
         <div className="container px-4 py-3">
@@ -49,7 +49,7 @@ export default function CategoriesPage() {
         />
       </div>
 
-      <div className="pt-20 pb-20 relative overflow-hidden">
+      <div className="pt-8 pb-20 relative overflow-hidden">
         <div className="container px-4 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-sm rounded-full mb-8 border border-green-200 shadow-lg animate-fade-in-up">
             <div className="relative">
