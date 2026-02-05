@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Copy, Check, Type, RefreshCw, Terminal, Code, Sliders } from "lucide-react";
 
 type AsciiStyle = 'standard' | 'big' | 'small' | 'block' | 'rounded' | 'slant' | 'script' | 'doom';

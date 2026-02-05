@@ -1,501 +1,398 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { User, Shield, Bell, Moon, Globe, Settings as SettingsIcon, History, Star, Save, Lock, Eye, EyeOff, Download, Upload, Trash2, CheckCircle, AlertCircle } from "lucide-react";
-import Link from "next/link";
-import { useUserSettings } from "@/hooks/useUserData";
-import { exportUserData, importUserData } from "@/hooks/useUserData";
+import React, { useState, useEffect } from "react";
+import { Settings as SettingsIcon, Bell, Shield, Palette, Download, Upload, Trash2, Check, Moon, Sun, Monitor, Eye, Volume2, Lock, Database } from "lucide-react";
 
-function Mail({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  );
-}
-
-function DashboardLink({ href, icon, label, active = false }: { href: string, icon: React.ReactNode, label: string, active?: boolean }) {
-  return (
-    <Link 
-      href={href} 
-      className={`flex items-center gap-3 px-5 py-4 rounded-[10px] font-black text-[10px] uppercase tracking-widest transition-all group ${active ? "bg-slate-900 text-white shadow-xl shadow-slate-200" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
-    >
-      <div className={`transition-transform group-hover:scale-110 ${active ? "text-blue-400" : "text-slate-400 group-hover:text-blue-600"}`}>
-        {icon}
-      </div>
-      {label}
-    </Link>
-  );
-}
-
-function SettingSection({ title, icon, color, children }: { title: string, icon: React.ReactNode, color: string, children: React.ReactNode }) {
-  return (
-    <div className="glass-card p-8 md:p-10 space-y-8 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-10 -z-10" style={{ backgroundColor: color }}></div>
-      <div className="flex items-center gap-4 mb-2">
-        <div className="h-10 w-10 text-white rounded-xl flex items-center justify-center shadow-lg shadow-black/5" style={{ backgroundColor: color }}>
-          {icon}
-        </div>
-        <h2 className="text-2xl font-black tracking-tight text-slate-900">{title}</h2>
-      </div>
-      <div className="space-y-4">
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function ToggleOption({ label, description, checked, onChange }: { label: string, description: string, checked: boolean, onChange: (checked: boolean) => void }) {
-  return (
-    <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-between group hover:bg-white hover:shadow-xl hover:shadow-black/5 transition-all">
-      <div className="pr-4">
-        <div className="font-black text-slate-900 text-sm uppercase tracking-tight">{label}</div>
-        <div className="text-xs text-slate-500 font-bold mt-1">{description}</div>
-      </div>
-      <button
-        onClick={() => onChange(!checked)}
-        className={`relative w-14 h-7 rounded-full transition-all duration-300 ${
-          checked ? "bg-blue-600" : "bg-slate-300"
-        }`}
-      >
-        <div className={`absolute top-1 w-5 h-5 bg-white rounded-full shadow-md transition-all duration-300 ${
-          checked ? "left-8" : "left-1"
-        }`} />
-      </button>
-    </div>
-  );
-}
-
-function ThemeOption({ name, description, active, onClick }: { name: string, description: string, active: boolean, onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`p-6 rounded-2xl text-left transition-all ${
-        active 
-          ? "bg-blue-600 text-white ring-4 ring-blue-300/30" 
-          : "bg-slate-50 border-2 border-transparent hover:border-slate-200 text-slate-900"
-      }`}
-    >
-      <div className="font-black text-sm uppercase tracking-tight">{name}</div>
-      <div className={`text-xs mt-1 ${active ? "text-blue-100" : "text-slate-500"}`}>{description}</div>
-      {active && (
-        <div className="mt-4 flex items-center gap-2 text-xs font-bold">
-          <CheckCircle className="h-4 w-4" /> Selected
-        </div>
-      )}
-    </button>
-  );
+interface Settings {
+  theme: "light" | "dark" | "system";
+  notifications: {
+    email: boolean;
+    push: boolean;
+    toolUpdates: boolean;
+    weeklyDigest: boolean;
+  };
+  privacy: {
+    shareUsageData: boolean;
+    allowAnalytics: boolean;
+  };
+  accessibility: {
+    highContrast: boolean;
+    reducedMotion: boolean;
+    fontSize: "small" | "medium" | "large";
+  };
 }
 
 export default function SettingsClient() {
-  const { settings, updateSetting, resetSettings, isLoading } = useUserSettings();
-  const [activeTab, setActiveTab] = useState<"appearance" | "notifications" | "security" | "data">("appearance");
-  const [showPassword, setShowPassword] = useState(false);
-  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
-  const [showImportConfirm, setShowImportConfirm] = useState(false);
-  const [importedData, setImportedData] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [settings, setSettings] = useState<Settings>({
+    theme: "system",
+    notifications: {
+      email: true,
+      push: true,
+      toolUpdates: true,
+      weeklyDigest: false,
+    },
+    privacy: {
+      shareUsageData: false,
+      allowAnalytics: true,
+    },
+    accessibility: {
+      highContrast: false,
+      reducedMotion: false,
+      fontSize: "medium",
+    },
+  });
+
+  const [activeTab, setActiveTab] = useState("appearance");
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const savedSettings = localStorage.getItem("userSettings");
+    if (savedSettings) {
+      setSettings(JSON.parse(savedSettings));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Apply theme
+    const root = document.documentElement;
+    if (settings.theme === "dark" || (settings.theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
+    // Apply accessibility settings
+    if (settings.accessibility.highContrast) {
+      root.classList.add("high-contrast");
+    } else {
+      root.classList.remove("high-contrast");
+    }
+
+    if (settings.accessibility.reducedMotion) {
+      root.classList.add("reduced-motion");
+    } else {
+      root.classList.remove("reduced-motion");
+    }
+  }, [settings]);
 
   const handleSave = () => {
-    setSaveStatus("saving");
-    setTimeout(() => {
-      setSaveStatus("saved");
-      setTimeout(() => setSaveStatus("idle"), 2000);
-    }, 1000);
-  };
-
-  const handleReset = () => {
-    if (confirm("Are you sure you want to reset all settings to default? This cannot be undone.")) {
-      resetSettings();
-      setSaveStatus("saved");
-      setTimeout(() => setSaveStatus("idle"), 2000);
-    }
+    localStorage.setItem("userSettings", JSON.stringify(settings));
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
   };
 
   const handleExport = () => {
-    const data = exportUserData();
-    const blob = new Blob([data], { type: 'application/json' });
+    const data = {
+      settings,
+      exportDate: new Date().toISOString(),
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = `omnitools-settings-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `omnitools-settings-${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   };
 
-  const handleImportClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleImportFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
-        const content = event.target?.result as string;
-        setImportedData(content);
-        setShowImportConfirm(true);
+        try {
+          const imported = JSON.parse(event.target?.result as string);
+          if (imported.settings) {
+            setSettings(imported.settings);
+            localStorage.setItem("userSettings", JSON.stringify(imported.settings));
+          }
+        } catch (error) {
+          console.error("Failed to import settings:", error);
+        }
       };
       reader.readAsText(file);
     }
   };
 
-  const confirmImport = () => {
-    if (importedData) {
-      const success = importUserData(importedData);
-      if (success) {
-        window.location.reload();
-      } else {
-        alert("Failed to import data. Please check the file format.");
-      }
-    }
-    setShowImportConfirm(false);
-    setImportedData(null);
-  };
-
-  if (isLoading) {
-    return (
-      <div className="bg-slate-50 min-h-screen flex items-center justify-center">
-        <div className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-      </div>
-    );
-  }
+  const tabs = [
+    { id: "appearance", label: "Appearance", icon: Palette },
+    { id: "notifications", label: "Notifications", icon: Bell },
+    { id: "privacy", label: "Privacy & Security", icon: Shield },
+    { id: "accessibility", label: "Accessibility", icon: Eye },
+    { id: "data", label: "Data Management", icon: Database },
+  ];
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-24 relative overflow-hidden">
-      {/* Import Confirmation Modal */}
-      {showImportConfirm && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl animate-scale-in">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="h-12 w-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                <AlertCircle className="h-6 w-6 text-amber-600" />
-              </div>
-              <div>
-                <h3 className="text-xl font-black text-slate-900">Import Settings?</h3>
-                <p className="text-sm text-slate-500">This will overwrite your current settings.</p>
-              </div>
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowImportConfirm(false)}
-                className="flex-1 px-4 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold text-sm hover:bg-slate-200 transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={confirmImport}
-                className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-colors"
-              >
-                Import
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Background Shapes */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-blue-400/10 blur-[120px] rounded-full"></div>
-        <div className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] bg-slate-400/10 blur-[100px] rounded-full"></div>
+    <div className="max-w-6xl mx-auto p-6">
+      <div className="mb-8">
+        <h1 className="text-3xl font-black text-slate-900 mb-2 flex items-center gap-3">
+          <SettingsIcon className="w-8 h-8 text-emerald-600" />
+          Settings
+        </h1>
+        <p className="text-slate-600">Customize your Omnitools experience</p>
       </div>
 
-      <div className="container px-4 pt-16 relative z-10">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="flex flex-col md:flex-row">
           {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="glass-card p-2 space-y-1 sticky top-24">
-              <DashboardLink href="/profile" icon={<User className="h-4 w-4" />} label="My Profile" />
-              <DashboardLink href="/saved-tools" icon={<Star className="h-4 w-4" />} label="Favorites" />
-              <DashboardLink href="/history" icon={<History className="h-4 w-4" />} label="Usage History" />
-              <DashboardLink href="/settings" icon={<SettingsIcon className="h-4 w-4" />} label="Settings" active />
-            </div>
-
-            {/* Tabs */}
-            <div className="glass-card p-3 space-y-1 mt-4">
-              <button
-                onClick={() => setActiveTab("appearance")}
-                className={`w-full flex items-center gap-3 px-5 py-4 rounded-[10px] font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === "appearance" ? "bg-slate-900 text-white shadow-xl" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
-              >
-                <Moon className="h-4 w-4" /> Appearance
-              </button>
-              <button
-                onClick={() => setActiveTab("notifications")}
-                className={`w-full flex items-center gap-3 px-5 py-4 rounded-[10px] font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === "notifications" ? "bg-slate-900 text-white shadow-xl" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
-              >
-                <Bell className="h-4 w-4" /> Notifications
-              </button>
-              <button
-                onClick={() => setActiveTab("security")}
-                className={`w-full flex items-center gap-3 px-5 py-4 rounded-[10px] font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === "security" ? "bg-slate-900 text-white shadow-xl" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
-              >
-                <Shield className="h-4 w-4" /> Security
-              </button>
-              <button
-                onClick={() => setActiveTab("data")}
-                className={`w-full flex items-center gap-3 px-5 py-4 rounded-[10px] font-black text-[10px] uppercase tracking-widest transition-all ${activeTab === "data" ? "bg-slate-900 text-white shadow-xl" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
-              >
-                <Globe className="h-4 w-4" /> Data & Privacy
-              </button>
-            </div>
+          <div className="w-full md:w-64 bg-slate-50 p-4 border-r border-slate-200">
+            <nav className="space-y-1">
+              {tabs.map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-all ${
+                    activeTab === tab.id
+                      ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200"
+                      : "text-slate-600 hover:bg-slate-200"
+                  }`}
+                >
+                  <tab.icon className="w-5 h-5" />
+                  <span className="font-semibold">{tab.label}</span>
+                </button>
+              ))}
+            </nav>
           </div>
 
-          {/* Main Content */}
-          <div className="lg:col-span-3 space-y-8">
-            {/* Header */}
-            <div className="mb-2">
-              <h1 className="text-4xl font-black text-slate-900 tracking-tight">
-                {activeTab === "appearance" && "Appearance Settings"}
-                {activeTab === "notifications" && "Notification Preferences"}
-                {activeTab === "security" && "Security & Privacy"}
-                {activeTab === "data" && "Data Management"}
-              </h1>
-              <p className="text-slate-500 font-medium text-sm mt-1">
-                {activeTab === "appearance" && "Customize how OMNITOOLS looks on your device."}
-                {activeTab === "notifications" && "Control how and when you receive notifications."}
-                {activeTab === "security" && "Manage your account security and privacy options."}
-                {activeTab === "data" && "Export, import, or delete your personal data."}
-              </p>
-            </div>
-
-            {/* Appearance Tab */}
+          {/* Content */}
+          <div className="flex-1 p-6">
+            {/* Appearance */}
             {activeTab === "appearance" && (
               <div className="space-y-6">
-                <SettingSection title="Theme" icon={<Moon className="h-5 w-5" />} color="#8B5CF6">
-                  <div className="grid grid-cols-2 gap-4">
-                    <ThemeOption 
-                      name="Light Mode" 
-                      description="Clean and bright interface" 
-                      active={!settings.darkMode}
-                      onClick={() => updateSetting('darkMode', false)}
-                    />
-                    <ThemeOption 
-                      name="Dark Mode" 
-                      description="Sleek dark interface" 
-                      active={settings.darkMode}
-                      onClick={() => updateSetting('darkMode', true)}
-                    />
-                  </div>
-                </SettingSection>
-
-                <SettingSection title="Accessibility" icon={<Eye className="h-5 w-5" />} color="#3B82F6">
-                  <ToggleOption 
-                    label="High Contrast" 
-                    description="Increase legibility with enhanced contrast for better readability."
-                    checked={settings.highContrast}
-                    onChange={(checked) => updateSetting('highContrast', checked)}
-                  />
-                </SettingSection>
-
-                <SettingSection title="Language" icon={<Globe className="h-5 w-5" />} color="#10B981">
-                  <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
-                    <label className="block font-black text-slate-900 text-sm uppercase tracking-tight mb-2">Interface Language</label>
-                    <select 
-                      value={settings.language}
-                      onChange={(e) => updateSetting('language', e.target.value)}
-                      className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Theme</h2>
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { value: "light" as const, label: "Light", icon: Sun, desc: "Always light mode" },
+                    { value: "dark" as const, label: "Dark", icon: Moon, desc: "Always dark mode" },
+                    { value: "system" as const, label: "System", icon: Monitor, desc: "Match system" },
+                  ].map(option => (
+                    <button
+                      key={option.value}
+                      onClick={() => setSettings(prev => ({ ...prev, theme: option.value }))}
+                      className={`p-4 rounded-2xl border-2 transition-all ${
+                        settings.theme === option.value
+                          ? "border-emerald-600 bg-emerald-50"
+                          : "border-slate-200 hover:border-slate-300"
+                      }`}
                     >
-                      <option value="en">English</option>
-                      <option value="es">Español</option>
-                      <option value="fr">Français</option>
-                      <option value="de">Deutsch</option>
-                      <option value="zh">中文</option>
-                      <option value="ja">日本語</option>
-                    </select>
-                  </div>
-                </SettingSection>
+                      <option.icon className={`w-8 h-8 mb-2 ${settings.theme === option.value ? "text-emerald-600" : "text-slate-400"}`} />
+                      <p className="font-bold text-slate-900">{option.label}</p>
+                      <p className="text-sm text-slate-500">{option.desc}</p>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Notifications Tab */}
+            {/* Notifications */}
             {activeTab === "notifications" && (
               <div className="space-y-6">
-                <SettingSection title="Email Notifications" icon={<Mail className="h-5 w-5" />} color="#3B82F6">
-                  <ToggleOption 
-                    label="Email Updates" 
-                    description="Receive emails about new tool releases, features, and improvements."
-                    checked={settings.emailUpdates}
-                    onChange={(checked) => updateSetting('emailUpdates', checked)}
-                  />
-                  <ToggleOption 
-                    label="Weekly Digest" 
-                    description="Get a weekly summary of your usage and new tools."
-                    checked={settings.emailUpdates}
-                    onChange={(checked) => updateSetting('emailUpdates', checked)}
-                  />
-                </SettingSection>
-
-                <SettingSection title="Browser Notifications" icon={<Bell className="h-5 w-5" />} color="#F59E0B">
-                  <ToggleOption 
-                    label="Browser Alerts" 
-                    description="Get notified about tool updates directly in your browser."
-                    checked={settings.browserAlerts}
-                    onChange={(checked) => updateSetting('browserAlerts', checked)}
-                  />
-                  <ToggleOption 
-                    label="Important Alerts Only" 
-                    description="Only receive notifications for critical updates."
-                    checked={!settings.browserAlerts}
-                    onChange={(checked) => updateSetting('browserAlerts', !checked)}
-                  />
-                </SettingSection>
-              </div>
-            )}
-
-            {/* Security Tab */}
-            {activeTab === "security" && (
-              <div className="space-y-6">
-                <SettingSection title="Password" icon={<Lock className="h-5 w-5" />} color="#10B981">
-                  <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl space-y-4">
-                    <div>
-                      <label className="block font-black text-slate-900 text-sm uppercase tracking-tight mb-2">Current Password</label>
-                      <div className="relative">
-                        <input 
-                          type={showPassword ? "text" : "password"}
-                          placeholder="Enter current password"
-                          className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 pr-12"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                        >
-                          {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                        </button>
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Notification Preferences</h2>
+                <div className="space-y-4">
+                  {[
+                    { key: "email", label: "Email Notifications", desc: "Receive updates via email" },
+                    { key: "push", label: "Push Notifications", desc: "Browser push notifications" },
+                    { key: "toolUpdates", label: "Tool Updates", desc: "Get notified about new features" },
+                    { key: "weeklyDigest", label: "Weekly Digest", desc: "Weekly summary of activity" },
+                  ].map(item => (
+                    <div key={item.key} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div>
+                        <p className="font-semibold text-slate-900">{item.label}</p>
+                        <p className="text-sm text-slate-500">{item.desc}</p>
                       </div>
+                      <button
+                        onClick={() => setSettings(prev => ({
+                          ...prev,
+                          notifications: { ...prev.notifications, [item.key]: !prev.notifications[item.key as keyof typeof prev.notifications] }
+                        }))}
+                        className={`w-12 h-6 rounded-full transition-colors relative ${
+                          settings.notifications[item.key as keyof typeof settings.notifications] ? "bg-emerald-600" : "bg-slate-300"
+                        }`}
+                      >
+                        <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+                          settings.notifications[item.key as keyof typeof settings.notifications] ? "left-7" : "left-1"
+                        }`} />
+                      </button>
                     </div>
-                    <div>
-                      <label className="block font-black text-slate-900 text-sm uppercase tracking-tight mb-2">New Password</label>
-                      <input 
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Enter new password"
-                        className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-black text-slate-900 text-sm uppercase tracking-tight mb-2">Confirm New Password</label>
-                      <input 
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Confirm new password"
-                        className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
-                      />
-                    </div>
-                    <button className="w-full py-3 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 transition-all shadow-lg">
-                      Update Password
-                    </button>
-                  </div>
-                </SettingSection>
-
-                <SettingSection title="Two-Factor Authentication" icon={<Shield className="h-5 w-5" />} color="#EC4899">
-                  <ToggleOption 
-                    label="Two-Factor Auth (2FA)" 
-                    description="Add an extra layer of security to your account with 2FA."
-                    checked={settings.twoFactorAuth}
-                    onChange={(checked) => updateSetting('twoFactorAuth', checked)}
-                  />
-                  {settings.twoFactorAuth && (
-                    <div className="p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
-                      <CheckCircle className="h-5 w-5 text-green-600" />
-                      <span className="text-sm font-medium text-green-700">Two-factor authentication is enabled</span>
-                    </div>
-                  )}
-                </SettingSection>
-
-                <SettingSection title="Privacy" icon={<Lock className="h-5 w-5" />} color="#6366F1">
-                  <ToggleOption 
-                    label="Public Profile" 
-                    description="Allow others to see your saved tools collection and activity."
-                    checked={settings.publicProfile}
-                    onChange={(checked) => updateSetting('publicProfile', checked)}
-                  />
-                </SettingSection>
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Data Tab */}
+            {/* Privacy */}
+            {activeTab === "privacy" && (
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Privacy & Security</h2>
+                <div className="space-y-4">
+                  {[
+                    { key: "shareUsageData", label: "Share Usage Data", desc: "Help improve by sharing anonymous data" },
+                    { key: "allowAnalytics", label: "Allow Analytics", desc: "Track tool usage for improvements" },
+                  ].map(item => (
+                    <div key={item.key} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div className="flex items-center gap-3">
+                        <Lock className="w-5 h-5 text-emerald-600" />
+                        <div>
+                          <p className="font-semibold text-slate-900">{item.label}</p>
+                          <p className="text-sm text-slate-500">{item.desc}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setSettings(prev => ({
+                          ...prev,
+                          privacy: { ...prev.privacy, [item.key]: !prev.privacy[item.key as keyof typeof prev.privacy] }
+                        }))}
+                        className={`w-12 h-6 rounded-full transition-colors relative ${
+                          settings.privacy[item.key as keyof typeof settings.privacy] ? "bg-emerald-600" : "bg-slate-300"
+                        }`}
+                      >
+                        <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+                          settings.privacy[item.key as keyof typeof settings.privacy] ? "left-7" : "left-1"
+                        }`} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Accessibility */}
+            {activeTab === "accessibility" && (
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Accessibility Options</h2>
+                <div className="space-y-4">
+                  {[
+                    { key: "highContrast", label: "High Contrast", desc: "Increase contrast for better visibility" },
+                    { key: "reducedMotion", label: "Reduced Motion", desc: "Minimize animations" },
+                  ].map(item => (
+                    <div key={item.key} className="flex items-center justify-between p-4 bg-slate-50 rounded-xl">
+                      <div>
+                        <p className="font-semibold text-slate-900">{item.label}</p>
+                        <p className="text-sm text-slate-500">{item.desc}</p>
+                      </div>
+                      <button
+                        onClick={() => setSettings(prev => ({
+                          ...prev,
+                          accessibility: { ...prev.accessibility, [item.key]: !prev.accessibility[item.key as keyof typeof prev.accessibility] }
+                        }))}
+                        className={`w-12 h-6 rounded-full transition-colors relative ${
+                          settings.accessibility[item.key as keyof typeof settings.accessibility] ? "bg-emerald-600" : "bg-slate-300"
+                        }`}
+                      >
+                        <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
+                          settings.accessibility[item.key as keyof typeof settings.accessibility] ? "left-7" : "left-1"
+                        }`} />
+                      </button>
+                    </div>
+                  ))}
+                  <div className="p-4 bg-slate-50 rounded-xl">
+                    <p className="font-semibold text-slate-900 mb-2">Font Size</p>
+                    <div className="flex gap-2">
+                      {["small", "medium", "large"].map(size => (
+                        <button
+                          key={size}
+                          onClick={() => setSettings(prev => ({
+                            ...prev,
+                            accessibility: { ...prev.accessibility, fontSize: size as "small" | "medium" | "large" }
+                          }))}
+                          className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
+                            settings.accessibility.fontSize === size
+                              ? "bg-emerald-600 text-white"
+                              : "bg-white border border-slate-200 hover:border-emerald-500"
+                          }`}
+                        >
+                          {size.charAt(0).toUpperCase() + size.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Data Management */}
             {activeTab === "data" && (
               <div className="space-y-6">
-                <SettingSection title="Export Your Data" icon={<Download className="h-5 w-5" />} color="#3B82F6">
-                  <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
-                    <div className="mb-4">
-                      <div className="font-black text-slate-900 text-sm uppercase tracking-tight">Download all your data</div>
-                      <div className="text-xs text-slate-500 font-bold mt-1">Includes profile, settings, favorites, and history.</div>
+                <h2 className="text-xl font-bold text-slate-900 mb-4">Data Management</h2>
+                <div className="grid gap-4">
+                  <div className="p-6 bg-slate-50 rounded-2xl">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                        <Download className="w-6 h-6 text-emerald-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900">Export Settings</p>
+                        <p className="text-sm text-slate-500">Download your settings as a JSON file</p>
+                      </div>
+                      <button
+                        onClick={handleExport}
+                        className="px-4 py-2 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-colors"
+                      >
+                        Export
+                      </button>
                     </div>
-                    <button 
-                      onClick={handleExport}
-                      className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-700 transition-all shadow-lg"
-                    >
-                      <Download className="h-4 w-4" /> Export Data
-                    </button>
                   </div>
-                </SettingSection>
-
-                <SettingSection title="Import Data" icon={<Upload className="h-5 w-5" />} color="#F59E0B">
-                  <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl">
-                    <div className="mb-4">
-                      <div className="font-black text-slate-900 text-sm uppercase tracking-tight">Restore from backup</div>
-                      <div className="text-xs text-slate-500 font-bold mt-1">Import a previously exported settings file.</div>
+                  <div className="p-6 bg-slate-50 rounded-2xl">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <Upload className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900">Import Settings</p>
+                        <p className="text-sm text-slate-500">Restore settings from a JSON file</p>
+                      </div>
+                      <label className="px-4 py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors cursor-pointer">
+                        Import
+                        <input type="file" accept=".json" onChange={handleImport} className="hidden" />
+                      </label>
                     </div>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept=".json"
-                      onChange={handleImportFile}
-                      className="hidden"
-                    />
-                    <button 
-                      onClick={handleImportClick}
-                      className="flex items-center gap-2 px-6 py-3 bg-amber-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-600 transition-all shadow-lg"
-                    >
-                      <Upload className="h-4 w-4" /> Import Data
-                    </button>
                   </div>
-                </SettingSection>
-
-                <SettingSection title="Delete Account" icon={<Trash2 className="h-5 w-5" />} color="#EF4444">
-                  <div className="p-6 bg-red-50 border border-red-100 rounded-2xl">
-                    <div className="mb-4">
-                      <div className="font-black text-red-900 text-sm uppercase tracking-tight">Permanently delete your account</div>
-                      <div className="text-xs text-red-600 font-bold mt-1">This action cannot be undone. All your data will be lost.</div>
+                  <div className="p-6 bg-red-50 rounded-2xl">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                        <Trash2 className="w-6 h-6 text-red-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-red-900">Clear All Data</p>
+                        <p className="text-sm text-red-600">This will delete all your settings and preferences</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          if (confirm("Are you sure you want to clear all settings?")) {
+                            localStorage.removeItem("userSettings");
+                            setSettings({
+                              theme: "system",
+                              notifications: { email: true, push: true, toolUpdates: true, weeklyDigest: false },
+                              privacy: { shareUsageData: false, allowAnalytics: true },
+                              accessibility: { highContrast: false, reducedMotion: false, fontSize: "medium" },
+                            });
+                          }
+                        }}
+                        className="px-4 py-2 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-colors"
+                      >
+                        Clear Data
+                      </button>
                     </div>
-                    <button 
-                      onClick={() => {
-                        if (confirm("Are you sure you want to delete your account? This will permanently remove all your data and cannot be undone.")) {
-                          alert("Account deletion requested. Please contact support to complete this process.");
-                        }
-                      }}
-                      className="flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-red-700 transition-all shadow-lg"
-                    >
-                      <Trash2 className="h-4 w-4" /> Delete Account
-                    </button>
                   </div>
-                </SettingSection>
+                </div>
               </div>
             )}
 
-            {/* Save/Reset Actions */}
-            <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row justify-between gap-4">
-              <button 
-                onClick={handleReset}
-                className="px-8 py-4 text-slate-400 font-black text-[10px] uppercase tracking-widest hover:text-red-500 transition-colors"
-              >
-                Reset to Defaults
-              </button>
-              <button 
+            {/* Save Button */}
+            <div className="mt-8 pt-6 border-t border-slate-200 flex justify-end">
+              <button
                 onClick={handleSave}
-                className={`brutal-btn px-10 py-4 text-[10px] flex items-center gap-2 ${
-                  saveStatus === "saved" ? "bg-green-600" : "bg-blue-600"
-                }`}
-                disabled={saveStatus === "saving"}
+                className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-colors"
               >
-                {saveStatus === "saving" && (
-                  <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full" />
+                {saved ? (
+                  <>
+                    <Check className="w-5 h-5" />
+                    Saved!
+                  </>
+                ) : (
+                  "Save Changes"
                 )}
-                {saveStatus === "saved" && <CheckCircle className="h-4 w-4" />}
-                {saveStatus === "idle" && <Save className="h-4 w-4" />}
-                {saveStatus === "idle" && "Save Preferences"}
-                {saveStatus === "saving" && "Saving..."}
-                {saveStatus === "saved" && "Saved!"}
               </button>
             </div>
           </div>

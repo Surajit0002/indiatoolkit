@@ -27,7 +27,7 @@ interface AnimationConfig {
   type: AnimationType;
   duration: number;
   delay: number;
-  iterationCount: number;
+  iterationCount: number | "infinite";
   easing: EasingType;
   direction: "normal" | "reverse" | "alternate" | "alternate-reverse";
   fillMode: "none" | "forwards" | "backwards" | "both";
@@ -83,7 +83,7 @@ export default function CssAnimationGenerator() {
       elementRef.current.style.animationName = animationNameRef.current;
       elementRef.current.style.animationPlayState = "running";
       
-      const duration = config.duration * 1000 * (config.iterationCount === "infinite" ? 1 : config.iterationCount);
+      const duration = config.duration * 1000 * (typeof config.iterationCount === "string" ? 1 : config.iterationCount);
       setTimeout(() => {
         setIsPlaying(false);
         if (elementRef.current) {
@@ -168,6 +168,7 @@ ${generateKeyframes().replace(`@keyframes ${animationNameRef.current} {`, "").tr
   };
 
   const generateTailwindCode = () => {
+    const { duration, delay, iterationCount, easing, direction, fillMode } = config;
     return `/* Add this to your CSS */
 ${generateKeyframes()}
 
@@ -275,7 +276,7 @@ ${generateKeyframes()}
               <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Iterations</label>
               <select
                 value={typeof config.iterationCount === "number" ? config.iterationCount.toString() : config.iterationCount}
-                onChange={(e) => setConfig({ ...config, iterationCount: e.target.value === "infinite" ? "infinite" : parseInt(e.target.value) })}
+                onChange={(e) => setConfig({ ...config, iterationCount: e.target.value === "infinite" ? "infinite" : parseInt(e.target.value) as number })}
                 className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg"
               >
                 <option value="1">1</option>

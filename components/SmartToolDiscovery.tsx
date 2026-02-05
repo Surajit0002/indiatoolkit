@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { Search, Sparkles, TrendingUp, Clock, Users, Zap, Filter, Grid, List } from "lucide-react";
 import { advancedTools } from "../data/advancedTools";
 import { categories } from "../data/categories";
-import { dynamicToolConfig } from "../data/dynamicTools";
 
 export default function SmartToolDiscovery() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,7 +44,7 @@ export default function SmartToolDiscovery() {
         break;
       case "ai_powered":
         result.sort((a, b) => 
-          (b.features?.aiPowered ? 1 : 0) - (a.features?.aiPowered ? 1 : 0) || 
+          (b.aiPowered ? 1 : 0) - (a.aiPowered ? 1 : 0) || 
           (b.usageCount || 0) - (a.usageCount || 0)
         );
         break;
@@ -184,12 +183,12 @@ export default function SmartToolDiscovery() {
                       {tool.icon}
                     </div>
                     <div className="flex gap-2">
-                      {tool.features?.aiPowered && (
+                      {tool.aiPowered && (
                         <span className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full">
                           AI
                         </span>
                       )}
-                      {tool.features?.realTime && (
+                      {tool.realTime && (
                         <span className="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
                           LIVE
                         </span>
@@ -246,12 +245,12 @@ export default function SmartToolDiscovery() {
                       {tool.name}
                     </h3>
                     <div className="flex gap-2 ml-4">
-                      {tool.features?.aiPowered && (
+                      {tool.aiPowered && (
                         <span className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full">
                           AI
                         </span>
                       )}
-                      {tool.features?.realTime && (
+                      {tool.realTime && (
                         <span className="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full">
                           LIVE
                         </span>
@@ -283,7 +282,7 @@ export default function SmartToolDiscovery() {
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
-                        Updated {new Date(tool.updatedAt).toLocaleDateString()}
+                        Updated {new Date(tool.lastUpdated).toLocaleDateString()}
                       </span>
                     </div>
                     <span className="text-blue-600 font-bold text-sm">Open Tool →</span>

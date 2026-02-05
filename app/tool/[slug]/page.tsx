@@ -117,7 +117,7 @@ export default async function ToolPage({ params }: PageProps) {
   return (
     <div className="bg-[#fcfdfe] min-h-screen pb-24 relative overflow-hidden" style={{ "--accent-color": category?.color } as any}>
       {/* Immersive Background Glow */}
-      <div className="absolute top-0 left-0 w-full h-[800px] pointer-events-none -z-10 overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-200 pointer-events-none -z-10 overflow-hidden">
         <div 
           className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] blur-[160px] rounded-full opacity-[0.12]"
           style={{ backgroundColor: category?.color }}
@@ -134,7 +134,7 @@ export default async function ToolPage({ params }: PageProps) {
   
         
   
-      <div className="max-w-[1600px] mx-auto px-4 md:px-10 pt-16">
+      <div className="max-w-400 mx-auto px-4 md:px-10 pt-16">
         {/* Row 1: Top Navigation & Controls Bar */}
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 mb-16 relative">
           <nav className="flex items-center gap-5 bg-white/50 backdrop-blur-lg p-3 px-8 rounded-[10px] border border-slate-200/50 shadow-sm hover:border-blue-200 transition-colors group/nav">
@@ -171,7 +171,7 @@ export default async function ToolPage({ params }: PageProps) {
                 style={{ backgroundColor: category?.color }}
               ></div>
               <div 
-                className="relative h-24 w-24 rounded-[32px] flex items-center justify-center text-white shadow-2xl border-4 border-white transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500"
+                className="relative h-24 w-24 rounded-4xl flex items-center justify-center text-white shadow-2xl border-4 border-white transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500"
                 style={{ 
                   background: `linear-gradient(145deg, ${category?.color}, ${category?.color}cc)`
                 }}
@@ -245,7 +245,7 @@ export default async function ToolPage({ params }: PageProps) {
                 className="absolute -inset-1 rounded-[42px] blur-md opacity-10 group-hover:opacity-20 transition-opacity duration-700"
                 style={{ backgroundColor: category?.color }}
               ></div>
-              <div className="relative bg-white rounded-[40px] border-2 border-slate-100 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.1)] overflow-hidden min-h-[550px]">
+              <div className="relative bg-white rounded-4xl border-2 border-slate-100 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.1)] overflow-hidden min-h-137.5">
                 <div className="p-6 md:p-10">
                   <ToolRenderer tool={tool} />
                 </div>
@@ -253,7 +253,7 @@ export default async function ToolPage({ params }: PageProps) {
             </div>
 
             {/* Tool Meta Info */}
-            <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden">
+            <div className="bg-white p-10 rounded-4xl border border-slate-100 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-2 h-full" style={{ backgroundColor: category?.color }}></div>
               <div className="flex items-center gap-4 mb-6">
                 <h2 className="text-2xl font-black uppercase italic tracking-tighter text-slate-900">Technical Specifications</h2>
@@ -280,7 +280,7 @@ export default async function ToolPage({ params }: PageProps) {
 
           {/* Right Sidebar: Actions & Status */}
           <div className="lg:col-span-3 space-y-6 order-3">
-            <div className="bg-slate-900 p-10 rounded-[48px] text-white relative overflow-hidden group shadow-2xl">
+            <div className="bg-slate-900 p-10 rounded-4xl text-white relative overflow-hidden group shadow-2xl">
                <div 
                   className="absolute -right-10 -top-10 w-48 h-48 rounded-full blur-[80px] opacity-30 transition-transform duration-1000 group-hover:scale-150"
                   style={{ backgroundColor: category?.color }}
@@ -293,7 +293,7 @@ export default async function ToolPage({ params }: PageProps) {
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-8">Unlimited Processing</p>
                 <Link 
                   href="/pricing" 
-                  className="flex items-center justify-center gap-3 w-full py-5 bg-white text-slate-900 rounded-[24px] font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl group/btn"
+                  className="flex items-center justify-center gap-3 w-full py-5 bg-white text-slate-900 rounded-3xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl group/btn"
                 >
                   UPGRADE NOW <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                 </Link>
@@ -387,7 +387,7 @@ export default async function ToolPage({ params }: PageProps) {
                {/* Features Card - Enhanced */}
                <div className="bg-gradient-to-br from-white to-slate-50 p-8 rounded-3xl border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-2">
                  <div className="flex items-center gap-4 mb-6">
-                   <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                   <div className="h-14 w-14 rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
                      <Star className="h-6 w-6 text-white" />
                    </div>
                    <h2 className="text-2xl font-black text-slate-800 tracking-tight">Key Features</h2>

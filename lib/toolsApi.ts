@@ -1,14 +1,50 @@
 import { ToolCategory, Tool } from "../types/tool";
 import { advancedTools } from "../data/advancedTools";
-import { dynamicTools } from "../data/dynamicTools";
+import { getAllDynamicTools, dynamicToolCategories } from "../data/dynamicTools";
 
 export class ToolsApi {
   // Get all tools with advanced filtering and sorting
   static getAllTools(): Tool[] {
-    return [
-      ...advancedTools.flatMap(category => category.tools),
-      ...dynamicTools.flatMap(category => category.tools)
-    ];
+    const advanced = advancedTools.map(tool => ({
+      id: tool.id,
+      name: tool.name,
+      slug: tool.slug,
+      description: tool.description,
+      category: tool.category,
+      type: 'ai' as const,
+      icon: tool.icon,
+      componentName: '',
+      seo: { title: tool.name, description: tool.description },
+      faqs: [],
+      features: tool.features,
+      tags: tool.tags,
+      rating: tool.rating,
+      usageCount: tool.usageCount,
+      popular: tool.popularity > 80,
+      aiPowered: tool.aiPowered,
+      color: tool.color,
+      createdAt: tool.createdAt,
+      lastUpdated: tool.lastUpdated
+    }));
+    
+    const dynamic = getAllDynamicTools().map(tool => ({
+      id: tool.id,
+      name: tool.name,
+      slug: tool.slug,
+      description: tool.description,
+      category: tool.category,
+      type: 'ai' as const,
+      icon: tool.icon,
+      componentName: '',
+      seo: { title: tool.name, description: tool.description },
+      faqs: [],
+      features: tool.features,
+      tags: tool.tags,
+      popular: tool.popularity > 80,
+      color: tool.color
+    }));
+    
+    return [...advanced, ...dynamic];
   }
 
   // Get tools by category with dynamic features
@@ -36,10 +72,10 @@ export class ToolsApi {
       const matchesQuery = 
         tool.name.toLowerCase().includes(query.toLowerCase()) ||
         tool.description.toLowerCase().includes(query.toLowerCase()) ||
-        tool.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
+        tool.tags?.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
       
       const matchesCategory = !filters?.category || tool.category === filters.category;
-      const matchesTags = !filters?.tags || filters.tags.every(tag => tool.tags.includes(tag));
+      const matchesTags = !filters?.tags || filters.tags.every(tag => tool.tags?.includes(tag));
       const matchesDifficulty = !filters?.difficulty || tool.difficulty === filters.difficulty;
       const matchesFeatured = filters?.isFeatured === undefined || tool.isFeatured === filters.isFeatured;
       
@@ -75,7 +111,7 @@ export class ToolsApi {
         const categoryMatch = !userPreferences.categories || 
           userPreferences.categories.includes(tool.category);
         const tagMatch = !userPreferences.tags || 
-          userPreferences.tags.some(tag => tool.tags.includes(tag));
+          userPreferences.tags.some(tag => tool.tags?.includes(tag));
         const difficultyMatch = !userPreferences.difficulty || 
           tool.difficulty === userPreferences.difficulty;
         
@@ -85,10 +121,10 @@ export class ToolsApi {
         // Boost tools that match more preferences
         const aMatches = 
           (userPreferences.categories?.includes(a.category) ? 1 : 0) +
-          (userPreferences.tags?.filter(tag => a.tags.includes(tag)).length || 0);
+          (userPreferences.tags?.filter(tag => a.tags?.includes(tag)).length || 0);
         const bMatches = 
           (userPreferences.categories?.includes(b.category) ? 1 : 0) +
-          (userPreferences.tags?.filter(tag => b.tags.includes(tag)).length || 0);
+          (userPreferences.tags?.filter(tag => b.tags?.includes(tag)).length || 0);
         
         return bMatches - aMatches;
       })
@@ -137,15 +173,15 @@ export class ToolsApi {
       .filter(t => t.id !== toolId)
       .filter(t => 
         t.category === tool.category || 
-        t.tags.some(tag => tool.tags.includes(tag))
+        t.tags?.some(tag => tool.tags?.includes(tag))
       )
       .sort((a, b) => {
         // Calculate similarity score
         const aCategoryMatch = a.category === tool.category ? 1 : 0;
         const bCategoryMatch = b.category === tool.category ? 1 : 0;
         
-        const aTagMatches = a.tags.filter(tag => tool.tags.includes(tag)).length;
-        const bTagMatches = b.tags.filter(tag => tool.tags.includes(tag)).length;
+        const aTagMatches = a.tags?.filter(tag => tool.tags?.includes(tag)).length || 0;
+        const bTagMatches = b.tags?.filter(tag => tool.tags?.includes(tag)).length || 0;
         
         const aScore = aCategoryMatch + aTagMatches;
         const bScore = bCategoryMatch + bTagMatches;
@@ -174,7 +210,7 @@ export class ToolsApi {
     allTools.forEach(tool => {
       if (!categoryMap.has(tool.category)) {
         const categoryData = advancedTools.find(cat => cat.slug === tool.category) ||
-                            dynamicTools.find(cat => cat.slug === tool.category);
+                            Object.values(dynamicToolCategories).flat().find(cat => cat.slug === tool.category);
         
         categoryMap.set(tool.category, {
           id: tool.category,
@@ -231,8 +267,8 @@ export class ToolsApi {
     name: string;
     description: string;
     category: string;
-    parameters: any[];
-    processingFunction: string;
+    parameters?: any[];
+    processingFunction?: string;
   }): Tool {
     return {
       id: `dynamic-${Date.now()}`,
@@ -245,8 +281,10 @@ export class ToolsApi {
       difficulty: "intermediate",
       isFeatured: true,
       popularity: 0,
-      parameters: config.parameters,
-      processingFunction: config.processingFunction
+      type: 'ai',
+      componentName: '',
+      seo: { title: config.name, description: config.description },
+      faqs: []
     };
   }
 }

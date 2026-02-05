@@ -30,7 +30,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { Tool, ToolCategory, UserToolConfig } from "../types/tool";
-import { dynamicTools } from "../data/dynamicTools";
+import { getAllDynamicTools } from "../data/dynamicTools";
 import { advancedTools } from "../data/advancedTools";
 
 interface ToolManagementSystemProps {
@@ -39,7 +39,10 @@ interface ToolManagementSystemProps {
 }
 
 export default function ToolManagementSystem({ userId, onToolSelect }: ToolManagementSystemProps) {
-  const [tools, setTools] = useState<Tool[]>([...dynamicTools, ...advancedTools]);
+  const [tools, setTools] = useState<Tool[]>([
+    ...getAllDynamicTools() as unknown as Tool[],
+    ...advancedTools as unknown as Tool[]
+  ]);
   const [filteredTools, setFilteredTools] = useState<Tool[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -81,11 +84,11 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
         case "name":
           return a.name.localeCompare(b.name);
         case "popularity":
-          return (b.stats?.usageCount || 0) - (a.stats?.usageCount || 0);
+          return (b.usageCount || 0) - (a.usageCount || 0);
         case "date":
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime();
         case "rating":
-          return (b.stats?.averageRating || 0) - (a.stats?.averageRating || 0);
+          return (b.rating || 0) - (a.rating || 0);
         default:
           return 0;
       }
@@ -352,7 +355,7 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
                   >
                     <div 
                       className="text-white h-6 w-6 stroke-[2.5]" 
-                      dangerouslySetInnerHTML={{ __html: tool.svgIcon.replace('<svg', `<svg fill="${tool.color}" stroke="none"` ) }}
+                      dangerouslySetInnerHTML={{ __html: tool.svgIcon?.replace('<svg', `<svg fill="${tool.color}" stroke="none"`) || '' }}
                     />
                   </div>
                   
@@ -399,11 +402,11 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
                   <div className="flex items-center gap-4 text-xs text-slate-500">
                     <div className="flex items-center gap-1">
                       <Users className="h-3 w-3" />
-                      {tool.stats?.usageCount?.toLocaleString() || 0}
+                      {tool.usageCount?.toLocaleString() || 0}
                     </div>
                     <div className="flex items-center gap-1">
                       <Star className="h-3 w-3" />
-                      {tool.stats?.averageRating || 0}
+                      {tool.rating || 0}
                     </div>
                   </div>
                   
@@ -430,7 +433,7 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
                     >
                       <div 
                         className="text-white h-6 w-6 stroke-[2.5]" 
-                        dangerouslySetInnerHTML={{ __html: tool.svgIcon.replace('<svg', `<svg fill="${tool.color}" stroke="none"` ) }}
+                        dangerouslySetInnerHTML={{ __html: tool.svgIcon?.replace('<svg', `<svg fill="${tool.color}" stroke="none"`) || '' }}
                       />
                     </div>
                     
@@ -455,11 +458,11 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
                       <div className="text-right text-xs text-slate-500">
                         <div className="flex items-center gap-1 mb-1">
                           <Users className="h-3 w-3" />
-                          {tool.stats?.usageCount?.toLocaleString() || 0} uses
+                          {tool.usageCount?.toLocaleString() || 0} uses
                         </div>
                         <div className="flex items-center gap-1">
                           <Star className="h-3 w-3" />
-                          {tool.stats?.averageRating || 0} rating
+                          {tool.rating || 0} rating
                         </div>
                       </div>
                       
@@ -527,13 +530,13 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="bg-slate-50 rounded-xl p-4">
                         <div className="text-2xl font-black text-slate-900">
-                          {selectedTool.stats?.usageCount?.toLocaleString() || 0}
+                          {selectedTool.usageCount?.toLocaleString() || 0}
                         </div>
                         <div className="text-sm text-slate-600">Total Uses</div>
                       </div>
                       <div className="bg-slate-50 rounded-xl p-4">
                         <div className="text-2xl font-black text-slate-900">
-                          {selectedTool.stats?.averageRating || 0}
+                          {selectedTool.rating || 0}
                         </div>
                         <div className="text-sm text-slate-600">Average Rating</div>
                       </div>

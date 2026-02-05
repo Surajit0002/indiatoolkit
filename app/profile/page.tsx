@@ -1,10 +1,6 @@
-import { User, Mail, Calendar, Shield, Settings, History, Star, Camera, X, Save } from "lucide-react";
-import Link from "next/link";
-import ProfileClient from "./ProfileClient";
+"use client";
 
-export const metadata = {
-  title: "My Profile - OMNITOOLS",
-};
+import ProfileClient from "./ProfileClient";
 
 export default function ProfilePage() {
   return <ProfileClient />;

@@ -13,8 +13,7 @@ import {
   Search,
   Settings
 } from "lucide-react";
-import { Tool } from "../types/tool";
-import { advancedTools } from "../data/advancedTools";
+import { advancedTools, AdvancedTool } from "../data/advancedTools";
 
 interface RecommendationEngineProps {
   userPreferences?: {
@@ -22,14 +21,14 @@ interface RecommendationEngineProps {
     usageHistory: string[];
     skillLevel: 'beginner' | 'intermediate' | 'advanced';
   };
-  onToolSelect?: (tool: Tool) => void;
+  onToolSelect?: (tool: AdvancedTool) => void;
 }
 
 export default function SmartToolRecommendations({ 
   userPreferences, 
   onToolSelect 
 }: RecommendationEngineProps) {
-  const [recommendations, setRecommendations] = useState<Tool[]>([]);
+  const [recommendations, setRecommendations] = useState<AdvancedTool[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('trending');
   const [searchQuery, setSearchQuery] = useState('');
@@ -85,7 +84,7 @@ export default function SmartToolRecommendations({
     setLoading(false);
   };
 
-  const getRecommendationScore = (tool: Tool): number => {
+  const getRecommendationScore = (tool: AdvancedTool): number => {
     let score = 0;
     
     // Popularity boost

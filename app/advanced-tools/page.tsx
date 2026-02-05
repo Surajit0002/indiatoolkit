@@ -53,16 +53,16 @@ export default function AdvancedToolsPage() {
     });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100">
       <Header />
       
       {/* Hero Section */}
       <div className="pt-32 pb-20 px-4 relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-green-400/20 to-emerald-400/20 rounded-full blur-[100px] animate-pulse" />
-          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-[100px] animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-[80px] animate-pulse delay-2000" />
+          <div className="absolute top-0 left-1/4 w-125 h-125 bg-linear-to-r from-green-400/20 to-emerald-400/20 rounded-full blur-[100px] animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-125 h-125 bg-linear-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-[100px] animate-pulse delay-1000" />
+          <div className="absolute top-1/2 left-1/2 w-100 h-100 bg-linear-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-[80px] animate-pulse delay-2000" />
           
           {/* Grid Pattern */}
           <div className="absolute inset-0 opacity-[0.03]" 
@@ -164,7 +164,7 @@ export default function AdvancedToolsPage() {
             </div>
 
             {/* Sort */}
-            <div className="relative min-w-[180px]">
+            <div className="relative min-w-45">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -188,14 +188,14 @@ export default function AdvancedToolsPage() {
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {/* Background Glow */}
-                  <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-gradient-to-br from-green-400/10 to-emerald-400/10 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl"></div>
+                  <div className="absolute -top-20 -right-20 w-48 h-48 rounded-full bg-linear-to-br from-green-400/10 to-emerald-400/10 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl"></div>
                   
                   <div className="p-6 relative z-10">
                     <div className="flex items-start justify-between mb-4">
                       <div className="relative">
                         {/* Icon Glow */}
-                        <div className="absolute inset-0 rounded-2xl blur-lg opacity-0 group-hover:opacity-50 transition-all duration-500 bg-gradient-to-br from-green-500 to-emerald-500"></div>
-                        <div className="relative h-12 w-12 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3">
+                        <div className="absolute inset-0 rounded-2xl blur-lg opacity-0 group-hover:opacity-50 transition-all duration-500 bg-linear-to-br from-green-500 to-emerald-500"></div>
+                        <div className="relative h-12 w-12 rounded-2xl bg-linear-to-br from-green-500 to-emerald-600 flex items-center justify-center text-white shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3">
                           {tool.icon}
                         </div>
                       </div>
@@ -275,7 +275,7 @@ export default function AdvancedToolsPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="py-20 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+      <div className="py-20 bg-linear-to-r from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{ 
@@ -285,7 +285,7 @@ export default function AdvancedToolsPage() {
         </div>
 
         <div className="max-w-4xl mx-auto text-center px-4 relative z-10">
-          <div className="h-20 w-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-green-500/30">
+          <div className="h-20 w-20 bg-linear-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-green-500/30">
             <Crown className="h-10 w-10 text-white" />
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-6">
@@ -297,7 +297,7 @@ export default function AdvancedToolsPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/signup" 
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-2xl font-bold hover:from-green-600 hover:to-emerald-600 transition-all hover:shadow-xl hover:-translate-y-1 shadow-lg shadow-green-500/30 flex items-center gap-2"
+              className="px-8 py-4 bg-linear-to-r from-green-500 to-emerald-500 text-white rounded-2xl font-bold hover:from-green-600 hover:to-emerald-600 transition-all hover:shadow-xl hover:-translate-y-1 shadow-lg shadow-green-500/30 flex items-center gap-2"
             >
               Get Started Free
               <ArrowRight className="h-5 w-5" />

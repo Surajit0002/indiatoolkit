@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { ToolConfig, ToolCategory } from "../types/tool";
-import { dynamicTools } from "../data/dynamicTools";
+import { tools } from "../data/tools";
 import { categories } from "../data/categories";
 import { 
   Search, 
@@ -43,30 +43,33 @@ export default function DynamicToolRenderer({
   const [selectedCategory, setSelectedCategory] = useState<string>(category || "all");
   const [copiedTool, setCopiedTool] = useState<string | null>(null);
 
-  // Combine all tools from dynamic tools and categories
+  // Combine all tools from categories
   const allTools = useMemo(() => {
-    const tools: ToolConfig[] = [];
+    const allToolsList: ToolConfig[] = [...tools];
     
-    // Add tools from dynamic tools configuration
-    Object.values(dynamicTools).forEach(categoryTools => {
-      tools.push(...categoryTools);
-    });
-    
-    // Add tools from categories data
+    // Add category tools
     categories.forEach(cat => {
       tools.push({
         id: cat.id,
+        slug: cat.slug,
         name: cat.name,
         description: cat.description,
         category: cat.id,
+        type: 'converter',
         icon: cat.icon,
+        componentName: cat.name.replace(/\s+/g, ''),
+        seo: {
+          title: `${cat.name} - Free Online Tools`,
+          description: cat.description
+        },
+        faqs: [],
         color: cat.color,
         featured: Math.random() > 0.7,
         popular: Math.random() > 0.5,
         new: Math.random() > 0.8,
         aiPowered: Math.random() > 0.6,
         usageCount: Math.floor(Math.random() * 10000),
-        rating: (Math.random() * 2 + 3).toFixed(1),
+        rating: Number((Math.random() * 2 + 3).toFixed(1)),
         lastUpdated: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
         tags: ["professional", "india", "toolkit"],
         config: {
@@ -95,7 +98,7 @@ export default function DynamicToolRenderer({
       result = result.filter(tool => 
         tool.name.toLowerCase().includes(query) ||
         tool.description.toLowerCase().includes(query) ||
-        tool.tags.some(tag => tag.toLowerCase().includes(query))
+        tool.tags?.some(tag => tag.toLowerCase().includes(query))
       );
     }
     
@@ -123,7 +126,7 @@ export default function DynamicToolRenderer({
         break;
       case "newest":
         result.sort((a, b) => 
-          new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
+          new Date(b.lastUpdated || Date.now()).getTime() - new Date(a.lastUpdated || Date.now()).getTime()
         );
         break;
       case "featured":
@@ -319,7 +322,7 @@ export default function DynamicToolRenderer({
                   </p>
                   
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {tool.tags.slice(0, 3).map(tag => (
+                    {tool.tags?.slice(0, 3).map(tag => (
                       <span
                         key={tag}
                         className="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-lg"
@@ -341,7 +344,7 @@ export default function DynamicToolRenderer({
                       </span>
                     </div>
                     <span>
-                      Updated {new Date(tool.lastUpdated).toLocaleDateString()}
+                      Updated {new Date(tool.lastUpdated || Date.now()).toLocaleDateString()}
                     </span>
                   </div>
                   

@@ -1,10 +1,6 @@
-import { User, Settings, History, Star, Search, Bookmark } from "lucide-react";
-import Link from "next/link";
-import SavedToolsClient from "./SavedToolsClient";
+"use client";
 
-export const metadata = {
-  title: "Saved Tools - OMNITOOLS",
-};
+import SavedToolsClient from "./SavedToolsClient";
 
 export default function SavedToolsPage() {
   return <SavedToolsClient />;

@@ -72,13 +72,13 @@ export default function ToolMarketplace() {
       }
       
       // Rating filter
-      if (filters.rating > 0 && tool.rating < filters.rating) {
+      if (filters.rating > 0 && (tool.rating || 0) < filters.rating) {
         return false;
       }
       
       // Price filter
       if (filters.price !== "all") {
-        const isFree = tool.pricing?.type === "free";
+        const isFree = tool.pricing === "free";
         if (filters.price === "free" && !isFree) return false;
         if (filters.price === "premium" && isFree) return false;
       }
@@ -94,7 +94,7 @@ export default function ToolMarketplace() {
       // Popularity filter
       if (filters.popularity !== "all") {
         const daysSinceUpdate = Math.floor((Date.now() - new Date(tool.lastUpdated).getTime()) / (1000 * 60 * 60 * 24));
-        const isTrending = tool.usage?.monthly > 1000;
+        const isTrending = (tool.users || 0) > 1000;
         const isNew = daysSinceUpdate < 30;
         
         switch (filters.popularity) {
@@ -102,7 +102,7 @@ export default function ToolMarketplace() {
             if (!isTrending) return false;
             break;
           case "popular":
-            if (tool.usage?.monthly < 500) return false;
+            if ((tool.users || 0) < 500) return false;
             break;
           case "new":
             if (!isNew) return false;
@@ -115,9 +115,9 @@ export default function ToolMarketplace() {
     .sort((a, b) => {
       switch (sortBy) {
         case "popularity":
-          return (b.usage?.monthly || 0) - (a.usage?.monthly || 0);
+          return (b.users || 0) - (a.users || 0);
         case "rating":
-          return b.rating - a.rating;
+          return (b.rating || 0) - (a.rating || 0);
         case "newest":
           return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
         case "name":
@@ -383,8 +383,8 @@ function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   
   const isNew = Math.floor((Date.now() - new Date(tool.lastUpdated).getTime()) / (1000 * 60 * 60 * 24)) < 30;
-  const isTrending = tool.usage?.monthly > 1000;
-  const isPopular = tool.usage?.monthly > 500;
+  const isTrending = (tool.users || 0) > 1000;
+  const isPopular = (tool.users || 0) > 500;
 
   if (viewMode === "list") {
     return (
@@ -441,14 +441,14 @@ function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
               <div className="flex flex-col items-end gap-2">
                 <div className="flex items-center gap-1">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span className="font-bold text-sm text-slate-900">{tool.rating}</span>
-                  <span className="text-slate-500 text-sm">({tool.reviews})</span>
+                  <span className="font-bold text-sm text-slate-900">{tool.rating || 0}</span>
+                  <span className="text-slate-500 text-sm">({tool.reviews || 0})</span>
                 </div>
                 
                 <div className="text-right">
                   <div className="text-xs text-slate-500">Monthly Usage</div>
                   <div className="font-bold text-slate-900">
-                    {tool.usage?.monthly.toLocaleString()}+
+                    {(tool.users || 0).toLocaleString()}+
                   </div>
                 </div>
               </div>
@@ -457,13 +457,13 @@ function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <span className="text-sm font-bold text-slate-900">{tool.category}</span>
-                {tool.pricing?.type === "free" ? (
+                {tool.pricing === "free" ? (
                   <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
                     FREE
                   </span>
                 ) : (
                   <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
-                    {tool.pricing?.type === "subscription" ? "PRO" : "PREMIUM"}
+                    {tool.pricing === "subscription" ? "PRO" : "PREMIUM"}
                   </span>
                 )}
               </div>
@@ -501,84 +501,58 @@ function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
         </div>
       )}
       
-      {/* Badges */}
-      <div className="absolute top-4 right-4 z-20 flex gap-2">
-        {isNew && (
-          <span className="px-2 py-1 bg-green-500 text-white text-xs font-bold rounded-full uppercase">
-            New
-          </span>
-        )}
-        {isTrending && (
-          <span className="px-2 py-1 bg-purple-500 text-white text-xs font-bold rounded-full uppercase">
-            Trending
-          </span>
-        )}
-        {isPopular && (
-          <span className="px-2 py-1 bg-blue-500 text-white text-xs font-bold rounded-full uppercase">
-            Popular
-          </span>
-        )}
+      {/* Tool Icon */}
+      <div 
+        className="w-14 h-14 rounded-xl flex items-center justify-center text-white shadow-lg mb-4"
+        style={{ backgroundColor: tool.color }}
+      >
+        {tool.icon}
       </div>
       
-      {/* Content */}
-      <div className="relative z-0">
-        <div className="flex items-center gap-4 mb-4">
-          <div 
-            className="w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg"
-            style={{ backgroundColor: tool.color }}
+      {/* Tool Info */}
+      <div className="flex items-start justify-between mb-2">
+        <h3 className="font-bold text-lg text-slate-900">{tool.name}</h3>
+        <div className="flex items-center gap-1">
+          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+          <span className="font-bold text-sm text-slate-900">{tool.rating || 0}</span>
+        </div>
+      </div>
+      
+      <p className="text-slate-600 text-sm mb-4 line-clamp-2">{tool.description}</p>
+      
+      {/* Tags */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {tool.features?.slice(0, 2).map(feature => (
+          <span 
+            key={feature} 
+            className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded-lg"
           >
-            {tool.icon}
-          </div>
-          <div>
-            <h3 className="font-bold text-lg text-slate-900">{tool.name}</h3>
-            <p className="text-slate-500 text-sm">{tool.category}</p>
-          </div>
-        </div>
+            {feature}
+          </span>
+        ))}
+      </div>
+      
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+        <span className="text-sm text-slate-500 font-medium">{tool.category}</span>
         
-        <p className="text-slate-600 text-sm mb-4 line-clamp-2">{tool.description}</p>
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tool.features?.slice(0, 2).map(feature => (
-            <span 
-              key={feature} 
-              className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-lg"
-            >
-              {feature}
-            </span>
-          ))}
-        </div>
-        
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-1">
-            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-            <span className="font-bold text-sm text-slate-900">{tool.rating}</span>
-            <span className="text-slate-500 text-sm">({tool.reviews})</span>
-          </div>
-          
-          <div className="text-right">
-            <div className="text-xs text-slate-500">Monthly Usage</div>
-            <div className="font-bold text-slate-900 text-sm">
-              {tool.usage?.monthly.toLocaleString()}+
-            </div>
-          </div>
-        </div>
-        
-        <div className="flex items-center justify-between">
-          {tool.pricing?.type === "free" ? (
-            <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
-              FREE
-            </span>
-          ) : (
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
-              {tool.pricing?.type === "subscription" ? "PRO" : "PREMIUM"}
+        <div className="flex items-center gap-2">
+          {isTrending && (
+            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full flex items-center gap-1">
+              <TrendingUp className="h-3 w-3" />
+              Trending
             </span>
           )}
           
-          <div className="flex items-center gap-2 text-slate-400">
-            <Heart className="h-4 w-4 hover:text-red-500 cursor-pointer transition-colors" />
-            <Share2 className="h-4 w-4 hover:text-blue-500 cursor-pointer transition-colors" />
-            <BarChart3 className="h-4 w-4 hover:text-green-500 cursor-pointer transition-colors" />
-          </div>
+          {tool.pricing === "free" ? (
+            <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
+              FREE
+            </span>
+          ) : (
+            <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
+              {tool.pricing === "subscription" ? "PRO" : "PREMIUM"}
+            </span>
+          )}
         </div>
       </div>
     </div>

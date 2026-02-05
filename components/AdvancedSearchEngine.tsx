@@ -61,7 +61,14 @@ import {
   SortAsc,
   SortDesc,
   FilterX,
-  Wand2
+  Wand2,
+  FileText,
+  Briefcase,
+  Palette,
+  CheckCircle,
+  Image,
+  Type,
+  ShieldCheck
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { tools } from "@/data/tools";
@@ -325,8 +332,8 @@ export default function AdvancedSearchEngine() {
             rating: tool.rating || 0,
             isTrending: tool.isTrending || false,
             isNew: tool.isNew || false,
-            isPopular: tool.usageCount > 1000,
-            isRecommended: tool.rating > 4.5,
+            isPopular: (tool.usageCount || 0) > 1000,
+            isRecommended: (tool.rating || 0) > 4.5,
             previewUrl: tool.previewUrl,
             quickActions: [
               {
@@ -551,12 +558,20 @@ export default function AdvancedSearchEngine() {
   };
 
   const toggleFilter = (filterType: keyof SearchFilter, value: string) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterType]: prev[filterType].includes(value)
-        ? prev[filterType].filter(v => v !== value)
-        : [...prev[filterType], value]
-    }));
+    setFilters(prev => {
+      const currentValue = prev[filterType];
+      // Only process array types
+      if (Array.isArray(currentValue)) {
+        const arrayValue = currentValue as string[];
+        return {
+          ...prev,
+          [filterType]: arrayValue.includes(value)
+            ? arrayValue.filter((v: string) => v !== value)
+            : [...arrayValue, value]
+        } as SearchFilter;
+      }
+      return prev;
+    });
   };
 
   const renderSearchResult = (result: SearchResult) => {

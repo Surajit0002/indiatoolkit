@@ -3,6 +3,7 @@ import { ToolCategory } from "../types/tool";
 export interface AdvancedTool {
   id: string;
   name: string;
+  slug: string;
   description: string;
   category: string;
   icon: string;
@@ -24,18 +25,22 @@ export interface AdvancedTool {
   users?: number; // Number of users
   updated?: string; // Shortened updated info
   version: string;
+  trendingScore?: number; // Trending score for sorting
   performance: {
     speed: 'fast' | 'medium' | 'slow';
     accuracy: number;
     reliability: number;
   };
   integrations: string[];
+  pricing?: 'free' | 'freemium' | 'paid' | 'subscription'; // Pricing model
+  reviews?: number; // Number of reviews
 }
 
 export const advancedTools: AdvancedTool[] = [
   {
     id: "ai-code-generator",
     name: "AI Code Generator",
+    slug: "ai-code-generator",
     description: "Generate production-ready code with AI assistance",
     category: "ai-tools",
     icon: "Bot",
@@ -73,6 +78,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "ml-model-builder",
     name: "ML Model Builder",
+    slug: "ml-model-builder",
     description: "Build and train machine learning models without coding",
     category: "ai-tools",
     icon: "Brain",
@@ -109,6 +115,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "real-time-data-processor",
     name: "Real-time Data Processor",
+    slug: "real-time-data-processor",
     description: "Process and analyze streaming data in real-time",
     category: "data-tools",
     icon: "Zap",
@@ -145,6 +152,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "smart-contract-analyzer",
     name: "Smart Contract Analyzer",
+    slug: "smart-contract-analyzer",
     description: "Analyze and audit blockchain smart contracts",
     category: "blockchain-tools",
     icon: "FileCheck",
@@ -181,6 +189,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "neural-network-visualizer",
     name: "Neural Network Visualizer",
+    slug: "neural-network-visualizer",
     description: "Visualize and understand neural network architectures",
     category: "ai-tools",
     icon: "Network",
@@ -217,6 +226,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "quantum-computing-simulator",
     name: "Quantum Computing Simulator",
+    slug: "quantum-computing-simulator",
     description: "Simulate quantum algorithms and circuits",
     category: "quantum-tools",
     icon: "Atom",
@@ -253,6 +263,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "bioinformatics-analyzer",
     name: "Bioinformatics Analyzer",
+    slug: "bioinformatics-analyzer",
     description: "Analyze biological data and sequences",
     category: "bio-tools",
     icon: "Dna",
@@ -289,6 +300,7 @@ export const advancedTools: AdvancedTool[] = [
   {
     id: "financial-risk-analyzer",
     name: "Financial Risk Analyzer",
+    slug: "financial-risk-analyzer",
     description: "Advanced financial risk assessment and modeling",
     category: "finance-tools",
     icon: "TrendingUp",
