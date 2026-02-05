@@ -8,12 +8,12 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 pt-24 pb-16">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-green-50 pt-24 pb-16">
       <div className="container px-4 max-w-6xl mx-auto">
         {/* Hero Section */}
         <section className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">
-            Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Touch</span>
+            Get In <span className="text-transparent bg-clip-text bg-linear-to-r from-green-600 to-emerald-600">Touch</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
             We're here to help Indian professionals succeed. Reach out anytime!
@@ -126,7 +126,7 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 mx-auto"
+              className="w-full md:w-auto px-8 py-4 bg-linear-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2 mx-auto"
             >
               <Send className="h-5 w-5" />
               Send Message

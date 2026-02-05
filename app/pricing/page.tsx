@@ -28,7 +28,7 @@ export default function PricingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 pt-24 pb-16">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-green-50 pt-24 pb-16">
       <div className="container px-4 max-w-6xl mx-auto">
         {/* Hero Section */}
         <section className="text-center mb-16">
@@ -38,7 +38,7 @@ export default function PricingPage() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 leading-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Free</span> for Everyone
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-green-600 to-emerald-600">Free</span> for Everyone
           </h1>
           
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -49,7 +49,7 @@ export default function PricingPage() {
 
         {/* Pricing Card */}
         <section className="max-w-4xl mx-auto mb-20">
-          <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl shadow-2xl border border-green-300 overflow-hidden">
+          <div className="bg-linear-to-br from-green-500 to-emerald-600 rounded-3xl shadow-2xl border border-green-300 overflow-hidden">
             <div className="p-8 md:p-12 text-center text-white">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full mb-6">
                 <Crown className="h-5 w-5" />
@@ -65,7 +65,7 @@ export default function PricingPage() {
               <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-10 text-left">
                 {freeFeatures.map((feature, index) => (
                   <div key={index} className="flex items-center gap-3">
-                    <div className="h-5 w-5 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="h-5 w-5 bg-white rounded-full flex items-center justify-center shrink-0">
                       <Check className="h-3 w-3 text-green-600" />
                     </div>
                     <span className="font-bold">{feature}</span>
@@ -215,7 +215,7 @@ export default function PricingPage() {
         </section>
 
         {/* Final CTA */}
-        <section className="text-center bg-gradient-to-r from-green-500 to-emerald-600 rounded-3xl p-12 text-white">
+        <section className="text-center bg-linear-to-r from-green-500 to-emerald-600 rounded-3xl p-12 text-white">
           <Calendar className="h-12 w-12 mx-auto mb-6 opacity-80" />
           <h2 className="text-3xl font-black mb-4">Start Saving Time Today</h2>
           <p className="text-green-100 mb-8 max-w-2xl mx-auto">

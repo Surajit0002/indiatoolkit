@@ -18,6 +18,11 @@ export interface AdvancedTool {
   tags: string[];
   relatedTools: string[];
   lastUpdated: string;
+  createdAt: string; // Creation date (required)
+  isNew?: boolean; // Is this a new tool
+  rating?: number; // Optional rating
+  users?: number; // Number of users
+  updated?: string; // Shortened updated info
   version: string;
   performance: {
     speed: 'fast' | 'medium' | 'slow';
@@ -52,6 +57,11 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["ai", "coding", "development", "automation"],
     relatedTools: ["code-formatter", "regex-tester", "json-validator"],
     lastUpdated: "2024-01-15",
+    rating: 4.8,
+    users: 15420,
+    updated: "Jan 15",
+    isNew: false,
+    createdAt: "2023-11-01",
     version: "2.1.0",
     performance: {
       speed: "fast",
@@ -84,6 +94,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["ml", "ai", "data-science", "machine-learning"],
     relatedTools: ["data-visualizer", "statistical-calculator"],
     lastUpdated: "2024-01-10",
+    rating: 4.6,
+    users: 8930,
+    updated: "Jan 10",
+    createdAt: "2023-10-15",
     version: "1.5.2",
     performance: {
       speed: "medium",
@@ -116,6 +130,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["data", "real-time", "streaming", "analytics"],
     relatedTools: ["data-visualizer", "statistical-calculator"],
     lastUpdated: "2024-01-12",
+    rating: 4.7,
+    users: 12560,
+    updated: "Jan 12",
+    createdAt: "2023-09-20",
     version: "3.0.1",
     performance: {
       speed: "fast",
@@ -148,6 +166,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["blockchain", "ethereum", "security", "audit"],
     relatedTools: ["crypto-calculator", "wallet-generator"],
     lastUpdated: "2024-01-08",
+    rating: 4.5,
+    users: 6740,
+    updated: "Jan 8",
+    createdAt: "2023-08-10",
     version: "2.3.4",
     performance: {
       speed: "medium",
@@ -180,6 +202,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["ai", "neural-networks", "visualization", "education"],
     relatedTools: ["ml-model-builder", "data-visualizer"],
     lastUpdated: "2024-01-05",
+    rating: 4.4,
+    users: 4320,
+    updated: "Jan 5",
+    createdAt: "2023-07-15",
     version: "1.2.0",
     performance: {
       speed: "fast",
@@ -212,6 +238,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["quantum", "simulation", "education", "research"],
     relatedTools: ["statistical-calculator", "probability-calculator"],
     lastUpdated: "2024-01-03",
+    rating: 4.2,
+    users: 2890,
+    updated: "Jan 3",
+    createdAt: "2023-06-20",
     version: "1.0.5",
     performance: {
       speed: "medium",
@@ -244,6 +274,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["bioinformatics", "genomics", "proteomics", "research"],
     relatedTools: ["statistical-calculator", "data-visualizer"],
     lastUpdated: "2024-01-01",
+    rating: 4.1,
+    users: 3420,
+    updated: "Jan 1",
+    createdAt: "2023-05-10",
     version: "2.1.3",
     performance: {
       speed: "medium",
@@ -276,6 +310,10 @@ export const advancedTools: AdvancedTool[] = [
     tags: ["finance", "risk", "investment", "analytics"],
     relatedTools: ["investment-calculator", "currency-converter"],
     lastUpdated: "2023-12-28",
+    rating: 4.6,
+    users: 9870,
+    updated: "Dec 28",
+    createdAt: "2023-04-15",
     version: "3.2.1",
     performance: {
       speed: "fast",

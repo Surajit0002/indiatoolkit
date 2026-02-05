@@ -70,7 +70,7 @@ export default function FeaturesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 pt-24 pb-16">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-green-50 pt-24 pb-16">
       <div className="container px-4 max-w-6xl mx-auto">
         {/* Hero Section */}
         <section className="text-center mb-20">
@@ -80,7 +80,7 @@ export default function FeaturesPage() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 leading-tight">
-            Powerful <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">Features</span>
+            Powerful <span className="text-transparent bg-clip-text bg-linear-to-r from-green-600 to-emerald-600">Features</span>
           </h1>
           
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -99,7 +99,7 @@ export default function FeaturesPage() {
                   key={index} 
                   className="bg-white rounded-2xl p-8 shadow-lg border border-slate-100 hover:shadow-xl transition-all group"
                 >
-                  <div className="h-14 w-14 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <div className="h-14 w-14 bg-linear-to-r from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <IconComponent className="h-7 w-7 text-white" />
                   </div>
                   
@@ -109,7 +109,7 @@ export default function FeaturesPage() {
                   <div className="space-y-2">
                     {feature.highlights.map((highlight, idx) => (
                       <div key={idx} className="flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
+                        <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
                         <span className="text-sm font-bold text-slate-700">{highlight}</span>
                       </div>
                     ))}
@@ -178,9 +178,9 @@ export default function FeaturesPage() {
               </div>
             </div>
             
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8">
+            <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-8">
               <div className="text-center mb-6">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-green-500 to-emerald-600 rounded-2xl mb-4">
                   <Star className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-black text-slate-900">Performance Metrics</h3>
@@ -193,7 +193,7 @@ export default function FeaturesPage() {
                     <span className="text-sm font-black text-green-600">Under 2 seconds</span>
                   </div>
                   <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full w-[95%]"></div>
+                    <div className="h-full bg-linear-to-r from-green-500 to-emerald-600 rounded-full w-[95%]"></div>
                   </div>
                 </div>
                 
@@ -203,7 +203,7 @@ export default function FeaturesPage() {
                     <span className="text-sm font-black text-green-600">99.9%</span>
                   </div>
                   <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full w-[99.9%]"></div>
+                    <div className="h-full bg-linear-to-r from-green-500 to-emerald-600 rounded-full w-[99.9%]"></div>
                   </div>
                 </div>
                 
@@ -213,7 +213,7 @@ export default function FeaturesPage() {
                     <span className="text-sm font-black text-green-600">4.9/5</span>
                   </div>
                   <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full w-[98%]"></div>
+                    <div className="h-full bg-linear-to-r from-green-500 to-emerald-600 rounded-full w-[98%]"></div>
                   </div>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export default function FeaturesPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/tools" 
-              className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-linear-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:shadow-lg transition-all flex items-center justify-center gap-2"
             >
               <Zap className="h-5 w-5" />
               Explore All Tools

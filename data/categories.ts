@@ -121,4 +121,77 @@ export const categories: ToolCategory[] = [
     icon: "CheckCircle",
     color: "#10B981", // emerald-500
   },
+  // Design Tools Categories
+  {
+    id: "graphic-design-tools",
+    name: "Graphic Design Tools",
+    slug: "graphic-design-tools",
+    description: "Create stunning graphics, logos, and visual content with our comprehensive design tools.",
+    icon: "Zap",
+    color: "#F59E0B", // amber-500
+  },
+  {
+    id: "color-tools",
+    name: "Color Tools",
+    slug: "color-tools",
+    description: "Master color theory, generate palettes, and create harmonious color schemes.",
+    icon: "Palette",
+    color: "#EC4899", // pink-500
+  },
+  {
+    id: "text-font-design-tools",
+    name: "Text & Font Design",
+    slug: "text-font-design-tools",
+    description: "Design beautiful typography, customize fonts, and create stunning text effects.",
+    icon: "Type",
+    color: "#8B5CF6", // violet-500
+  },
+  {
+    id: "layout-uiux-tools",
+    name: "Layout & UI/UX Tools",
+    slug: "layout-uiux-tools",
+    description: "Design user interfaces, create layouts, and improve user experience.",
+    icon: "Layout",
+    color: "#3B82F6", // blue-500
+  },
+  {
+    id: "ai-design-tools",
+    name: "AI Design Tools",
+    slug: "ai-design-tools",
+    description: "Leverage artificial intelligence to generate designs, images, and creative content.",
+    icon: "Sparkles",
+    color: "#10B981", // emerald-500
+  },
+  {
+    id: "image-editing-tools",
+    name: "Image Editing Tools",
+    slug: "image-editing-tools",
+    description: "Edit, enhance, and transform images with powerful editing tools.",
+    icon: "Image",
+    color: "#06B6D4", // cyan-500
+  },
+  {
+    id: "brand-marketing-design-tools",
+    name: "Brand & Marketing Design",
+    slug: "brand-marketing-design-tools",
+    description: "Create brand identities, marketing materials, and professional visual content.",
+    icon: "Briefcase",
+    color: "#EF4444", // red-500
+  },
+  {
+    id: "icon-shape-tools",
+    name: "Icon & Shape Tools",
+    slug: "icon-shape-tools",
+    description: "Design icons, shapes, and vector graphics for your projects.",
+    icon: "Circle",
+    color: "#6366F1", // indigo-500
+  },
+  {
+    id: "motion-media-design-tools",
+    name: "Motion & Media Design",
+    slug: "motion-media-design-tools",
+    description: "Create animations, videos, and dynamic media content.",
+    icon: "Film",
+    color: "#F97316", // orange-500
+  },
 ];

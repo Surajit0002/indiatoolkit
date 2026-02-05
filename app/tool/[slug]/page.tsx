@@ -134,7 +134,7 @@ export default async function ToolPage({ params }: PageProps) {
   
         
   
-      <div className="max-w-[1600px] mx-auto px-4 md:px-10 pt-25">
+      <div className="max-w-[1600px] mx-auto px-4 md:px-10 pt-16">
         {/* Row 1: Top Navigation & Controls Bar */}
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 mb-16 relative">
           <nav className="flex items-center gap-5 bg-white/50 backdrop-blur-lg p-3 px-8 rounded-[10px] border border-slate-200/50 shadow-sm hover:border-blue-200 transition-colors group/nav">

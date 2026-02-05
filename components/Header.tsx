@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Menu, User, X, ChevronDown, Zap, Star, Settings, LogOut, ArrowRight, ChevronRight, Layers, FileText, Info, Mail, Sparkles, Brain, Database, TrendingUp, Users, Share2, BarChart3 } from "lucide-react";
+import { Search, Menu, User, X, ChevronDown, Zap, Star, Settings, LogOut, ArrowRight, ChevronRight, Layers, FileText, Info, Mail, Sparkles, Brain, Database, TrendingUp, Users, Share2, BarChart3, ArrowUpRight, Grid, Calculator, Image, FileText as FileTextIcon, Code, Shield, Globe, Search as SearchIcon, Database as DbIcon, Briefcase, Sparkles as SparklesIcon, Palette, Share, CheckCircle } from "lucide-react";
 import * as Icons from "lucide-react";
 import React, { useState, useEffect } from "react";
 import GlobalSearch from "./GlobalSearch";
@@ -18,23 +18,53 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Get category icon component
+  const getCategoryIcon = (iconName: string) => {
+    const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+      'Zap': Zap,
+      'Calculator': Calculator,
+      'Code': Code,
+      'FileText': FileTextIcon,
+      'Globe': Globe,
+      'Database': DbIcon,
+      'Brain': Brain,
+      'Palette': Palette,
+      'Image': Image,
+    };
+    return iconMap[iconName] || Grid;
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-100 px-4 py-4 pointer-events-none">
+    <header 
+      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
+      role="banner"
+    >
       <div className="max-w-7xl mx-auto flex justify-center">
-        <nav className={`
-          pointer-events-auto
-          relative flex items-center justify-between gap-4 px-6 h-16 
-          rounded-2xl transition-all duration-500 border
-          ${isScrolled 
-            ? "w-full bg-white/80 backdrop-blur-xl border-slate-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)]" 
-            : "w-full md:w-[95%] bg-slate-900/95 backdrop-blur-md border-slate-800 shadow-2xl"
-          }
-        `}>
+        <nav 
+          className={`
+            pointer-events-auto
+            relative flex items-center justify-between gap-4 px-6 h-16 
+            rounded-2xl transition-all duration-500 border
+            ${isScrolled 
+              ? "w-full bg-white/80 backdrop-blur-xl border-slate-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)]" 
+              : "w-full md:w-[95%] bg-slate-900/95 backdrop-blur-md border-slate-800 shadow-2xl"
+            }
+          `}
+          role="navigation"
+          aria-label="Main navigation"
+        >
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-3 group shrink-0">
+          <Link 
+            href="/" 
+            className="flex items-center gap-3 group shrink-0"
+            aria-label="India Toolkit - Home"
+          >
             <div className="relative">
               <div className="absolute -inset-1 bg-blue-500 rounded-lg blur-sm opacity-25 group-hover:opacity-50 transition duration-500"></div>
-              <div className="relative bg-gradient-to-br from-green-600 to-emerald-700 text-white w-9 h-9 flex items-center justify-center rounded-xl font-black text-sm shadow-lg group-hover:scale-105 transition-transform">
+              <div 
+                className="relative bg-linear-to-br from-green-600 to-emerald-700 text-white w-9 h-9 flex items-center justify-center rounded-xl font-black text-sm shadow-lg group-hover:scale-105 transition-transform"
+                aria-hidden="true"
+              >
                 IT
               </div>
             </div>
@@ -48,197 +78,316 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
-            <div className="relative group px-1">
-              <button className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest ${
-                isScrolled ? "text-slate-600 hover:bg-slate-100" : "text-slate-300 hover:bg-white/10 hover:text-white"
-              }`}>
-                <Icons.Grid className="h-3.5 w-3.5 text-green-500" />
-                Tools
-                <ChevronDown className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" />
+            {/* All Tools Button */}
+            <Link 
+              href="/tools"
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest ${
+                isScrolled 
+                  ? "bg-green-500 text-white hover:bg-green-600 shadow-lg shadow-green-100" 
+                  : "bg-green-500 text-white hover:bg-green-600 shadow-lg shadow-green-500/20"
+              }`}
+              aria-label="Browse all 500+ tools"
+            >
+              <Icons.Grid className="h-4 w-4" aria-hidden="true" />
+              <span>All Tools</span>
+              <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
+            </Link>
+
+            {/* Categories Dropdown */}
+            <div className="relative group">
+              <button
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest ${
+                  isScrolled ? "text-slate-600 hover:bg-slate-100" : "text-slate-300 hover:bg-white/10 hover:text-white"
+                }`}
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                <Icons.Layers className="h-3.5 w-3.5 text-green-500" aria-hidden="true" />
+                <span>Categories</span>
+                <ChevronDown className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" aria-hidden="true" />
               </button>
               
-              {/* Mega Dropdown */}
-              <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[640px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-4 group-hover:translate-y-0 pt-2">
-                <div className="bg-white rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden p-3">
-                  <div className="grid grid-cols-2 gap-2 max-h-[440px] overflow-y-auto scrollbar-hide">
-                    {categories.map(cat => {
-                      const IconComponent = Icons[cat.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>;
+              {/* Categories Mega Dropdown - 3 Columns */}
+              <div 
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-140 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-4 group-hover:translate-y-0 pt-2"
+                role="menu"
+                aria-label="Categories"
+              >
+                <div className="bg-white rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] border border-slate-100 overflow-hidden p-4">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">All Categories</span>
+                    <Link href="/categories" className="flex items-center gap-1 text-xs font-bold text-green-600 hover:text-green-700 uppercase tracking-wider">
+                      View All <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  </div>
+
+                  {/* Categories Grid */}
+                  <div className="grid grid-cols-3 gap-1">
+                    {categories.slice(0, 9).map((category) => {
+                      const IconComponent = getCategoryIcon(category.icon);
                       return (
-                        <Link 
-                          key={cat.id} 
-                          href={`/category/${cat.slug}`} 
-                          className="flex items-center gap-4 p-3 hover:bg-slate-50 rounded-2xl transition-all group/item border border-transparent hover:border-slate-100"
+                        <Link
+                          key={category.slug}
+                          href={`/category/${category.slug}`}
+                          className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-all group/item"
+                          role="menuitem"
                         >
                           <div 
-                            className="h-10 w-10 rounded-xl flex items-center justify-center text-white shadow-lg transition-transform group-hover/item:scale-110" 
-                            style={{ backgroundColor: cat.color }}
+                            className="h-10 w-10 rounded-xl flex items-center justify-center text-white shadow-md transition-transform duration-200 group-hover/item:scale-105"
+                            style={{ backgroundColor: category.color }}
+                            aria-hidden="true"
                           >
-                            <IconComponent className="h-5 w-5 stroke-[2.5]" />
+                            <IconComponent className="h-5 w-5" />
                           </div>
-                          <div>
-                            <div className="font-bold text-[11px] text-slate-900 uppercase tracking-tight">{cat.name}</div>
-                            <div className="text-[9px] text-slate-400 font-medium">Professional grade tools</div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-bold text-slate-900 truncate">{category.name}</span>
+                              {category.slug === 'ai-tools' && (
+                                <span className="px-1.5 py-0.5 bg-purple-100 text-purple-600 rounded text-[9px] font-bold">AI</span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-slate-400 truncate block">{category.description}</span>
                           </div>
+                          <ArrowRight className="h-4 w-4 text-slate-300 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" aria-hidden="true" />
                         </Link>
                       );
                     })}
                   </div>
-                  <div className="mt-2 p-4 bg-slate-900 rounded-2xl flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 bg-green-600 rounded-lg flex items-center justify-center text-white">
-                        <Zap className="h-4 w-4 fill-current" />
-                      </div>
-                      <span className="text-[10px] font-bold text-white uppercase tracking-[0.2em]">Unlock Pro Access</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Tools Dropdown */}
+            <div className="relative group">
+              <button
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest ${
+                  isScrolled ? "text-slate-600 hover:bg-slate-100" : "text-slate-300 hover:bg-white/10 hover:text-white"
+                }`}
+                aria-expanded="false"
+                aria-haspopup="true"
+              >
+                <Icons.Star className="h-3.5 w-3.5 text-amber-500" aria-hidden="true" />
+                <span>Popular</span>
+                <ChevronDown className="h-3 w-3 group-hover:rotate-180 transition-transform duration-300" aria-hidden="true" />
+              </button>
+
+              {/* Popular Tools Dropdown */}
+              <div 
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-80 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-4 group-hover:translate-y-0 pt-2"
+                role="menu"
+                aria-label="Popular tools"
+              >
+                <div className="bg-white rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] border border-slate-100 overflow-hidden">
+                  <div className="p-4 border-b border-slate-100">
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-amber-500" aria-hidden="true" />
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Trending Tools</span>
                     </div>
-                    <Link href="/pricing" className="px-4 py-2 bg-white text-slate-900 rounded-xl font-black text-[9px] uppercase hover:bg-green-500 hover:text-white transition-all">
-                      Upgrade
+                  </div>
+                  <div className="p-2">
+                    {[
+                      { name: "AI Image Generator", slug: "ai-image-generator", color: "#8B5CF6" },
+                      { name: "Code Formatter", slug: "code-formatter", color: "#3B82F6" },
+                      { name: "Image Converter", slug: "image-converter", color: "#10B981" },
+                      { name: "JSON Formatter", slug: "json-formatter", color: "#F59E0B" },
+                      { name: "Password Generator", slug: "password-generator", color: "#EF4444" },
+                      { name: "Color Palette Generator", slug: "color-palette-generator", color: "#EC4899" },
+                    ].map((tool) => (
+                      <Link
+                        key={tool.slug}
+                        href={`/tool/${tool.slug}`}
+                        className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-all group/item"
+                        role="menuitem"
+                      >
+                        <div 
+                          className="h-9 w-9 rounded-lg flex items-center justify-center text-white shadow-md"
+                          style={{ backgroundColor: tool.color }}
+                          aria-hidden="true"
+                        >
+                          <Zap className="h-4 w-4" />
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-xs font-bold text-slate-900 block">{tool.name}</span>
+                        </div>
+                        <ArrowRight className="h-4 w-4 text-slate-300 opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" aria-hidden="true" />
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="p-3 border-t border-slate-100 bg-slate-50">
+                    <Link href="/tools" className="flex items-center justify-center gap-2 text-xs font-bold text-green-600 hover:text-green-700 uppercase tracking-wider">
+                      View All Tools <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
 
-            <HeaderLink href="/categories" label="Explore" icon={<Layers className="h-3.5 w-3.5" />} isScrolled={isScrolled} />
-            <HeaderLink href="/features" label="Features" icon={<Star className="h-3.5 w-3.5" />} isScrolled={isScrolled} />
-            <HeaderLink href="/about-india" label="About" icon={<Info className="h-3.5 w-3.5" />} isScrolled={isScrolled} />
-          </div>
-
-          {/* Search & Actions */}
-          <div className="flex items-center gap-3">
-            <div className="hidden md:block w-48 lg:w-64 transition-all duration-300 focus-within:w-72">
-              <GlobalSearch />
-            </div>
-
-            <div className="relative">
-              <button 
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className={`h-10 w-10 rounded-xl flex items-center justify-center transition-all duration-300 border ${
-                  isScrolled ? "bg-slate-900 text-white border-slate-800" : "bg-white text-slate-900 border-white/20 shadow-lg"
-                }`}
-                aria-label="User profile menu"
-              >
-                <User className="h-5 w-5" />
-              </button>
-              
-              {isProfileOpen && (
-                <div className="absolute top-full right-0 mt-4 w-64 bg-white rounded-2xl shadow-2xl border border-slate-100 p-2 z-[200]">
-                  <div className="p-4 bg-slate-900 rounded-xl mb-1 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-green-600 flex items-center justify-center text-white font-black">IT</div>
-                    <div>
-                      <div className="text-[11px] font-black text-white uppercase tracking-tighter">India Toolkit</div>
-                      <div className="text-[8px] font-bold text-green-400 uppercase tracking-widest">Premium Member</div>
-                    </div>
-                  </div>
-                  <div className="py-1">
-                    <DropdownLink href="/profile" icon={<User className="h-4 w-4" />} label="Profile" />
-                    <DropdownLink href="/saved-tools" icon={<Star className="h-4 w-4" />} label="Saved Tools" />
-                    <DropdownLink href="/settings" icon={<Settings className="h-4 w-4" />} label="Settings" />
-                    <div className="h-px bg-slate-100 my-1 mx-2"></div>
-                    <button className="flex items-center gap-3 w-full p-3 hover:bg-red-50 text-red-500 rounded-xl transition-all group">
-                      <LogOut className="h-4 w-4" />
-                      <span className="font-bold text-[10px] uppercase tracking-widest">Sign Out</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <button 
-              className="lg:hidden h-10 w-10 flex items-center justify-center bg-white rounded-xl border border-slate-200 shadow-sm"
-              onClick={() => setIsMenuOpen(true)}
-              aria-label="Open mobile menu"
+            {/* Resources */}
+            <Link 
+              href="/blog"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest ${
+                isScrolled ? "text-slate-600 hover:bg-slate-100" : "text-slate-300 hover:bg-white/10 hover:text-white"
+              }`}
             >
-              <Menu className="h-5 w-5 text-slate-900" />
-            </button>
-          </div>
-        </nav>
-      </div>
-
-      {/* Mobile Drawer */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-white z-[300] p-6 flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 pointer-events-auto">
-          <div className="flex items-center justify-between mb-8">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="bg-slate-900 text-white w-10 h-10 flex items-center justify-center rounded-xl font-black text-lg">IT</div>
-              <span className="text-xl font-black tracking-tighter italic">INDIA TOOLKIT</span>
+              <Icons.FileText className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>Blog</span>
             </Link>
-            <button onClick={() => setIsMenuOpen(false)} className="h-10 w-10 flex items-center justify-center bg-slate-100 rounded-xl" aria-label="Close menu">
-              <X className="h-6 w-6" />
-            </button>
+
+            <Link 
+              href="/about"
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest ${
+                isScrolled ? "text-slate-600 hover:bg-slate-100" : "text-slate-300 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              <Icons.Info className="h-3.5 w-3.5" aria-hidden="true" />
+              <span>About</span>
+            </Link>
           </div>
-          
-          <div className="mb-6">
+
+          {/* Search */}
+          <div className="hidden md:block pointer-events-auto">
             <GlobalSearch />
           </div>
 
-          <div className="flex flex-col gap-2">
-            <MobileNavLink href="/tools" label="All Tools" icon={<Icons.Grid className="h-5 w-5" />} onClick={() => setIsMenuOpen(false)} />
-            <MobileNavLink href="/categories" label="Categories" icon={<Layers className="h-5 w-5" />} onClick={() => setIsMenuOpen(false)} />
-            <MobileNavLink href="/features" label="Features" icon={<Star className="h-5 w-5" />} onClick={() => setIsMenuOpen(false)} />
-            <MobileNavLink href="/about-india" label="About India" icon={<Info className="h-5 w-5" />} onClick={() => setIsMenuOpen(false)} />
-            <MobileNavLink href="/contact-us" label="Contact" icon={<Mail className="h-5 w-5" />} onClick={() => setIsMenuOpen(false)} />
+          {/* User Actions */}
+          <div className="hidden lg:flex items-center gap-2">
+            <Link 
+              href="/saved-tools"
+              className={`p-2.5 rounded-xl transition-all ${isScrolled ? "text-slate-600 hover:bg-slate-100" : "text-slate-300 hover:bg-white/10 hover:text-white"}`}
+              aria-label="Saved tools"
+            >
+              <Star className="h-5 w-5" />
+            </Link>
+            
+            {/* Profile Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className={`flex items-center gap-2 p-1 pr-3 rounded-xl transition-all ${isScrolled ? "bg-slate-100 hover:bg-slate-200" : "bg-white/10 hover:bg-white/20"}`}
+                aria-expanded={isProfileOpen}
+                aria-haspopup="true"
+              >
+                <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${isScrolled ? "bg-green-500 text-white" : "bg-green-500 text-white"}`}>
+                  <User className="h-4 w-4" />
+                </div>
+                <span className={`text-xs font-bold uppercase tracking-wider ${isScrolled ? "text-slate-700" : "text-white"}`}>
+                  Sign In
+                </span>
+              </button>
+
+              {isProfileOpen && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden py-2">
+                  <Link href="/profile" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                    <User className="h-4 w-4" /> My Profile
+                  </Link>
+                  <Link href="/saved-tools" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                    <Star className="h-4 w-4" /> Saved Tools
+                  </Link>
+                  <Link href="/history" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                    <Zap className="h-4 w-4" /> History
+                  </Link>
+                  <hr className="my-2 border-slate-100" />
+                  <Link href="/settings" className="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
+                    <Settings className="h-4 w-4" /> Settings
+                  </Link>
+                  <hr className="my-2 border-slate-100" />
+                  <Link href="/login" className="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                    <LogOut className="h-4 w-4" /> Sign Out
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="mt-auto">
-            <div className="bg-slate-900 p-6 rounded-3xl text-white relative overflow-hidden">
-              <div className="relative z-10">
-                <h4 className="font-black text-lg italic mb-1">PRO ACCESS</h4>
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-4">Master your workflow</p>
-                <Link 
-                  href="/dashboard" 
-                  onClick={() => setIsMenuOpen(false)}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl font-bold text-[10px] uppercase tracking-widest"
-                >
-                  Dashboard <ArrowRight className="h-3 w-3" />
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className={`lg:hidden p-2.5 rounded-xl ${isScrolled ? "bg-slate-100 text-slate-700" : "bg-white/10 text-white"}`}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </nav>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div 
+          id="mobile-menu"
+          className="lg:hidden fixed inset-0 top-24 bg-white/95 backdrop-blur-xl p-4 overflow-y-auto"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          <div className="max-w-lg mx-auto space-y-4">
+            {/* Search */}
+            <GlobalSearch />
+
+            {/* Quick Links */}
+            <div className="grid grid-cols-2 gap-3">
+              <Link href="/tools" className="flex items-center justify-center gap-2 p-4 bg-green-500 text-white rounded-xl font-bold">
+                <Grid className="h-5 w-5" /> All Tools
+              </Link>
+              <Link href="/saved-tools" className="flex items-center justify-center gap-2 p-4 bg-slate-100 text-slate-700 rounded-xl font-bold">
+                <Star className="h-5 w-5" /> Favorites
+              </Link>
+              <Link href="/history" className="flex items-center justify-center gap-2 p-4 bg-slate-100 text-slate-700 rounded-xl font-bold">
+                <Zap className="h-5 w-5" /> History
+              </Link>
+              <Link href="/blog" className="flex items-center justify-center gap-2 p-4 bg-slate-100 text-slate-700 rounded-xl font-bold">
+                <FileText className="h-5 w-5" /> Blog
+              </Link>
+            </div>
+
+            {/* Categories */}
+            <div className="bg-slate-50 rounded-2xl p-4">
+              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Categories</h3>
+              <div className="space-y-2">
+                {categories.map((category) => {
+                  const IconComponent = getCategoryIcon(category.icon);
+                  return (
+                    <Link
+                      key={category.slug}
+                      href={`/category/${category.slug}`}
+                      className="flex items-center gap-3 p-3 bg-white rounded-xl hover:bg-slate-100 transition-all"
+                    >
+                      <div 
+                        className="h-10 w-10 rounded-lg flex items-center justify-center text-white"
+                        style={{ backgroundColor: category.color }}
+                      >
+                        <IconComponent className="h-5 w-5" />
+                      </div>
+                      <span className="font-bold text-slate-700">{category.name}</span>
+                      <ChevronRight className="h-4 w-4 text-slate-400 ml-auto" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Account */}
+            <div className="bg-slate-50 rounded-2xl p-4">
+              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Account</h3>
+              <div className="space-y-2">
+                <Link href="/profile" className="flex items-center gap-3 p-3 bg-white rounded-xl hover:bg-slate-100 transition-all">
+                  <User className="h-5 w-5 text-slate-400" />
+                  <span className="font-bold text-slate-700">My Profile</span>
+                </Link>
+                <Link href="/settings" className="flex items-center gap-3 p-3 bg-white rounded-xl hover:bg-slate-100 transition-all">
+                  <Settings className="h-5 w-5 text-slate-400" />
+                  <span className="font-bold text-slate-700">Settings</span>
+                </Link>
+                <Link href="/login" className="flex items-center gap-3 p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all">
+                  <LogOut className="h-5 w-5" />
+                  <span className="font-bold">Sign In</span>
                 </Link>
               </div>
-              <Zap className="absolute -right-6 -bottom-6 h-24 w-24 text-white/5 rotate-12" />
             </div>
           </div>
         </div>
       )}
     </header>
-  );
-}
-
-function HeaderLink({ href, label, icon, isScrolled }: { href: string, label: string, icon: React.ReactNode, isScrolled: boolean }) {
-  return (
-    <Link 
-      href={href} 
-      className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-all text-[11px] font-bold uppercase tracking-widest group ${
-        isScrolled ? "text-slate-500 hover:text-slate-900 hover:bg-slate-100" : "text-slate-300 hover:text-white hover:bg-white/10"
-      }`}
-    >
-      <span className={`transition-colors ${isScrolled ? "text-slate-400 group-hover:text-blue-600" : "text-slate-500 group-hover:text-blue-400"}`}>
-        {icon}
-      </span>
-      {label}
-    </Link>
-  );
-}
-
-function DropdownLink({ href, icon, label }: { href: string, icon: React.ReactNode, label: string }) {
-  return (
-    <Link 
-      href={href} 
-      className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-xl transition-all group"
-    >
-      <div className="text-slate-400 group-hover:text-green-600 transition-colors">{icon}</div>
-      <span className="font-bold text-[11px] uppercase tracking-widest text-slate-600 group-hover:text-slate-900">{label}</span>
-    </Link>
-  );
-}
-
-function MobileNavLink({ href, label, icon, onClick }: { href: string, label: string, icon: React.ReactNode, onClick: () => void }) {
-  return (
-    <Link 
-      href={href} 
-      onClick={onClick}
-      className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl text-slate-900 hover:bg-slate-100 transition-all border border-slate-200/50"
-    >
-      <div className="text-green-600">{icon}</div>
-      <span className="font-black text-xs uppercase tracking-widest">{label}</span>
-      <ChevronRight className="h-4 w-4 ml-auto text-slate-300" />
-    </Link>
   );
 }

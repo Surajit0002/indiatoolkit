@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function AboutIndiaPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-green-50 pt-24 pb-16">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-green-50 pt-24 pb-16">
       <div className="container px-4 max-w-6xl mx-auto">
         {/* Hero Section */}
         <section className="text-center mb-20">
@@ -18,7 +18,7 @@ export default function AboutIndiaPage() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 leading-tight">
-            Empowering <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">India</span>
+            Empowering <span className="text-transparent bg-clip-text bg-linear-to-r from-green-600 to-emerald-600">India</span>
           </h1>
           
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
@@ -43,7 +43,7 @@ export default function AboutIndiaPage() {
               </p>
               <Link 
                 href="/tools" 
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold hover:shadow-lg transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-xl font-bold hover:shadow-lg transition-all"
               >
                 Explore Our Tools <ArrowRight className="h-4 w-4" />
               </Link>

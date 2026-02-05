@@ -21,6 +21,12 @@ export interface Tool {
   seo: SEOData;
   faqs: FAQ[];
   isPopular?: boolean;
+  isNew?: boolean; // New tool badge
+  verified?: boolean; // Verified tool badge
+  tags?: string[]; // Tags for the tool
+  featured?: boolean; // Featured tool
+  rating?: number; // Tool rating (1-5)
+  usageCount?: number; // Number of times used
 }
 
 export interface ToolCategory {
@@ -30,4 +36,6 @@ export interface ToolCategory {
   description: string;
   icon: string;
   color: string; // Solid color for the category
+  toolCount?: number; // Number of tools in category
+  featured?: boolean; // Featured category
 }
