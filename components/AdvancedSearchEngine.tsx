@@ -41,7 +41,7 @@ import {
   MapPin,
   Phone,
   Mail,
-  Link,
+  LinkIcon,
   Copy,
   Check,
   AlertCircle,
