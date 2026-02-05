@@ -74,7 +74,8 @@ This document provides a comprehensive summary of the programmatic SEO system ar
 
 ### 7. [`adsense-integration.md`](adsense-integration.md)
 **Complete AdSense integration guide:**
-- AdSense script configuration
+- Step 1: Site verification with meta tag
+- Step 2: AdSense script configuration
 - Next.js implementation methods
 - Ad placement strategy
 - Ad unit configuration
@@ -136,11 +137,16 @@ This document provides a comprehensive summary of the programmatic SEO system ar
 - **No Heavy Libraries**: Lightweight implementation
 
 ### AdSense Integration
+- **Site Verification**: Add meta tag for Google AdSense verification
 - **Google AdSense Script**: Add to layout for monetization
 - **Ad Component**: Reusable AdSense ad component
 - **Ad Placement Strategy**: Above/below tool, sidebar, between content
 - **Performance Considerations**: Lazy loading, CLS prevention, mobile optimization
 ```html
+<!-- Verification Meta Tag -->
+<meta name="google-adsense-account" content="ca-pub-2181120097485339">
+
+<!-- AdSense Script -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2181120097485339"
      crossorigin="anonymous"></script>
 ```

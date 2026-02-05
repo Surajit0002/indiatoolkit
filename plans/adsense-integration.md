@@ -2,11 +2,32 @@
 
 ## Overview
 
-Google AdSense integration for monetization of the India Toolkit website.
+Google AdSense integration for monetization of India Toolkit website.
 
-## AdSense Script
+## Step 1: Site Verification
 
-Add the Google AdSense script to the root layout:
+Before showing ads, verify your site ownership with Google AdSense:
+
+**Add this meta tag to your root layout:**
+
+```html
+<meta name="google-adsense-account" content="ca-pub-2181120097485339">
+```
+
+Implementation in [`app/layout.tsx`](../app/layout.tsx):
+
+```typescript
+export const metadata: Metadata = {
+  // ... other metadata
+  other: {
+    'google-adsense-account': 'ca-pub-2181120097485339'
+  }
+};
+```
+
+## Step 2: AdSense Script
+
+After verification, add the Google AdSense script to the root layout:
 
 ```html
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2181120097485339"
