@@ -11,7 +11,8 @@ import {
   Filter,
   Search,
   Download,
-  Share2
+  Share2,
+  Star
 } from 'lucide-react';
 
 interface AnalyticsData {
