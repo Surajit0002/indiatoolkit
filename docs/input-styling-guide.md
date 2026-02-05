@@ -142,7 +142,8 @@ The dynamic color system works automatically based on the tool's category color:
 
 ```tsx
 // In your tool page, the accent color is set via CSS variable
-<div style={{ "--accent-color": category?.color } as any}>
+// Note: The curly braces below are escaped for Liquid
+<div style="{{ "--accent-color": category?.color }}">
   {/* All inputs within this div will use the category color for focus states */}
   <ToolInput {...props} />
 </div>
