@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -137,6 +138,7 @@ export default function RootLayout({
         <main className="pt-16 bg-linear-to-br from-slate-50 to-green-50 min-h-screen">
           {children}
         </main>
+        <Analytics />
       </body>
     </html>
   );
