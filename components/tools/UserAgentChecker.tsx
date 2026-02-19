@@ -80,7 +80,7 @@ export default function UserAgentChecker() {
   );
 }
 
-function UaStatCard({ icon, label, value }: any) {
+function UaStatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
     return (
         <div className="glass-card p-6 flex flex-col items-center text-center">
             <div className="p-3 bg-blue-600/10 text-blue-600 rounded-full mb-4">
