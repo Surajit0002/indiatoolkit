@@ -1,5 +1,17 @@
 # IndiaToolkit.in - Deployment Guide
 
+## ⚠️ Important: GitHub Pages is NOT Supported
+
+**This Next.js project CANNOT be deployed to GitHub Pages** because it uses:
+- Server-side middleware (URL normalization, redirects)
+- Dynamic API routes (`/api/*`)
+- Server-side rendering (SSR)
+- Dynamic sitemap generation
+
+**Use Vercel instead** - it's free, optimized for Next.js, and supports all features.
+
+---
+
 ## 🚀 Quick Deployment (Vercel - Recommended)
 
 ### Prerequisites
