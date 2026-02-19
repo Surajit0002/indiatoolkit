@@ -75,7 +75,7 @@ export default function RemoveSpaces() {
           <Check className="h-5 w-5 text-amber-600" />
         </div>
         <div className="text-sm text-amber-800 leading-relaxed font-medium">
-          <strong>Tip:</strong> "Clean Extra Spaces" will trim the text and replace multiple spaces with a single space, making it perfect for formatting copied text from PDFs or poorly formatted documents.
+          <strong>Tip:</strong> &quot;Clean Extra Spaces&quot; will trim the text and replace multiple spaces with a single space, making it perfect for formatting copied text from PDFs or poorly formatted documents.
         </div>
       </div>
     </div>

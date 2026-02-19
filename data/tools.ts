@@ -4563,4 +4563,405 @@ export const tools: Tool[] = [
       },
     ],
   },
+  // ==================== NEW SOCIAL MEDIA DOWNLOADER TOOLS ====================
+  {
+    id: "youtube-video-downloader",
+    name: "YouTube Video Downloader",
+    slug: "youtube-video-downloader",
+    description: "Download YouTube videos in high quality - 4K, 1080p, 720p available.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Film",
+    componentName: "YoutubeVideoDownloader",
+    seo: {
+      title: "YouTube Video Downloader - Download HD Videos",
+      description: "Download YouTube videos in high quality. Support for 4K, 1080p, 720p and more.",
+      keywords: ["youtube video downloader", "download youtube video", "youtube to mp4"],
+    },
+    faqs: [
+      {
+        question: "What quality options are available?",
+        answer: "We support 4K, 1080p, 720p, 480p, and 360p quality options.",
+      },
+      {
+        question: "Is it free to use?",
+        answer: "Yes, YouTube Video Downloader is completely free to use.",
+      },
+    ],
+  },
+  {
+    id: "youtube-shorts-downloader",
+    name: "YouTube Shorts Downloader",
+    slug: "youtube-shorts-downloader",
+    description: "Download YouTube Shorts videos in high quality - No watermark.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Smartphone",
+    componentName: "YoutubeShortsDownloader",
+    seo: {
+      title: "YouTube Shorts Downloader - Download Shorts No Watermark",
+      description: "Download YouTube Shorts videos in high quality without watermark.",
+      keywords: ["youtube shorts downloader", "download shorts", "shorts no watermark"],
+    },
+    faqs: [
+      {
+        question: "Are Shorts downloaded without watermark?",
+        answer: "Yes, all Shorts are downloaded without any watermark.",
+      },
+      {
+        question: "What format are Shorts saved in?",
+        answer: "Shorts are saved in MP4 format for best quality.",
+      },
+    ],
+  },
+  {
+    id: "youtube-mp3-downloader",
+    name: "YouTube MP3 Downloader",
+    slug: "youtube-mp3-downloader",
+    description: "Convert YouTube videos to high-quality MP3 audio - Up to 320 kbps.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Music",
+    componentName: "YoutubeMp3Downloader",
+    seo: {
+      title: "YouTube to MP3 Converter - Download Audio",
+      description: "Convert YouTube videos to MP3 audio. High quality up to 320 kbps.",
+      keywords: ["youtube to mp3", "youtube mp3 converter", "extract audio from youtube"],
+    },
+    faqs: [
+      {
+        question: "What quality options are available?",
+        answer: "We support 320kbps, 256kbps, 128kbps, and 64kbps quality options.",
+      },
+      {
+        question: "Is it free to use?",
+        answer: "Yes, YouTube MP3 Downloader is completely free to use.",
+      },
+    ],
+  },
+  {
+    id: "youtube-transcript-extractor",
+    name: "YouTube Transcript Extractor",
+    slug: "youtube-transcript-extractor",
+    description: "Extract subtitles and transcripts from any YouTube video.",
+    category: "social-tools",
+    type: "analyzer",
+    icon: "FileText",
+    componentName: "YoutubeTranscriptExtractor",
+    seo: {
+      title: "YouTube Transcript Extractor - Get Subtitles",
+      description: "Extract YouTube video transcripts and subtitles in multiple languages.",
+      keywords: ["youtube transcript", "youtube subtitles", "extract transcript"],
+    },
+    faqs: [
+      {
+        question: "What languages are supported?",
+        answer: "We support all languages available on YouTube including English, Spanish, French, and more.",
+      },
+      {
+        question: "Can I get timestamps?",
+        answer: "Yes, transcripts can be extracted with timestamps for easy navigation.",
+      },
+    ],
+  },
+  {
+    id: "instagram-reel-downloader",
+    name: "Instagram Reel Downloader",
+    slug: "instagram-reel-downloader",
+    description: "Download Instagram Reels in high quality - No watermark.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Play",
+    componentName: "InstagramReelDownloader",
+    seo: {
+      title: "Instagram Reel Downloader - No Watermark",
+      description: "Download Instagram Reels in HD quality without watermark.",
+      keywords: ["instagram reel downloader", "download reels", "reel no watermark"],
+    },
+    faqs: [
+      {
+        question: "Are Reels downloaded without watermark?",
+        answer: "Yes, all Reels are downloaded without any Instagram watermark.",
+      },
+      {
+        question: "What quality is available?",
+        answer: "Reels are downloaded in HD quality up to 1080p.",
+      },
+    ],
+  },
+  {
+    id: "instagram-video-downloader",
+    name: "Instagram Video Downloader",
+    slug: "instagram-video-downloader",
+    description: "Download Instagram videos in high quality.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Video",
+    componentName: "InstagramVideoDownloader",
+    seo: {
+      title: "Instagram Video Downloader - HD Quality",
+      description: "Download Instagram videos in high definition quality.",
+      keywords: ["instagram video downloader", "download instagram video"],
+    },
+    faqs: [
+      {
+        question: "Can I download private videos?",
+        answer: "No, only public Instagram videos can be downloaded.",
+      },
+      {
+        question: "What quality is available?",
+        answer: "Videos are downloaded in their original quality.",
+      },
+    ],
+  },
+  {
+    id: "instagram-photo-downloader",
+    name: "Instagram Photo Downloader",
+    slug: "instagram-photo-downloader",
+    description: "Download Instagram photos in high quality.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Image",
+    componentName: "InstagramPhotoDownloader",
+    seo: {
+      title: "Instagram Photo Downloader - HD Quality",
+      description: "Download Instagram photos in original or HD quality.",
+      keywords: ["instagram photo downloader", "download instagram photo"],
+    },
+    faqs: [
+      {
+        question: "Can I download multiple photos?",
+        answer: "Yes, you can download individual photos or carousel posts.",
+      },
+      {
+        question: "What quality is available?",
+        answer: "Photos are downloaded in original resolution.",
+      },
+    ],
+  },
+  {
+    id: "instagram-story-downloader",
+    name: "Instagram Story Downloader",
+    slug: "instagram-story-downloader",
+    description: "Download Instagram Stories before they disappear - 24 hour limit.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Clock",
+    componentName: "InstagramStoryDownloader",
+    seo: {
+      title: "Instagram Story Downloader - Save Stories",
+      description: "Download Instagram stories before they expire in 24 hours.",
+      keywords: ["instagram story downloader", "save story", "download stories"],
+    },
+    faqs: [
+      {
+        question: "Do Stories expire after downloading?",
+        answer: "No, once downloaded, Stories are saved permanently on your device.",
+      },
+      {
+        question: "Can I download Highlights?",
+        answer: "Yes, Highlights can also be downloaded as they are saved Stories.",
+      },
+    ],
+  },
+  {
+    id: "instagram-profile-picture-downloader",
+    name: "Instagram Profile Picture Downloader (HD)",
+    slug: "instagram-profile-picture-downloader",
+    description: "Download Instagram profile pictures in high definition.",
+    category: "social-tools",
+    type: "converter",
+    icon: "User",
+    componentName: "InstagramProfilePictureDownloader",
+    seo: {
+      title: "Instagram Profile Picture Downloader - HD",
+      description: "Download any Instagram profile picture in HD quality.",
+      keywords: ["instagram profile picture", "download profile pic", "instagram avatar"],
+    },
+    faqs: [
+      {
+        question: "Is profile picture quality guaranteed?",
+        answer: "We try to download the highest available quality for each profile.",
+      },
+      {
+        question: "Can I download private profile pictures?",
+        answer: "No, only public profile pictures can be downloaded.",
+      },
+    ],
+  },
+  {
+    id: "instagram-hashtag-generator",
+    name: "Instagram Hashtag Generator",
+    slug: "instagram-hashtag-generator",
+    description: "Generate powerful hashtags to boost your reach and engagement.",
+    category: "social-tools",
+    type: "generator",
+    icon: "Hash",
+    componentName: "InstagramHashtagGenerator",
+    seo: {
+      title: "Instagram Hashtag Generator - Boost Reach",
+      description: "Generate trending hashtags for Instagram to increase engagement.",
+      keywords: ["instagram hashtag generator", "hashtag generator", "best hashtags"],
+    },
+    faqs: [
+      {
+        question: "How many hashtags can I use?",
+        answer: "Instagram allows up to 30 hashtags per post.",
+      },
+      {
+        question: "Are these hashtags trending?",
+        answer: "Yes, we generate a mix of trending and niche hashtags for better reach.",
+      },
+    ],
+  },
+  {
+    id: "instagram-caption-generator",
+    name: "Instagram Caption Generator",
+    slug: "instagram-caption-generator",
+    description: "Create engaging captions for your Instagram posts.",
+    category: "social-tools",
+    type: "generator",
+    icon: "FileText",
+    componentName: "InstagramCaptionGenerator",
+    seo: {
+      title: "Instagram Caption Generator - Engaging Captions",
+      description: "Create creative and engaging captions for your Instagram posts.",
+      keywords: ["instagram caption generator", "caption maker", "ig captions"],
+    },
+    faqs: [
+      {
+        question: "Can I customize the tone?",
+        answer: "Yes, you can choose from various tones like funny, inspirational, or professional.",
+      },
+      {
+        question: "Are captions unique?",
+        answer: "Yes, each caption is generated uniquely for your content.",
+      },
+    ],
+  },
+  {
+    id: "tiktok-video-downloader",
+    name: "TikTok Video Downloader (No Watermark)",
+    slug: "tiktok-video-downloader",
+    description: "Download TikTok videos without watermark in high quality.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Play",
+    componentName: "TiktokVideoDownloader",
+    seo: {
+      title: "TikTok Video Downloader - No Watermark",
+      description: "Download TikTok videos without watermark in HD quality.",
+      keywords: ["tiktok downloader", "download tiktok", "tiktok no watermark"],
+    },
+    faqs: [
+      {
+        question: "Are TikTok videos downloaded without watermark?",
+        answer: "Yes, all videos are downloaded without the TikTok watermark.",
+      },
+      {
+        question: "What quality is available?",
+        answer: "Videos are downloaded in HD quality up to 1080p.",
+      },
+    ],
+  },
+  {
+    id: "facebook-video-downloader",
+    name: "Facebook Video Downloader",
+    slug: "facebook-video-downloader",
+    description: "Download Facebook videos in high quality.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Play",
+    componentName: "FacebookVideoDownloader",
+    seo: {
+      title: "Facebook Video Downloader - HD Quality",
+      description: "Download Facebook videos in high definition quality.",
+      keywords: ["facebook video downloader", "download facebook video"],
+    },
+    faqs: [
+      {
+        question: "Can I download private videos?",
+        answer: "No, only public Facebook videos can be downloaded.",
+      },
+      {
+        question: "What quality is available?",
+        answer: "Videos are downloaded in their original quality.",
+      },
+    ],
+  },
+  {
+    id: "twitter-video-downloader",
+    name: "Twitter/X Video Downloader",
+    slug: "twitter-video-downloader",
+    description: "Download Twitter/X videos in high quality.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Play",
+    componentName: "TwitterVideoDownloader",
+    seo: {
+      title: "Twitter Video Downloader - X Video Download",
+      description: "Download Twitter and X videos in high quality.",
+      keywords: ["twitter video downloader", "x video download", "download tweet video"],
+    },
+    faqs: [
+      {
+        question: "Can I download GIFs?",
+        answer: "Yes, Twitter GIFs can also be downloaded as video files.",
+      },
+      {
+        question: "What format are videos saved in?",
+        answer: "Videos are saved in MP4 format.",
+      },
+    ],
+  },
+  {
+    id: "pinterest-video-downloader",
+    name: "Pinterest Video Downloader",
+    slug: "pinterest-video-downloader",
+    description: "Download Pinterest videos in high quality.",
+    category: "social-tools",
+    type: "converter",
+    icon: "Play",
+    componentName: "PinterestVideoDownloader",
+    seo: {
+      title: "Pinterest Video Downloader - HD Quality",
+      description: "Download Pinterest videos in high definition quality.",
+      keywords: ["pinterest video downloader", "download pinterest video"],
+    },
+    faqs: [
+      {
+        question: "Can I download Pinterest Idea Pins?",
+        answer: "Yes, Idea Pins can be downloaded as video files.",
+      },
+      {
+        question: "What quality is available?",
+        answer: "Videos are downloaded in their original quality.",
+      },
+    ],
+  },
+  {
+    id: "video-to-mp3-converter",
+    name: "Video to MP3 Converter",
+    slug: "video-to-mp3-converter",
+    description: "Convert any video to high-quality MP3 audio.",
+    category: "converters",
+    type: "converter",
+    icon: "Music",
+    componentName: "VideoToMp3Converter",
+    seo: {
+      title: "Video to MP3 Converter - Extract Audio",
+      description: "Convert video files to MP3 audio. Support for MP4, AVI, MOV, WMV and more.",
+      keywords: ["video to mp3", "extract audio", "convert video to audio"],
+    },
+    faqs: [
+      {
+        question: "What video formats are supported?",
+        answer: "We support MP4, AVI, MOV, WMV, FLV, MKV, and WebM formats.",
+      },
+      {
+        question: "What audio quality is available?",
+        answer: "You can choose from 64kbps to 320kbps quality options.",
+      },
+    ],
+  },
 ];

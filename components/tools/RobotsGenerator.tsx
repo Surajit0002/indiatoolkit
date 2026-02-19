@@ -85,7 +85,7 @@ export default function RobotsGenerator() {
           <div className="bg-blue-50 p-4 rounded-xl flex gap-3">
             <Info className="h-5 w-5 text-blue-400 flex-shrink-0" />
             <p className="text-[10px] text-blue-600 font-bold uppercase tracking-widest leading-relaxed">
-              Place the generated file in your website's root directory (e.g., example.com/robots.txt).
+              Place the generated file in your website&apos;s root directory (e.g., example.com/robots.txt).
             </p>
           </div>
         </div>

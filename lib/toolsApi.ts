@@ -68,7 +68,7 @@ export class ToolsApi {
   }): Tool[] {
     const allTools = this.getAllTools();
     
-    let filteredTools = allTools.filter(tool => {
+    const filteredTools = allTools.filter(tool => {
       const matchesQuery = 
         tool.name.toLowerCase().includes(query.toLowerCase()) ||
         tool.description.toLowerCase().includes(query.toLowerCase()) ||

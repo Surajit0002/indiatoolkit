@@ -215,7 +215,7 @@ export default function MarketingCopyGenerator() {
                 ) : (
                   <div className="flex items-center justify-center h-full">
                     <p className="text-slate-400 text-center">
-                      Fill in the details and click<br />"Generate Copy"
+                      Fill in the details and click<br />&quot;Generate Copy&quot;
                     </p>
                   </div>
                 )}

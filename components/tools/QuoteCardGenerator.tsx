@@ -213,7 +213,7 @@ export default function QuoteCardGenerator() {
                                 color: quoteStyle === "bold" ? "#ffffff" : primaryColor
                               }}
                             >
-                              "{quote.length > 150 ? quote.substring(0, 150) + "..." : quote}"
+                              {quote.length > 150 ? quote.substring(0, 150) + "..." : quote}
                             </p>
                           </div>
                           
@@ -271,7 +271,7 @@ export default function QuoteCardGenerator() {
                                 color: quoteStyle === "bold" ? "#ffffff" : primaryColor
                               }}
                             >
-                              "{quote}"
+                              {quote}
                             </p>
                           </div>
                           
@@ -359,7 +359,7 @@ export default function QuoteCardGenerator() {
                       }}
                       className="p-3 rounded-xl border-2 border-slate-100 hover:border-violet-500 hover:bg-violet-50 transition-all text-left"
                     >
-                      <p className="text-xs font-medium text-slate-700 line-clamp-2 mb-1">"{q.quote}"</p>
+                      <p className="text-xs font-medium text-slate-700 line-clamp-2 mb-1">{q.quote}</p>
                       <p className="text-xs text-slate-400">— {q.author}</p>
                     </button>
                   ))}

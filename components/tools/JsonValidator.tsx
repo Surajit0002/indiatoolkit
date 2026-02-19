@@ -22,8 +22,9 @@ export default function JsonValidator() {
       const formatted = JSON.stringify(parsed, null, 2);
       setInput(formatted);
       setStatus({ type: "success", message: "Valid JSON" });
-    } catch (e: any) {
-      setStatus({ type: "error", message: e.message });
+    } catch (e) {
+      const err = e as Error;
+      setStatus({ type: "error", message: err.message });
     }
   };
 

@@ -16,8 +16,9 @@ export default function JsonFormatter() {
       setError(null);
       setSuccess(true);
       setTimeout(() => setSuccess(false), 2000);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (e) {
+      const err = e as Error;
+      setError(err.message);
     }
   };
 
@@ -27,8 +28,9 @@ export default function JsonFormatter() {
       const parsed = JSON.parse(input);
       setInput(JSON.stringify(parsed));
       setError(null);
-    } catch (e: any) {
-      setError(e.message);
+    } catch (e) {
+      const err = e as Error;
+      setError(err.message);
     }
   };
 

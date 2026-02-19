@@ -47,7 +47,8 @@ export default function ImageColorPicker() {
       // Simple HSL conversion
       const r_norm = r / 255, g_norm = g / 255, b_norm = b / 255;
       const max = Math.max(r_norm, g_norm, b_norm), min = Math.min(r_norm, g_norm, b_norm);
-      let h = 0, s, l = (max + min) / 2;
+      let h = 0, s: number;
+      const l = (max + min) / 2;
       if (max === min) h = s = 0;
       else {
         const d = max - min;

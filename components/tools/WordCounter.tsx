@@ -1,25 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Copy, Trash2, FileText, Hash, AlignLeft, RefreshCw, BarChart3 } from "lucide-react";
 import { ToolTextarea } from "@/components/ui/ToolInput";
 
 export default function WordCounter() {
   const [text, setText] = useState("");
-  const [stats, setStats] = useState({
-    words: 0,
-    characters: 0,
-    sentences: 0,
-    paragraphs: 0,
-  });
 
-  useEffect(() => {
+  // Compute stats directly using useMemo
+  const stats = useMemo(() => {
     const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
     const characters = text.length;
     const sentences = text.trim() === "" ? 0 : text.split(/[.!?]+/).filter(Boolean).length;
     const paragraphs = text.trim() === "" ? 0 : text.split(/\n+/).filter(Boolean).length;
-
-    setStats({ words, characters, sentences, paragraphs });
+    return { words, characters, sentences, paragraphs };
   }, [text]);
 
   return (

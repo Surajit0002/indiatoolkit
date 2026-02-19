@@ -82,7 +82,7 @@ function PopularToolCard({ tool, rank }: { tool: Tool; rank: number }) {
       )}
 
       <div className="flex flex-col items-center text-center">
-        <div className="p-3 bg-gradient-to-br from-slate-100 to-slate-50 rounded-xl group-hover:from-blue-50 group-hover:to-blue-100 transition-colors mb-3">
+        <div className="p-3 bg-linear-to-br from-slate-100 to-slate-50 rounded-xl group-hover:from-blue-50 group-hover:to-blue-100 transition-colors mb-3">
           <ToolIcon className="h-6 w-6 text-slate-600 group-hover:text-blue-600" />
         </div>
         <h3 className="font-semibold text-slate-900 group-hover:text-blue-600 text-sm">
@@ -153,7 +153,7 @@ function TrendingToolCard({ tool }: { tool: Tool }) {
       href={`/tool/${tool.slug}`}
       className="group flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-200 hover:border-green-300 hover:shadow-md transition-all"
     >
-      <div className="p-2.5 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg group-hover:from-green-100 group-hover:to-emerald-100 transition-colors">
+      <div className="p-2.5 bg-linear-to-br from-green-50 to-emerald-50 rounded-lg group-hover:from-green-100 group-hover:to-emerald-100 transition-colors">
         <ToolIcon className="h-5 w-5 text-green-600" />
       </div>
       <div className="flex-1 min-w-0">
@@ -221,7 +221,7 @@ function NewToolCard({ tool }: { tool: Tool }) {
   return (
     <Link
       href={`/tool/${tool.slug}`}
-      className="group p-4 bg-gradient-to-br from-purple-50 to-white rounded-xl border border-purple-100 hover:border-purple-300 hover:shadow-md transition-all"
+      className="group p-4 bg-linear-to-br from-purple-50 to-white rounded-xl border border-purple-100 hover:border-purple-300 hover:shadow-md transition-all"
     >
       <div className="flex items-center gap-3 mb-3">
         <div className="p-2 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">

@@ -1,4 +1,5 @@
-import { Shield, Zap, Heart, Globe, Users, Code } from "lucide-react";
+import React from "react";
+import { Shield, Zap, Users } from "lucide-react";
 
 export const metadata = {
   title: "About Us - OMNITOOLS",
@@ -39,7 +40,7 @@ export default function AboutPage() {
           <div className="space-y-8">
             <h2 className="text-4xl font-black text-gray-900 tracking-tight">Our Mission</h2>
             <p className="text-lg text-gray-500 font-medium leading-relaxed">
-              We believe that powerful tools shouldn't come with a high price tag or 
+              We believe that powerful tools shouldn&apos;t come with a high price tag or 
               privacy compromises. That's why we build tools that run directly in your 
               browser, ensuring your data never leaves your device.
             </p>
@@ -97,7 +98,7 @@ export default function AboutPage() {
   );
 }
 
-function ValueCard({ icon, title, description }: { icon: any, title: string, description: string }) {
+function ValueCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
   return (
     <div className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
       <div className="p-4 bg-blue-50 text-blue-600 rounded-2xl w-fit mb-8 transition-transform group-hover:scale-110 group-hover:-rotate-3">

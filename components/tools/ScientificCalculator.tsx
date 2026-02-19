@@ -63,7 +63,7 @@ export default function ScientificCalculator() {
   const handleEqual = () => {
     try {
       const fullEquation = equation + display;
-      // eslint-disable-next-line no-new-func
+       
       const result = new Function(`return ${fullEquation.replace(/×/g, "*").replace(/÷/g, "/")}`)();
       setDisplay(String(result));
       setEquation("");

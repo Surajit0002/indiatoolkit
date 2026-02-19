@@ -321,7 +321,7 @@ export default function PresentationSlideDesigner() {
 
                     {slideType === "quote" && (
                       <div className="h-full flex flex-col justify-center items-center text-center">
-                        <div className="text-6xl mb-4" style={{ color: accentColor }}>"</div>
+                        <div className="text-6xl mb-4" style={{ color: accentColor }}>&quot;</div>
                         <h2 className="font-serif italic text-2xl mb-6" style={{ color: primaryColor }}>
                           {title}
                         </h2>

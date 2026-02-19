@@ -23,18 +23,17 @@ function getInitialTheme(): Theme {
   return (localStorage.getItem("theme") as Theme) || "system";
 }
 
-function getInitialResolvedTheme(theme: Theme): "light" | "dark" {
-  if (theme === "system") {
-    return getSystemTheme();
-  }
-  return theme;
-}
-
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(getInitialTheme);
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => 
-    getInitialResolvedTheme(getInitialTheme())
-  );
+  const [systemTheme, setSystemTheme] = useState<"light" | "dark">(() => getSystemTheme());
+
+  // Compute resolved theme using useMemo instead of useState + useEffect
+  const resolvedTheme = useMemo<"light" | "dark">(() => {
+    if (theme === "system") {
+      return systemTheme;
+    }
+    return theme;
+  }, [theme, systemTheme]);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
@@ -49,35 +48,21 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  // Effect for DOM updates and system theme listener only
   useEffect(() => {
     const root = document.documentElement;
-    
-    const getResolvedTheme = (): "light" | "dark" => {
-      if (theme === "system") {
-        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
-      return theme;
-    };
-
-    const resolved = getResolvedTheme();
-    setResolvedTheme(resolved);
     root.classList.remove("light", "dark");
-    root.classList.add(resolved);
+    root.classList.add(resolvedTheme);
 
     // Listen for system theme changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = () => {
-      if (theme === "system") {
-        const newResolved = mediaQuery.matches ? "dark" : "light";
-        setResolvedTheme(newResolved);
-        root.classList.remove("light", "dark");
-        root.classList.add(newResolved);
-      }
+      setSystemTheme(mediaQuery.matches ? "dark" : "light");
     };
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
+  }, [resolvedTheme]);
 
   const contextValue = useMemo<ThemeContextType>(() => ({
     theme,

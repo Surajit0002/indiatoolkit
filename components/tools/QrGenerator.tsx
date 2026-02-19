@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import QRCode from "qrcode";
 import { Download, Share2, Link as LinkIcon, Type, FileText, QrCode, RefreshCw } from "lucide-react";
 
@@ -11,11 +11,7 @@ export default function QrGenerator() {
   const [bgColor, setBgColor] = useState("#ffffff");
   const [errorLevel, setErrorLevel] = useState<"L" | "M" | "Q" | "H">("M");
   
-  useEffect(() => {
-    generateQrCode();
-  }, [text, color, bgColor, errorLevel]);
-
-  const generateQrCode = async () => {
+  const generateQrCode = useCallback(async () => {
     try {
       const url = await QRCode.toDataURL(text, {
         width: 1000,
@@ -30,7 +26,11 @@ export default function QrGenerator() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [text, color, bgColor, errorLevel]);
+
+  useEffect(() => {
+    generateQrCode();
+  }, [generateQrCode]);
 
   const downloadQrCode = () => {
     const link = document.createElement("a");

@@ -14,7 +14,7 @@ export default function MetaTagGenerator() {
   const [copied, setCopied] = useState(false);
 
   const generateTags = () => {
-    let tags = `<!-- Primary Meta Tags -->
+    const tags = `<!-- Primary Meta Tags -->
 <title>${formData.title}</title>
 <meta name="title" content="${formData.title}">
 <meta name="description" content="${formData.description}">

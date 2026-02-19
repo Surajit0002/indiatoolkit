@@ -109,7 +109,7 @@ export const categories: ToolCategory[] = [
     id: "social-tools",
     name: "Social Tools",
     slug: "social-tools",
-    description: "Social media generators and character counters.",
+    description: "Download, generate & analyze social media content.",
     icon: "Share2",
     color: "#3B82F6", // blue-500
   },

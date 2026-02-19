@@ -76,7 +76,7 @@ export default function FileExtensionFinder() {
         ) : query && (
           <div className="bg-gray-50 rounded-3xl p-12 text-center space-y-4 border border-gray-100">
             <Info className="h-12 w-12 text-gray-300 mx-auto" />
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">No details found for ".{ext}"</p>
+            <p className="text-sm font-bold text-gray-400 uppercase tracking-widest">No details found for &quot;.{ext}&quot;</p>
           </div>
         )}
 

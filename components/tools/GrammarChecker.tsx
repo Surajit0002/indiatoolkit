@@ -258,11 +258,11 @@ export default function GrammarChecker() {
                               {issue.message}
                             </p>
                             <div className="flex items-center gap-2 text-xs text-slate-500">
-                              <span>Found: "</span>
+                              <span>Found: &quot;</span>
                               <code className="bg-white px-1 rounded border border-slate-200">
                                 {text.substring(issue.position.start, issue.position.end)}
                               </code>
-                              <span>"</span>
+                              <span>&quot;</span>
                             </div>
                           </div>
                           <button

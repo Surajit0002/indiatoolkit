@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Copy, Check, ArrowRightLeft, Calculator, Ruler, RefreshCw } from "lucide-react";
 
 type Unit = 'px' | 'em' | 'rem' | 'pt' | 'percent';
@@ -20,7 +20,6 @@ export default function FontSizeConverter() {
   const [inputValue, setInputValue] = useState<string>("16");
   const [fromUnit, setFromUnit] = useState<Unit>("px");
   const [baseSize, setBaseSize] = useState<number>(16);
-  const [result, setResult] = useState<ConversionResult | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
 
   const convertToPx = (value: number, unit: Unit): number => {
@@ -44,15 +43,14 @@ export default function FontSizeConverter() {
     };
   };
 
-  useEffect(() => {
+  // Compute result directly during render using useMemo
+  const result = useMemo(() => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      setResult(null);
-      return;
+      return null;
     }
-
     const pxValue = convertToPx(value, fromUnit);
-    setResult(convertFromPx(pxValue));
+    return convertFromPx(pxValue);
   }, [inputValue, fromUnit, baseSize]);
 
   const handleCopy = (value: string, key: string) => {

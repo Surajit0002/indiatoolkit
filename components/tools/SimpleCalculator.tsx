@@ -32,7 +32,7 @@ export default function SimpleCalculator() {
     try {
       const fullEquation = equation + display;
       // Using Function constructor as a safer alternative to eval for basic arithmetic
-      // eslint-disable-next-line no-new-func
+       
       const result = new Function(`return ${fullEquation.replace(/×/g, "*").replace(/÷/g, "/")}`)();
       setDisplay(String(result));
       setEquation("");

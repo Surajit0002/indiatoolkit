@@ -28,17 +28,17 @@ export default function LoremIpsum() {
         const sentenceCount = Math.floor(Math.random() * 4) + 4;
         for (let s = 0; s < sentenceCount; s++) {
           const wordCount = Math.floor(Math.random() * 10) + 8;
-          let sentence = [];
+          const sentence = [];
           for (let w = 0; w < wordCount; w++) {
             sentence.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
           }
-          let sentenceStr = sentence.join(" ");
+          const sentenceStr = sentence.join(" ");
           p += sentenceStr.charAt(0).toUpperCase() + sentenceStr.slice(1) + ". ";
         }
         output += p + "\n\n";
       }
     } else {
-      let words = [];
+      const words = [];
       for (let i = 0; i < paragraphs; i++) {
         words.push(LOREM_WORDS[Math.floor(Math.random() * LOREM_WORDS.length)]);
       }

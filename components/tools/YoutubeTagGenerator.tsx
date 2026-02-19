@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Youtube, Copy, Check, Hash } from "lucide-react";
+import { Youtube, Copy, Check } from "lucide-react";
 
 export default function YoutubeTagGenerator() {
   const [keyword, setKeyword] = useState("");

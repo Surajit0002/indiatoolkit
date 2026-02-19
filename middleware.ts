@@ -10,7 +10,7 @@ import type { NextRequest } from 'next/server'
  */
 export function middleware(request: NextRequest) {
   const url = request.nextUrl
-  const { pathname, search, host } = url
+  const { pathname, host } = url
   
   // Skip static files and API routes
   if (
@@ -23,7 +23,7 @@ export function middleware(request: NextRequest) {
   }
 
   let shouldRedirect = false
-  let redirectUrl = url.clone()
+  const redirectUrl = url.clone()
 
   // 1. Fix double slashes in URL path
   if (pathname.includes('//')) {

@@ -1,16 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { User, Copy, Check, Info, Laptop, Smartphone, Monitor } from "lucide-react";
 
-export default function UserAgentChecker() {
-  const [ua, setUa] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [parsed, setParsed] = useState<any>(null);
+interface ParsedUA {
+  isMobile: boolean;
+  isTablet: boolean;
+  browser: string;
+  os: string;
+}
 
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
-    setUa(userAgent);
+export default function UserAgentChecker() {
+  const [copied, setCopied] = useState(false);
+
+  // Parse user agent directly during render using useMemo
+  const { ua, parsed } = useMemo(() => {
+    const userAgent = typeof window !== 'undefined' ? navigator.userAgent : '';
     
     // Simple manual parsing for demo/basic info
     const isMobile = /Mobile|Android|iPhone/i.test(userAgent);
@@ -25,7 +30,10 @@ export default function UserAgentChecker() {
                userAgent.includes("Android") ? "Android" :
                userAgent.includes("iPhone") ? "iOS" : "Unknown";
 
-    setParsed({ isMobile, isTablet, browser, os });
+    return {
+      ua: userAgent,
+      parsed: { isMobile, isTablet, browser, os } as ParsedUA
+    };
   }, []);
 
   const copyUa = () => {

@@ -176,10 +176,10 @@ export default function ProductLabelDesigner() {
               </h3>
               <div className="space-y-2 text-sm text-slate-600">
                 <p><strong>Standard Sizes:</strong></p>
-                <p>Small: 2" × 3"</p>
-                <p>Medium: 3" × 4"</p>
-                <p>Large: 4" × 6"</p>
-                <p>Circle: 2.5" diameter</p>
+                <p>Small: 2&quot; × 3&quot;</p>
+                <p>Medium: 3&quot; × 4&quot;</p>
+                <p>Large: 4&quot; × 6&quot;</p>
+                <p>Circle: 2.5&quot; diameter</p>
               </div>
             </div>
           </div>

@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <h2>Why Password Complexity Still Matters</h2>
               <p>
                 In 2026, brute-force attacks have become more sophisticated than ever. 
-                Using "password123" or your pet's name is an open invitation for security breaches. 
+                Using &quot;password123&quot; or your pet&apos;s name is an open invitation for security breaches. 
                 A secure password should be a random string of characters that even a powerful 
                 AI cannot guess in a reasonable amount of time.
               </p>

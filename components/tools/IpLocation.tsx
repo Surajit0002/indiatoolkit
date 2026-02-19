@@ -5,9 +5,28 @@ import { MapPin, Navigation, Globe, Search, Copy, Check } from "lucide-react";
 
 export default function IpLocation() {
   const [query, setQuery] = useState("");
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<IpApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  interface IpApiResponse {
+    ip?: string;
+    city?: string;
+    region?: string;
+    region_code?: string;
+    country?: string;
+    country_name?: string;
+    country_code?: string;
+    postal?: string;
+    latitude?: number;
+    longitude?: number;
+    timezone?: string;
+    isp?: string;
+    org?: string;
+    asn?: string;
+    error?: boolean;
+    reason?: string;
+  }
 
   const fetchLocation = async (ip: string = "") => {
     setIsLoading(true);
@@ -101,7 +120,7 @@ export default function IpLocation() {
                     scrolling="no"
                     marginHeight={0}
                     marginWidth={0}
-                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${data.longitude-0.1}%2C${data.latitude-0.1}%2C${data.longitude+0.1}%2C${data.latitude+0.1}&layer=mapnik&marker=${data.latitude}%2C${data.longitude}`}
+                    src={`https://www.openstreetmap.org/export/embed.html?bbox=${(data.longitude || 0)-0.1}%2C${(data.latitude || 0)-0.1}%2C${(data.longitude || 0)+0.1}%2C${(data.latitude || 0)+0.1}&layer=mapnik&marker=${data.latitude || 0}%2C${data.longitude || 0}`}
                     className="grayscale contrast-125 brightness-90 hover:grayscale-0 transition-all duration-700"
                 />
                 <div className="absolute bottom-4 left-4 right-4 glass-card p-4 bg-white/90 backdrop-blur-md flex items-center justify-between">
@@ -126,7 +145,7 @@ export default function IpLocation() {
   );
 }
 
-function LocationDetail({ label, value, subValue, icon }: { label: string; value: string; subValue: string; icon: React.ReactNode }) {
+function LocationDetail({ label, value, subValue, icon }: { label: string; value: string | undefined; subValue: string | undefined; icon: React.ReactNode }) {
     return (
         <div className="flex items-center gap-4">
             <div className="h-10 w-10 bg-gray-100 rounded-[10px] flex items-center justify-center text-gray-500">
@@ -135,8 +154,8 @@ function LocationDetail({ label, value, subValue, icon }: { label: string; value
             <div>
                 <p className="text-[10px] font-black uppercase text-gray-400 leading-none mb-1">{label}</p>
                 <div className="flex items-baseline gap-2">
-                    <span className="font-black text-lg">{value}</span>
-                    <span className="text-xs font-bold text-gray-400">({subValue})</span>
+                    <span className="font-black text-lg">{value || 'N/A'}</span>
+                    <span className="text-xs font-bold text-gray-400">({subValue || '-'})</span>
                 </div>
             </div>
         </div>

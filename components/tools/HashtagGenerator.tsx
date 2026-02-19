@@ -211,7 +211,7 @@ export default function HashtagGenerator() {
                 ) : (
                   <div className="flex items-center justify-center h-full">
                     <p className="text-slate-400 text-center">
-                      Enter keywords and click<br />"Generate Hashtags"
+                      Enter keywords and click<br />&quot;Generate Hashtags&quot;
                     </p>
                   </div>
                 )}

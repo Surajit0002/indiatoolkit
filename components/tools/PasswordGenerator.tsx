@@ -1,10 +1,45 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Copy, RefreshCw, Check, Shield, ShieldAlert, ShieldCheck } from "lucide-react";
 
+// Helper function to generate password
+function generatePassword(
+  len: number,
+  includeUpper: boolean,
+  includeLower: boolean,
+  includeNums: boolean,
+  includeSymbols: boolean,
+  excludeSimilar: boolean
+): string {
+  let charset = "";
+  let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let lower = "abcdefghijklmnopqrstuvwxyz";
+  let nums = "0123456789";
+  const symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+
+  if (excludeSimilar) {
+    upper = upper.replace(/[IO]/g, "");
+    lower = lower.replace(/[ilo]/g, "");
+    nums = nums.replace(/[01]/g, "");
+  }
+
+  if (includeUpper) charset += upper;
+  if (includeLower) charset += lower;
+  if (includeNums) charset += nums;
+  if (includeSymbols) charset += symbols;
+
+  if (charset === "") return "";
+
+  let generatedPassword = "";
+  for (let i = 0; i < len; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    generatedPassword += charset[randomIndex];
+  }
+  return generatedPassword;
+}
+
 export default function PasswordGenerator() {
-  const [password, setPassword] = useState("");
   const [length, setLength] = useState(16);
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeLowercase, setIncludeLowercase] = useState(true);
@@ -12,38 +47,12 @@ export default function PasswordGenerator() {
   const [includeSymbols, setIncludeSymbols] = useState(true);
   const [excludeSimilar, setExcludeSimilar] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [password, setPassword] = useState(() => generatePassword(16, true, true, true, true, false));
 
-  const generatePassword = useCallback(() => {
-    let charset = "";
-    let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let lower = "abcdefghijklmnopqrstuvwxyz";
-    let nums = "0123456789";
-    let symbols = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
-
-    if (excludeSimilar) {
-      upper = upper.replace(/[IO]/g, "");
-      lower = lower.replace(/[ilo]/g, "");
-      nums = nums.replace(/[01]/g, "");
-    }
-
-    if (includeUppercase) charset += upper;
-    if (includeLowercase) charset += lower;
-    if (includeNumbers) charset += nums;
-    if (includeSymbols) charset += symbols;
-
-    if (charset === "") return;
-
-    let generatedPassword = "";
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * charset.length);
-      generatedPassword += charset[randomIndex];
-    }
-    setPassword(generatedPassword);
+  // Generate new password when options change
+  const regeneratePassword = useCallback(() => {
+    setPassword(generatePassword(length, includeUppercase, includeLowercase, includeNumbers, includeSymbols, excludeSimilar));
   }, [length, includeUppercase, includeLowercase, includeNumbers, includeSymbols, excludeSimilar]);
-
-  useEffect(() => {
-    generatePassword();
-  }, [generatePassword]);
 
   const handleCopy = () => {
     if (!password) return;
@@ -71,7 +80,7 @@ export default function PasswordGenerator() {
           </span>
           <div className="flex gap-2 w-full sm:w-auto">
             <button
-              onClick={generatePassword}
+              onClick={regeneratePassword}
               className="flex-1 sm:flex-none p-2 sm:p-3 bg-white text-black border-2 border-black rounded-lg sm:rounded-[8px] hover:bg-gray-200 transition-all touch-target"
               aria-label="Generate new password"
             >

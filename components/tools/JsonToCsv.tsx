@@ -37,8 +37,9 @@ export default function JsonToCsv() {
       document.body.removeChild(link);
       
       setError(null);
-    } catch (err: any) {
-      setError(err.message || "Invalid JSON format");
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message || "Invalid JSON format");
     }
   };
 

@@ -274,7 +274,7 @@ export default function MarketingCampaignPlanner() {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-full">
-                    <p className="text-slate-400 text-center">Fill in campaign details and click<br />"Generate Campaign Plan"</p>
+                    <p className="text-slate-400 text-center">Fill in campaign details and click<br />&quot;Generate Campaign Plan&quot;</p>
                   </div>
                 )}
               </div>

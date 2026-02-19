@@ -9,9 +9,41 @@ interface Note {
 }
 
 export default function NotesGenerator() {
-  const [inputText, setInputText] = useState("");
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [title, setTitle] = useState("My Notes");
+  const [inputText, setInputText] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('notesInputText');
+      if (saved) return saved;
+    }
+    return "";
+  });
+  const [notes, setNotes] = useState<Note[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('notesData');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          return data.notes || [];
+        } catch {
+          return [];
+        }
+      }
+    }
+    return [];
+  });
+  const [title, setTitle] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('notesData');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          return data.title || "My Notes";
+        } catch {
+          return "My Notes";
+        }
+      }
+    }
+    return "My Notes";
+  });
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [bullets, setBullets] = useState(true);
@@ -144,10 +176,6 @@ export default function NotesGenerator() {
       setNotes(data.notes || []);
     }
   };
-
-  useEffect(() => {
-    loadFromLocalStorage();
-  }, []);
 
   return (
     <div className="p-6 md:p-8 space-y-8">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Youtube, Copy, Check, Sparkles } from "lucide-react";
+import { Youtube, Copy, Check } from "lucide-react";
 
 const TITLE_TEMPLATES = [
   "How to [KEYWORD] in 2024 (Complete Guide)",

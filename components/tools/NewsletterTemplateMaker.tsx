@@ -310,7 +310,7 @@ export default function NewsletterTemplateMaker() {
                     {/* Footer */}
                     <div className="p-4 border-t border-slate-200/50 text-center">
                       <p className="text-xs text-slate-400">
-                        You're receiving this because you subscribed to {newsletterName}.
+                        You&apos;re receiving this because you subscribed to {newsletterName}.
                       </p>
                       <div className="flex justify-center gap-4 mt-3 text-xs">
                         <span className="font-medium" style={{ color: primaryColor }}>Unsubscribe</span>

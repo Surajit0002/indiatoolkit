@@ -232,21 +232,21 @@ export default function HeroSearchBar() {
       {/* Modal Backdrop */}
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 animate-fade-in"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-fade-in"
           onClick={handleBackdropClick}
         />
       )}
 
       {/* Modal Container */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-[15vh] px-4 animate-fade-in">
+        <div className="fixed inset-0 z-100 flex items-start justify-center pt-[15vh] px-4 animate-fade-in">
           <div 
             ref={modalRef}
             className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl animate-scale-in overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header - Search Input */}
-            <div className="relative bg-gradient-to-r from-slate-800 to-slate-700 p-4">
+            <div className="relative bg-linear-to-r from-slate-800 to-slate-700 p-4">
               <div className="flex items-center gap-3">
                 <Search className="h-5 w-5 text-slate-400" />
                 <input
@@ -308,7 +308,7 @@ export default function HeroSearchBar() {
                               }`}
                             >
                               <div 
-                                className="h-12 w-12 rounded-xl flex items-center justify-center text-white shadow-md flex-shrink-0 transition-transform duration-200 hover:scale-105"
+                                className="h-12 w-12 rounded-xl flex items-center justify-center text-white shadow-md shrink-0 transition-transform duration-200 hover:scale-105"
                                 style={{ backgroundColor: category?.color || '#10b981' }}
                               >
                                 <Zap className="h-6 w-6" />
@@ -320,7 +320,7 @@ export default function HeroSearchBar() {
                                     {highlightMatch(tool.name, query)}
                                   </h4>
                                   {tool.isPopular && (
-                                    <span className="px-1.5 py-0.5 bg-amber-100 text-amber-600 rounded text-[9px] font-bold flex-shrink-0">
+                                    <span className="px-1.5 py-0.5 bg-amber-100 text-amber-600 rounded text-[9px] font-bold shrink-0">
                                       HOT
                                     </span>
                                   )}
@@ -330,7 +330,7 @@ export default function HeroSearchBar() {
                                 </p>
                               </div>
                               
-                              <ArrowUpRight className={`h-5 w-5 flex-shrink-0 ${
+                              <ArrowUpRight className={`h-5 w-5 shrink-0 ${
                                 index === activeIndex ? 'text-green-500' : 'text-slate-300'
                               }`} />
                             </Link>
@@ -342,7 +342,7 @@ export default function HeroSearchBar() {
                       <Link
                         href={`/tools?q=${encodeURIComponent(query)}`}
                         onClick={() => { closeModal(); }}
-                        className="flex items-center justify-center gap-2 w-full py-3 mt-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl text-sm font-bold uppercase tracking-wide hover:from-green-600 hover:to-emerald-600 transition-all shadow-md hover:shadow-lg"
+                        className="flex items-center justify-center gap-2 w-full py-3 mt-4 bg-linear-to-r from-green-500 to-emerald-500 text-white rounded-xl text-sm font-bold uppercase tracking-wide hover:from-green-600 hover:to-emerald-600 transition-all shadow-md hover:shadow-lg"
                       >
                         View All {results.length} Results
                         <ArrowRight className="h-4 w-4" />
@@ -420,7 +420,7 @@ export default function HeroSearchBar() {
                               className="flex items-center gap-2 p-2 rounded-lg border border-slate-100 bg-slate-50 hover:bg-white hover:border-green-200 hover:shadow-md transition-all"
                             >
                               <div 
-                                className="h-8 w-8 rounded-lg flex items-center justify-center text-white shadow-sm flex-shrink-0"
+                                className="h-8 w-8 rounded-lg flex items-center justify-center text-white shadow-sm shrink-0"
                                 style={{ backgroundColor: category?.color || '#10b981' }}
                               >
                                 <Zap className="h-4 w-4" />

@@ -281,7 +281,7 @@ export default function InvitationCardMaker() {
                           </div>
                         </div>
                         <div className="text-center mb-6">
-                          <p className="text-sm font-bold uppercase tracking-wider mb-2">You're Invited!</p>
+                          <p className="text-sm font-bold uppercase tracking-wider mb-2">You&apos;re Invited!</p>
                           <h1 className="font-black text-3xl italic">{occasion}</h1>
                         </div>
                         <div className="bg-white/20 rounded-xl p-4 mb-6 space-y-2">

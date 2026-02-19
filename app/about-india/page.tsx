@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Users, Globe, Award, Lightbulb, Heart, Leaf, Mountain, Coffee, Calendar, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowRight, Users, Globe, Award, Lightbulb, Heart, Leaf, Mountain, Coffee, MapPin, Phone, Mail } from "lucide-react";
 
 export const metadata = {
   title: "About India - India Toolkit",
@@ -22,7 +22,7 @@ export default function AboutIndiaPage() {
           </h1>
           
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            India Toolkit is India's premier online platform providing free, powerful tools for professionals, 
+            India Toolkit is India&apos;s premier online platform providing free, powerful tools for professionals, 
             students, and creators across the nation.
           </p>
         </section>
@@ -39,7 +39,7 @@ export default function AboutIndiaPage() {
               </p>
               <p className="text-slate-600 mb-8 leading-relaxed">
                 From currency converters that understand rupees to calculators for Indian tax systems, 
-                we're building tools that speak the language of India's diverse workforce.
+                we&apos;re building tools that speak the language of India&apos;s diverse workforce.
               </p>
               <Link 
                 href="/tools" 
@@ -100,7 +100,7 @@ export default function AboutIndiaPage() {
               <h3 className="text-xl font-black text-slate-900 mb-3">Diverse & Inclusive</h3>
               <p className="text-slate-600">
                 From Mumbai startups to rural entrepreneurs, our tools serve the breadth 
-                of India's professional landscape.
+                of India&apos;s professional landscape.
               </p>
             </div>
             
@@ -108,7 +108,7 @@ export default function AboutIndiaPage() {
               <Coffee className="h-10 w-10 text-teal-600 mb-4" />
               <h3 className="text-xl font-black text-slate-900 mb-3">Jugaad Innovation</h3>
               <p className="text-slate-600">
-                Smart, efficient solutions that work with India's unique infrastructure 
+                Smart, efficient solutions that work with India&apos;s unique infrastructure 
                 and connectivity challenges.
               </p>
             </div>
@@ -120,7 +120,7 @@ export default function AboutIndiaPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-black text-slate-900 mb-4">Connect With Us</h2>
             <p className="text-slate-600">
-              Have ideas for new Indian-focused tools? We'd love to hear from you!
+              Have ideas for new Indian-focused tools? We&apos;d love to hear from you!
             </p>
           </div>
           

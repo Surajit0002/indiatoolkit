@@ -111,7 +111,7 @@ export default function HoverEffectGenerator() {
     const { effectType, duration, easing, translateY, scale, rotate, boxShadow, borderColor, borderWidth, borderRadius, backgroundColor, textColor, underlineColor, underlineWidth } = config;
 
     let hoverStyles = "";
-    let baseStyles = "";
+    const baseStyles = "";
 
     switch (effectType) {
       case "lift":

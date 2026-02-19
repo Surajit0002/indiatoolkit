@@ -8,8 +8,6 @@ import {
   Brain, 
   BarChart3, 
   Calendar,
-  Filter,
-  Search,
   Download,
   Share2,
   Star
@@ -32,6 +30,50 @@ interface AnalyticsData {
     percentage: number;
   }[];
 }
+
+// StatCard component defined outside to avoid "Cannot create components during render" error
+const StatCard = ({ 
+  title, 
+  value, 
+  icon: Icon, 
+  color = 'blue',
+  trend 
+}: { 
+  title: string; 
+  value: string | number; 
+  icon: React.ComponentType<{ className?: string }>;
+  color?: string;
+  trend?: { value: number; isPositive: boolean };
+}) => {
+  const colorClasses: Record<string, string> = {
+    blue: 'bg-blue-50 text-blue-600',
+    green: 'bg-green-50 text-green-600',
+    purple: 'bg-purple-50 text-purple-600',
+    orange: 'bg-orange-50 text-orange-600'
+  };
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-lg transition-all">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm text-slate-600 mb-1">{title}</p>
+          <p className="text-2xl font-bold text-slate-900">{value}</p>
+          {trend && (
+            <div className={`flex items-center gap-1 text-sm mt-2 ${
+              trend.isPositive ? 'text-green-600' : 'text-red-600'
+            }`}>
+              <span>{trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%</span>
+              <span className="text-slate-500">vs last period</span>
+            </div>
+          )}
+        </div>
+        <div className={`p-3 rounded-xl ${colorClasses[color] || colorClasses.blue}`}>
+          <Icon className="h-6 w-6" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function AdvancedAnalyticsDashboard() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
@@ -90,51 +132,8 @@ export default function AdvancedAnalyticsDashboard() {
     );
   }
 
-  const StatCard = ({ 
-    title, 
-    value, 
-    icon: Icon, 
-    color = 'blue',
-    trend 
-  }: { 
-    title: string; 
-    value: string | number; 
-    icon: React.ComponentType<{ className?: string }>;
-    color?: string;
-    trend?: { value: number; isPositive: boolean };
-  }) => {
-    const colorClasses = {
-      blue: 'bg-blue-50 text-blue-600',
-      green: 'bg-green-50 text-green-600',
-      purple: 'bg-purple-50 text-purple-600',
-      orange: 'bg-orange-50 text-orange-600'
-    };
-
-    return (
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 hover:shadow-lg transition-all">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-slate-600 mb-1">{title}</p>
-            <p className="text-2xl font-bold text-slate-900">{value}</p>
-            {trend && (
-              <div className={`flex items-center gap-1 text-sm mt-2 ${
-                trend.isPositive ? 'text-green-600' : 'text-red-600'
-              }`}>
-                <span>{trend.isPositive ? '↑' : '↓'} {Math.abs(trend.value)}%</span>
-                <span className="text-slate-500">vs last period</span>
-              </div>
-            )}
-          </div>
-          <div className={`p-3 rounded-xl ${colorClasses[color as keyof typeof colorClasses]}`}>
-            <Icon className="h-6 w-6" />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100">
       {/* Header */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -147,7 +146,7 @@ export default function AdvancedAnalyticsDashboard() {
             <div className="flex items-center gap-3">
               <select
                 value={timeRange}
-                onChange={(e) => setTimeRange(e.target.value as any)}
+                onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
                 className="px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               >
                 <option value="7d">Last 7 days</option>
@@ -213,10 +212,10 @@ export default function AdvancedAnalyticsDashboard() {
             </div>
             
             <div className="h-64 flex items-end justify-between gap-2">
-              {analytics.usageTrends.map((point, index) => (
-                <div key={index} className="flex flex-col items-center flex-1">
+              {analytics.usageTrends.map((point) => (
+                <div key={point.date} className="flex flex-col items-center flex-1">
                   <div 
-                    className="w-full bg-gradient-to-t from-blue-500 to-blue-300 rounded-t-lg transition-all hover:from-blue-600 hover:to-blue-400"
+                    className="w-full bg-linear-to-t from-blue-500 to-blue-300 rounded-t-lg transition-all hover:from-blue-600 hover:to-blue-400"
                     style={{ 
                       height: `${(point.usage / Math.max(...analytics.usageTrends.map(p => p.usage))) * 100}%` 
                     }}
@@ -234,15 +233,15 @@ export default function AdvancedAnalyticsDashboard() {
             <h3 className="text-lg font-bold text-slate-900 mb-6">Category Distribution</h3>
             
             <div className="space-y-4">
-              {analytics.categoryDistribution.map((category, index) => (
-                <div key={index}>
+              {analytics.categoryDistribution.map((category) => (
+                <div key={category.category}>
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-sm font-medium text-slate-700">{category.category}</span>
                     <span className="text-sm text-slate-500">{category.percentage}%</span>
                   </div>
                   <div className="w-full bg-slate-200 rounded-full h-2">
                     <div 
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
+                      className="bg-linear-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
                       style={{ width: `${category.percentage}%` }}
                     ></div>
                   </div>
@@ -273,7 +272,7 @@ export default function AdvancedAnalyticsDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {analytics.topTools.map((tool, index) => {
+                {analytics.topTools.map((tool) => {
                   const IconComponent = Icons[tool.icon as keyof typeof Icons] as React.ComponentType<{ className?: string }>;
                   return (
                     <tr key={tool.id} className="border-b border-slate-100 hover:bg-slate-50">
@@ -326,7 +325,7 @@ export default function AdvancedAnalyticsDashboard() {
 
         {/* Real-time Stats */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl border border-green-200 p-6">
+          <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl border border-green-200 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="h-10 w-10 bg-green-500 rounded-lg flex items-center justify-center">
                 <Zap className="h-5 w-5 text-white" />
@@ -337,7 +336,7 @@ export default function AdvancedAnalyticsDashboard() {
             <p className="text-sm text-green-700">Currently active real-time processing tools</p>
           </div>
           
-          <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-2xl border border-purple-200 p-6">
+          <div className="bg-linear-to-br from-purple-50 to-violet-50 rounded-2xl border border-purple-200 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="h-10 w-10 bg-purple-500 rounded-lg flex items-center justify-center">
                 <Brain className="h-5 w-5 text-white" />
@@ -350,7 +349,7 @@ export default function AdvancedAnalyticsDashboard() {
             <p className="text-sm text-purple-700">Tools with AI-powered capabilities</p>
           </div>
           
-          <div className="bg-gradient-to-br from-blue-50 to-sky-50 rounded-2xl border border-blue-200 p-6">
+          <div className="bg-linear-to-br from-blue-50 to-sky-50 rounded-2xl border border-blue-200 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="h-10 w-10 bg-blue-500 rounded-lg flex items-center justify-center">
                 <Calendar className="h-5 w-5 text-white" />

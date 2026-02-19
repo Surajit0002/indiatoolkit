@@ -176,7 +176,7 @@ export default function ModernSearchBar() {
 
       {/* Dropdown Results */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-xl border-2 border-t-0 border-green-400 z-50 overflow-hidden animate-fade-in">
+        <div className="absolute top-full left-0 right-0 bg-white rounded-b-2xl shadow-xl border-2 border-t-0 border-green-400 z-100 overflow-hidden animate-fade-in">
           {query.length < 2 ? (
             // Empty state - show hint
             <div className="p-8 text-center">
@@ -211,7 +211,7 @@ export default function ModernSearchBar() {
                     `}
                   >
                     <div 
-                      className="h-11 w-11 rounded-xl flex items-center justify-center text-white shadow-md flex-shrink-0 transition-transform duration-200 hover:scale-105"
+                      className="h-11 w-11 rounded-xl flex items-center justify-center text-white shadow-md shrink-0 transition-transform duration-200 hover:scale-105"
                       style={{ backgroundColor: getCategoryColor(tool.category) }}
                     >
                       <Zap className="h-5 w-5" />
@@ -223,7 +223,7 @@ export default function ModernSearchBar() {
                           {tool.name}
                         </h4>
                         {tool.isPopular && (
-                          <span className="px-1.5 py-0.5 bg-amber-100 text-amber-600 rounded text-[9px] font-bold flex-shrink-0">
+                          <span className="px-1.5 py-0.5 bg-amber-100 text-amber-600 rounded text-[9px] font-bold shrink-0">
                             HOT
                           </span>
                         )}
@@ -233,7 +233,7 @@ export default function ModernSearchBar() {
                       </p>
                     </div>
                     
-                    <ArrowRight className={`h-5 w-5 flex-shrink-0 transition-colors ${
+                    <ArrowRight className={`h-5 w-5 shrink-0 transition-colors ${
                       index === activeIndex ? 'text-green-500' : 'text-slate-300'
                     }`} />
                   </button>
@@ -245,7 +245,7 @@ export default function ModernSearchBar() {
                 <Link
                   href={`/tools?q=${encodeURIComponent(query)}`}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl text-sm font-bold uppercase tracking-wide hover:from-green-600 hover:to-emerald-600 transition-all shadow-md hover:shadow-lg"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-linear-to-r from-green-500 to-emerald-500 text-white rounded-xl text-sm font-bold uppercase tracking-wide hover:from-green-600 hover:to-emerald-600 transition-all shadow-md hover:shadow-lg"
                 >
                   View All {results.length} Results
                   <ArrowRight className="h-4 w-4" />

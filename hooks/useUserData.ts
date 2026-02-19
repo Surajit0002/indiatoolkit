@@ -58,16 +58,20 @@ const DEFAULT_SETTINGS: UserSettings = {
 
 // Hook for User Profile
 export function useUserProfile() {
-  const [profile, setProfile] = useState<UserProfile>(DEFAULT_PROFILE);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('userProfile');
-    if (saved) {
-      setProfile(JSON.parse(saved));
+  const [profile, setProfile] = useState<UserProfile>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('userProfile');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return DEFAULT_PROFILE;
+        }
+      }
     }
-    setIsLoading(false);
-  }, []);
+    return DEFAULT_PROFILE;
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateProfile = useCallback((updates: Partial<UserProfile>) => {
     const updated = { ...profile, ...updates };
@@ -85,16 +89,20 @@ export function useUserProfile() {
 
 // Hook for User Settings
 export function useUserSettings() {
-  const [settings, setSettings] = useState<UserSettings>(DEFAULT_SETTINGS);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('userSettings');
-    if (saved) {
-      setSettings(JSON.parse(saved));
+  const [settings, setSettings] = useState<UserSettings>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('userSettings');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return DEFAULT_SETTINGS;
+        }
+      }
     }
-    setIsLoading(false);
-  }, []);
+    return DEFAULT_SETTINGS;
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateSetting = useCallback(<K extends keyof UserSettings>(key: K, value: UserSettings[K]) => {
     const updated = { ...settings, [key]: value };
@@ -112,16 +120,20 @@ export function useUserSettings() {
 
 // Hook for Favorites
 export function useFavorites() {
-  const [favorites, setFavorites] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('userFavorites');
-    if (saved) {
-      setFavorites(JSON.parse(saved));
+  const [favorites, setFavorites] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('userFavorites');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return [];
+        }
+      }
     }
-    setIsLoading(false);
-  }, []);
+    return [];
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleFavorite = useCallback((toolId: string) => {
     setFavorites(prev => {
@@ -162,16 +174,20 @@ export function useFavorites() {
 
 // Hook for Usage History
 export function useHistory() {
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('userHistory');
-    if (saved) {
-      setHistory(JSON.parse(saved));
+  const [history, setHistory] = useState<HistoryItem[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('userHistory');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch {
+          return [];
+        }
+      }
     }
-    setIsLoading(false);
-  }, []);
+    return [];
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const addToHistory = useCallback((item: Omit<HistoryItem, 'timestamp' | 'date'>) => {
     setHistory(prev => {

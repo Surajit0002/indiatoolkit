@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Youtube, Copy, Check, FileText } from "lucide-react";
+import { Youtube, Copy, Check } from "lucide-react";
 
 export default function YoutubeDescriptionGenerator() {
   const [data, setData] = useState({

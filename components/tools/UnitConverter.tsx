@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { ArrowRightLeft, Scale, Ruler, Thermometer, RefreshCw } from "lucide-react";
 
 type UnitType = "length" | "weight" | "temperature";
@@ -35,23 +35,12 @@ export default function UnitConverter() {
   const [value, setValue] = useState("1");
   const [fromUnit, setFromUnit] = useState("meters");
   const [toUnit, setToUnit] = useState("kilometers");
-  const [result, setResult] = useState("0.001");
 
-  useEffect(() => {
-    convert();
-  }, [value, fromUnit, toUnit, type]);
-
-  useEffect(() => {
-    const unitList = Object.keys(units[type]);
-    setFromUnit(unitList[0]);
-    setToUnit(unitList[1] || unitList[0]);
-  }, [type]);
-
-  const convert = () => {
+  // Compute result directly using useMemo
+  const result = useMemo(() => {
     const numValue = parseFloat(value);
     if (isNaN(numValue)) {
-      setResult("0");
-      return;
+      return "0";
     }
 
     if (type === "temperature") {
@@ -63,14 +52,22 @@ export default function UnitConverter() {
       if (toUnit === "fahrenheit") finalResult = (celsiusValue * 9/5) + 32;
       if (toUnit === "kelvin") finalResult = celsiusValue + 273.15;
       
-      setResult(finalResult.toFixed(2));
+      return finalResult.toFixed(2);
     } else {
       // @ts-expect-error - Dynamic unit access
       const inBase = numValue / units[type][fromUnit];
       // @ts-expect-error - Dynamic unit access
       const finalResult = inBase * units[type][toUnit];
-      setResult(finalResult.toString().includes(".") ? finalResult.toFixed(4) : finalResult.toString());
+      return finalResult.toString().includes(".") ? finalResult.toFixed(4) : finalResult.toString();
     }
+  }, [value, fromUnit, toUnit, type]);
+
+  // Handle type change with lazy initialization for units
+  const handleTypeChange = (newType: UnitType) => {
+    setType(newType);
+    const unitList = Object.keys(units[newType]);
+    setFromUnit(unitList[0]);
+    setToUnit(unitList[1] || unitList[0]);
   };
 
   const swapUnits = () => {
@@ -81,9 +78,9 @@ export default function UnitConverter() {
   return (
     <div className="space-y-8 p-4">
       <div className="flex flex-wrap gap-2 justify-center glass-nav inline-flex mx-auto w-full max-w-sm">
-        <BrutalTypeButton active={type === "length"} onClick={() => setType("length")} icon={<Ruler className="h-4 w-4" />} label="Length" />
-        <BrutalTypeButton active={type === "weight"} onClick={() => setType("weight")} icon={<Scale className="h-4 w-4" />} label="Weight" />
-        <BrutalTypeButton active={type === "temperature"} onClick={() => setType("temperature")} icon={<Thermometer className="h-4 w-4" />} label="Temp" />
+        <BrutalTypeButton active={type === "length"} onClick={() => handleTypeChange("length")} icon={<Ruler className="h-4 w-4" />} label="Length" />
+        <BrutalTypeButton active={type === "weight"} onClick={() => handleTypeChange("weight")} icon={<Scale className="h-4 w-4" />} label="Weight" />
+        <BrutalTypeButton active={type === "temperature"} onClick={() => handleTypeChange("temperature")} icon={<Thermometer className="h-4 w-4" />} label="Temp" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start relative">

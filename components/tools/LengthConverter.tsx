@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Ruler, ArrowRightLeft } from "lucide-react";
 
 const units = {
@@ -20,23 +20,22 @@ export default function LengthConverter() {
   const [value, setValue] = useState<string>("1");
   const [fromUnit, setFromUnit] = useState<UnitKey>("m");
   const [toUnit, setToUnit] = useState<UnitKey>("ft");
-  const [result, setResult] = useState<string>("");
 
-  useEffect(() => {
+  // Compute result directly
+  const computeResult = (): string => {
     const val = parseFloat(value);
-    if (isNaN(val)) {
-      setResult("");
-      return;
-    }
+    if (isNaN(val)) return "";
 
     const valueInMeters = val * units[fromUnit];
     const convertedValue = valueInMeters / units[toUnit];
     
-    setResult(convertedValue.toLocaleString(undefined, { 
+    return convertedValue.toLocaleString(undefined, { 
       maximumFractionDigits: 6,
       minimumFractionDigits: 0 
-    }));
-  }, [value, fromUnit, toUnit]);
+    });
+  };
+
+  const result = computeResult();
 
   return (
     <div className="p-6 md:p-8 space-y-8">
