@@ -36,15 +36,15 @@ export default function Header() {
 
   return (
     <header 
-      className="fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 py-2 sm:py-4 pointer-events-none"
       role="banner"
     >
       <div className="max-w-8xl mx-auto flex justify-center">
         <nav 
           className={`
             pointer-events-auto
-            relative flex items-center justify-between gap-4 px-6 h-16 
-            rounded-2xl transition-all duration-500 border
+            relative flex items-center justify-between gap-2 sm:gap-4 px-3 sm:px-4 md:px-6 h-12 sm:h-14 md:h-16 
+            rounded-xl sm:rounded-2xl transition-all duration-500 border
             ${isScrolled 
               ? "w-full bg-white/80 backdrop-blur-xl border-slate-200/50 shadow-[0_8px_32px_rgba(0,0,0,0.08)]" 
               : "w-full md:w-[95%] bg-black backdrop-blur-md border-blue-800 shadow-2xl"
@@ -56,23 +56,23 @@ export default function Header() {
           {/* Brand */}
           <Link 
             href="/" 
-            className="flex items-center gap-3 group shrink-0"
+            className="flex items-center gap-2 sm:gap-3 group shrink-0"
             aria-label="India Toolkit - Home"
           >
             <div className="relative">
               <div className="absolute -inset-1 bg-blue-500 rounded-lg blur-sm opacity-25 group-hover:opacity-50 transition duration-500"></div>
               <div 
-                className="relative bg-linear-to-br from-green-600 to-emerald-700 text-white w-9 h-9 flex items-center justify-center rounded-xl font-black text-sm shadow-lg group-hover:scale-105 transition-transform"
+                className="relative bg-linear-to-br from-green-600 to-emerald-700 text-white w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex items-center justify-center rounded-lg sm:rounded-xl font-black text-xs sm:text-sm shadow-lg group-hover:scale-105 transition-transform"
                 aria-hidden="true"
               >
                 IT
               </div>
             </div>
-            <div className="flex flex-col -space-y-1">
-              <span className={`text-base font-black tracking-tighter uppercase italic transition-colors ${isScrolled ? "text-slate-900" : "text-white"}`}>
+            <div className="flex flex-col -space-y-0.5 sm:-space-y-1 hidden sm:flex">
+              <span className={`text-xs sm:text-sm md:text-base font-black tracking-tighter uppercase italic transition-colors ${isScrolled ? "text-slate-900" : "text-white"}`}>
                 INDIA TOOLKIT
               </span>
-              <span className="text-[7px] font-bold tracking-[0.4em] text-green-500 uppercase">India First</span>
+              <span className="text-[6px] sm:text-[7px] font-bold tracking-[0.3em] sm:tracking-[0.4em] text-green-500 uppercase">India First</span>
             </div>
           </Link>
 
@@ -239,12 +239,12 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Search */}
+          {/* Search - Hidden on mobile, visible on tablet and up */}
           <div className="hidden md:block pointer-events-auto">
             <GlobalSearch />
           </div>
 
-          {/* User Actions */}
+          {/* User Actions - Desktop */}
           <div className="hidden lg:flex items-center gap-2">
             <Link 
               href="/saved-tools"
@@ -294,67 +294,81 @@ export default function Header() {
             </div>
           </div>
 
+          {/* Mobile Quick Actions - Visible on mobile/tablet */}
+          <div className="flex lg:hidden items-center gap-1 sm:gap-2">
+            {/* Mobile Search Toggle */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`p-2 sm:p-2.5 rounded-lg sm:rounded-xl touch-target ${isScrolled ? "bg-slate-100 text-slate-700" : "bg-white/10 text-white"}`}
+              aria-label="Open search and menu"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`lg:hidden p-2.5 rounded-xl ${isScrolled ? "bg-slate-100 text-slate-700" : "bg-white/10 text-white"}`}
+            className={`lg:hidden p-2 sm:p-2.5 rounded-lg sm:rounded-xl touch-target ${isScrolled ? "bg-slate-100 text-slate-700" : "bg-white/10 text-white"}`}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
           </button>
         </nav>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Enhanced */}
       {isMenuOpen && (
         <div 
           id="mobile-menu"
-          className="lg:hidden fixed inset-0 top-24 bg-white/95 backdrop-blur-xl p-4 overflow-y-auto"
+          className="lg:hidden fixed inset-0 top-12 sm:top-14 md:top-16 bg-white/95 backdrop-blur-xl p-3 sm:p-4 overflow-y-auto"
           role="navigation"
           aria-label="Mobile navigation"
         >
-          <div className="max-w-lg mx-auto space-y-4">
+          <div className="max-w-lg mx-auto space-y-3 sm:space-y-4">
             {/* Search */}
-            <GlobalSearch />
+            <div className="sticky top-0 bg-white/95 backdrop-blur-sm pb-2 z-10">
+              <GlobalSearch />
+            </div>
 
             {/* Quick Links */}
-            <div className="grid grid-cols-2 gap-3">
-              <Link href="/tools" className="flex items-center justify-center gap-2 p-4 bg-green-500 text-white rounded-xl font-bold">
-                <Grid className="h-5 w-5" /> All Tools
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <Link href="/tools" className="flex items-center justify-center gap-2 p-3 sm:p-4 bg-green-500 text-white rounded-lg sm:rounded-xl font-bold text-sm sm:text-base touch-target">
+                <Grid className="h-4 w-4 sm:h-5 sm:w-5" /> All Tools
               </Link>
-              <Link href="/saved-tools" className="flex items-center justify-center gap-2 p-4 bg-slate-100 text-slate-700 rounded-xl font-bold">
-                <Star className="h-5 w-5" /> Favorites
+              <Link href="/saved-tools" className="flex items-center justify-center gap-2 p-3 sm:p-4 bg-slate-100 text-slate-700 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base touch-target">
+                <Star className="h-4 w-4 sm:h-5 sm:w-5" /> Favorites
               </Link>
-              <Link href="/history" className="flex items-center justify-center gap-2 p-4 bg-slate-100 text-slate-700 rounded-xl font-bold">
-                <Zap className="h-5 w-5" /> History
+              <Link href="/history" className="flex items-center justify-center gap-2 p-3 sm:p-4 bg-slate-100 text-slate-700 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base touch-target">
+                <Zap className="h-4 w-4 sm:h-5 sm:w-5" /> History
               </Link>
-              <Link href="/blog" className="flex items-center justify-center gap-2 p-4 bg-slate-100 text-slate-700 rounded-xl font-bold">
-                <FileText className="h-5 w-5" /> Blog
+              <Link href="/blog" className="flex items-center justify-center gap-2 p-3 sm:p-4 bg-slate-100 text-slate-700 rounded-lg sm:rounded-xl font-bold text-sm sm:text-base touch-target">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" /> Blog
               </Link>
             </div>
 
             {/* Categories */}
-            <div className="bg-slate-50 rounded-2xl p-4">
-              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Categories</h3>
-              <div className="space-y-2">
+            <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-3 sm:p-4">
+              <h3 className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 sm:mb-3">Categories</h3>
+              <div className="space-y-1 sm:space-y-2">
                 {categories.map((category) => {
                   const IconComponent = getCategoryIcon(category.icon);
                   return (
                     <Link
                       key={category.slug}
                       href={`/category/${category.slug}`}
-                      className="flex items-center gap-3 p-3 bg-white rounded-xl hover:bg-slate-100 transition-all"
+                      className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-white rounded-lg sm:rounded-xl hover:bg-slate-100 transition-all touch-target"
                     >
                       <div 
-                        className="h-10 w-10 rounded-lg flex items-center justify-center text-white"
+                        className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg flex items-center justify-center text-white shrink-0"
                         style={{ backgroundColor: category.color }}
                       >
-                        <IconComponent className="h-5 w-5" />
+                        <IconComponent className="h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
-                      <span className="font-bold text-slate-700">{category.name}</span>
-                      <ChevronRight className="h-4 w-4 text-slate-400 ml-auto" />
+                      <span className="font-bold text-slate-700 text-sm sm:text-base truncate">{category.name}</span>
+                      <ChevronRight className="h-4 w-4 text-slate-400 ml-auto shrink-0" />
                     </Link>
                   );
                 })}
@@ -362,20 +376,20 @@ export default function Header() {
             </div>
 
             {/* Account */}
-            <div className="bg-slate-50 rounded-2xl p-4">
-              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Account</h3>
-              <div className="space-y-2">
-                <Link href="/profile" className="flex items-center gap-3 p-3 bg-white rounded-xl hover:bg-slate-100 transition-all">
-                  <User className="h-5 w-5 text-slate-400" />
-                  <span className="font-bold text-slate-700">My Profile</span>
+            <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-3 sm:p-4">
+              <h3 className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 sm:mb-3">Account</h3>
+              <div className="space-y-1 sm:space-y-2">
+                <Link href="/profile" className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-white rounded-lg sm:rounded-xl hover:bg-slate-100 transition-all touch-target">
+                  <User className="h-4 w-4 sm:h-5 sm:w-5 text-slate-400" />
+                  <span className="font-bold text-slate-700 text-sm sm:text-base">My Profile</span>
                 </Link>
-                <Link href="/settings" className="flex items-center gap-3 p-3 bg-white rounded-xl hover:bg-slate-100 transition-all">
-                  <Settings className="h-5 w-5 text-slate-400" />
-                  <span className="font-bold text-slate-700">Settings</span>
+                <Link href="/settings" className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-white rounded-lg sm:rounded-xl hover:bg-slate-100 transition-all touch-target">
+                  <Settings className="h-4 w-4 sm:h-5 sm:w-5 text-slate-400" />
+                  <span className="font-bold text-slate-700 text-sm sm:text-base">Settings</span>
                 </Link>
-                <Link href="/login" className="flex items-center gap-3 p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all">
-                  <LogOut className="h-5 w-5" />
-                  <span className="font-bold">Sign In</span>
+                <Link href="/login" className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 bg-blue-500 text-white rounded-lg sm:rounded-xl hover:bg-blue-600 transition-all touch-target">
+                  <LogOut className="h-4 w-4 sm:h-5 sm:w-5" />
+                  <span className="font-bold text-sm sm:text-base">Sign In</span>
                 </Link>
               </div>
             </div>

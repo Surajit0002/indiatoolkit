@@ -5,6 +5,12 @@ import ToolCard from "@/components/ToolCard";
 import { ChevronRight, Home, Layout, Zap, Search, Info, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
+import {
+  generateBreadcrumbSchema,
+  generateWebPageSchema,
+  generateItemListSchema,
+  combineSchemas,
+} from "@/lib/schema-utils";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -16,9 +22,74 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!category) return { title: "Category Not Found" };
 
+  const tools = getToolsByCategory(slug);
+  const canonicalUrl = `https://www.indiatoolkit.in/category/${category.slug}`;
+  
+  // Enhanced SEO title and description
+  const title = `${category.name} Tools - ${tools.length}+ Free Online Tools | India Toolkit`;
+  const description = `${category.description} Explore our collection of ${tools.length}+ free ${category.name.toLowerCase()} tools. No registration required, works on all devices.`;
+
   return {
-    title: `${category.name} Tools - India Toolkit`,
-    description: category.description,
+    title,
+    description,
+    keywords: [
+      category.name.toLowerCase(),
+      "online tools",
+      "free tools",
+      "india toolkit",
+      ...tools.slice(0, 5).map(t => t.name.toLowerCase()),
+    ],
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: "website",
+      siteName: "India Toolkit",
+      images: [
+        {
+          url: `/api/og?category=${category.slug}&title=${encodeURIComponent(category.name)}`,
+          width: 1200,
+          height: 630,
+          alt: `${category.name} Tools`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [`/api/og?category=${category.slug}&title=${encodeURIComponent(category.name)}`],
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    other: {
+      "application/ld+json": combineSchemas(
+        generateBreadcrumbSchema([
+          { name: "Home", url: "/" },
+          { name: "Categories", url: "/categories" },
+          { name: category.name, url: `/category/${category.slug}` },
+        ]),
+        generateWebPageSchema({
+          name: `${category.name} Tools`,
+          description: category.description,
+          url: canonicalUrl,
+          type: "CollectionPage",
+        }),
+        generateItemListSchema(category, tools)
+      ),
+    },
   };
 }
 

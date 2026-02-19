@@ -28,7 +28,7 @@ export const categories: ToolCategory[] = [
   {
     id: "dev-tools",
     name: "Developer Tools",
-    slug: "developer-tools",
+    slug: "dev-tools",
     description: "JSON formatter, base64, and code minifiers.",
     icon: "Code",
     color: "#8B5CF6", // violet-500

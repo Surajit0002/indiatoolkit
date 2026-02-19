@@ -499,6 +499,263 @@
   .lg\:hidden { display: none; }
 }
 
+/* ========================================
+   ENHANCED MOBILE RESPONSIVE STYLES
+   ======================================== */
+
+/* Mobile Tool Container - Full width on small screens */
+@media (max-width: 767px) {
+  .tools-platform .tool-main-area {
+    width: 100% !important;
+    padding: 0.5rem !important;
+  }
+  
+  .tools-platform .tool-container {
+    padding: 0.75rem !important;
+  }
+  
+  /* Make tool cards full width */
+  .tools-platform .tool-card {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  
+  /* Stack sidebar content below main tool */
+  .tools-platform .sidebar-mobile-stack {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Hide decorative elements on mobile */
+  .tools-platform .desktop-only-decoration {
+    display: none !important;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tools-platform .tool-main-area {
+    width: 100% !important;
+    padding: 1rem !important;
+  }
+  
+  /* 2-column grid for tools on tablet */
+  .tools-platform .tools-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Touch-friendly button sizing */
+@media (max-width: 1024px) {
+  .tools-platform .btn,
+  .tools-platform .brutal-btn,
+  .tools-platform button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+  }
+  
+  /* Larger touch targets for icon buttons */
+  .tools-platform .icon-btn,
+  .tools-platform button.icon-only {
+    min-width: 48px;
+    min-height: 48px;
+  }
+}
+
+/* Mobile navigation improvements */
+@media (max-width: 767px) {
+  .tools-platform .nav-controls {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .tools-platform .nav-controls > * {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  
+  /* Stack action buttons vertically on very small screens */
+  .tools-platform .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .tools-platform .action-buttons > * {
+    width: 100%;
+  }
+}
+
+/* Responsive textarea and input heights */
+@media (max-width: 767px) {
+  .tools-platform textarea {
+    min-height: 200px !important;
+    height: auto !important;
+  }
+  
+  .tools-platform .code-editor,
+  .tools-platform .json-editor {
+    min-height: 250px !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Mobile-friendly grid layouts */
+@media (max-width: 640px) {
+  .tools-platform .responsive-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .tools-platform .responsive-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .tools-platform .responsive-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .tools-platform .responsive-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Scrollable containers for mobile */
+@media (max-width: 767px) {
+  .tools-platform .horizontal-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  
+  .tools-platform .table-container {
+    overflow-x: auto;
+    display: block;
+  }
+  
+  .tools-platform .table-container table {
+    min-width: 600px;
+  }
+}
+
+/* Mobile card adjustments */
+@media (max-width: 767px) {
+  .tools-platform .tool-card {
+    padding: 1rem !important;
+    border-radius: 12px !important;
+  }
+  
+  .tools-platform .tool-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .tools-platform .tool-title {
+    font-size: 0.875rem !important;
+  }
+  
+  .tools-platform .tool-description {
+    font-size: 0.75rem !important;
+  }
+}
+
+/* Mobile sidebar - show as expandable sections */
+@media (max-width: 1023px) {
+  .tools-platform .sidebar-section {
+    margin-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1.5rem;
+  }
+  
+  .tools-platform .sidebar-section.collapsed {
+    display: none;
+  }
+  
+  .tools-platform .sidebar-toggle {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: #f1f5f9;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tools-platform .sidebar-toggle {
+    display: none;
+  }
+}
+
+/* Mobile output display */
+@media (max-width: 767px) {
+  .tools-platform .output-display {
+    font-size: 0.875rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .tools-platform .output-code {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
+/* Mobile form elements */
+@media (max-width: 767px) {
+  .tools-platform input[type="text"],
+  .tools-platform input[type="number"],
+  .tools-platform input[type="email"],
+  .tools-platform input[type="url"],
+  .tools-platform select {
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+    padding: 12px !important;
+  }
+  
+  .tools-platform label {
+    font-size: 0.75rem !important;
+  }
+  
+  /* Range inputs */
+  .tools-platform input[type="range"] {
+    height: 24px !important;
+  }
+}
+
+/* Mobile modal and overlay adjustments */
+@media (max-width: 767px) {
+  .tools-platform .modal-content {
+    width: 95% !important;
+    max-height: 90vh !important;
+    margin: 2.5vh auto !important;
+    padding: 1rem !important;
+  }
+  
+  .tools-platform .dropdown-menu {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    max-height: 60vh !important;
+    border-radius: 16px 16px 0 0 !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile loading states */
+@media (max-width: 767px) {
+  .tools-platform .loading-spinner {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .tools-platform .loading-overlay {
+    padding: 1rem !important;
+  }
+}
+
 /* Focus Styles for Accessibility */
 .btn:focus,
 .search-input:focus,

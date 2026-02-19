@@ -195,46 +195,46 @@ export default function ColorPaletteGenerator() {
   };
 
   return (
-    <div className="p-6 md:p-8 space-y-8">
-      <div className="max-w-5xl mx-auto space-y-8">
+    <div className="p-3 sm:p-4 md:p-6 lg:p-8 space-y-4 sm:space-y-6 md:space-y-8">
+      <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6 md:space-y-8">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="flex items-center justify-center gap-3">
-            <div className="p-3 bg-indigo-100 rounded-2xl">
-              <Palette className="h-6 w-6 text-indigo-600" />
+        <div className="text-center space-y-1 sm:space-y-2">
+          <div className="flex items-center justify-center gap-2 sm:gap-3">
+            <div className="p-2 sm:p-3 bg-indigo-100 rounded-xl sm:rounded-2xl">
+              <Palette className="h-5 w-5 sm:h-6 sm:w-6 text-indigo-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Color Palette Generator</h2>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Color Palette Generator</h2>
           </div>
-          <p className="text-gray-500">Generate harmonious color palettes based on a base color</p>
+          <p className="text-xs sm:text-sm text-gray-500">Generate harmonious color palettes based on a base color</p>
         </div>
 
         {/* Controls */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Base Color</label>
-              <div className="flex gap-3">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl border border-gray-100 p-4 sm:p-6 space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="space-y-2 sm:space-y-3">
+              <label className="text-[10px] sm:text-xs font-semibold text-gray-700 uppercase tracking-wide">Base Color</label>
+              <div className="flex gap-2 sm:gap-3">
                 <input
                   type="color"
                   value={baseColor}
                   onChange={(e) => setBaseColor(e.target.value)}
-                  className="h-12 w-12 rounded-xl cursor-pointer border-2 border-gray-200"
+                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg sm:rounded-xl cursor-pointer border-2 border-gray-200 touch-target"
                 />
                 <input
                   type="text"
                   value={baseColor}
                   onChange={(e) => setBaseColor(e.target.value)}
-                  className="flex-1 h-12 px-4 bg-gray-50 border border-gray-100 rounded-xl font-mono text-sm uppercase"
+                  className="flex-1 h-10 sm:h-12 px-3 sm:px-4 bg-gray-50 border border-gray-100 rounded-lg sm:rounded-xl font-mono text-xs sm:text-sm uppercase"
                 />
               </div>
             </div>
 
-            <div className="space-y-3">
-              <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Palette Type</label>
+            <div className="space-y-2 sm:space-y-3">
+              <label className="text-[10px] sm:text-xs font-semibold text-gray-700 uppercase tracking-wide">Palette Type</label>
               <select
                 value={paletteType}
                 onChange={(e) => setPaletteType(e.target.value as any)}
-                className="w-full h-12 px-4 bg-gray-50 border border-gray-100 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full h-10 sm:h-12 px-3 sm:px-4 bg-gray-50 border border-gray-100 rounded-lg sm:rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base"
               >
                 <option value="analogous">Analogous</option>
                 <option value="monochromatic">Monochromatic</option>
@@ -247,40 +247,40 @@ export default function ColorPaletteGenerator() {
 
           <button
             onClick={generatePalette}
-            className="w-full h-12 bg-indigo-600 text-white rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors font-medium"
+            className="w-full h-10 sm:h-12 bg-indigo-600 text-white rounded-lg sm:rounded-xl flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors font-medium text-sm sm:text-base touch-target"
           >
-            <RefreshCw className="h-5 w-5" />
+            <RefreshCw className="h-4 w-4 sm:h-5 sm:w-5" />
             Generate New Palette
           </button>
         </div>
 
         {/* Palette Display */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
-          <div className="flex items-center gap-2 mb-6">
-            <Settings className="h-5 w-5 text-gray-400" />
-            <h3 className="text-lg font-semibold text-gray-900">Generated Palette</h3>
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl border border-gray-100 p-4 sm:p-6">
+          <div className="flex items-center gap-2 mb-4 sm:mb-6">
+            <Settings className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Generated Palette</h3>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
             {palette.map((color, index) => (
-              <div key={index} className="space-y-3">
+              <div key={index} className="space-y-2 sm:space-y-3">
                 <div
-                  className="h-24 rounded-2xl shadow-inner border border-gray-100 transition-transform hover:scale-105"
+                  className="h-16 sm:h-20 md:h-24 rounded-xl sm:rounded-2xl shadow-inner border border-gray-100 transition-transform hover:scale-105"
                   style={{ backgroundColor: color.hex }}
                 />
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <input
                       type="text"
                       readOnly
                       value={color.hex}
-                      className="flex-1 h-8 px-2 bg-gray-50 border border-gray-100 rounded-lg font-mono text-xs text-center"
+                      className="flex-1 h-7 sm:h-8 px-1.5 sm:px-2 bg-gray-50 border border-gray-100 rounded-md sm:rounded-lg font-mono text-[10px] sm:text-xs text-center"
                     />
                     <button
                       onClick={() => copyToClipboard(color.hex, index)}
-                      className="h-8 w-8 bg-gray-900 text-white rounded-lg flex items-center justify-center hover:bg-black transition-colors"
+                      className="h-7 w-7 sm:h-8 sm:w-8 bg-gray-900 text-white rounded-md sm:rounded-lg flex items-center justify-center hover:bg-black transition-colors touch-target"
                     >
-                      {copiedIndex === index ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                      {copiedIndex === index ? <Check className="h-3 w-3 sm:h-4 sm:w-4 text-emerald-400" /> : <Copy className="h-3 w-3 sm:h-4 sm:w-4" />}
                     </button>
                   </div>
                 </div>
@@ -290,41 +290,41 @@ export default function ColorPaletteGenerator() {
         </div>
 
         {/* Color Values */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-6">Color Values</h3>
-          <div className="space-y-4">
+        <div className="bg-white rounded-2xl sm:rounded-3xl shadow-lg sm:shadow-xl border border-gray-100 p-4 sm:p-6">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6">Color Values</h3>
+          <div className="space-y-3 sm:space-y-4">
             {palette.map((color, index) => (
-              <div key={index} className="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-gray-50 rounded-xl">
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl">
                 <div
-                  className="w-12 h-12 rounded-xl shadow-inner border border-gray-200 shrink-0"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl shadow-inner border border-gray-200 shrink-0"
                   style={{ backgroundColor: color.hex }}
                 />
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-gray-400 uppercase w-10">HEX</span>
+                    <span className="text-[9px] sm:text-xs font-bold text-gray-400 uppercase w-8 sm:w-10">HEX</span>
                     <input
                       type="text"
                       readOnly
                       value={color.hex}
-                      className="flex-1 h-8 px-2 bg-white border border-gray-200 rounded-lg font-mono text-xs"
+                      className="flex-1 h-7 sm:h-8 px-2 bg-white border border-gray-200 rounded-md sm:rounded-lg font-mono text-[10px] sm:text-xs"
                     />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-gray-400 uppercase w-10">RGB</span>
+                    <span className="text-[9px] sm:text-xs font-bold text-gray-400 uppercase w-8 sm:w-10">RGB</span>
                     <input
                       type="text"
                       readOnly
                       value={color.rgb}
-                      className="flex-1 h-8 px-2 bg-white border border-gray-200 rounded-lg font-mono text-xs"
+                      className="flex-1 h-7 sm:h-8 px-2 bg-white border border-gray-200 rounded-md sm:rounded-lg font-mono text-[10px] sm:text-xs"
                     />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-bold text-gray-400 uppercase w-10">HSL</span>
+                    <span className="text-[9px] sm:text-xs font-bold text-gray-400 uppercase w-8 sm:w-10">HSL</span>
                     <input
                       type="text"
                       readOnly
                       value={color.hsl}
-                      className="flex-1 h-8 px-2 bg-white border border-gray-200 rounded-lg font-mono text-xs"
+                      className="flex-1 h-7 sm:h-8 px-2 bg-white border border-gray-200 rounded-md sm:rounded-lg font-mono text-[10px] sm:text-xs"
                     />
                   </div>
                 </div>
