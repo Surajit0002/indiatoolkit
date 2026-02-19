@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Scissors, Upload, ArrowRight, Loader2, Info, FileText, Check } from "lucide-react";
+import { Scissors, Upload, Loader2, Info, FileText } from "lucide-react";
 
 export default function SplitPdf() {
   const [file, setFile] = useState<File | null>(null);

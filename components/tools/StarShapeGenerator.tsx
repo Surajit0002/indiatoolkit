@@ -5,9 +5,7 @@ import {
   Star, 
   Copy, 
   Check, 
-  Download, 
-  Sparkles,
-  RotateCw
+  Download
 } from "lucide-react";
 
 export default function StarShapeGenerator() {
@@ -57,7 +55,7 @@ width: ${outerRadius * 2}px;
 height: ${outerRadius * 2}px;
 background-color: ${fillColor};
 clip-path: polygon(
-  ${generateStarPoints(points, 50, 25, rotation).split(" ").map((p, i) => {
+  ${generateStarPoints(points, 50, 25, rotation).split(" ").map((p) => {
     const [x, y] = p.split(",");
     return `${(parseFloat(x) / (outerRadius * 3)) * 100}% ${(parseFloat(y) / (outerRadius * 3)) * 100}%`;
   }).join(",\n  ")}

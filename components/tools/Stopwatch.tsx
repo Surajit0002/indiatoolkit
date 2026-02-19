@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Play, Pause, RotateCcw, Flag, Timer } from "lucide-react";
 
 export default function Stopwatch() {
@@ -9,10 +9,16 @@ export default function Stopwatch() {
   const [laps, setLaps] = useState<number[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
+  const timeRef = useRef<number>(0);
+
+  // Keep timeRef in sync
+  useEffect(() => {
+    timeRef.current = time;
+  }, [time]);
 
   useEffect(() => {
     if (isRunning) {
-      startTimeRef.current = Date.now() - time;
+      startTimeRef.current = Date.now() - timeRef.current;
       timerRef.current = setInterval(() => {
         setTime(Date.now() - startTimeRef.current);
       }, 10);

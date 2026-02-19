@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, Delete, Divide, Equal, Minus, Plus, X, Type } from "lucide-react";
+import { Delete, Divide, Equal, Minus, Plus, X, Type } from "lucide-react";
 import { ToolInput } from "@/components/ui/ToolInput";
 
 export default function SimpleCalculatorWithInput() {
@@ -35,12 +35,11 @@ export default function SimpleCalculatorWithInput() {
     try {
       const fullEquation = equation + display;
       // Using Function constructor as a safer alternative to eval for basic arithmetic
-      // eslint-disable-next-line no-new-func
       const result = new Function(`return ${fullEquation.replace(/×/g, "*").replace(/÷/g, "/")}`)();
       setDisplay(String(result));
       setEquation("");
       setLastResult(String(result));
-    } catch (error) {
+    } catch {
       setDisplay("Error");
     }
   };
@@ -48,12 +47,11 @@ export default function SimpleCalculatorWithInput() {
   const handleCustomCalculate = () => {
     if (customInput.trim()) {
       try {
-        // eslint-disable-next-line no-new-func
         const result = new Function(`return ${customInput}`)();
         setDisplay(String(result));
         setLastResult(String(result));
         setCustomInput("");
-      } catch (error) {
+      } catch {
         setDisplay("Error");
       }
     }

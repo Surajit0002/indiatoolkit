@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Type, Twitter, Instagram, Linkedin, MessageSquare } from "lucide-react";
+import { Twitter, Instagram, Linkedin, MessageSquare } from "lucide-react";
 
 const LIMITS = [
   { name: "Twitter", limit: 280, icon: Twitter, color: "text-blue-400", bg: "bg-blue-50" },

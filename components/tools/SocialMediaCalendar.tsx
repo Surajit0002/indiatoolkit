@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Download, Calendar, MessageSquare, Hash, Clock, Check, Plus, Trash2 } from "lucide-react";
+import { Copy, Calendar, MessageSquare, Hash, Clock, Check, Plus, Trash2 } from "lucide-react";
 
 interface Post {
   id: number;

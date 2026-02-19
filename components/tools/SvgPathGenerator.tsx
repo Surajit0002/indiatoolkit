@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { 
   PenTool, 
   Copy, 
@@ -9,7 +9,6 @@ import {
   Undo, 
   Redo, 
   Trash2,
-  MousePointer,
   Minus,
   Zap,
   Move
@@ -26,7 +25,6 @@ interface PathPoint {
 }
 
 export default function SvgPathGenerator() {
-  const [pathData, setPathData] = useState("");
   const [points, setPoints] = useState<PathPoint[]>([]);
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
   const [activeTool, setActiveTool] = useState<ToolType>("pen");
@@ -36,11 +34,14 @@ export default function SvgPathGenerator() {
   const [fillEnabled, setFillEnabled] = useState(true);
   const [history, setHistory] = useState<PathPoint[][]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [canvasSize, setCanvasSize] = useState({ width: 300, height: 300 });
   const canvasRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+  
+  // Fixed canvas size
+  const canvasSize = { width: 300, height: 300 };
 
-  const generatePath = () => {
+  // Use useMemo instead of useEffect + setState to avoid cascading renders
+  const pathData = useMemo(() => {
     if (points.length === 0) return "";
 
     let d = "";
@@ -48,8 +49,6 @@ export default function SvgPathGenerator() {
       if (index === 0) {
         d += `M ${point.x} ${point.y}`;
       } else {
-        const prev = points[index - 1];
-        
         if (point.type === "line") {
           d += ` L ${point.x} ${point.y}`;
         } else if (point.type === "curve" && point.cp1 && point.cp2) {
@@ -65,19 +64,16 @@ export default function SvgPathGenerator() {
     }
 
     return d;
-  };
-
-  useEffect(() => {
-    const newPath = generatePath();
-    setPathData(newPath);
   }, [points, fillEnabled]);
 
-  const addToHistory = (newPoints: PathPoint[]) => {
-    const newHistory = history.slice(0, historyIndex + 1);
-    newHistory.push(newPoints);
-    setHistory(newHistory);
-    setHistoryIndex(newHistory.length - 1);
-  };
+  const addToHistory = useCallback((newPoints: PathPoint[]) => {
+    setHistory(prev => {
+      const newHistory = prev.slice(0, historyIndex + 1);
+      newHistory.push(newPoints);
+      setHistoryIndex(newHistory.length - 1);
+      return newHistory;
+    });
+  }, [historyIndex]);
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!canvasRef.current) return;
