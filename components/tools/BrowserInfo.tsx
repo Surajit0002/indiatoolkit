@@ -4,9 +4,36 @@ import { useState, useEffect } from "react";
 import { Chrome, Shield, Globe, Monitor, Settings, Cookie, Languages } from "lucide-react";
 
 export default function BrowserInfo() {
-  const [info, setInfo] = useState<any>(null);
+  const [info, setInfo] = useState<BrowserInfoType | null>(null);
+
+  function getBrowserName() {
+    const userAgent = navigator.userAgent;
+    if (userAgent.match(/chrome|chromium|crios/i)) return "Chrome";
+    if (userAgent.match(/firefox|fxios/i)) return "Firefox";
+    if (userAgent.match(/safari/i)) return "Safari";
+    if (userAgent.match(/opr\//i)) return "Opera";
+    if (userAgent.match(/edg/i)) return "Edge";
+    return "Unknown";
+  }
+
+  interface BrowserInfoType {
+    browser: string;
+    version: string;
+    platform: string;
+    language: string;
+    languages: string;
+    cookiesEnabled: boolean;
+    doNotTrack: string;
+    screenResolution: string;
+    windowSize: string;
+    colorDepth: number;
+    pixelRatio: number;
+    online: boolean;
+    hardwareConcurrency: number;
+  }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInfo({
       browser: getBrowserName(),
       version: navigator.appVersion,
@@ -23,16 +50,7 @@ export default function BrowserInfo() {
       hardwareConcurrency: navigator.hardwareConcurrency,
     });
   }, []);
-
-  function getBrowserName() {
-    const userAgent = navigator.userAgent;
-    if (userAgent.match(/chrome|chromium|crios/i)) return "Chrome";
-    if (userAgent.match(/firefox|fxios/i)) return "Firefox";
-    if (userAgent.match(/safari/i)) return "Safari";
-    if (userAgent.match(/opr\//i)) return "Opera";
-    if (userAgent.match(/edg/i)) return "Edge";
-    return "Unknown";
-  }
+  
 
   if (!info) return null;
 
@@ -54,9 +72,9 @@ export default function BrowserInfo() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
             <DetailRow label="Platform" value={info.platform} />
-            <DetailRow label="Hardware Cores" value={info.hardwareConcurrency} />
+            <DetailRow label="Hardware Cores" value={info.hardwareConcurrency.toString()} />
             <DetailRow label="Window Size" value={info.windowSize} />
-            <DetailRow label="Pixel Ratio" value={info.pixelRatio} />
+            <DetailRow label="Pixel Ratio" value={info.pixelRatio.toString()} />
             <DetailRow label="Color Depth" value={`${info.colorDepth}-bit`} />
             <DetailRow label="All Languages" value={info.languages} />
         </div>

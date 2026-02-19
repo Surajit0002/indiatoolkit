@@ -78,6 +78,7 @@ export default function FadeTransitionGenerator() {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/purity
   const animationName = `transition-${Date.now()}`;
 
   useEffect(() => {
@@ -93,6 +94,7 @@ export default function FadeTransitionGenerator() {
     }
   }, [isPlaying, config, previewKey]);
 
+   
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.id = "transition-styles";

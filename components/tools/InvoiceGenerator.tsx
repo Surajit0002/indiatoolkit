@@ -30,7 +30,7 @@ export default function InvoiceGenerator() {
     setItems(items.filter(item => item.id !== id));
   };
 
-  const updateItem = (id: string, field: keyof InvoiceItem, value: any) => {
+  const updateItem = (id: string, field: keyof InvoiceItem, value: InvoiceItem[keyof InvoiceItem]) => {
     setItems(items.map(item => item.id === id ? { ...item, [field]: value } : item));
   };
 

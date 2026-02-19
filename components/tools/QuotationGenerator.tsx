@@ -30,7 +30,7 @@ export default function QuotationGenerator() {
     setItems(items.filter(item => item.id !== id));
   };
 
-  const updateItem = (id: string, field: keyof QuotationItem, value: any) => {
+  const updateItem = (id: string, field: keyof QuotationItem, value: QuotationItem[keyof QuotationItem]) => {
     setItems(items.map(item => item.id === id ? { ...item, [field]: value } : item));
   };
 

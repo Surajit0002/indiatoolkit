@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { DollarSign, RefreshCw, ArrowRightLeft } from "lucide-react";
 
 // Mock rates for demonstration since we don't have an API key
@@ -19,13 +19,11 @@ export default function CurrencyConverter() {
   const [amount, setAmount] = useState<string>("100");
   const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("EUR");
-  const [result, setResult] = useState<number | null>(null);
 
-  useEffect(() => {
+  const result = useMemo(() => {
     const amt = parseFloat(amount);
     if (isNaN(amt)) {
-      setResult(null);
-      return;
+      return null;
     }
 
     const rateFrom = BASE_RATES[fromCurrency];
@@ -35,7 +33,7 @@ export default function CurrencyConverter() {
     const inUsd = amt / rateFrom;
     const final = inUsd * rateTo;
     
-    setResult(final);
+    return final;
   }, [amount, fromCurrency, toCurrency]);
 
   const handleSwap = () => {

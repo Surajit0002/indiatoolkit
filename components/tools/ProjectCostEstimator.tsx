@@ -25,7 +25,7 @@ export default function ProjectCostEstimator() {
     setTasks(tasks.filter(t => t.id !== id));
   };
 
-  const updateTask = (id: string, field: keyof ProjectTask, value: any) => {
+  const updateTask = (id: string, field: keyof ProjectTask, value: ProjectTask[keyof ProjectTask]) => {
     setTasks(tasks.map(t => t.id === id ? { ...t, [field]: value } : t));
   };
 

@@ -3,9 +3,15 @@
 import { useState } from "react";
 import { Search, Globe, FileCode, Check, Copy, ListTree, Activity } from "lucide-react";
 
+interface HttpHeadersData {
+  status: number;
+  url: string;
+  headers: Record<string, string>;
+}
+
 export default function HttpHeaders() {
   const [url, setUrl] = useState("");
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<HttpHeadersData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

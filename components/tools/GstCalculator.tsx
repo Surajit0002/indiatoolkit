@@ -132,7 +132,10 @@ export default function GstCalculator() {
                         </Pie>
                         <Tooltip 
                           contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
-                          formatter={(value: any) => [`$${value.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, '']}
+                          formatter={(value) => {
+                            const numValue = typeof value === 'number' ? value : 0;
+                            return [`${numValue.toLocaleString(undefined, { minimumFractionDigits: 2 })}`, ''];
+                          }}
                         />
                       </PieChart>
                     </ResponsiveContainer>

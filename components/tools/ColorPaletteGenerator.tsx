@@ -9,9 +9,11 @@ interface ColorPalette {
   hsl: string;
 }
 
+type PaletteType = "analogous" | "monochromatic" | "triadic" | "tetradic" | "complementary";
+
 export default function ColorPaletteGenerator() {
   const [baseColor, setBaseColor] = useState("#6366f1");
-  const [paletteType, setPaletteType] = useState<"analogous" | "monochromatic" | "triadic" | "tetradic" | "complementary">("analogous");
+  const [paletteType, setPaletteType] = useState<PaletteType>("analogous");
   const [palette, setPalette] = useState<ColorPalette[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
@@ -31,7 +33,8 @@ export default function ColorPaletteGenerator() {
   const rgbToHsl = (r: number, g: number, b: number) => {
     const r_norm = r / 255, g_norm = g / 255, b_norm = b / 255;
     const max = Math.max(r_norm, g_norm, b_norm), min = Math.min(r_norm, g_norm, b_norm);
-    let h = 0, s = 0, l = (max + min) / 2;
+    let h = 0, s = 0;
+    const l = (max + min) / 2;
 
     if (max !== min) {
       const d = max - min;
@@ -185,6 +188,7 @@ export default function ColorPaletteGenerator() {
   };
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     generatePalette();
   }, [baseColor, paletteType]);
 
@@ -233,7 +237,7 @@ export default function ColorPaletteGenerator() {
               <label className="text-[10px] sm:text-xs font-semibold text-gray-700 uppercase tracking-wide">Palette Type</label>
               <select
                 value={paletteType}
-                onChange={(e) => setPaletteType(e.target.value as any)}
+                onChange={(e) => setPaletteType(e.target.value as PaletteType)}
                 className="w-full h-10 sm:h-12 px-3 sm:px-4 bg-gray-50 border border-gray-100 rounded-lg sm:rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base"
               >
                 <option value="analogous">Analogous</option>

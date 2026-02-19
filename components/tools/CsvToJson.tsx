@@ -22,7 +22,7 @@ export default function CsvToJson() {
       const headers = rows[0].split(",");
       const result = rows.slice(1).map(row => {
         const values = row.split(",");
-        const obj: any = {};
+        const obj: Record<string, string> = {};
         headers.forEach((header, i) => {
           obj[header.trim()] = values[i]?.trim();
         });

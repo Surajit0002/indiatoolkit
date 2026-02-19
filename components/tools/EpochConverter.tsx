@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { Copy, Check, Clock, RefreshCw } from "lucide-react";
 
 export default function EpochConverter() {
-  const [now, setNow] = useState(Math.floor(Date.now() / 1000));
-  const [timestamp, setTimestamp] = useState(now.toString());
+  const getInitialTime = () => Math.floor(Date.now() / 1000);
+  const [now, setNow] = useState(getInitialTime);
+  const [timestamp, setTimestamp] = useState(getInitialTime().toString());
   const [dateStr, setDateStr] = useState("");
   const [copied, setCopied] = useState(false);
 

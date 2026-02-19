@@ -92,6 +92,7 @@ export default function ColorExtractor() {
     };
   };
 
+   
   useEffect(() => {
     if (image) {
       extractColors();

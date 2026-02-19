@@ -73,7 +73,8 @@ export default function ColorHarmonyGenerator() {
   const rgbToHsl = (r: number, g: number, b: number) => {
     const r_norm = r / 255, g_norm = g / 255, b_norm = b / 255;
     const max = Math.max(r_norm, g_norm, b_norm), min = Math.min(r_norm, g_norm, b_norm);
-    let h = 0, s = 0, l = (max + min) / 2;
+    let h = 0, s = 0;
+    const l = (max + min) / 2;
 
     if (max !== min) {
       const d = max - min;
@@ -168,6 +169,7 @@ export default function ColorHarmonyGenerator() {
     setHarmonyColors(colors);
   };
 
+   
   useEffect(() => {
     generateHarmony();
   }, [baseColor, harmonyType]);

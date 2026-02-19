@@ -30,7 +30,7 @@ export default function PurchaseOrderGenerator() {
     setItems(items.filter(item => item.id !== id));
   };
 
-  const updateItem = (id: string, field: keyof POItem, value: any) => {
+  const updateItem = (id: string, field: keyof POItem, value: POItem[keyof POItem]) => {
     setItems(items.map(item => item.id === id ? { ...item, [field]: value } : item));
   };
 

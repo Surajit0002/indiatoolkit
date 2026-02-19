@@ -267,7 +267,7 @@ export class ToolsApi {
     name: string;
     description: string;
     category: string;
-    parameters?: any[];
+    parameters?: Record<string, unknown>[];
     processingFunction?: string;
   }): Tool {
     return {

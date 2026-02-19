@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import QRCode from "qrcode";
-import { Download, Share2, Link as LinkIcon, Type, FileText, QrCode, RefreshCw } from "lucide-react";
+import { Download, Share2, QrCode } from "lucide-react";
 
 export default function QrGenerator() {
   const [text, setText] = useState("https://omnitools.example.com");
@@ -29,6 +29,7 @@ export default function QrGenerator() {
   }, [text, color, bgColor, errorLevel]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     generateQrCode();
   }, [generateQrCode]);
 
@@ -81,10 +82,10 @@ export default function QrGenerator() {
           <div className="brutal-card p-3 sm:p-4">
             <label className="block text-[9px] sm:text-xs font-black uppercase tracking-widest mb-2 sm:mb-3">Error Correction</label>
             <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
-              {["L", "M", "Q", "H"].map((level) => (
+              {(["L", "M", "Q", "H"] as const).map((level) => (
                 <button
                   key={level}
-                  onClick={() => setErrorLevel(level as any)}
+                  onClick={() => setErrorLevel(level)}
                   className={`py-2 sm:py-2.5 text-[10px] sm:text-xs font-black rounded sm:rounded-[4px] border-2 border-black transition-all touch-target ${
                     errorLevel === level ? "bg-black text-white" : "bg-white text-black"
                   }`}

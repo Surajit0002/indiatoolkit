@@ -13,6 +13,27 @@ export default function CountdownTimer() {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const playAlarm = () => {
+    // Basic beep using Web Audio API if no audio file is provided
+    try {
+      const audioCtx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+      gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+      
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + 2);
+    } catch (e) {
+      console.error("Audio context failed", e);
+    }
+  };
+
   useEffect(() => {
     if (isRunning && timeLeft > 0) {
       timerRef.current = setInterval(() => {
@@ -33,27 +54,6 @@ export default function CountdownTimer() {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [isRunning, timeLeft]);
-
-  const playAlarm = () => {
-    // Basic beep using Web Audio API if no audio file is provided
-    try {
-      const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      const oscillator = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-      gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
-      
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 2);
-    } catch (e) {
-      console.error("Audio context failed", e);
-    }
-  };
 
   const handleStart = () => {
     if (timeLeft === 0) {

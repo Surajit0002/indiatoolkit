@@ -19,8 +19,8 @@ export default function Base64Converter() {
         setOutput(atob(input));
       }
       setError(null);
-    } catch (e: any) {
-      setError(mode === "decode" ? "Invalid Base64 string" : e.message);
+    } catch (e: unknown) {
+      setError(mode === "decode" ? "Invalid Base64 string" : e instanceof Error ? e.message : "Unknown error");
       setOutput("");
     }
   };
