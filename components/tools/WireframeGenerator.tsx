@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 import { Copy, Check, Square, MousePointer, Type, Image, Layout, X } from "lucide-react";
 
 interface DraggableElement {
@@ -29,20 +29,24 @@ export default function WireframeGenerator() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [elementCounter, setElementCounter] = useState(0);
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  const addElement = (type: typeof elementTypes[0]) => {
-    const newElement: DraggableElement = {
-      id: `element-${Date.now()}`,
-      type: type.type as DraggableElement['type'],
-      x: 50,
-      y: 50,
-      width: type.defaultWidth,
-      height: type.defaultHeight,
-      label: type.label,
-    };
-    setElements([...elements, newElement]);
-  };
+  const addElement = useCallback((type: typeof elementTypes[0]) => {
+    setElementCounter(c => c + 1);
+    setElements(prev => {
+      const newElement: DraggableElement = {
+        id: `element-${Date.now()}`,
+        type: type.type as DraggableElement['type'],
+        x: 50,
+        y: 50,
+        width: type.defaultWidth,
+        height: type.defaultHeight,
+        label: type.label,
+      };
+      return [...prev, newElement];
+    });
+  }, []);
 
   const removeElement = (id: string) => {
     setElements(elements.filter(el => el.id !== id));

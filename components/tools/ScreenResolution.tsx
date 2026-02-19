@@ -75,7 +75,7 @@ function calculateAspectRatio(w: number, h: number) {
     return `${w/r}:${h/r}`;
 }
 
-function MetricCard({ icon, label, value, desc }: any) {
+function MetricCard({ icon, label, value, desc }: { icon: React.ReactNode; label: string; value: string | number; desc: string }) {
     return (
         <div className="glass-card p-8 flex items-center gap-6 group hover:border-blue-600/30 transition-all">
             <div className="p-4 bg-blue-600/10 text-blue-600 rounded-[12px] group-hover:scale-110 transition-transform">
@@ -90,7 +90,7 @@ function MetricCard({ icon, label, value, desc }: any) {
     )
 }
 
-function SpecItem({ label, value }: any) {
+function SpecItem({ label, value }: { label: string; value: string | number }) {
     return (
         <div>
             <p className="text-[10px] font-black uppercase text-gray-400 mb-2">{label}</p>

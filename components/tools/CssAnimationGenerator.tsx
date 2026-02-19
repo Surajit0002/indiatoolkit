@@ -1,21 +1,19 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { 
   Play, 
-  Pause, 
+  Pause,
   Copy, 
   Check, 
   RefreshCw,
   ChevronDown,
   ChevronUp,
-  Zap,
   RotateCw,
   Move,
   Circle,
   Square,
   Triangle,
-  Diamond,
   Heart,
   Star
 } from "lucide-react";
@@ -63,40 +61,15 @@ export default function CssAnimationGenerator() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [animationCounter, setAnimationCounter] = useState(0);
   const elementRef = useRef<HTMLDivElement>(null);
-  const animationNameRef = useRef(`anim-${Date.now()}`);
+  
+  // Generate stable animation name using counter instead of Date.now()
+  const animationName = useMemo(() => `anim-${animationCounter}`, [animationCounter]);
 
-  useEffect(() => {
-    const keyframes = generateKeyframes();
-    const styleSheet = document.createElement("style");
-    styleSheet.id = "animation-styles";
-    styleSheet.textContent = keyframes;
-    document.head.appendChild(styleSheet);
-
-    return () => {
-      document.head.removeChild(styleSheet);
-    };
-  }, [config]);
-
-  useEffect(() => {
-    if (isPlaying && elementRef.current) {
-      elementRef.current.style.animationName = animationNameRef.current;
-      elementRef.current.style.animationPlayState = "running";
-      
-      const duration = config.duration * 1000 * (typeof config.iterationCount === "string" ? 1 : config.iterationCount);
-      setTimeout(() => {
-        setIsPlaying(false);
-        if (elementRef.current) {
-          elementRef.current.style.animationName = "none";
-        }
-      }, duration + 100);
-    } else if (elementRef.current) {
-      elementRef.current.style.animationPlayState = "paused";
-    }
-  }, [isPlaying, config]);
-
-  const generateKeyframes = () => {
-    const { type, duration, keyframes } = config;
+  // Generate keyframes function - defined before useEffect that uses it
+  const generateKeyframes = useCallback(() => {
+    const { type } = config;
     let keyframesContent = "";
 
     switch (type) {
@@ -150,46 +123,75 @@ export default function CssAnimationGenerator() {
     }
 
     return `
-@keyframes ${animationNameRef.current} {
+@keyframes ${animationName} {
 ${keyframesContent}
 }`;
-  };
+  }, [config.type, animationName]);
 
-  const generateCssCode = () => {
+  useEffect(() => {
+    const keyframes = generateKeyframes();
+    const styleSheet = document.createElement("style");
+    styleSheet.id = "animation-styles";
+    styleSheet.textContent = keyframes;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, [generateKeyframes]);
+
+  useEffect(() => {
+    if (isPlaying && elementRef.current) {
+      elementRef.current.style.animationName = animationName;
+      elementRef.current.style.animationPlayState = "running";
+      
+      const duration = config.duration * 1000 * (typeof config.iterationCount === "string" ? 1 : config.iterationCount);
+      const timeoutId = setTimeout(() => {
+        setIsPlaying(false);
+        if (elementRef.current) {
+          elementRef.current.style.animationName = "none";
+        }
+      }, duration + 100);
+      
+      return () => clearTimeout(timeoutId);
+    } else if (elementRef.current) {
+      elementRef.current.style.animationPlayState = "paused";
+    }
+  }, [isPlaying, config.duration, config.iterationCount, animationName]);
+
+  const generateCssCode = useCallback(() => {
     const { duration, delay, iterationCount, easing, direction, fillMode } = config;
     
     return `.element {
-  animation: ${animationNameRef.current} ${duration}s ${easing} ${delay}s ${iterationCount} ${direction} ${fillMode};
+  animation: ${animationName} ${duration}s ${easing} ${delay}s ${iterationCount} ${direction} ${fillMode};
 }
 
-@keyframes ${animationNameRef.current} {
-${generateKeyframes().replace(`@keyframes ${animationNameRef.current} {`, "").trim()}
-}`;
-  };
+${generateKeyframes()}`;
+  }, [config, animationName, generateKeyframes]);
 
-  const generateTailwindCode = () => {
+  const generateTailwindCode = useCallback(() => {
     const { duration, delay, iterationCount, easing, direction, fillMode } = config;
     return `/* Add this to your CSS */
 ${generateKeyframes()}
 
 /* In your component */
-<div class="animate-[${animationNameRef.current}_${duration}s_${easing}_${delay}s_${iterationCount}_${direction}_${fillMode}]">
+<div class="animate-[${animationName}_${duration}s_${easing}_${delay}s_${iterationCount}_${direction}_${fillMode}]">
   Your Content
 </div>`;
-  };
+  }, [config, animationName, generateKeyframes]);
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = useCallback((text: string) => {
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
+  }, []);
 
-  const togglePlay = () => {
-    animationNameRef.current = `anim-${Date.now()}`;
-    setIsPlaying(!isPlaying);
-  };
+  const togglePlay = useCallback(() => {
+    setAnimationCounter(c => c + 1);
+    setIsPlaying(prev => !prev);
+  }, []);
 
-  const getPreviewStyle = (): React.CSSProperties => {
+  const getPreviewStyle = useCallback((): React.CSSProperties => {
     return {
       width: "100px",
       height: "100px",
@@ -202,7 +204,7 @@ ${generateKeyframes()}
       fontWeight: "bold",
       fontSize: "14px"
     };
-  };
+  }, []);
 
   return (
     <div className="p-6 md:p-8 space-y-8">
@@ -321,7 +323,7 @@ ${generateKeyframes()}
                   <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Direction</label>
                   <select
                     value={config.direction}
-                    onChange={(e) => setConfig({ ...config, direction: e.target.value as any })}
+                    onChange={(e) => setConfig({ ...config, direction: e.target.value as AnimationConfig["direction"] })}
                     className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg"
                   >
                     <option value="normal">Normal</option>
@@ -335,7 +337,7 @@ ${generateKeyframes()}
                   <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Fill Mode</label>
                   <select
                     value={config.fillMode}
-                    onChange={(e) => setConfig({ ...config, fillMode: e.target.value as any })}
+                    onChange={(e) => setConfig({ ...config, fillMode: e.target.value as AnimationConfig["fillMode"] })}
                     className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg"
                   >
                     <option value="none">None</option>

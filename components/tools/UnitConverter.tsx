@@ -65,9 +65,9 @@ export default function UnitConverter() {
       
       setResult(finalResult.toFixed(2));
     } else {
-      // @ts-ignore
+      // @ts-expect-error - Dynamic unit access
       const inBase = numValue / units[type][fromUnit];
-      // @ts-ignore
+      // @ts-expect-error - Dynamic unit access
       const finalResult = inBase * units[type][toUnit];
       setResult(finalResult.toString().includes(".") ? finalResult.toFixed(4) : finalResult.toString());
     }
