@@ -139,7 +139,7 @@ export default function WebsiteStatus() {
   );
 }
 
-function CodeInfo({ code, label, desc, color }: any) {
+function CodeInfo({ code, label, desc, color }: { code: string; label: string; desc: string; color: string }) {
     return (
         <div className="space-y-1">
             <div className="flex items-center gap-2">

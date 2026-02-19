@@ -137,7 +137,7 @@ export default function UnitConverter() {
   );
 }
 
-function BrutalTypeButton({ active, onClick, icon, label }: { active: boolean, onClick: () => void, icon: any, label: string }) {
+function BrutalTypeButton({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
     <button
       onClick={onClick}

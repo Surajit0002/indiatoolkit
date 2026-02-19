@@ -70,7 +70,7 @@ export default function BrowserInfo() {
   );
 }
 
-function InfoTile({ icon, label, value, color = "text-blue-600" }: any) {
+function InfoTile({ icon, label, value, color = "text-blue-600" }: { icon: React.ReactNode; label: string; value: string; color?: string }) {
     return (
         <div className="glass-card p-6 flex items-center gap-4 hover:scale-[1.02] transition-transform">
             <div className={`p-3 bg-blue-600/10 ${color} rounded-[10px]`}>
@@ -84,7 +84,7 @@ function InfoTile({ icon, label, value, color = "text-blue-600" }: any) {
     )
 }
 
-function DetailRow({ label, value }: any) {
+function DetailRow({ label, value }: { label: string; value: string }) {
     return (
         <div className="flex justify-between items-center border-b border-gray-100 pb-2">
             <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{label}</span>

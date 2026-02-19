@@ -72,7 +72,7 @@ export default function WordCounter() {
   );
 }
 
-function StatCard({ icon, label, value, color, bg }: { icon: any, label: string, value: number, color: string, bg: string }) {
+function StatCard({ icon, label, value, color, bg }: { icon: React.ReactNode; label: string; value: number; color: string; bg: string }) {
   return (
     <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl md:rounded-[32px] border border-slate-100 shadow-sm flex flex-col items-center justify-center text-center group hover:scale-[1.02] sm:hover:scale-[1.05] hover:shadow-lg sm:hover:shadow-xl transition-all duration-300 sm:duration-500">
       <div className={`h-10 w-10 sm:h-12 md:h-14 sm:w-12 md:w-14 ${bg} ${color} rounded-xl sm:rounded-2xl md:rounded-[20px] flex items-center justify-center mb-3 sm:mb-4 md:mb-6 group-hover:rotate-3 sm:group-hover:rotate-6 transition-transform shadow-inner`}>
