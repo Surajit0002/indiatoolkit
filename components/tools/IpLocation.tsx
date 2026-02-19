@@ -126,7 +126,7 @@ export default function IpLocation() {
   );
 }
 
-function LocationDetail({ label, value, subValue, icon }: any) {
+function LocationDetail({ label, value, subValue, icon }: { label: string; value: string; subValue: string; icon: React.ReactNode }) {
     return (
         <div className="flex items-center gap-4">
             <div className="h-10 w-10 bg-gray-100 rounded-[10px] flex items-center justify-center text-gray-500">

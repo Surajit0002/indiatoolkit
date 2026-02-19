@@ -135,7 +135,7 @@ export default function IpLookup() {
   );
 }
 
-function InfoCard({ icon, label, value, onCopy, isCopied }: any) {
+function InfoCard({ icon, label, value, onCopy, isCopied }: { icon: React.ReactNode; label: string; value: string; onCopy: () => void; isCopied: boolean }) {
   return (
     <div className="glass-card p-6 flex items-center justify-between group">
       <div className="flex items-center gap-4">
@@ -157,7 +157,7 @@ function InfoCard({ icon, label, value, onCopy, isCopied }: any) {
   );
 }
 
-function DetailItem({ label, value }: any) {
+function DetailItem({ label, value }: { label: string; value: string }) {
     return (
         <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">{label}</p>

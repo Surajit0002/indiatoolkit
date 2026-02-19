@@ -110,7 +110,7 @@ export default function WebsiteScreenshot() {
   );
 }
 
-function ViewportBtn({ icon, label, active, onClick }: any) {
+function ViewportBtn({ icon, label, active, onClick }: { icon: React.ReactNode; label: string; active: boolean; onClick: () => void }) {
     return (
         <button
             onClick={onClick}
