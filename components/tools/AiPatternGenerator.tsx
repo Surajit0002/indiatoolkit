@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Layers, Copy, Download, RefreshCw, Sparkles, Grid, Hexagon, Circle as CircleIcon } from "lucide-react";
+import { Layers, Download, RefreshCw, Sparkles, Grid, Hexagon, Circle as CircleIcon } from "lucide-react";
 
 const patternStyles = [
   "Geometric",

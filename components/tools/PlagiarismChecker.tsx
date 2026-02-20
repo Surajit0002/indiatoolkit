@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Search, AlertTriangle, CheckCircle, Copy, RefreshCw, FileText, Percent, Eye, X } from "lucide-react";
+import { Search, AlertTriangle, Copy, RefreshCw, FileText, Percent, Eye } from "lucide-react";
 
 interface Match {
   text: string;
@@ -29,9 +29,6 @@ export default function PlagiarismChecker() {
 
     // Simulate API call
     setTimeout(() => {
-      const words = text.toLowerCase().split(/\s+/);
-      const totalWords = words.length;
-      
       // Simulate finding some common phrases (demo purposes)
       const commonPhrases = [
         "the",
@@ -52,9 +49,6 @@ export default function PlagiarismChecker() {
         "be",
       ];
 
-      const matchingWords = words.filter((word) =>
-        commonPhrases.some((phrase) => word.includes(phrase))
-      );
 
       // Generate a mock similarity score (10-40% for demo)
       const baseSimilarity = 15;
@@ -92,39 +86,6 @@ export default function PlagiarismChecker() {
     }
   };
 
-  const highlightText = () => {
-    if (!textareaRef.current || !text) return;
-
-    const words = text.split(/\s+/);
-    const commonWords = [
-      "the",
-      "and",
-      "is",
-      "to",
-      "in",
-      "of",
-      "it",
-      "for",
-      "that",
-      "with",
-      "as",
-      "this",
-      "are",
-      "was",
-      "but",
-      "be",
-    ];
-
-    const highlightedWords = words.map((word) => {
-      const lowerWord = word.toLowerCase().replace(/[.,!?;:]/g, "");
-      if (commonWords.some((cw) => lowerWord === cw)) {
-        return `<span class="bg-yellow-200 px-1 rounded">${word}</span>`;
-      }
-      return word;
-    });
-
-    return highlightedWords.join(" ");
-  };
 
   return (
     <div className="p-6 md:p-8 space-y-8">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, FileText, Globe, Phone, Mail, MapPin, Building, Zap } from "lucide-react";
+import { Copy, Download, Palette, FileText, Globe, Phone, Mail, MapPin, Building } from "lucide-react";
 
 export default function LetterheadDesigner() {
   const [companyName, setCompanyName] = useState("Your Company Name");

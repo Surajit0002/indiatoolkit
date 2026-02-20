@@ -1,13 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Globe, Server, Hash, FileCode, Check, Copy } from "lucide-react";
+import { Globe, Copy } from "lucide-react";
+
+interface DnsRecord {
+  name: string;
+  type: number;
+  TTL: number;
+  data: string;
+  typeName?: string;
+}
 
 const RECORD_TYPES = ["A", "AAAA", "MX", "TXT", "NS", "CNAME", "SOA"];
 
 export default function DnsLookup() {
   const [domain, setDomain] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<DnsRecord[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,7 +38,7 @@ export default function DnsLookup() {
 
       const allResults = await Promise.all(RECORD_TYPES.map(async (type) => {
           const answers = await fetchType(type);
-          return answers.map((a: any) => ({ ...a, typeName: type }));
+          return answers.map((a: DnsRecord) => ({ ...a, typeName: type }));
       }));
 
       const flattened = allResults.flat();
@@ -39,7 +47,7 @@ export default function DnsLookup() {
       } else {
         setResults(flattened);
       }
-    } catch (err) {
+    } catch {
       setError("Failed to fetch DNS records. Please check the domain name.");
     } finally {
       setIsLoading(false);
@@ -47,7 +55,7 @@ export default function DnsLookup() {
   };
 
   const getTypeName = (type: number) => {
-    const map: any = { 1: "A", 2: "NS", 5: "CNAME", 6: "SOA", 15: "MX", 16: "TXT", 28: "AAAA" };
+    const map: Record<number, string> = { 1: "A", 2: "NS", 5: "CNAME", 6: "SOA", 15: "MX", 16: "TXT", 28: "AAAA" };
     return map[type] || type.toString();
   };
 

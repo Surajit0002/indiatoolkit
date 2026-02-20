@@ -111,11 +111,11 @@ export default async function ToolPage({ params }: PageProps) {
   const seoContent = generateSeoContent(tool);
   const dynamicFaqs = generateFaqsByType(tool);
     
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const CategoryIcon = Icons[category?.icon || "Folder"] || Icons.Folder;
   
   return (
-    <div className="bg-[#fcfdfe] min-h-screen pb-24 relative overflow-hidden" style={{ "--accent-color": category?.color } as any}>
+    <div className="bg-[#fcfdfe] min-h-screen pb-24 relative overflow-hidden" style={{ "--accent-color": category?.color } as React.CSSProperties}>
       {/* Immersive Background Glow */}
       <div className="absolute top-0 left-0 w-full h-200 pointer-events-none -z-10 overflow-hidden">
         <div 

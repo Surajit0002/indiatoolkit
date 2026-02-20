@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Sparkles, Copy, RefreshCw, Heart, Zap, Moon, Sun } from "lucide-react";
+import { BookOpen, Sparkles, Copy, RefreshCw, Heart, Zap } from "lucide-react";
 
 interface StoryData {
   genre: string;

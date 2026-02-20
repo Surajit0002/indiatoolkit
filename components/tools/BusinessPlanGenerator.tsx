@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Briefcase, Target, Users, TrendingUp, DollarSign, Download, RefreshCw, FileText, CheckCircle } from "lucide-react";
+import { Briefcase, Target, Users, TrendingUp, Download, RefreshCw, FileText, CheckCircle } from "lucide-react";
 
 interface BusinessPlanData {
   companyName: string;

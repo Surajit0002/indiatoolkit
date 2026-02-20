@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Quote, Plus, Trash2, Download, Printer, User, Building, FileText } from "lucide-react";
+import { Plus, Trash2, Download, Printer, FileText } from "lucide-react";
 
 interface QuotationItem {
   id: string;

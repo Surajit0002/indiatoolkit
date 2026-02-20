@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Globe, Activity, CheckCircle, XCircle, Clock, ExternalLink } from "lucide-react";
+import { Globe, Activity, CheckCircle, XCircle, Clock, ExternalLink } from "lucide-react";
+
+interface WebsiteStatusResult {
+  online: boolean;
+  code: number;
+  responseTime: number;
+  url: string;
+}
 
 export default function WebsiteStatus() {
   const [url, setUrl] = useState("");
-  const [status, setStatus] = useState<any>(null);
+  const [status, setStatus] = useState<WebsiteStatusResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,7 +54,7 @@ export default function WebsiteStatus() {
           url: targetUrl
         });
       }
-    } catch (err) {
+    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setError("Failed to reach the website. It might be down or blocking requests.");
     } finally {
       setIsLoading(false);

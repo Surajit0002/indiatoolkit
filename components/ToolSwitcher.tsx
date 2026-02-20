@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown, Zap, Search, ArrowRight, Layout, Command } from "lucide-react";
+import { ChevronDown, Zap, Search, ArrowRight, Command } from "lucide-react";
 import * as Icons from "lucide-react";
 import { Tool, ToolCategory } from "@/types/tool";
 
@@ -43,7 +43,7 @@ export default function ToolSwitcher({ categories, tools, currentToolSlug, filte
       </button>
 
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden z-[200] animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-slate-100 overflow-hidden z-200 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="p-2 border-b border-slate-50 bg-slate-50/50">
              <div className="flex items-center gap-2 px-2 py-1">
                <Search className="h-3 w-3 text-slate-400" />
@@ -55,10 +55,10 @@ export default function ToolSwitcher({ categories, tools, currentToolSlug, filte
              </div>
           </div>
           
-          <div className="max-h-[380px] overflow-y-auto scrollbar-hide py-1">
+          <div className="max-h-95 overflow-y-auto scrollbar-hide py-1">
             {filteredCategories.map((category) => {
               const categoryTools = tools.filter(t => t.category === category.slug);
-              // @ts-ignore
+              // @ts-expect-error - Dynamic icon access
               const Icon = Icons[category.icon] || Icons.Folder;
               
               if (categoryTools.length === 0) return null;

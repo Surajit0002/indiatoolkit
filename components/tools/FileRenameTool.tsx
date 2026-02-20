@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Edit3, Plus, Trash2, Hash, Calendar, ArrowRight, Copy, Check } from "lucide-react";
+import { Edit3, Hash, Calendar, ArrowRight, Copy, Check } from "lucide-react";
 
 export default function FileRenameTool() {
   const [prefix, setPrefix] = useState("");

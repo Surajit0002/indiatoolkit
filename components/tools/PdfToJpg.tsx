@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileDown, Upload, ArrowRight, Loader2, Info, FileText, Image as ImageIcon } from "lucide-react";
+import { FileDown, Upload, Loader2, Info, FileText, Image as ImageIcon } from "lucide-react";
 
 export default function PdfToJpg() {
   const [file, setFile] = useState<File | null>(null);

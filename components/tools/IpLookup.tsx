@@ -5,10 +5,27 @@ import { Search, Globe, Shield, Wifi, Copy, Check, MapPin, Building2 } from "luc
 
 export default function IpLookup() {
   const [query, setQuery] = useState("");
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<IpApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+
+  interface IpApiResponse {
+    ip?: string;
+    city?: string;
+    region?: string;
+    country_name?: string;
+    country_code?: string;
+    latitude?: number;
+    longitude?: number;
+    timezone?: string;
+    isp?: string;
+    org?: string;
+    asn?: string;
+    version?: string;
+    currency?: string;
+    country_calling_code?: string;
+  }
 
   const fetchIpData = async (ip: string = "") => {
     setIsLoading(true);
@@ -23,7 +40,7 @@ export default function IpLookup() {
         setData(result);
         if (!ip) setQuery(result.ip);
       }
-    } catch (err) {
+    } catch {
       setError("Failed to fetch IP information");
     } finally {
       setIsLoading(false);
@@ -59,7 +76,7 @@ export default function IpLookup() {
               onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <button type="submit" disabled={isLoading} className="brutal-btn bg-blue-600 min-w-[120px]">
+          <button type="submit" disabled={isLoading} className="brutal-btn bg-blue-600 min-w-30">
             {isLoading ? "LOOKING UP..." : "LOOKUP"}
           </button>
         </form>
@@ -79,7 +96,7 @@ export default function IpLookup() {
               <h2 className="text-5xl md:text-6xl font-black tabular-nums tracking-tighter flex items-center gap-4">
                 {data.ip}
                 <button 
-                    onClick={() => copyToClipboard(data.ip, 'ip')}
+                    onClick={() => data.ip && copyToClipboard(data.ip, 'ip')}
                     className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                 >
                     {copied === 'ip' ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
@@ -94,14 +111,14 @@ export default function IpLookup() {
                 icon={<Building2 className="h-5 w-5" />} 
                 label="Internet Service Provider (ISP)" 
                 value={data.org} 
-                onCopy={() => copyToClipboard(data.org, 'isp')}
+                onCopy={() => data.org && copyToClipboard(data.org, 'isp')}
                 isCopied={copied === 'isp'}
             />
             <InfoCard 
                 icon={<Globe className="h-5 w-5" />} 
                 label="ASN" 
                 value={data.asn} 
-                onCopy={() => copyToClipboard(data.asn, 'asn')}
+                onCopy={() => data.asn && copyToClipboard(data.asn, 'asn')}
                 isCopied={copied === 'asn'}
             />
             <InfoCard 
@@ -115,7 +132,7 @@ export default function IpLookup() {
                 icon={<Shield className="h-5 w-5" />} 
                 label="Time Zone" 
                 value={data.timezone} 
-                onCopy={() => copyToClipboard(data.timezone, 'tz')}
+                onCopy={() => data.timezone && copyToClipboard(data.timezone, 'tz')}
                 isCopied={copied === 'tz'}
             />
           </div>
@@ -135,7 +152,7 @@ export default function IpLookup() {
   );
 }
 
-function InfoCard({ icon, label, value, onCopy, isCopied }: { icon: React.ReactNode; label: string; value: string; onCopy: () => void; isCopied: boolean }) {
+function InfoCard({ icon, label, value, onCopy, isCopied }: { icon: React.ReactNode; label: string; value?: string; onCopy: () => void; isCopied: boolean }) {
   return (
     <div className="glass-card p-6 flex items-center justify-between group">
       <div className="flex items-center gap-4">
@@ -157,7 +174,7 @@ function InfoCard({ icon, label, value, onCopy, isCopied }: { icon: React.ReactN
   );
 }
 
-function DetailItem({ label, value }: { label: string; value: string }) {
+function DetailItem({ label, value }: { label: string; value?: string }) {
     return (
         <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">{label}</p>

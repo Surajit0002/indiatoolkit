@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, RefreshCw } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 const LOREM_WORDS = [
   "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",

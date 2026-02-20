@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DollarSign, Target, Briefcase, Clock, Info } from "lucide-react";
+import { Target, Briefcase, Info } from "lucide-react";
 
 export default function FreelanceRateCalculator() {
   const [targetIncome, setTargetIncome] = useState("80000");

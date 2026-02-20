@@ -1,5 +1,3 @@
-import { ToolCategory } from "../types/tool";
-
 export interface AdvancedTool {
   id: string;
   name: string;

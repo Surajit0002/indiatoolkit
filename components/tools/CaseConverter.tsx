@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, RefreshCw, Type, Trash2, AlignLeft } from "lucide-react";
+import { Copy, Check, Type, Trash2, AlignLeft } from "lucide-react";
 
 export default function CaseConverter() {
   const [text, setText] = useState("");

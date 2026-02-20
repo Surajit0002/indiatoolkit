@@ -55,49 +55,55 @@ export default function RealTimeCollaboration() {
   const [isSharing, setIsSharing] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [collaborators, setCollaborators] = useState<Collaborator[]>([
-    {
-      id: '1',
-      name: 'You',
-      avatar: 'YT',
-      role: 'owner',
-      lastActive: new Date(),
-      color: '#3B82F6'
-    },
-    {
-      id: '2',
-      name: 'Alex Chen',
-      avatar: 'AC',
-      role: 'editor',
-      lastActive: new Date(Date.now() - 300000),
-      color: '#10B981'
-    },
-    {
-      id: '3',
-      name: 'Priya Sharma',
-      avatar: 'PS',
-      role: 'viewer',
-      lastActive: new Date(Date.now() - 1200000),
-      color: '#F59E0B'
-    }
-  ]);
-  const [sharedTools, setSharedTools] = useState<SharedTool[]>([
-    {
-      id: '1',
-      name: 'Advanced Calculator',
-      category: 'Calculators',
-      config: { precision: 10, theme: 'dark' },
-      owner: 'You',
-      collaborators: ['Alex Chen', 'Priya Sharma'],
-      createdAt: new Date(Date.now() - 86400000),
-      lastModified: new Date(),
-      permissions: {
-        canEdit: true,
-        canShare: true,
-        canExport: true
+  const [collaborators, setCollaborators] = useState<Collaborator[]>(() => {
+    const now = Date.now();
+    return [
+      {
+        id: '1',
+        name: 'You',
+        avatar: 'YT',
+        role: 'owner' as const,
+        lastActive: new Date(),
+        color: '#3B82F6'
+      },
+      {
+        id: '2',
+        name: 'Alex Chen',
+        avatar: 'AC',
+        role: 'editor' as const,
+        lastActive: new Date(now - 300000),
+        color: '#10B981'
+      },
+      {
+        id: '3',
+        name: 'Priya Sharma',
+        avatar: 'PS',
+        role: 'viewer' as const,
+        lastActive: new Date(now - 1200000),
+        color: '#F59E0B'
       }
-    }
-  ]);
+    ];
+  });
+  const [sharedTools, setSharedTools] = useState<SharedTool[]>(() => {
+    const now = Date.now();
+    return [
+      {
+        id: '1',
+        name: 'Advanced Calculator',
+        category: 'Calculators',
+        config: { precision: 10, theme: 'dark' },
+        owner: 'You',
+        collaborators: ['Alex Chen', 'Priya Sharma'],
+        createdAt: new Date(now - 86400000),
+        lastModified: new Date(),
+        permissions: {
+          canEdit: true,
+          canShare: true,
+          canExport: true
+        }
+      }
+    ];
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {

@@ -105,7 +105,7 @@ export default function CategoriesPage() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {categories.map((category, index) => {
-            // @ts-ignore
+            // @ts-expect-error - Dynamic icon access
             const Icon = Icons[category.icon] || Icons.Folder;
             const categoryTools = tools.filter(t => t.category === category.id);
 

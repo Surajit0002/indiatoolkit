@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { Search, Filter, X, Grid, List, ArrowRight, Zap, Settings2 } from "lucide-react";
+import { Search, Filter, X,  Zap, Settings2 } from "lucide-react";
 import { Tool, ToolCategory } from "@/types/tool";
 import ToolCard from "./ToolCard";
 
@@ -43,7 +43,7 @@ export default function ToolsList({ initialTools, categories }: ToolsListProps) 
     <>
       {/* Action Bar */}
       <div className="flex flex-col md:flex-row gap-4 mb-12 sticky top-20 z-50 py-4 bg-[#fcfdfe]/80 backdrop-blur-xl">
-        <div className="relative flex-grow group">
+        <div className="relative grow group">
           <div className="absolute inset-0 bg-blue-600/5 rounded-2xl blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
           <div className="relative flex items-center">
             <Search className="absolute left-5 h-5 w-5 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
@@ -104,7 +104,7 @@ export default function ToolsList({ initialTools, categories }: ToolsListProps) 
 
       {/* Right-side Slide Filter Drawer */}
       <div 
-        className={`fixed inset-0 z-[1000] pointer-events-none ${isFilterOpen ? "pointer-events-auto" : ""}`}
+        className={`fixed inset-0 z-1000 pointer-events-none ${isFilterOpen ? "pointer-events-auto" : ""}`}
       >
         {/* Backdrop */}
         <div 
@@ -116,7 +116,7 @@ export default function ToolsList({ initialTools, categories }: ToolsListProps) 
 
         {/* Drawer Content */}
         <div 
-          className={`absolute top-0 right-0 h-full w-full max-w-[400px] bg-white shadow-[-20px_0_60px_rgba(0,0,0,0.1)] transition-transform duration-500 ease-out transform p-8 flex flex-col pointer-events-auto ${
+          className={`absolute top-0 right-0 h-full w-full max-w-100 bg-white shadow-[-20px_0_60px_rgba(0,0,0,0.1)] transition-transform duration-500 ease-out transform p-8 flex flex-col pointer-events-auto ${
             isFilterOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -133,7 +133,7 @@ export default function ToolsList({ initialTools, categories }: ToolsListProps) 
             </button>
           </div>
 
-          <div className="flex-grow overflow-y-auto space-y-10">
+          <div className="grow overflow-y-auto space-y-10">
             {/* Quick Filters */}
             <div className="space-y-4">
               <h3 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2">

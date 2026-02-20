@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, MousePointer, Square, Circle, Type, FormInput, Menu } from "lucide-react";
+import { Copy, Check, MousePointer, Square, Circle, FormInput, Menu } from "lucide-react";
 
 type ComponentType = 'button' | 'card' | 'input' | 'nav' | 'modal' | 'badge' | 'avatar' | 'alert';
 

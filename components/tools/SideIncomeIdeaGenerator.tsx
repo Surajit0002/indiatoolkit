@@ -72,7 +72,7 @@ export default function SideIncomeIdeaGenerator() {
     setTimeout(() => {
       const generatedIdeas = ideaCategories.map(category => {
         // Generate ideas based on selected skills and interests
-        const matchingSkills = profile.skills.filter(skill =>
+        profile.skills.filter(skill =>
           category.examples.some(example => 
             example.toLowerCase().includes(skill.toLowerCase())
           )

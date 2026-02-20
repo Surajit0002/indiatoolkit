@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Play, Pause, RotateCcw, Flag, Timer } from "lucide-react";
 
 export default function Stopwatch() {

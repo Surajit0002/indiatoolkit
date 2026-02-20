@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Type, Hash, AlignLeft, Info } from "lucide-react";
+import { Type, Hash, AlignLeft } from "lucide-react";
 
 export default function CharacterCounter() {
   const [text, setText] = useState("");

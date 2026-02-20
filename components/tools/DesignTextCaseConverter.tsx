@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Check, RefreshCw, Type, Trash2, AlignLeft, Palette, Eye, Sliders } from "lucide-react";
+import { Copy, Check, Type, Trash2, AlignLeft, Palette, Eye, Sliders } from "lucide-react";
 
 type CaseType = 'upper' | 'lower' | 'title' | 'sentence' | 'camel' | 'snake' | 'kebab' | 'constant' | 'swap';
 
@@ -28,7 +28,7 @@ export default function DesignTextCaseConverter() {
   const [text, setText] = useState("The quick brown fox jumps over the lazy dog");
   const [copied, setCopied] = useState(false);
   const [previewMode, setPreviewMode] = useState<"single" | "compare">("single");
-  const [compareCase, setCompareCase] = useState<CaseType>("upper");
+  const [compareCase] = useState<CaseType>("upper");
   const [fontSize, setFontSize] = useState(24);
   const [showGuidelines, setShowGuidelines] = useState(true);
 

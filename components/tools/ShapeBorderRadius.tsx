@@ -117,7 +117,7 @@ border-radius: ${getBorderRadiusString()};`;
   };
 
   const generateTailwindCode = () => {
-    const radius = config.borderRadius;
+    
     let tailwindClass = `w-[${config.width}px] h-[${config.height}px]`;
     
     if (config.borderRadius === 0) {

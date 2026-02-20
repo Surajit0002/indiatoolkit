@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Code, Copy, Download, RefreshCw, Sparkles, Box, MousePointer2, Layout, CreditCard, User } from "lucide-react";
+import { Code, Copy, Download, RefreshCw, Sparkles, Box, Layout, CreditCard } from "lucide-react";
 
 const componentTypes = [
   "Button",

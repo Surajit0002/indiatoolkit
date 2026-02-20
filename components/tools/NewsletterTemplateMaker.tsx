@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Mail, Calendar, Users, TrendingUp, Zap } from "lucide-react";
+import { Copy, Download, Type, Palette, Mail, Calendar, Users, TrendingUp } from "lucide-react";
 
 export default function NewsletterTemplateMaker() {
   const [newsletterName, setNewsletterName] = useState("Monthly Newsletter");

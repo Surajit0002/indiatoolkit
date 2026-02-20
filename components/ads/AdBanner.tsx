@@ -16,35 +16,39 @@ export default function AdBanner({ position, className = "" }: AdBannerProps) {
     const adsEnabled = process.env.NEXT_PUBLIC_ADSENSE_ENABLED === "true";
     
     if (!adsEnabled) {
-      setShowPlaceholder(true);
-      return;
+      const timeoutId = setTimeout(() => {
+        setShowPlaceholder(true);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
 
     // Initialize AdSense (requires script to be loaded in layout)
     try {
-      // @ts-ignore - AdSense global
+      // @ts-expect-error - AdSense global
       if (window.adsbygoogle) {
-        // @ts-ignore
+        // @ts-expect-error - AdSense global
         window.adsbygoogle = window.adsbygoogle || [];
-        // @ts-ignore
+        // @ts-expect-error - AdSense global
         window.adsbygoogle.push({});
-        setIsLoaded(true);
+        const timeoutId = setTimeout(() => {
+          setIsLoaded(true);
+        }, 0);
+        return () => clearTimeout(timeoutId);
       } else {
-        setShowPlaceholder(true);
+        const timeoutId = setTimeout(() => {
+          setShowPlaceholder(true);
+        }, 0);
+        return () => clearTimeout(timeoutId);
       }
     } catch {
-      setShowPlaceholder(true);
+      const timeoutId = setTimeout(() => {
+        setShowPlaceholder(true);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
   }, []);
 
-  const adSizes = {
-    top: "320x50",
-    bottom: "320x50",
-    sidebar: "300x250",
-    "in-article": "300x250",
-    interstitial: "320x480",
-  };
-
+  
   const adFormats = {
     top: "horizontal",
     bottom: "horizontal",

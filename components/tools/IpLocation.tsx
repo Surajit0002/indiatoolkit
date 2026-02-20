@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MapPin, Navigation, Globe, Search, Copy, Check } from "lucide-react";
+import { MapPin, Navigation, Globe, Search } from "lucide-react";
 
 export default function IpLocation() {
   const [query, setQuery] = useState("");
@@ -41,7 +41,7 @@ export default function IpLocation() {
         setData(result);
         if (!ip) setQuery(result.ip);
       }
-    } catch (err) {
+    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setError("Failed to fetch location data");
     } finally {
       setIsLoading(false);

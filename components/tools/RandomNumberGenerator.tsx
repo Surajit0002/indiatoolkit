@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Hash, RefreshCw, Copy, Sparkles, Settings2 } from "lucide-react";
+import { Copy, Sparkles } from "lucide-react";
 
 export default function RandomNumberGenerator() {
   const [min, setMin] = useState(1);

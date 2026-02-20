@@ -91,7 +91,7 @@ async function cacheFirst(request) {
       cache.put(request, networkResponse.clone());
     }
     return networkResponse;
-  } catch (error) {
+  } catch (_error) {  
     return new Response('Offline', { status: 503 });
   }
 }
@@ -104,7 +104,7 @@ async function networkFirst(request) {
       cache.put(request, networkResponse.clone());
     }
     return networkResponse;
-  } catch (error) {
+  } catch (_error) {  
     const cachedResponse = await caches.match(request);
     if (cachedResponse) {
       return cachedResponse;

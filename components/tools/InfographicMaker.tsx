@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, BarChart2, PieChart, TrendingUp, Zap, Lightbulb, Target } from "lucide-react";
+import { Copy, Download, Type, Palette, BarChart2, TrendingUp, Target } from "lucide-react";
 
 export default function InfographicMaker() {
   const [title, setTitle] = useState("How Our Product Works");

@@ -28,7 +28,7 @@ export function ShareButtons({
   url,
   title,
   description = "",
-  image,
+  
   className = "",
 }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
@@ -36,7 +36,6 @@ export function ShareButtons({
   const fullUrl = url.startsWith("http") ? url : `https://www.indiatoolkit.in${url}`;
   const encodedUrl = encodeURIComponent(fullUrl);
   const encodedTitle = encodeURIComponent(title);
-  const encodedDescription = encodeURIComponent(description);
 
   const shareLinks = {
     twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,

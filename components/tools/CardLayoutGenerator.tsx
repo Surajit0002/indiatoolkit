@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Grid3X3, Layout } from "lucide-react";
+import { Copy, Check, Grid3X3 } from "lucide-react";
 
 type CardStyle = 'standard' | 'horizontal' | 'overlay' | 'masonry';
 

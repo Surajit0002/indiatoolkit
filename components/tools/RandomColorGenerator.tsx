@@ -19,14 +19,7 @@ export default function RandomColorGenerator() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [lockedIndices, setLockedIndices] = useState<number[]>([]);
 
-  const hexToRgb = (hex: string) => {
-    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-      r: parseInt(result[1], 16),
-      g: parseInt(result[2], 16),
-      b: parseInt(result[3], 16)
-    } : null;
-  };
+
 
   const rgbToHex = (r: number, g: number, b: number, includeAlpha: boolean, alpha?: number) => {
     const hex = ((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1).toUpperCase();

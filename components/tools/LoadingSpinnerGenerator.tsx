@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   Copy, 
   Check, 
@@ -11,7 +11,7 @@ import {
   Hexagon,
   Loader,
   Sun,
-  Moon,
+
   Star,
   Heart
 } from "lucide-react";
@@ -63,7 +63,7 @@ export default function LoadingSpinnerGenerator() {
   const [copied, setCopied] = useState(false);
 
   const generateCssCode = () => {
-    const { type, shape, size, strokeWidth, color, secondaryColor, speed, track } = config;
+    const { type, size, strokeWidth, color, secondaryColor, speed, track } = config;
     const duration = (2 / speed).toFixed(2);
 
     if (type === "spinner") {
@@ -220,7 +220,7 @@ ${generateCssCode()}
   };
 
   const renderPreview = () => {
-    const { type, shape, size, strokeWidth, color, speed, track } = config;
+    const { type, size, strokeWidth, color, speed, track } = config;
     const duration = 2 / speed;
     const style: React.CSSProperties = {
       width: size,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Calendar, Clock, Target, Download, Copy, RefreshCw, CheckCircle, BookMarked } from "lucide-react";
+import { BookOpen, Calendar, Clock, Target, Download, RefreshCw, CheckCircle, BookMarked } from "lucide-react";
 
 interface StudyPlan {
   day: string;

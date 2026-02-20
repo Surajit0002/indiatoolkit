@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Type, RefreshCw, Globe, Sparkles } from "lucide-react";
+import { Copy, Check, RefreshCw, Globe } from "lucide-react";
 
 type UnicodeStyle = 'bubble' | 'bold' | 'script' | 'gothic' | 'double' | 'wide' | 'small' | 'upside' | 'reverse' | 'zirak';
 

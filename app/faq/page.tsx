@@ -73,7 +73,7 @@ export default function FAQPage() {
         <div className="mt-16 text-center">
           <div className="glass-card p-12 inline-block max-w-2xl border-dashed">
              <h2 className="text-2xl font-black text-slate-900 mb-4 tracking-tight">Still have questions?</h2>
-             <p className="text-slate-500 font-medium mb-8">We're here to help. Reach out to our support team or join our community.</p>
+             <p className="text-slate-500 font-medium mb-8">We&apos;re here to help. Reach out to our support team or join our community.</p>
              <button className="brutal-btn bg-indigo-600 hover:bg-indigo-700">Contact Support</button>
           </div>
         </div>

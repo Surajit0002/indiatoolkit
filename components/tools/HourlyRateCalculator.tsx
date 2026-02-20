@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, DollarSign, Calendar, ArrowRightLeft } from "lucide-react";
+import { Clock, Calendar } from "lucide-react";
 
 export default function HourlyRateCalculator() {
   const [annualSalary, setAnnualSalary] = useState("60000");

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, RefreshCw, Copy, Settings2, Sparkles } from "lucide-react";
+import { Copy, Sparkles } from "lucide-react";
 
 const FIRST_NAMES = {
   male: ["Liam", "Noah", "Oliver", "James", "Elijah", "William", "Henry", "Lucas", "Benjamin", "Theodore", "Jack", "Levi", "Alexander", "Jackson", "Mateo"],

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calendar, Download, RefreshCw, Sparkles, Target, CheckCircle, BarChart } from "lucide-react";
+import { Download, RefreshCw, Sparkles, Target, CheckCircle, BarChart, Calendar } from "lucide-react";
 
 interface CalendarData {
   topic: string;
@@ -174,7 +174,7 @@ Est. Follower Growth: +${calendar.metrics.growth}%
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-teal-500 to-cyan-600 rounded-2xl mb-4 shadow-lg">
             <Calendar className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Content Calendar Generator</h2>
@@ -265,7 +265,7 @@ Est. Follower Growth: +${calendar.metrics.growth}%
               <button
                 onClick={generateCalendar}
                 disabled={!data.topic.trim() || isGenerating}
-                className="flex-1 h-14 bg-gradient-to-r from-teal-500 to-cyan-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-teal-600 hover:to-cyan-700 transition-all shadow-lg shadow-teal-100 disabled:opacity-50"
+                className="flex-1 h-14 bg-linear-to-r from-teal-500 to-cyan-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-teal-600 hover:to-cyan-700 transition-all shadow-lg shadow-teal-100 disabled:opacity-50"
               >
                 {isGenerating ? (
                   <>
@@ -291,7 +291,7 @@ Est. Follower Growth: +${calendar.metrics.growth}%
 
           {/* Results */}
           {calendar && (
-            <div className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 border-t border-teal-100">
+            <div className="p-6 bg-linear-to-br from-teal-50 to-cyan-50 border-t border-teal-100">
               {/* Metrics */}
               <div className="grid grid-cols-3 gap-4 mb-6">
                 <div className="p-4 bg-white rounded-2xl text-center">
@@ -329,7 +329,7 @@ Est. Follower Growth: +${calendar.metrics.growth}%
                 <div className="mt-3 space-y-2">
                   {calendar.days.slice(0, 7).map((day, index) => (
                     <div key={index} className="flex items-center gap-4 p-3 bg-white rounded-xl">
-                      <div className="text-center min-w-[60px]">
+                      <div className="text-center min-w-15">
                         <p className="text-xs font-bold text-teal-600">{day.day.substring(0, 3)}</p>
                         <p className="text-xs text-slate-400">{day.date}</p>
                       </div>

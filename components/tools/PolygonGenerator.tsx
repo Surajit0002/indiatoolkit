@@ -6,7 +6,7 @@ import {
   Copy, 
   Check, 
   Download, 
-  RotateCw,
+  
   Pentagon,
   Hexagon,
   Octagon,
@@ -76,15 +76,6 @@ height: ${size * 2}px;
 background-color: ${fillColor};`;
   };
 
-  const generateTailwindClipPath = () => {
-    if (sides === 3) {
-      return `clip-path: polygon(50% 0%, 0% 100%, 100% 100%);`;
-    }
-    if (sides === 4) {
-      return `clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);`;
-    }
-    return `/* Complex clip-path for ${sides} sides */`;
-  };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);

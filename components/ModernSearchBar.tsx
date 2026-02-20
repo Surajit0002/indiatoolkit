@@ -53,12 +53,18 @@ export default function ModernSearchBar() {
     if (query.length >= 2) {
       setIsSearching(true);
       const searchResults = fuse.search(query);
-      const filtered = searchResults.slice(0, 6).map((result: any) => result.item);
-      setResults(filtered);
-      setActiveIndex(-1);
+      const filtered = searchResults.slice(0, 6).map((result) => result.item);
+      const timeoutId = setTimeout(() => {
+        setResults(filtered);
+        setActiveIndex(-1);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     } else {
-      setIsSearching(false);
-      setResults([]);
+      const timeoutId = setTimeout(() => {
+        setIsSearching(false);
+        setResults([]);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
   }, [query, fuse]);
 

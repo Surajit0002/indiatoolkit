@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Instagram, Send, Copy, Check, Loader2, Sparkles, RotateCcw, Zap, Terminal } from "lucide-react";
+import { Instagram, Copy, Check, Loader2, Sparkles, RotateCcw, Zap, Terminal } from "lucide-react";
 import { useAi } from "@/hooks/useAi";
 import AiModelSelector from "@/components/ui/AiModelSelector";
 

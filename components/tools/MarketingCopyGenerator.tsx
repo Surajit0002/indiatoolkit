@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Type, Sparkles, Check, FileText, MousePointer, Megaphone } from "lucide-react";
+import { Copy, Type, Sparkles, Check, FileText, Megaphone } from "lucide-react";
 
 export default function MarketingCopyGenerator() {
   const [copyType, setCopyType] = useState("headline");

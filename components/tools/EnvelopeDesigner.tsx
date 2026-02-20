@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Mail, MapPin, Building, Zap } from "lucide-react";
+import { Copy, Download, Palette, Mail, Building } from "lucide-react";
 
 export default function EnvelopeDesigner() {
   const [companyName, setCompanyName] = useState("Your Company");

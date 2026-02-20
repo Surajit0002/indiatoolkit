@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, forwardRef, RefObject } from "react";
+import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { 
   Copy, 
   Check, 
@@ -9,12 +9,8 @@ import {
   Pause,
   RefreshCw,
   Route,
-  Zap,
   MousePointer2,
-  Circle,
-  Square,
-  Triangle,
-  Star
+  Circle
 } from "lucide-react";
 
 type PathShape = "line" | "circle" | "wave" | "spiral" | "custom";
@@ -68,7 +64,7 @@ export default function MotionPathGenerator() {
   useEffect(() => {
     if (isPlaying && elementRef.current) {
       elementRef.current.style.animation = "none";
-      elementRef.current.offsetHeight;
+      void elementRef.current.offsetHeight;
       elementRef.current.style.animation = `motion-path ${config.duration}s ${config.easing} ${config.iterations} ${config.direction} ${config.fillMode}`;
       
       const iterationsCount = typeof config.iterations === "number" ? config.iterations : 1;
@@ -92,42 +88,6 @@ export default function MotionPathGenerator() {
         return "M 50,200 C 100,100 150,100 200,200 S 300,100 350,200";
       default:
         return "M 50,150 L 350,150";
-    }
-  };
-
-  const generateKeyframes = () => {
-    const shape = config.shape;
-    
-    if (shape === "line") {
-      return `
-@keyframes motion-path {
-  0% { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
-}`;
-    } else if (shape === "circle") {
-      return `
-@keyframes motion-path {
-  0% { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
-}`;
-    } else if (shape === "wave") {
-      return `
-@keyframes motion-path {
-  0% { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
-}`;
-    } else if (shape === "spiral") {
-      return `
-@keyframes motion-path {
-  0% { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
-}`;
-    } else {
-      return `
-@keyframes motion-path {
-  0% { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
-}`;
     }
   };
 
@@ -162,35 +122,6 @@ export default function MotionPathGenerator() {
   0% { offset-distance: 0%; }
   100% { offset-distance: 100%; }
 }`;
-  };
-
-  const generateTailwindCode = () => {
-    return `/* Add to your CSS */
-${generateKeyframes()}
-
-/* HTML structure */
-<div class="relative w-[400px] h-[300px]">
-  <svg class="absolute inset-0 w-full h-full">
-    <path 
-      d="${getPathDefinition()}" 
-      fill="none" 
-      stroke="${config.pathColor}" 
-      stroke-width="${config.pathWidth}"
-    />
-  </svg>
-  <div 
-    class="absolute"
-    style="
-      width: ${config.elementSize}px;
-      height: ${config.elementSize}px;
-      background: ${config.elementColor};
-      border-radius: ${config.shape === "circle" ? "50%" : "4px"};
-      offset-path: path('${getPathDefinition()}');
-      animation: motion-path ${config.duration}s ${config.easing} ${config.iterations} ${config.direction} ${config.fillMode};
-      ${config.rotateElement ? "offset-rotate: auto;" : ""}
-    "
-  />
-</div>`;
   };
 
   const generateFramerMotionCode = () => {
@@ -286,7 +217,7 @@ const variants = {
                 <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Iterations</label>
                 <select
                   value={typeof config.iterations === "number" ? config.iterations.toString() : config.iterations}
-                  onChange={(e) => setConfig({ ...config, iterations: e.target.value as any })}
+                  onChange={(e) => setConfig({ ...config, iterations: e.target.value === "infinite" ? "infinite" : parseInt(e.target.value) })}
                   className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg"
                 >
                   <option value="1">1</option>
@@ -319,7 +250,7 @@ const variants = {
                 <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Direction</label>
                 <select
                   value={config.direction}
-                  onChange={(e) => setConfig({ ...config, direction: e.target.value as any })}
+                  onChange={(e) => setConfig({ ...config, direction: e.target.value as "normal" | "reverse" | "alternate" })}
                   className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg"
                 >
                   <option value="normal">Normal</option>
@@ -331,7 +262,7 @@ const variants = {
                 <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Fill Mode</label>
                 <select
                   value={config.fillMode}
-                  onChange={(e) => setConfig({ ...config, fillMode: e.target.value as any })}
+                  onChange={(e) => setConfig({ ...config, fillMode: e.target.value as "none" | "forwards" | "backwards" | "both" })}
                   className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg"
                 >
                   <option value="none">None</option>
@@ -507,10 +438,10 @@ const MotionElement = forwardRef<HTMLDivElement, { config: MotionPathConfig; pat
   useEffect(() => {
     if (isPlaying && usedRef.current) {
       usedRef.current.style.animation = "none";
-      usedRef.current.offsetHeight;
+      void usedRef.current.offsetHeight;
       usedRef.current.style.animation = `motion-path ${config.duration}s ${config.easing} ${config.iterations} ${config.direction} ${config.fillMode}`;
     }
-  }, [isPlaying, config]);
+  }, [isPlaying, config, usedRef]);
 
   return (
     <div
@@ -529,3 +460,5 @@ const MotionElement = forwardRef<HTMLDivElement, { config: MotionPathConfig; pat
     />
   );
 });
+
+MotionElement.displayName = "MotionElement";

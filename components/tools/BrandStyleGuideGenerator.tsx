@@ -62,7 +62,7 @@ ${brandVoice}
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
             <Palette className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Brand Style Guide Generator</h2>
@@ -280,7 +280,7 @@ ${brandVoice}
 
             <button
               onClick={generateStyleGuide}
-              className="w-full py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all"
+              className="w-full py-4 bg-linear-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all"
             >
               Generate Style Guide
             </button>
@@ -294,7 +294,7 @@ ${brandVoice}
                 Preview
               </h3>
               
-              <div className="bg-slate-50 rounded-xl p-4 min-h-[400px]">
+              <div className="bg-slate-50 rounded-xl p-4 min-h-400px">
                 {generated ? (
                   <div className="space-y-6">
                     {/* Color Palette Preview */}
@@ -342,7 +342,7 @@ ${brandVoice}
                 ) : (
                   <div className="flex items-center justify-center h-full">
                     <p className="text-slate-400 text-center">
-                      Fill in the details and click<br />"Generate Style Guide"
+                      Fill in the details and click<br />&quot;Generate Style Guide&quot;
                     </p>
                   </div>
                 )}

@@ -185,7 +185,7 @@ export default function ResponsiveLayoutGenerator() {
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Breakpoints</label>
                 <div className="bg-slate-50 rounded-[24px] p-6 border border-slate-100">
                   <div className="space-y-3">
-                    {breakpoints.map((bp, index) => (
+                    {breakpoints.map((bp) => (
                       <div key={bp.name} className="flex items-center gap-4 p-3 bg-white rounded-xl border border-slate-200">
                         <span className="w-16 text-xs font-black text-blue-600 uppercase">{bp.name}</span>
                         <span className="text-xs text-slate-500">{bp.minWidth}px</span>

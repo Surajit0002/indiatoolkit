@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DollarSign, TrendingUp, Users, Globe, Target, RefreshCw, Lightbulb, CheckCircle, AlertCircle } from "lucide-react";
+import { DollarSign, TrendingUp, Users, Globe, RefreshCw, Lightbulb, CheckCircle, AlertCircle } from "lucide-react";
 
 interface WebsiteData {
   url: string;

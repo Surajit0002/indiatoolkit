@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Star, Trash2, ExternalLink, Bookmark, ArrowRight, Sparkles } from "lucide-react";
+import { Star, Trash2, Bookmark, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Tool } from "@/types/tool";
 import { getToolBySlug, getCategoryBySlug } from "@/lib/utils";
@@ -21,16 +21,24 @@ export default function SavedTools({ maxItems = 6, showTitle = true }: SavedTool
     const saved = localStorage.getItem("saved-tools");
     if (saved) {
       const slugs = JSON.parse(saved);
-      setSavedSlugs(slugs);
+      const timeoutId = setTimeout(() => {
+        setSavedSlugs(slugs);
 
-      // Fetch tool details
-      const tools = slugs
-        .slice(0, maxItems)
-        .map((slug: string) => getToolBySlug(slug))
-        .filter(Boolean) as Tool[];
-      setSavedTools(tools);
+        // Fetch tool details
+        const tools = slugs
+          .slice(0, maxItems)
+          .map((slug: string) => getToolBySlug(slug))
+          .filter(Boolean) as Tool[];
+        setSavedTools(tools);
+        setIsLoading(false);
+      }, 0);
+      return () => clearTimeout(timeoutId);
+    } else {
+      const timeoutId = setTimeout(() => {
+        setIsLoading(false);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
-    setIsLoading(false);
   }, [maxItems]);
 
   const removeTool = (slug: string) => {
@@ -52,7 +60,7 @@ export default function SavedTools({ maxItems = 6, showTitle = true }: SavedTool
 
   if (savedTools.length === 0) {
     return (
-      <div className="text-center py-16 px-8 bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl border border-slate-200">
+      <div className="text-center py-16 px-8 bg-linear-to-r from-slate-50 to-slate-100 rounded-3xl border border-slate-200">
         <div className="h-20 w-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl shadow-slate-200">
           <Bookmark className="h-10 w-10 text-slate-300" />
         </div>
@@ -76,7 +84,7 @@ export default function SavedTools({ maxItems = 6, showTitle = true }: SavedTool
       {showTitle && (
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-200">
+            <div className="h-10 w-10 bg-linear-to-r from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-amber-200">
               <Bookmark className="h-5 w-5 text-white" />
             </div>
             <div>

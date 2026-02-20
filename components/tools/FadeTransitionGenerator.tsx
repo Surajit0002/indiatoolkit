@@ -8,11 +8,7 @@ import {
   Pause, 
   Layers,
   ArrowRight,
-  ArrowLeft,
-  ArrowUp,
-  ArrowDown,
   Maximize,
-  Minimize,
   Eye,
   EyeOff
 } from "lucide-react";
@@ -81,33 +77,8 @@ export default function FadeTransitionGenerator() {
   // eslint-disable-next-line react-hooks/purity
   const animationName = `transition-${Date.now()}`;
 
-  useEffect(() => {
-    if (isPlaying && elementRef.current) {
-      elementRef.current.style.animation = "none";
-      elementRef.current.offsetHeight;
-      elementRef.current.style.animation = `${animationName} ${config.duration}s ${config.easing} ${config.delay}s both`;
-      
-      setTimeout(() => {
-        setIsPlaying(false);
-        setPreviewKey(prev => prev + 1);
-      }, (config.duration + config.delay) * 1000 + 100);
-    }
-  }, [isPlaying, config, previewKey]);
-
-   
-  useEffect(() => {
-    const styleSheet = document.createElement("style");
-    styleSheet.id = "transition-styles";
-    styleSheet.textContent = generateKeyframes();
-    document.head.appendChild(styleSheet);
-
-    return () => {
-      document.head.removeChild(styleSheet);
-    };
-  }, [config]);
-
   const generateKeyframes = () => {
-    const { startOpacity, endOpacity, startScale, endScale, startTranslateX, endTranslateX, startTranslateY, endTranslateY, startRotate, endRotate, startBlur, endBlur, duration } = config;
+    const { startOpacity, endOpacity, startScale, endScale, startTranslateX, endTranslateX, startTranslateY, endTranslateY, startRotate, endRotate, startBlur, endBlur } = config;
     
     if (config.type === "fade") {
       return `
@@ -180,8 +151,32 @@ export default function FadeTransitionGenerator() {
     }
   };
 
+  useEffect(() => {
+    if (isPlaying && elementRef.current) {
+      elementRef.current.style.animation = "none";
+      elementRef.current.offsetHeight;
+      elementRef.current.style.animation = `${animationName} ${config.duration}s ${config.easing} ${config.delay}s both`;
+      
+      setTimeout(() => {
+        setIsPlaying(false);
+        setPreviewKey(prev => prev + 1);
+      }, (config.duration + config.delay) * 1000 + 100);
+    }
+  }, [isPlaying, config, previewKey, animationName]);
+
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.id = "transition-styles";
+    styleSheet.textContent = generateKeyframes();
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, [config, animationName]);
+
   const generateCssCode = () => {
-    const { duration, delay, easing, direction } = config;
+    const { duration, delay, easing } = config;
     
     return `.transition-enter {
   animation: ${animationName} ${duration}s ${easing} ${delay}s both;
@@ -488,7 +483,7 @@ const variants = {
               {isPlaying ? "Playing..." : "Play"}
             </button>
           </div>
-          <div className="flex items-center justify-center min-h-[200px] bg-gray-50 rounded-2xl p-8">
+          <div className="flex items-center justify-center min-h-50 bg-gray-50 rounded-2xl p-8">
             <div key={previewKey} ref={elementRef} style={getPreviewStyle()}>
               {config.direction === "in" ? "Fade In" : "Fade Out"}
             </div>

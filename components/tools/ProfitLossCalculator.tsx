@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { TrendingUp, TrendingDown, DollarSign, PieChart, ArrowRight } from "lucide-react";
+import { TrendingUp, TrendingDown, PieChart } from "lucide-react";
 
 export default function ProfitLossCalculator() {
   const [revenue, setRevenue] = useState<string>("10000");

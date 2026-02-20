@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Check, Type, Sparkles, Palette, ArrowRightLeft, RefreshCw } from "lucide-react";
+import { Copy, Check, Sparkles, Palette, ArrowRightLeft } from "lucide-react";
 
 // Font pairing data
 const fontPairings = {

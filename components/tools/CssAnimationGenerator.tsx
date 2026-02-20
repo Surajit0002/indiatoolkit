@@ -126,7 +126,7 @@ export default function CssAnimationGenerator() {
 @keyframes ${animationName} {
 ${keyframesContent}
 }`;
-  }, [config.type, animationName]);
+  }, [config, animationName]);
 
   useEffect(() => {
     const keyframes = generateKeyframes();
@@ -363,7 +363,7 @@ ${generateKeyframes()}
               {isPlaying ? "Pause" : "Play"}
             </button>
           </div>
-          <div className="flex items-center justify-center min-h-[200px] bg-gray-50 rounded-2xl p-8">
+          <div className="flex items-center justify-center min-h-50 bg-gray-50 rounded-2xl p-8">
             <div ref={elementRef} style={getPreviewStyle()}>
               Animated
             </div>

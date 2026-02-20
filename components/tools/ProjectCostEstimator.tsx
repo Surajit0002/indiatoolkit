@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, Plus, Trash2, DollarSign, Clock, Users } from "lucide-react";
+import { Calculator, Plus, Trash2, Users } from "lucide-react";
 
 interface ProjectTask {
   id: string;

@@ -102,7 +102,7 @@ export default async function CategoryPage({ params }: PageProps) {
   }
 
   const tools = getToolsByCategory(slug);
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const Icon = Icons[category.icon] || Icons.Folder;
 
   return (

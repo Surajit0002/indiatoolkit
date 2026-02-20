@@ -1,7 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Globe, DoorOpen, ShieldAlert, CheckCircle2, XCircle, Info } from "lucide-react";
+import { Globe, DoorOpen, ShieldAlert, CheckCircle2, XCircle } from "lucide-react";
+
+interface PortResult {
+  target: string;
+  port: number;
+  status: "open" | "closed";
+  time: string;
+}
 
 const COMMON_PORTS = [
   { port: 80, name: "HTTP", desc: "Web traffic" },
@@ -15,7 +22,7 @@ const COMMON_PORTS = [
 export default function PortChecker() {
   const [target, setTarget] = useState("");
   const [port, setPort] = useState<number | "">("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<PortResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const checkPort = (e: React.FormEvent) => {
@@ -26,10 +33,10 @@ export default function PortChecker() {
     
     // Simulate port scanning (Actual scanning is not possible from browser JS)
     setTimeout(() => {
-        const newResult = {
+        const newResult: PortResult = {
             target,
             port: port || 80,
-            status: Math.random() > 0.3 ? "open" : "closed",
+            status: Math.random() > 0.3 ? "open" : "closed" as "open" | "closed",
             time: new Date().toLocaleTimeString()
         };
         setResults([newResult, ...results]);

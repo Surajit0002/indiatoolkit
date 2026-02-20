@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Volume2, VolumeX, Download, Play, Pause, Copy, RefreshCw } from "lucide-react";
+import { Volume2, Download, Play, Pause, Copy, RefreshCw } from "lucide-react";
 
 export default function TextToSpeech() {
   const [text, setText] = useState("");
@@ -34,6 +34,7 @@ export default function TextToSpeech() {
     return () => {
       window.speechSynthesis.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const speak = () => {
@@ -74,8 +75,11 @@ export default function TextToSpeech() {
     if (!text.trim()) return;
 
     // Create audio context for recording
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const destination = audioContext.createMediaStreamDestination();
+    const AudioContextClass = window.AudioContext || ("webkitAudioContext" in window ? (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext : null);
+    if (!AudioContextClass) {
+      alert("Audio download is not supported in this browser.");
+      return;
+    }
     
     // Note: Web Speech API doesn't provide direct audio output for recording
     // This is a placeholder - in production, you'd use a TTS API with audio support
@@ -87,7 +91,7 @@ export default function TextToSpeech() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
             <Volume2 className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Text to Speech</h2>
@@ -185,7 +189,7 @@ export default function TextToSpeech() {
               <button
                 onClick={isPlaying ? stopSpeaking : speak}
                 disabled={!text.trim()}
-                className={`flex-1 min-w-[150px] h-14 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${
+                className={`flex-1 min-w-37.5 h-14 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${
                   isPlaying
                     ? "bg-red-500 text-white hover:bg-red-600"
                     : "bg-blue-600 text-white hover:bg-blue-700"

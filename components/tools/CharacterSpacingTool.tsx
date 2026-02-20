@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, MoveHorizontal, Type, Eye, Sliders, RefreshCw } from "lucide-react";
+import { Copy, Check, MoveHorizontal, Eye, Sliders, RefreshCw } from "lucide-react";
 
 export default function CharacterSpacingTool() {
   const [text, setText] = useState("The quick brown fox jumps over the lazy dog");

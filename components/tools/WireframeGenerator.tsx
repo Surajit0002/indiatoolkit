@@ -29,11 +29,9 @@ export default function WireframeGenerator() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [elementCounter, setElementCounter] = useState(0);
   const canvasRef = useRef<HTMLDivElement>(null);
 
   const addElement = useCallback((type: typeof elementTypes[0]) => {
-    setElementCounter(c => c + 1);
     setElements(prev => {
       const newElement: DraggableElement = {
         id: `element-${Date.now()}`,
@@ -113,7 +111,7 @@ export default function WireframeGenerator() {
         <div className="p-8 md:p-12 space-y-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 bg-gradient-to-br from-purple-500 to-pink-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-purple-200">
+              <div className="h-12 w-12 bg-linear-to-br from-purple-500 to-pink-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-purple-200">
                 <Layout className="h-6 w-6" />
               </div>
               <div>
@@ -151,7 +149,7 @@ export default function WireframeGenerator() {
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
-                className="relative bg-slate-100 rounded-[24px] border-2 border-dashed border-slate-300 overflow-hidden"
+                className="relative bg-slate-100 rounded-3xl border-2 border-dashed border-slate-300 overflow-hidden"
                 style={{ height: '600px' }}
               >
                 {elements.map((el) => (
@@ -190,7 +188,7 @@ export default function WireframeGenerator() {
           </div>
 
           {selectedElement && (
-            <div className="space-y-4 p-6 bg-slate-50 rounded-[24px]">
+            <div className="space-y-4 p-6 bg-slate-50 rounded-3xl">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Selected Element</label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
@@ -236,7 +234,7 @@ export default function WireframeGenerator() {
           <div className="space-y-4">
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Export</label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-slate-50 rounded-[24px] p-6 border border-slate-100">
+              <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[10px] font-black text-purple-600 uppercase tracking-wider">HTML</span>
                   <button
@@ -246,12 +244,12 @@ export default function WireframeGenerator() {
                     {copied === 'html' ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-slate-400" />}
                   </button>
                 </div>
-                <pre className="bg-slate-900 rounded-[16px] p-4 overflow-x-auto max-h-32 text-xs">
+                <pre className="bg-slate-900 rounded-2xl p-4 overflow-x-auto max-h-32 text-xs">
                   <code className="text-purple-400 font-mono">{generateHTML().slice(0, 300)}...</code>
                 </pre>
               </div>
               
-              <div className="bg-slate-50 rounded-[24px] p-6 border border-slate-100">
+              <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[10px] font-black text-purple-600 uppercase tracking-wider">JSON</span>
                   <button
@@ -261,7 +259,7 @@ export default function WireframeGenerator() {
                     {copied === 'json' ? <Check className="h-4 w-4 text-emerald-500" /> : <Copy className="h-4 w-4 text-slate-400" />}
                   </button>
                 </div>
-                <pre className="bg-slate-900 rounded-[16px] p-4 overflow-x-auto max-h-32 text-xs">
+                <pre className="bg-slate-900 rounded-2xl p-4 overflow-x-auto max-h-32 text-xs">
                   <code className="text-purple-400 font-mono">{generateJSON().slice(0, 300)}...</code>
                 </pre>
               </div>

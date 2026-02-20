@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Coins, PlusCircle, Calendar, TrendingUp } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
+import {  TrendingUp } from "lucide-react";
+import {  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
 
 export default function CompoundInterestCalculator() {
   const [principal, setPrincipal] = useState("10000");
@@ -120,7 +120,7 @@ export default function CompoundInterestCalculator() {
             </div>
           )}
 
-          <div className="h-[250px] w-full glass-card p-4 rounded-3xl overflow-hidden">
+          <div className="h-62.5 w-full glass-card p-4 rounded-3xl overflow-hidden">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={chartData}>
                 <defs>
@@ -151,7 +151,7 @@ export default function CompoundInterestCalculator() {
                     fontSize: '12px',
                     fontWeight: 'bold'
                   }}
-                  formatter={(value: any) => [`$${value.toLocaleString()}`, 'Balance']}
+                  formatter={(value: number | undefined) => value !== undefined ? [`$${value.toLocaleString()}`, 'Balance'] : ['', 'Balance']}
                 />
                 <Area 
                   type="monotone" 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ShoppingBag, Plus, Trash2, Download, Printer, User, Building, Truck } from "lucide-react";
+import { Plus, Trash2, Download, Truck } from "lucide-react";
 
 interface POItem {
   id: string;

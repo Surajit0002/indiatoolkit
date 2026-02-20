@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Check, Type, Download, Code, RefreshCw, Layers } from "lucide-react";
+import { Copy, Check, Type, Download, Code, RefreshCw } from "lucide-react";
 
 // Simple text to SVG path converter (simplified version)
-const textToSvgPath = (text: string, fontSize: number = 72): string => {
+const textToSvgPath = (text: string): string => {
   // This is a simplified implementation
   // In a real app, you would use a library likeopentype.js
   const letters = {
@@ -72,8 +72,8 @@ export default function TextToSvg() {
   const [svgCopied, setSvgCopied] = useState(false);
 
   const svgCode = useMemo(() => {
-    return textToSvgPath(text, fontSize);
-  }, [text, fontSize]);
+    return textToSvgPath(text);
+  }, [text]);
 
   const handleCopy = (textToCopy: string, type: string) => {
     navigator.clipboard.writeText(textToCopy);

@@ -1,10 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Monitor, Smartphone, Laptop, Maximize, AppWindow } from "lucide-react";
+import { Monitor, Maximize, AppWindow } from "lucide-react";
+
+interface ScreenMetrics {
+  screenWidth: number;
+  screenHeight: number;
+  availWidth: number;
+  availHeight: number;
+  windowWidth: number;
+  windowHeight: number;
+  pixelRatio: number;
+  colorDepth: number;
+  orientation: string;
+}
 
 export default function ScreenResolution() {
-  const [metrics, setMetrics] = useState<any>(null);
+  const [metrics, setMetrics] = useState<ScreenMetrics | null>(null);
 
   useEffect(() => {
     const updateMetrics = () => {
@@ -78,7 +90,7 @@ function calculateAspectRatio(w: number, h: number) {
 function MetricCard({ icon, label, value, desc }: { icon: React.ReactNode; label: string; value: string | number; desc: string }) {
     return (
         <div className="glass-card p-8 flex items-center gap-6 group hover:border-blue-600/30 transition-all">
-            <div className="p-4 bg-blue-600/10 text-blue-600 rounded-[12px] group-hover:scale-110 transition-transform">
+            <div className="p-4 bg-blue-600/10 text-blue-600 rounded-xl group-hover:scale-110 transition-transform">
                 {icon}
             </div>
             <div>

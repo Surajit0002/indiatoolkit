@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, FileSpreadsheet, AlertCircle, RefreshCw } from "lucide-react";
+import { FileSpreadsheet, AlertCircle, RefreshCw } from "lucide-react";
 
 export default function JsonToCsv() {
   const [jsonInput, setJsonInput] = useState("");

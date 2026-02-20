@@ -41,7 +41,7 @@ export default function AboutPage() {
             <h2 className="text-4xl font-black text-gray-900 tracking-tight">Our Mission</h2>
             <p className="text-lg text-gray-500 font-medium leading-relaxed">
               We believe that powerful tools shouldn&apos;t come with a high price tag or 
-              privacy compromises. That's why we build tools that run directly in your 
+              privacy compromises. That&apos;s why we build tools that run directly in your 
               browser, ensuring your data never leaves your device.
             </p>
             <div className="grid grid-cols-2 gap-8 pt-8">

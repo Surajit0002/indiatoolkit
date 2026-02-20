@@ -330,7 +330,7 @@ export default function BadgeGenerator() {
               <label className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Font Weight</label>
               <select
                 value={config.fontWeight}
-                onChange={(e) => setConfig({ ...config, fontWeight: e.target.value as any })}
+                onChange={(e) => setConfig({ ...config, fontWeight: e.target.value as "normal" | "medium" | "bold" })}
                 className="w-full h-10 px-3 bg-gray-50 border border-gray-100 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
               >
                 <option value="normal">Normal</option>
@@ -360,7 +360,7 @@ export default function BadgeGenerator() {
           {/* Preview */}
           <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-6">Preview</h3>
-            <div className="flex items-center justify-center min-h-[200px] bg-gray-50 rounded-2xl">
+            <div className="flex items-center justify-center min-h-200px bg-gray-50 rounded-2xl">
               <div className="flex items-center gap-4">
                 {/* Badge with context */}
                 <div className="relative">

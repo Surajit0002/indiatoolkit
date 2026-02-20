@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import QRCode from "qrcode";
+import Image from "next/image";
 import { Download, Share2, QrCode } from "lucide-react";
 
 export default function QrGenerator() {
@@ -102,7 +103,7 @@ export default function QrGenerator() {
           <div className="relative group mb-4 sm:mb-6 md:mb-8">
             <div className="absolute -inset-1 sm:-inset-2 bg-black rounded-lg sm:rounded-[12px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
             {qrImageUrl ? (
-              <img 
+              <Image 
                 src={qrImageUrl} 
                 alt="QR Code" 
                 className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 border-2 sm:border-4 border-black rounded-lg sm:rounded-[8px] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"

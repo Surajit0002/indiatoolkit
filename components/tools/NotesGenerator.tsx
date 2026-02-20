@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FileText, Download, Copy, Save, Trash2, RefreshCw, BookOpen, Check, Printer } from "lucide-react";
+import { useState } from "react";
+import { FileText, Download, Copy, Save, RefreshCw, BookOpen, Check, Printer } from "lucide-react";
 
 interface Note {
   title: string;
@@ -48,7 +48,6 @@ export default function NotesGenerator() {
   const [isCopied, setIsCopied] = useState(false);
   const [bullets, setBullets] = useState(true);
   const [numbered, setNumbered] = useState(false);
-  const [summaryLength, setSummaryLength] = useState<"short" | "medium" | "detailed">("medium");
 
   const generateNotes = async () => {
     if (!inputText.trim()) return;
@@ -167,15 +166,7 @@ export default function NotesGenerator() {
     alert("Notes saved to browser storage!");
   };
 
-  const loadFromLocalStorage = () => {
-    const saved = localStorage.getItem(localStorageKey);
-    if (saved) {
-      const data = JSON.parse(saved);
-      setTitle(data.title || "My Notes");
-      setInputText(data.inputText || "");
-      setNotes(data.notes || []);
-    }
-  };
+  
 
   return (
     <div className="p-6 md:p-8 space-y-8">

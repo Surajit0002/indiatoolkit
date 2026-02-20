@@ -45,7 +45,7 @@ export default function LoginPage() {
             ) : (
               <>
                 <Zap className="h-5 w-5 fill-current text-blue-200" />
-                Quick One-Tap "Auto" Login
+                Quick One-Tap &quot;Auto&quot; Login
               </>
             )}
           </button>

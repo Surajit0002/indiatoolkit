@@ -19,7 +19,7 @@ const contentTypes = [
 ];
 const tones = ["Professional", "Casual", "Witty", "Emotional", "Bold", "Friendly"];
 const audiences = ["Gen Z", "Millennials", "Professionals", "Parents", "Tech Enthusiasts", "General"];
-const goals = ["Engagement", "Shares", "Comments", "Saves", "Followers", "Awareness"];
+const _goals = ["Engagement", "Shares", "Comments", "Saves", "Followers", "Awareness"];
 
 export default function ViralContentGenerator() {
   const [data, setData] = useState<ContentData>({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Download, Link, Copy, Check, FileText, Loader2, AlertCircle, ExternalLink, Languages, Clock, User } from "lucide-react";
 
 interface TranscriptLine {
@@ -121,7 +122,7 @@ export default function YoutubeTranscriptExtractor() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-blue-500 to-cyan-600 rounded-2xl mb-4 shadow-lg">
             <FileText className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">YouTube Transcript Extractor</h2>
@@ -170,10 +171,10 @@ export default function YoutubeTranscriptExtractor() {
           {videoId && videoInfo && (
             <div className="px-6 pb-6 space-y-6">
               {/* Video Info Card */}
-              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6">
+              <div className="bg-linear-to-r from-blue-50 to-cyan-50 rounded-2xl p-6">
                 <div className="flex items-start gap-4">
-                  <div className="relative w-32 h-20 flex-shrink-0 rounded-xl overflow-hidden shadow-md">
-                    <img
+                  <div className="relative w-32 h-20 shrink-0 rounded-xl overflow-hidden shadow-md">
+                    <Image
                       src={getThumbnailUrl()}
                       alt="Video thumbnail"
                       className="w-full h-full object-cover"
@@ -235,7 +236,7 @@ export default function YoutubeTranscriptExtractor() {
                 <button
                   onClick={fetchTranscript}
                   disabled={isLoading}
-                  className="w-full h-14 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg shadow-blue-100 disabled:opacity-50"
+                  className="w-full h-14 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-blue-700 hover:to-cyan-700 transition-all shadow-lg shadow-blue-100 disabled:opacity-50"
                 >
                   {isLoading ? (
                     <>
@@ -284,7 +285,7 @@ export default function YoutubeTranscriptExtractor() {
                     </div>
                   </div>
 
-                  <div className="bg-slate-900 rounded-2xl p-6 max-h-[400px] overflow-y-auto">
+                  <div className="bg-slate-900 rounded-2xl p-6 max-h-100 overflow-y-auto">
                     {transcript.map((line, index) => (
                       <div key={index} className="flex gap-4 py-2 hover:bg-slate-800 rounded-lg px-2 -mx-2 transition-all">
                         <button
@@ -293,7 +294,7 @@ export default function YoutubeTranscriptExtractor() {
                               window.open(`https://www.youtube.com/watch?v=${videoId}&t=${parseInt(line.time.split(':')[0]) * 60 + parseInt(line.time.split(':')[1])}s`, "_blank");
                             }
                           }}
-                          className="flex-shrink-0 text-blue-400 hover:text-blue-300 font-mono text-sm"
+                          className="shrink-0 text-blue-400 hover:text-blue-300 font-mono text-sm"
                         >
                           {line.time}
                         </button>

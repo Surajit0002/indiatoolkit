@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Calendar, MapPin, Clock, Users, Heart, Sparkles } from "lucide-react";
+import { Copy, Download, Palette, Calendar, MapPin, Clock, Heart, Sparkles } from "lucide-react";
 
 export default function InvitationCardMaker() {
   const [eventTitle, setEventTitle] = useState("You're Invited!");

@@ -61,7 +61,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <h2>How to Use Our Generator</h2>
               <p>
                 Our built-in password generator uses cryptographically secure random number 
-                generation to ensure your passwords are truly unpredictable. Here's what we recommend:
+                generation to ensure your passwords are truly unpredictable. Here&apos;s what we recommend:
               </p>
               <ul>
                 <li><strong>Length:</strong> Aim for at least 16 characters.</li>
@@ -70,14 +70,14 @@ export default async function BlogPostPage({ params }: PageProps) {
               </ul>
 
               <blockquote>
-                "A secure password is like a strong vault door; it only works if you don't use 
-                the same key for every building in the city."
+                &quot;A secure password is like a strong vault door; it only works if you don&apos;t use 
+                the same key for every building in the city.&quot;
               </blockquote>
 
               <h2>Next Steps</h2>
               <p>
                 Head over to our <Link href="/tool/password-generator">Password Generator</Link> now 
-                and start securing your digital identity. It's fast, free, and runs entirely 
+                and start securing your digital identity. It&apos;s fast, free, and runs entirely 
                 in your browser for 100% privacy.
               </p>
             </article>

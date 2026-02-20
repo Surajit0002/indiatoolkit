@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { QrCode, Upload, Search, Copy, Check, X, Camera } from "lucide-react";
+import { QrCode, Upload, Search, Copy, Check, X } from "lucide-react";
 
 export default function QrReader() {
   const [file, setFile] = useState<File | null>(null);
@@ -44,7 +44,7 @@ export default function QrReader() {
       } else {
         setError("Could not find a valid QR code in this image.");
       }
-    } catch (err) {
+    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
       setError("Failed to process image. Please try again.");
     } finally {
       setIsLoading(false);

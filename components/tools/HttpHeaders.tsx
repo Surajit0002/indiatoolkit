@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Globe, FileCode, Check, Copy, ListTree, Activity } from "lucide-react";
+import { Globe, Copy, ListTree, Activity } from "lucide-react";
 
 interface HttpHeadersData {
   status: number;
@@ -106,9 +106,9 @@ export default function HttpHeaders() {
             </div>
 
             <div className="space-y-3">
-                {Object.entries(data.headers).map(([key, value]: [string, any]) => (
+                {Object.entries(data.headers).map(([key, value]: [string, string]) => (
                     <div key={key} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-gray-50 rounded-[10px] border border-transparent hover:border-blue-600/20 transition-all gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 min-w-[180px]">{key}</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-blue-600 min-w-45">{key}</span>
                         <span className="font-mono text-xs break-all text-gray-600">{value}</span>
                     </div>
                 ))}

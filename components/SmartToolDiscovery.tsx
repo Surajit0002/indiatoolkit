@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Search, Sparkles, TrendingUp, Clock, Users, Zap, Filter, Grid, List } from "lucide-react";
+import { Search, Sparkles, TrendingUp, Clock, Users, Zap, Grid, List } from "lucide-react";
 import { advancedTools } from "../data/advancedTools";
 import { categories } from "../data/categories";
 
@@ -50,7 +50,10 @@ export default function SmartToolDiscovery() {
         break;
     }
     
-    setFilteredTools(result);
+    const timeoutId = setTimeout(() => {
+      setFilteredTools(result);
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [searchQuery, selectedCategory, sortBy]);
 
   const getSortIcon = (type: string) => {
@@ -184,7 +187,7 @@ export default function SmartToolDiscovery() {
                     </div>
                     <div className="flex gap-2">
                       {tool.aiPowered && (
-                        <span className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full">
+                        <span className="px-2 py-1 bg-linear-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full">
                           AI
                         </span>
                       )}
@@ -230,7 +233,7 @@ export default function SmartToolDiscovery() {
             ) : (
               <>
                 {/* List View */}
-                <div className="flex-shrink-0 mr-4">
+                <div className="shrink-0 mr-4">
                   <div 
                     className="h-12 w-12 rounded-xl flex items-center justify-center text-white shadow-lg"
                     style={{ backgroundColor: tool.color }}
@@ -246,7 +249,7 @@ export default function SmartToolDiscovery() {
                     </h3>
                     <div className="flex gap-2 ml-4">
                       {tool.aiPowered && (
-                        <span className="px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full">
+                        <span className="px-2 py-1 bg-linear-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full">
                           AI
                         </span>
                       )}

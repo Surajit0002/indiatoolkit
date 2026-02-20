@@ -22,13 +22,13 @@ export default function ContactPage() {
           </div>
           
           <h1 className="text-5xl md:text-8xl font-black mb-8 tracking-tighter uppercase italic text-slate-900 leading-[0.9]">
-            Let's Start a <br />
+            Let&apos;s Start a <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-600">Conversation.</span>
           </h1>
           
           <p className="text-base md:text-lg text-slate-500 max-w-2xl mx-auto font-bold leading-relaxed italic opacity-80">
             Have a bug to report? A tool to suggest? Or just want to say hi? 
-            We'd love to hear from you.
+            We&apos;d love to hear from you.
           </p>
         </div>
       </section>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Image, Square, Sparkles, Megaphone } from "lucide-react";
+import { Copy, Download, Type, Palette, Square, Sparkles, Megaphone } from "lucide-react";
 
 interface PosterTemplate {
   id: string;

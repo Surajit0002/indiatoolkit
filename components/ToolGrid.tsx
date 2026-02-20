@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Tool, ToolCategory } from "@/types/tool";
 import * as Icons from "lucide-react";
-import { ArrowRight, Zap, Star, TrendingUp, Clock, Users } from "lucide-react";
+import { ArrowRight, Zap, Star, TrendingUp, Users } from "lucide-react";
 
 interface ToolGridProps {
   tools: Tool[];
@@ -39,7 +39,7 @@ export default function ToolGrid({ tools, categories, title, subtitle, showStats
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {tools.map((tool, index) => {
           const category = categories.find(c => c.slug === tool.category);
-          // @ts-ignore
+          // @ts-expect-error - Dynamic icon access
           const Icon = Icons[category?.icon || "Zap"] || Icons.Zap;
 
           return (

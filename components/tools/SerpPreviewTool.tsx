@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Globe, RefreshCw, Smartphone, Monitor } from "lucide-react";
+import { Search, Globe, Smartphone, Monitor } from "lucide-react";
 
 interface SerpData {
   keyword: string;
@@ -19,8 +19,6 @@ export default function SerpPreviewTool() {
     url: "indiatoolkit.in/digital-marketing-tools",
     device: "Desktop"
   });
-
-  const [isPreview, setIsPreview] = useState(true);
 
   const updateField = (field: keyof SerpData, value: string) => {
     setData({ ...data, [field]: value });

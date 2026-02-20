@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronRight, Star, TrendingUp, Clock, Sparkles } from "lucide-react";
+import { ChevronRight, Star } from "lucide-react";
 import { Tool } from "@/types/tool";
 import * as Icons from "lucide-react";
 
@@ -18,9 +18,9 @@ interface RelatedToolsProps {
  * Helps with SEO by creating contextual internal links
  */
 export function RelatedTools({
-  currentToolId,
+
   category,
-  tags = [],
+
   limit = 6,
 }: RelatedToolsProps) {
   // This would typically fetch from an API or use a context
@@ -45,7 +45,7 @@ export function RelatedTools({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {relatedTools.slice(0, limit).map((tool) => {
-          // @ts-ignore
+          // @ts-expect-error - Dynamic icon access
           const ToolIcon = Icons[tool.icon] || Icons.Wrench;
 
           return (
@@ -86,7 +86,7 @@ export function RelatedTools({
  * ToolCardMini - A smaller card for related tools
  */
 export function ToolCardMini({ tool }: { tool: Tool }) {
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const ToolIcon = Icons[tool.icon] || Icons.Wrench;
 
   return (

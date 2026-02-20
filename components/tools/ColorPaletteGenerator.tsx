@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Palette, Copy, Check, RefreshCw, Settings } from "lucide-react";
+import { Palette, Copy, Check, Settings, RefreshCw } from "lucide-react";
 
 interface ColorPalette {
   hex: string;

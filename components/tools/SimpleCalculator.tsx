@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Calculator, Delete, Divide, Equal, Minus, Plus, X } from "lucide-react";
+import { Delete, Divide, Equal, Minus, Plus, X } from "lucide-react";
 
 export default function SimpleCalculator() {
   const [display, setDisplay] = useState("0");
@@ -37,7 +37,7 @@ export default function SimpleCalculator() {
       setDisplay(String(result));
       setEquation("");
       setLastResult(String(result));
-    } catch (error) {
+    } catch (_) {
       setDisplay("Error");
     }
   };

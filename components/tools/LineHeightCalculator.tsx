@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Copy, Check, AlignJustify, Type, Eye, RefreshCw, Calculator } from "lucide-react";
+import { useState } from "react";
+import { Copy, Check, AlignJustify, Eye, RefreshCw } from "lucide-react";
 
 type LineHeightUnit = 'unitless' | 'px' | 'em' | 'percent';
 

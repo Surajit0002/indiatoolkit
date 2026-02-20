@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Table, Upload, Search, FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { Table, Upload, Search, FileText,  } from "lucide-react";
 
 export default function CsvViewer() {
   const [data, setData] = useState<string[][]>([]);

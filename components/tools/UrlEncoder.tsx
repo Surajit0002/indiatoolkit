@@ -15,7 +15,7 @@ export default function UrlEncoder() {
       } else {
         setInput(decodeURIComponent(input));
       }
-    } catch (e) {
+    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
       alert("Invalid URL component for decoding");
     }
   };

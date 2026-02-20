@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileUp, Upload, ArrowRight, Loader2, Info, Image as ImageIcon, FileText, X } from "lucide-react";
+import { FileUp, Upload, Loader2, Info, Image as ImageIcon, FileText, X } from "lucide-react";
 
 export default function JpgToPdf() {
   const [files, setFiles] = useState<File[]>([]);

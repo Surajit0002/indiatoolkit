@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Send, Copy, Check, Loader2, AlertCircle, RotateCcw, Zap, Terminal, Sparkles } from "lucide-react";
+import { CheckCircle2, Copy, Check, Loader2, RotateCcw, Zap, Terminal, Sparkles } from "lucide-react";
 import { useAi } from "@/hooks/useAi";
 import AiModelSelector from "@/components/ui/AiModelSelector";
 

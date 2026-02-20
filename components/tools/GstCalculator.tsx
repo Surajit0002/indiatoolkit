@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Receipt, Plus, Minus, Calculator, PieChart as PieIcon } from "lucide-react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import { Receipt, PieChart as PieIcon } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 export default function GstCalculator() {
   const [amount, setAmount] = useState("1000");

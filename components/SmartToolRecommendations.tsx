@@ -9,7 +9,7 @@ import {
   Zap,
   Star,
   ChevronRight,
-  Filter,
+ 
   Search,
   Settings
 } from "lucide-react";
@@ -34,10 +34,6 @@ export default function SmartToolRecommendations({
   const [searchQuery, setSearchQuery] = useState('');
 
   // Recommendation algorithm
-  useEffect(() => {
-    generateRecommendations();
-  }, [userPreferences, activeFilter, searchQuery]);
-
   const generateRecommendations = () => {
     setLoading(true);
     
@@ -83,6 +79,10 @@ export default function SmartToolRecommendations({
     setRecommendations(pool.slice(0, 12));
     setLoading(false);
   };
+
+  useEffect(() => {
+    generateRecommendations();
+  }, [userPreferences, activeFilter, searchQuery]);
 
   const getRecommendationScore = (tool: AdvancedTool): number => {
     let score = 0;
@@ -139,7 +139,7 @@ export default function SmartToolRecommendations({
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl">
+          <div className="p-2 bg-linear-to-br from-purple-500 to-pink-500 rounded-xl">
             <Sparkles className="h-5 w-5 text-white" />
           </div>
           <div>
@@ -201,10 +201,10 @@ export default function SmartToolRecommendations({
               <div
                 key={tool.id}
                 onClick={() => onToolSelect?.(tool)}
-                className="group p-5 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg transition-all cursor-pointer"
+                className="group p-5 bg-linear-to-br from-gray-50 to-white rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg transition-all cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl">
+                  <div className="p-3 bg-linear-to-br from-purple-500 to-pink-500 rounded-xl">
                     {tool.icon}
                   </div>
                   <div className="flex items-center gap-1">

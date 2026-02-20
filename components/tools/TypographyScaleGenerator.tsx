@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Check, Type, RefreshCw, Calculator, Sliders, ArrowUp, ArrowDown } from "lucide-react";
+import { Copy, Check, RefreshCw, Calculator, Sliders, ArrowUp } from "lucide-react";
 
 type ScaleType = 'minor-third' | 'major-third' | 'perfect-fourth' | 'perfect-fifth' | 'golden-ratio';
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 // User Profile Types
 export interface UserProfile {
@@ -71,7 +71,7 @@ export function useUserProfile() {
     }
     return DEFAULT_PROFILE;
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const updateProfile = useCallback((updates: Partial<UserProfile>) => {
     const updated = { ...profile, ...updates };
@@ -102,7 +102,7 @@ export function useUserSettings() {
     }
     return DEFAULT_SETTINGS;
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const updateSetting = useCallback(<K extends keyof UserSettings>(key: K, value: UserSettings[K]) => {
     const updated = { ...settings, [key]: value };
@@ -133,7 +133,7 @@ export function useFavorites() {
     }
     return [];
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const toggleFavorite = useCallback((toolId: string) => {
     setFavorites(prev => {
@@ -187,7 +187,7 @@ export function useHistory() {
     }
     return [];
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
 
   const addToHistory = useCallback((item: Omit<HistoryItem, 'timestamp' | 'date'>) => {
     setHistory(prev => {

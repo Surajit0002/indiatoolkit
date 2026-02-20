@@ -148,7 +148,7 @@ export default function HistoryClient() {
                   <h1 className="text-4xl font-black text-slate-900 tracking-tight">Recent Activity</h1>
                 </div>
                 <p className="text-slate-500 font-medium text-sm mt-1">
-                  {history.length} {history.length === 1 ? 'entry' : 'entries'} • Keep track of tools you've used
+                  {history.length} {history.length === 1 ? 'entry' : 'entries'} • Keep track of tools you&apos;ve used
                 </p>
               </div>
 

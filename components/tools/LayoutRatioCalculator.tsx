@@ -3,8 +3,6 @@
 import { useState, useMemo } from "react";
 import { Copy, Check, Calculator, ArrowRight, RefreshCw } from "lucide-react";
 
-type AspectRatio = '16:9' | '4:3' | '3:2' | '1:1' | '9:16' | '21:9' | 'golden';
-
 const ratioPresets: Record<string, number> = {
   '16:9': 16 / 9,
   '4:3': 4 / 3,

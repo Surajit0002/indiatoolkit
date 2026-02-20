@@ -80,7 +80,7 @@ export default function CompressPdf() {
                   ].map((level) => (
                     <button
                       key={level.id}
-                      onClick={() => setCompressionLevel(level.id as any)}
+                      onClick={() => setCompressionLevel(level.id as "low" | "medium" | "high")}
                       className={`p-3 rounded-xl border-2 transition-all text-center ${
                         compressionLevel === level.id 
                           ? "border-emerald-600 bg-emerald-50 text-emerald-600" 
@@ -125,7 +125,7 @@ export default function CompressPdf() {
           )}
 
           <div className="bg-gray-50 p-4 rounded-xl flex gap-3 text-left">
-            <Info className="h-5 w-5 text-gray-300 flex-shrink-0" />
+            <Info className="h-5 w-5 text-gray-300 shrink-0" />
             <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest leading-normal">
               Note: This is a demonstration UI. In a real application, this would use a library like Ghostscript (server-side) or a specialized WASM module to optimize PDF structure.
             </p>

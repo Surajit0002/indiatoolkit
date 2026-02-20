@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Pipette, Upload, Copy, Check, Image as ImageIcon } from "lucide-react";
+import { Upload, Copy, Check, Image as ImageIcon } from "lucide-react";
 
 export default function ImageColorPicker() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

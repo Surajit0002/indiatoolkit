@@ -5,8 +5,6 @@ import {
   Copy, 
   Check, 
   Image, 
-  Type, 
-  Palette,
   Layout,
   Star,
   Clock,
@@ -22,7 +20,6 @@ import {
 
 type Platform = "youtube" | "twitch" | "instagram" | "facebook" | "twitter" | "linkedin" | "custom";
 type TextStyle = "bold" | "italic" | "outlined" | "gradient" | "shadow";
-type ElementType = "text" | "icon" | "shape" | "image";
 
 interface ThumbnailConfig {
   platform: Platform;
@@ -106,8 +103,6 @@ export default function VideoThumbnailGenerator() {
 
   const generateHtmlCode = () => {
     const { width, height, backgroundColor, backgroundImage, primaryText, primaryTextColor, primaryTextSize, primaryTextStyle, secondaryText, secondaryTextColor, secondaryTextSize, showAvatar, showViews, showDuration, duration, overlayColor, overlayOpacity, accentColor, borderRadius } = config;
-
-    const bgValue = backgroundImage ? `url(${backgroundImage}) center/cover, ${backgroundColor}` : backgroundColor;
 
     const textShadow = primaryTextStyle === "shadow" ? `text-shadow: 2px 2px 4px rgba(0,0,0,0.8);` : "";
     const textOutline = primaryTextStyle === "outlined" ? `-webkit-text-stroke: 2px ${accentColor};` : "";

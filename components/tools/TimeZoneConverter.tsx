@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRightLeft, Clock, Globe, Calendar } from "lucide-react";
+import { ArrowRightLeft, Globe, Calendar } from "lucide-react";
 
 export default function TimeZoneConverter() {
   const [sourceTime, setSourceTime] = useState(new Date().toISOString().slice(0, 16));
@@ -18,7 +18,7 @@ export default function TimeZoneConverter() {
         second: "2-digit",
         hour12: true,
       });
-    } catch (e) {
+    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
       return "Invalid Time";
     }
   };
@@ -33,12 +33,14 @@ export default function TimeZoneConverter() {
         month: "long",
         day: "numeric",
       });
-    } catch (e) {
+    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
       return "";
     }
   };
 
-  const timezones = (Intl as any).supportedValuesOf("timeZone");
+  const timezones = typeof Intl !== 'undefined' && 'supportedValuesOf' in Intl 
+    ? (Intl as typeof Intl & { supportedValuesOf: (key: string) => string[] }).supportedValuesOf("timeZone") 
+    : [];
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 p-4">

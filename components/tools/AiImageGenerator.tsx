@@ -94,7 +94,7 @@ export default function AiImageGenerator() {
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-purple-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
             <Image className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">AI Image Generator</h2>
@@ -159,7 +159,7 @@ export default function AiImageGenerator() {
               <button
                 onClick={generateImages}
                 disabled={!prompt.trim() || isGenerating}
-                className="flex-1 h-14 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg shadow-purple-100 disabled:opacity-50"
+                className="flex-1 h-14 bg-linear-to-r from-purple-500 to-pink-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-purple-600 hover:to-pink-700 transition-all shadow-lg shadow-purple-100 disabled:opacity-50"
               >
                 {isGenerating ? (
                   <>
@@ -200,7 +200,7 @@ export default function AiImageGenerator() {
                       className="group relative bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-purple-200 transition-all"
                     >
                       {/* Image Preview */}
-                      <div className={`aspect-square bg-gradient-to-br ${img.color} flex items-center justify-center`}>
+                      <div className={`aspect-square bg-linear-to-br ${img.color} flex items-center justify-center`}>
                         <Wand2 className="h-12 w-12 text-white opacity-50" />
                       </div>
 

@@ -1,27 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { 
   Search, 
-  Filter, 
   Grid, 
   List, 
   Star, 
-  Download, 
   Zap, 
   TrendingUp, 
   Clock, 
   Users,
-  Tag,
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-  Heart,
-  Share2,
-  BarChart3
+  ChevronDown
 } from "lucide-react";
 import { advancedTools } from "../data/advancedTools";
-import { ToolCategory } from "../types/tool";
 
 interface MarketplaceFilters {
   category: string;
@@ -35,6 +26,7 @@ interface ToolCardProps {
   tool: typeof advancedTools[0];
   viewMode: "grid" | "list";
   onUseTool: (toolId: string) => void;
+  currentTime: number;
 }
 
 export default function ToolMarketplace() {
@@ -47,8 +39,16 @@ export default function ToolMarketplace() {
     price: "all",
     features: []
   });
-  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({});
   const [sortBy, setSortBy] = useState<"popularity" | "rating" | "newest" | "name">("popularity");
+  const [currentTime, setCurrentTime] = useState(() => Date.now());
+
+  // Update current time periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 60000); // Update every minute
+    return () => clearInterval(interval);
+  }, []);
 
   // Get unique categories
   const categories = [...new Set(advancedTools.map(tool => tool.category))];
@@ -57,45 +57,46 @@ export default function ToolMarketplace() {
   const allFeatures = [...new Set(advancedTools.flatMap(tool => tool.features || []))];
 
   // Filter and sort tools
-  const filteredTools = advancedTools
-    .filter(tool => {
-      // Search filter
-      if (searchQuery && 
-          !tool.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          !tool.description.toLowerCase().includes(searchQuery.toLowerCase())) {
-        return false;
-      }
-      
-      // Category filter
-      if (filters.category !== "all" && tool.category !== filters.category) {
-        return false;
-      }
-      
-      // Rating filter
-      if (filters.rating > 0 && (tool.rating || 0) < filters.rating) {
-        return false;
-      }
-      
-      // Price filter
-      if (filters.price !== "all") {
-        const isFree = tool.pricing === "free";
-        if (filters.price === "free" && !isFree) return false;
-        if (filters.price === "premium" && isFree) return false;
-      }
-      
-      // Features filter
-      if (filters.features.length > 0) {
-        const toolFeatures = tool.features || [];
-        if (!filters.features.every(feature => toolFeatures.includes(feature))) {
+  const filteredTools = useMemo(() => {
+    return advancedTools
+      .filter(tool => {
+        // Search filter
+        if (searchQuery && 
+            !tool.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            !tool.description.toLowerCase().includes(searchQuery.toLowerCase())) {
           return false;
         }
-      }
-      
-      // Popularity filter
-      if (filters.popularity !== "all") {
-        const daysSinceUpdate = Math.floor((Date.now() - new Date(tool.lastUpdated).getTime()) / (1000 * 60 * 60 * 24));
-        const isTrending = (tool.users || 0) > 1000;
-        const isNew = daysSinceUpdate < 30;
+        
+        // Category filter
+        if (filters.category !== "all" && tool.category !== filters.category) {
+          return false;
+        }
+        
+        // Rating filter
+        if (filters.rating > 0 && (tool.rating || 0) < filters.rating) {
+          return false;
+        }
+        
+        // Price filter
+        if (filters.price !== "all") {
+          const isFree = tool.pricing === "free";
+          if (filters.price === "free" && !isFree) return false;
+          if (filters.price === "premium" && isFree) return false;
+        }
+        
+        // Features filter
+        if (filters.features.length > 0) {
+          const toolFeatures = tool.features || [];
+          if (!filters.features.every(feature => toolFeatures.includes(feature))) {
+            return false;
+          }
+        }
+        
+        // Popularity filter
+        if (filters.popularity !== "all") {
+          const daysSinceUpdate = Math.floor((currentTime - new Date(tool.lastUpdated).getTime()) / (1000 * 60 * 60 * 24));
+          const isTrending = (tool.users || 0) > 1000;
+          const isNew = daysSinceUpdate < 30;
         
         switch (filters.popularity) {
           case "trending":
@@ -126,13 +127,7 @@ export default function ToolMarketplace() {
           return 0;
       }
     });
-
-  const toggleCategory = (category: string) => {
-    setExpandedCategories(prev => ({
-      ...prev,
-      [category]: !prev[category]
-    }));
-  };
+  }, [searchQuery, filters, sortBy, currentTime]);
 
   const toggleFeature = (feature: string) => {
     setFilters(prev => ({
@@ -155,7 +150,7 @@ export default function ToolMarketplace() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100">
       {/* Header */}
       <div className="bg-white border-b border-slate-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 py-6">
@@ -195,7 +190,7 @@ export default function ToolMarketplace() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
-          <div className="lg:w-80 flex-shrink-0">
+          <div className="lg:w-80 shrink-0">
             <div className="bg-white rounded-2xl border border-slate-200 p-6 sticky top-24">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="font-bold text-lg text-slate-900">Filters</h2>
@@ -339,7 +334,7 @@ export default function ToolMarketplace() {
                 <span className="text-sm text-slate-600">Sort by:</span>
                 <select
                   value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
+                  onChange={(e) => setSortBy(e.target.value as "popularity" | "rating" | "newest" | "name")}
                   className="border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="popularity">Popularity</option>
@@ -368,6 +363,7 @@ export default function ToolMarketplace() {
                     tool={tool} 
                     viewMode={viewMode}
                     onUseTool={(id) => console.log("Using tool:", id)}
+                    currentTime={currentTime}
                   />
                 ))}
               </div>
@@ -379,12 +375,11 @@ export default function ToolMarketplace() {
   );
 }
 
-function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
+function ToolCard({ tool, viewMode, onUseTool, currentTime }: ToolCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   
-  const isNew = Math.floor((Date.now() - new Date(tool.lastUpdated).getTime()) / (1000 * 60 * 60 * 24)) < 30;
+  const isNew = Math.floor((currentTime - new Date(tool.lastUpdated).getTime()) / (1000 * 60 * 60 * 24)) < 30;
   const isTrending = (tool.users || 0) > 1000;
-  const isPopular = (tool.users || 0) > 500;
 
   if (viewMode === "list") {
     return (
@@ -394,7 +389,7 @@ function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex gap-6">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <div 
               className="w-16 h-16 rounded-xl flex items-center justify-center text-white shadow-lg"
               style={{ backgroundColor: tool.color }}
@@ -490,7 +485,7 @@ function ToolCard({ tool, viewMode, onUseTool }: ToolCardProps) {
     >
       {/* Hover Overlay */}
       {isHovered && (
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent rounded-2xl z-10 flex items-end p-6">
+        <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 to-transparent rounded-2xl z-10 flex items-end p-6">
           <button
             onClick={() => onUseTool(tool.id)}
             className="w-full py-3 bg-white text-slate-900 rounded-xl font-bold text-sm hover:bg-slate-100 transition-colors flex items-center justify-center gap-2"

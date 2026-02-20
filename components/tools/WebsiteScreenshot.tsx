@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Camera, Search, Download, ExternalLink, Globe, Monitor, Smartphone, Tablet } from "lucide-react";
+import { Camera, Download, ExternalLink, Globe, Monitor, Smartphone, Tablet } from "lucide-react";
 
 export default function WebsiteScreenshot() {
   const [url, setUrl] = useState("");
@@ -41,7 +41,7 @@ export default function WebsiteScreenshot() {
         link.href = URL.createObjectURL(blob);
         link.download = `screenshot-${new Date().getTime()}.jpg`;
         link.click();
-    } catch (e) {
+    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
         window.open(screenshotUrl, '_blank');
     }
   };
@@ -61,7 +61,7 @@ export default function WebsiteScreenshot() {
                 onChange={(e) => setUrl(e.target.value)}
               />
             </div>
-            <button type="submit" disabled={isLoading} className="brutal-btn bg-blue-600 min-w-[200px] flex items-center justify-center gap-2">
+            <button type="submit" disabled={isLoading} className="brutal-btn bg-blue-600 min-w-50 flex items-center justify-center gap-2">
               {isLoading ? (
                 <>
                   <div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -89,7 +89,7 @@ export default function WebsiteScreenshot() {
             <img 
               src={screenshotUrl} 
               alt="Website Screenshot" 
-              className="w-full h-auto rounded-[8px] border border-gray-100 shadow-sm"
+              className="w-full h-auto rounded-lg border border-gray-100 shadow-sm"
               onLoad={() => setIsLoading(false)}
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">

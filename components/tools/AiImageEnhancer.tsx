@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Zap, Upload, RefreshCw, Download, Maximize2, Eye, Wand2, Sliders } from "lucide-react";
+import { Zap, Upload, RefreshCw, Maximize2, Eye, Wand2, Sliders } from "lucide-react";
 
 const enhancementTypes = [
   { id: "upscale", name: "Upscale", icon: <Maximize2 className="h-4 w-4" />, description: "Increase resolution up to 4x" },
@@ -45,11 +45,6 @@ export default function AiImageEnhancer() {
     }
   };
 
-  const downloadResult = () => {
-    const link = document.createElement("a");
-    link.download = "enhanced-image.png";
-    link.click();
-  };
 
   const resetForm = () => {
     setSelectedEnhancements(["upscale"]);
@@ -62,7 +57,7 @@ export default function AiImageEnhancer() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-violet-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
             <Zap className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">AI Image Enhancer</h2>
@@ -174,7 +169,7 @@ export default function AiImageEnhancer() {
                           <RefreshCw className="h-8 w-8 text-white animate-spin" />
                         </div>
                       ) : (
-                        <div className={`w-full h-full bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center ${processed ? "" : "opacity-50"}`}>
+                        <div className={`w-full h-full bg-linear-to-br from-violet-400 to-purple-500 flex items-center justify-center ${processed ? "" : "opacity-50"}`}>
                           {processed ? (
                             <img
                               src={originalPreview}
@@ -197,7 +192,7 @@ export default function AiImageEnhancer() {
               <button
                 onClick={handleEnhance}
                 disabled={!originalPreview || selectedEnhancements.length === 0 || isProcessing}
-                className="flex-1 h-14 bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-violet-600 hover:to-purple-700 transition-all shadow-lg shadow-violet-100 disabled:opacity-50"
+                className="flex-1 h-14 bg-linear-to-r from-violet-500 to-purple-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-violet-600 hover:to-purple-700 transition-all shadow-lg shadow-violet-100 disabled:opacity-50"
               >
                 {isProcessing ? (
                   <>

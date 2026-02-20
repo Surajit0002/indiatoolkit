@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Trash2, FileText, Hash, AlignLeft, RefreshCw, BarChart3 } from "lucide-react";
+import { Copy, Trash2, FileText, Hash, AlignLeft, BarChart3 } from "lucide-react";
 import { ToolTextarea } from "@/components/ui/ToolInput";
 
 export default function WordCounter() {

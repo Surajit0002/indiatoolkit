@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { Upload, Eye, EyeOff, Download, Image as ImageIcon, X, Shield, RefreshCw } from "lucide-react";
+import { Upload, Eye, EyeOff, Download, Image as ImageIcon, Shield } from "lucide-react";
 
 interface MaskArea {
   x: number;
@@ -9,6 +9,44 @@ interface MaskArea {
   width: number;
   height: number;
 }
+
+// Helper function defined outside component to avoid hoisting issues
+const boxBlur = (imageData: ImageData, radius: number): ImageData => {
+  const pixels = imageData.data;
+  const width = imageData.width;
+  const height = imageData.height;
+  const output = new ImageData(width, height);
+  const outputPixels = output.data;
+
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      let r = 0, g = 0, b = 0, count = 0;
+
+      for (let dy = -radius; dy <= radius; dy++) {
+        for (let dx = -radius; dx <= radius; dx++) {
+          const nx = x + dx;
+          const ny = y + dy;
+
+          if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+            const i = (ny * width + nx) * 4;
+            r += pixels[i];
+            g += pixels[i + 1];
+            b += pixels[i + 2];
+            count++;
+          }
+        }
+      }
+
+      const i = (y * width + x) * 4;
+      outputPixels[i] = r / count;
+      outputPixels[i + 1] = g / count;
+      outputPixels[i + 2] = b / count;
+      outputPixels[i + 3] = pixels[i + 3];
+    }
+  }
+
+  return output;
+};
 
 export default function AadhaarMaskTool() {
   const [image, setImage] = useState<string | null>(null);
@@ -98,43 +136,6 @@ export default function AadhaarMaskTool() {
     img.src = image;
   }, [image, maskAreas, maskType, intensity, previewMode]);
 
-  const boxBlur = (imageData: ImageData, radius: number): ImageData => {
-    const pixels = imageData.data;
-    const width = imageData.width;
-    const height = imageData.height;
-    const output = new ImageData(width, height);
-    const outputPixels = output.data;
-
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        let r = 0, g = 0, b = 0, count = 0;
-
-        for (let dy = -radius; dy <= radius; dy++) {
-          for (let dx = -radius; dx <= radius; dx++) {
-            const nx = x + dx;
-            const ny = y + dy;
-
-            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-              const i = (ny * width + nx) * 4;
-              r += pixels[i];
-              g += pixels[i + 1];
-              b += pixels[i + 2];
-              count++;
-            }
-          }
-        }
-
-        const i = (y * width + x) * 4;
-        outputPixels[i] = r / count;
-        outputPixels[i + 1] = g / count;
-        outputPixels[i + 2] = b / count;
-        outputPixels[i + 3] = pixels[i + 3];
-      }
-    }
-
-    return output;
-  };
-
   const addManualMask = () => {
     if (!image) return;
     
@@ -185,7 +186,7 @@ export default function AadhaarMaskTool() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-emerald-500 to-teal-600 rounded-2xl mb-4 shadow-lg">
             <Shield className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Aadhaar Mask Tool</h2>
@@ -247,7 +248,7 @@ export default function AadhaarMaskTool() {
                     ].map((type) => (
                       <button
                         key={type.value}
-                        onClick={() => setMaskType(type.value as any)}
+                        onClick={() => setMaskType(type.value as "blur" | "pixelate" | "black")}
                         className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all ${
                           maskType === type.value
                             ? "bg-emerald-600 text-white"
@@ -299,19 +300,19 @@ export default function AadhaarMaskTool() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   onClick={addManualMask}
-                  className="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-blue-100 text-blue-700 font-bold text-sm hover:bg-blue-200 transition-all"
+                  className="flex-1 min-w-120px py-3 px-4 rounded-xl bg-blue-100 text-blue-700 font-bold text-sm hover:bg-blue-200 transition-all"
                 >
                   Add Mask Area
                 </button>
                 <button
                   onClick={clearMasks}
-                  className="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition-all"
+                  className="flex-1 min-w-120px py-3 px-4 rounded-xl bg-slate-100 text-slate-700 font-bold text-sm hover:bg-slate-200 transition-all"
                 >
                   Clear Masks
                 </button>
                 <button
                   onClick={clearImage}
-                  className="flex-1 min-w-[120px] py-3 px-4 rounded-xl bg-red-100 text-red-700 font-bold text-sm hover:bg-red-200 transition-all"
+                  className="flex-1 min-w-120px py-3 px-4 rounded-xl bg-red-100 text-red-700 font-bold text-sm hover:bg-red-200 transition-all"
                 >
                   Remove Image
                 </button>
@@ -342,7 +343,7 @@ export default function AadhaarMaskTool() {
             {/* Download */}
             <button
               onClick={downloadImage}
-              className="w-full h-14 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-emerald-700 hover:to-teal-700 transition-all shadow-lg shadow-emerald-100"
+              className="w-full h-14 bg-linear-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-emerald-700 hover:to-teal-700 transition-all shadow-lg shadow-emerald-100"
             >
               <Download className="h-5 w-5" />
               Download Masked Image

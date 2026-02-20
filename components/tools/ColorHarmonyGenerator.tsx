@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Palette, Copy, Check, RefreshCw, Info } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { Palette, Copy, Check, Info, RefreshCw } from "lucide-react";
 
 type HarmonyType = "complementary" | "analogous" | "triadic" | "tetradic" | "split-complementary" | "monochromatic";
 
@@ -118,7 +118,7 @@ export default function ColorHarmonyGenerator() {
     };
   };
 
-  const generateHarmony = () => {
+  const generateHarmony = useCallback(() => {
     const rgb = hexToRgb(baseColor);
     if (!rgb) return;
 
@@ -167,12 +167,13 @@ export default function ColorHarmonyGenerator() {
     });
 
     setHarmonyColors(colors);
-  };
-
-   
+  }, [baseColor, harmonyType]);    
   useEffect(() => {
-    generateHarmony();
-  }, [baseColor, harmonyType]);
+    const timeoutId = setTimeout(() => {
+      generateHarmony();
+    }, 0);
+    return () => clearTimeout(timeoutId);
+  }, [generateHarmony]);
 
   const copyToClipboard = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -193,7 +194,7 @@ export default function ColorHarmonyGenerator() {
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl">
+            <div className="p-3 bg-linear-to-br from-pink-500 to-rose-500 rounded-2xl">
               <Palette className="h-6 w-6 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Color Harmony Generator</h2>

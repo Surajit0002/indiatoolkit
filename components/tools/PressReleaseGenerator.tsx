@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, FileText, Calendar, MapPin, Check, Download } from "lucide-react";
+import { Copy, FileText, Calendar, Check, Download } from "lucide-react";
 
 export default function PressReleaseGenerator() {
   const [companyName, setCompanyName] = useState("");

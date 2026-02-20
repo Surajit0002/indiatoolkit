@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Quote, User, MessageSquare, Heart, Sparkles } from "lucide-react";
+import { Copy, Download, Palette, Quote, MessageSquare, Sparkles } from "lucide-react";
 
 export default function QuoteCardGenerator() {
   const [quote, setQuote] = useState("The only way to do great work is to love what you do.");

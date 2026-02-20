@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Link, Copy, Check, Video, Loader2, AlertCircle, ExternalLink, Play, ThumbsUp, MessageCircle, Share2 } from "lucide-react";
+import { Download, Link, Copy, Check, Video, Loader2, AlertCircle, Play, ThumbsUp, Share2 } from "lucide-react";
 
 export default function FacebookVideoDownloader() {
   const [url, setUrl] = useState("");

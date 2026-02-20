@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Download, Image, Type, Palette, Megaphone, Check } from "lucide-react";
+import { Copy, Download, Image as ImageIcon, Type, Palette, Megaphone, Check } from "lucide-react";
 
 interface BannerSize {
   name: string;
@@ -53,7 +53,7 @@ export default function AdBannerGenerator() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-orange-500 to-red-600 rounded-2xl mb-4 shadow-lg">
             <Megaphone className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Ad Banner Generator</h2>
@@ -180,7 +180,7 @@ export default function AdBannerGenerator() {
 
             <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
               <h3 className="font-bold text-slate-900 flex items-center gap-2 mb-4">
-                <Image className="h-5 w-5 text-orange-500" />
+                <ImageIcon className="h-5 w-5 text-orange-500"  />
                 Banner Size
               </h3>
               
@@ -207,7 +207,7 @@ export default function AdBannerGenerator() {
           <div className="space-y-6">
             <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
               <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-                <Image className="h-5 w-5 text-orange-500" />
+                <ImageIcon className="h-5 w-5 text-orange-500" />
                 Preview
               </h3>
               

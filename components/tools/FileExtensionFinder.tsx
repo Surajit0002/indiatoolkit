@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileQuestion, Search, Info, ExternalLink } from "lucide-react";
+import { FileQuestion, Search, Info } from "lucide-react";
 
 const EXTENSIONS: Record<string, { desc: string, category: string, openWith: string }> = {
   "pdf": { desc: "Portable Document Format", category: "Document", openWith: "Adobe Acrobat, Web Browser" },

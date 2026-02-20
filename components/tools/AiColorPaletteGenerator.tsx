@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Palette, Copy, Download, RefreshCw, Sparkles, Sun, Moon, Droplets, Leaf } from "lucide-react";
+import { Palette, Download, RefreshCw, Sparkles, Sun, Droplets, Leaf } from "lucide-react";
 
 const moods = [
   "Warm & Cozy",

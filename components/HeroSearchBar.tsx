@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { Search, X, Zap, ArrowRight, Clock, Sparkles, Grid, Layers, ArrowUpRight, History, Flame, Star, ChevronRight, Loader2 } from "lucide-react";
+import { Search, X, Zap, ArrowRight, Sparkles, ArrowUpRight, Clock, Flame, Grid, History } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { tools } from "@/data/tools";
 import { getCategoryBySlug } from "@/lib/utils";

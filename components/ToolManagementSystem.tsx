@@ -3,33 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { 
   Settings, 
-  Plus, 
-  Trash2, 
-  Edit3, 
+
   Eye, 
   Download, 
   Upload, 
-  Database,
   Zap,
-  BarChart3,
   Users,
-  Lock,
-  Globe,
-  Filter,
   Search,
   Grid,
   List,
-  Calendar,
-  Clock,
-  TrendingUp,
   Star,
-  Heart,
   Share2,
   Copy,
-  Check,
-  AlertCircle
+  Check
 } from "lucide-react";
-import { Tool, ToolCategory, UserToolConfig } from "../types/tool";
+import { Tool, UserToolConfig } from "../types/tool";
 import { getAllDynamicTools } from "../data/dynamicTools";
 import { advancedTools } from "../data/advancedTools";
 
@@ -94,7 +82,10 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
       }
     });
     
-    setFilteredTools(result);
+    const timeoutId = setTimeout(() => {
+      setFilteredTools(result);
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [tools, searchQuery, selectedCategory, sortBy, showFavorites, userTools]);
 
   // Load user tool configurations
@@ -103,7 +94,10 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
       // Load user's tool preferences and configurations
       const savedTools = localStorage.getItem(`user-tools-${userId}`);
       if (savedTools) {
-        setUserTools(JSON.parse(savedTools));
+        const timeoutId = setTimeout(() => {
+          setUserTools(JSON.parse(savedTools));
+        }, 0);
+        return () => clearTimeout(timeoutId);
       }
     }
   }, [userId]);
@@ -143,31 +137,12 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
     });
   };
 
-  const handlePinToggle = (toolId: string) => {
-    setUserTools(prev => {
-      const existing = prev.find(ut => ut.toolId === toolId);
-      if (existing) {
-        return prev.map(ut => 
-          ut.toolId === toolId ? { ...ut, isPinned: !ut.isPinned } : ut
-        );
-      } else {
-        return [...prev, { 
-          toolId, 
-          isFavorite: false, 
-          isPinned: true,
-          customConfig: {} 
-        }];
-      }
-    });
-  };
+
 
   const isToolFavorite = (toolId: string) => {
     return userTools.find(ut => ut.toolId === toolId)?.isFavorite || false;
   };
 
-  const isToolPinned = (toolId: string) => {
-    return userTools.find(ut => ut.toolId === toolId)?.isPinned || false;
-  };
 
   const handleCopyToolLink = async (toolId: string) => {
     try {
@@ -229,7 +204,7 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 p-6">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
@@ -312,7 +287,7 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
             
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as "name" | "popularity" | "date" | "rating")}
               className="px-4 py-3 rounded-xl border border-slate-200 focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all"
             >
               <option value="popularity">Sort by Popularity</option>
@@ -507,7 +482,7 @@ export default function ToolManagementSystem({ userId, onToolSelect }: ToolManag
 
       {/* Tool Detail Modal */}
       {showToolDetail && selectedTool && (
-        <div className="fixed inset-0 bg-black/50 z-[200] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/50 z-200 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-slate-200 flex items-center justify-between">
               <h2 className="text-2xl font-black text-slate-900">{selectedTool.name}</h2>

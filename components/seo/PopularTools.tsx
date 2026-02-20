@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Star, TrendingUp, Users, Clock, ChevronRight, Sparkles } from "lucide-react";
+import { Star, TrendingUp,  ChevronRight, Sparkles } from "lucide-react";
 import { Tool } from "@/types/tool";
 import * as Icons from "lucide-react";
 
@@ -58,7 +58,7 @@ export function PopularTools({
  * PopularToolCard - Individual card for popular tools
  */
 function PopularToolCard({ tool, rank }: { tool: Tool; rank: number }) {
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const ToolIcon = Icons[tool.icon] || Icons.Wrench;
 
   return (
@@ -145,7 +145,7 @@ export function TrendingTools({
  * TrendingToolCard - Individual card for trending tools
  */
 function TrendingToolCard({ tool }: { tool: Tool }) {
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const ToolIcon = Icons[tool.icon] || Icons.Wrench;
 
   return (
@@ -215,7 +215,7 @@ export function NewTools({ tools, limit = 4 }: { tools: Tool[]; limit?: number }
  * NewToolCard - Individual card for new tools
  */
 function NewToolCard({ tool }: { tool: Tool }) {
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const ToolIcon = Icons[tool.icon] || Icons.Wrench;
 
   return (

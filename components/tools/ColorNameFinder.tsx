@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Copy, Check, Tag } from "lucide-react";
+import { Copy, Check, Tag, Search } from "lucide-react";
 
 // Comprehensive color names database
 const colorNamesData = [

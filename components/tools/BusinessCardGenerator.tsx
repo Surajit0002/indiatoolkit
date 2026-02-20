@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, User, Building, Phone, Mail, Globe, MapPin, Briefcase } from "lucide-react";
+import { Copy, Download, Palette, User, Building, Phone, Mail, Briefcase } from "lucide-react";
 
 export default function BusinessCardGenerator() {
   const [name, setName] = useState("John Doe");

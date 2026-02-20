@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Receipt, Plus, Trash2, Download, Printer, User, Building, Landmark } from "lucide-react";
+import { Plus, Trash2, Download, Printer, Landmark } from "lucide-react";
 
 interface InvoiceItem {
   id: string;

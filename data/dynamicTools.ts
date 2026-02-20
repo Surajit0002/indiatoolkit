@@ -1,4 +1,3 @@
-import { ToolCategory } from "../types/tool";
 
 export interface DynamicToolConfig {
   id: string;

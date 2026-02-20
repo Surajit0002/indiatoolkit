@@ -402,7 +402,7 @@ export default function DividerGenerator() {
                   <label className="text-xs font-semibold text-gray-600 uppercase">Position</label>
                   <select
                     value={config.textPosition}
-                    onChange={(e) => setConfig({ ...config, textPosition: e.target.value as any })}
+                    onChange={(e) => setConfig({ ...config, textPosition: e.target.value as 'start' | 'center' | 'end' })}
                     className="w-full h-10 px-3 bg-white border border-gray-200 rounded-lg"
                   >
                     <option value="start">Start</option>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Award, Calendar, Trophy, Star, Zap } from "lucide-react";
+import { Copy, Download, Palette, Award, Calendar, Trophy, Star } from "lucide-react";
 
 export default function CertificateMaker() {
   const [certificateTitle, setCertificateTitle] = useState("Certificate of Achievement");

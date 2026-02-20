@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { BarChart3, Plus, Trash2, DollarSign, Tag, Calendar, ArrowUpRight, ArrowDownLeft } from "lucide-react";
+import { BarChart3, Trash2, DollarSign, Tag, Calendar, ArrowUpRight, ArrowDownLeft } from "lucide-react";
 
 interface Expense {
   id: string;

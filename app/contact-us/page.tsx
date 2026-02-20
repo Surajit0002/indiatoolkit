@@ -16,7 +16,7 @@ export default function ContactPage() {
             Get In <span className="text-transparent bg-clip-text bg-linear-to-r from-green-600 to-emerald-600">Touch</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            We're here to help Indian professionals succeed. Reach out anytime!
+            We&apos;re here to help Indian professionals succeed. Reach out anytime!
           </p>
         </section>
 
@@ -61,7 +61,7 @@ export default function ContactPage() {
         <section className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 md:p-12 mb-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-black text-slate-900 mb-3">Send us a Message</h2>
-            <p className="text-slate-600">Have questions about our Indian-focused tools? We're happy to help!</p>
+            <p className="text-slate-600">Have questions about our Indian-focused tools? We&apos;re happy to help!</p>
           </div>
 
           <form className="max-w-2xl mx-auto">

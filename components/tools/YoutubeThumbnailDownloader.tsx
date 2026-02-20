@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Link, Copy, Check, Image, ExternalLink, Loader2, AlertCircle } from "lucide-react";
+import { Download, Link, Copy, Check, Image, ExternalLink, AlertCircle } from "lucide-react";
 
 interface ThumbnailQuality {
   label: string;
@@ -111,7 +111,7 @@ export default function YoutubeThumbnailDownloader() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-red-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
             <Image className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">YouTube Thumbnail Downloader</h2>
@@ -222,7 +222,7 @@ export default function YoutubeThumbnailDownloader() {
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={downloadThumbnail}
-                  className="flex-1 min-w-[150px] h-14 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-red-700 hover:to-pink-700 transition-all shadow-lg shadow-red-100"
+                  className="flex-1 min-w-37.5 h-14 bg-linear-to-r from-red-600 to-pink-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-red-700 hover:to-pink-700 transition-all shadow-lg shadow-red-100"
                 >
                   <Download className="h-5 w-5" />
                   Download
@@ -230,7 +230,7 @@ export default function YoutubeThumbnailDownloader() {
 
                 <button
                   onClick={copyToClipboard}
-                  className="flex-1 min-w-[150px] h-14 bg-slate-100 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
+                  className="flex-1 min-w-37.5h-14 bg-slate-100 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
                 >
                   {isCopied ? (
                     <>

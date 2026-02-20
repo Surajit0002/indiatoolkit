@@ -10,7 +10,7 @@ interface ToolCardProps {
 
 export default function ToolCard({ tool }: ToolCardProps) {
   const category = getCategoryBySlug(tool.category);
-  // @ts-ignore
+  // @ts-expect-error - Dynamic icon access
   const Icon = Icons[tool.icon] || Icons.HelpCircle;
 
   return (
@@ -24,7 +24,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
           className="h-12 w-12 rounded-xl flex items-center justify-center text-white shadow-md transition-transform duration-300 group-hover:scale-105"
           style={{ backgroundColor: category?.color || '#10b981' }}
         >
-          <Icon className="h-6 w-6 stroke-[2]" />
+          <Icon className="h-6 w-6 stroke-2" />
         </div>
         
         <div className="flex items-center gap-2">

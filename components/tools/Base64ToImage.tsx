@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileImage, Upload, Download, Image as ImageIcon } from "lucide-react";
+import {  Download, Image as ImageIcon } from "lucide-react";
 
 export default function Base64ToImage() {
   const [base64, setBase64] = useState<string>("");
@@ -47,7 +47,7 @@ export default function Base64ToImage() {
               <div className="text-center space-y-4 opacity-30">
                 <ImageIcon className="h-16 w-16 mx-auto text-gray-300" />
                 <p className="text-sm font-bold uppercase text-gray-400">Image Preview</p>
-                <p className="text-xs text-gray-400 max-w-[200px] mx-auto">Paste a valid Base64 data URL to see the preview</p>
+                <p className="text-xs text-gray-400 max-w-200px mx-auto">Paste a valid Base64 data URL to see the preview</p>
               </div>
             )}
           </div>

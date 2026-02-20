@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { DollarSign, RefreshCw, ArrowRightLeft } from "lucide-react";
+import { DollarSign, ArrowRightLeft } from "lucide-react";
 
 // Mock rates for demonstration since we don't have an API key
 const BASE_RATES: Record<string, number> = {

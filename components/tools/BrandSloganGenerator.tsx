@@ -237,7 +237,7 @@ export default function BrandSloganGenerator() {
     <div className="p-6 md:p-8 space-y-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-cyan-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
             <Sparkles className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Brand Slogan Generator</h2>
@@ -291,7 +291,7 @@ export default function BrandSloganGenerator() {
             </div>
 
             <button onClick={generateSlogans}
-              className="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+              className="w-full py-4 bg-linear-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
               <Sparkles className="h-5 w-5" />Generate Slogans
             </button>
           </div>
@@ -301,7 +301,7 @@ export default function BrandSloganGenerator() {
               <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-cyan-500" />Generated Slogans
               </h3>
-              <div className="bg-slate-50 rounded-xl p-4 min-h-[200px]">
+              <div className="bg-slate-50 rounded-xl p-4 min-h-200px">
                 {generated ? (
                   <div className="space-y-3">
                     {slogans.map((slogan, idx) => (
@@ -316,7 +316,7 @@ export default function BrandSloganGenerator() {
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-full">
-                    <p className="text-slate-400 text-center">Enter your brand details and click<br />"Generate Slogans"</p>
+                    <p className="text-slate-400 text-center">Enter your brand details and click<br />&quot;Generate Slogans&quot;</p>
                   </div>
                 )}
               </div>

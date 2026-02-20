@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Upload, Copy, Check, Image as ImageIcon, Palette, Download } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Upload, Check, Image as ImageIcon, Palette, Download, Copy } from "lucide-react";
 
 interface ExtractedColor {
   hex: string;
@@ -40,16 +40,14 @@ export default function ColorExtractor() {
     return "#" + ((1 << 24) + (Math.round(r) << 16) + (Math.round(g) << 8) + Math.round(b)).toString(16).slice(1).toUpperCase();
   };
 
-  const extractColors = () => {
+  const extractColors = useCallback(() => {
     if (!image || !canvasRef.current) return;
 
-    setIsProcessing(true);
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const img = imgRef.current;
 
     if (!ctx || !img) {
-      setIsProcessing(false);
       return;
     }
 
@@ -90,14 +88,21 @@ export default function ColorExtractor() {
       setExtractedColors(sortedColors);
       setIsProcessing(false);
     };
-  };
+    
+    // Set processing state before async operation
+    setIsProcessing(true);
+  }, [image, colorCount]);
 
    
   useEffect(() => {
     if (image) {
-      extractColors();
+      // Use setTimeout to defer state updates to next tick
+      const timeoutId = setTimeout(() => {
+        extractColors();
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
-  }, [image, colorCount]);
+  }, [image, colorCount, extractColors]);
 
   const copyToClipboard = (text: string, index: number) => {
     navigator.clipboard.writeText(text);
@@ -128,7 +133,7 @@ export default function ColorExtractor() {
       <div className="max-w-5xl mx-auto space-y-8">
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl">
+            <div className="p-3 bg-linear-to-br from-amber-500 to-orange-500 rounded-2xl">
               <Palette className="h-6 w-6 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Color Extractor</h2>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { ArrowRightLeft, Scale, Ruler, Thermometer, RefreshCw } from "lucide-react";
+import { ArrowRightLeft, Scale, Ruler, Thermometer } from "lucide-react";
 
 type UnitType = "length" | "weight" | "temperature";
 

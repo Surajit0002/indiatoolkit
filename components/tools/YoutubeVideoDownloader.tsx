@@ -220,7 +220,7 @@ export default function YoutubeVideoDownloader() {
                 <button
                   onClick={handleDownload}
                   disabled={isLoading}
-                  className="flex-1 min-w-[150px] h-14 bg-linear-to-r from-red-600 to-pink-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-red-700 hover:to-pink-700 transition-all shadow-lg shadow-red-100 disabled:opacity-50"
+                  className="flex-1 min-w-37.5 h-14 bg-linear-to-r from-red-600 to-pink-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-red-700 hover:to-pink-700 transition-all shadow-lg shadow-red-100 disabled:opacity-50"
                 >
                   {isLoading ? (
                     <>
@@ -237,7 +237,7 @@ export default function YoutubeVideoDownloader() {
 
                 <button
                   onClick={copyToClipboard}
-                  className="flex-1 min-w-[150px] h-14 bg-slate-100 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
+                  className="flex-1 min-w-37.5 h-14 bg-slate-100 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-200 transition-all"
                 >
                   {isCopied ? (
                     <>

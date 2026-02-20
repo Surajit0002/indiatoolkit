@@ -14,7 +14,10 @@ export default function ToolActions({ tool }: ToolActionsProps) {
 
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-    setIsFavorited(favorites.includes(tool.id));
+    const timeoutId = setTimeout(() => {
+      setIsFavorited(favorites.includes(tool.id));
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [tool.id]);
 
   const toggleFavorite = () => {

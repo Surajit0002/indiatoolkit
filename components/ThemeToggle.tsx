@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Sun, Moon, Monitor, ChevronDown } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 
 export default function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme, } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   const themes = [

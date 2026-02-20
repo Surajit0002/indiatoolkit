@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Type, Copy, Download, RefreshCw, Sparkles, AlignLeft, Heading, Quote } from "lucide-react";
+import { Type, Copy, Download, RefreshCw, Sparkles } from "lucide-react";
 
 const typographyMoods = [
   "Modern & Clean",

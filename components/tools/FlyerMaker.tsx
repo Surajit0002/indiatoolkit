@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Copy, Download, Type, Palette, Calendar, MapPin, Tag, Megaphone, Zap } from "lucide-react";
+import { Copy, Download, Palette, Calendar, MapPin, Tag, Megaphone, Zap } from "lucide-react";
 
 export default function FlyerMaker() {
   const [title, setTitle] = useState("Grand Opening Sale");

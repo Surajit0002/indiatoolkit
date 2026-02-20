@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Type, Palette, Eye, RefreshCw, Sliders, Bold, Italic, Underline } from "lucide-react";
+import { Copy, Check, Type, RefreshCw, Sliders, Italic, Underline } from "lucide-react";
 
 const webFonts = [
   { name: "Inter", family: "'Inter', sans-serif", category: "sans-serif" },

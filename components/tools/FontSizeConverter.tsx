@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Check, ArrowRightLeft, Calculator, Ruler, RefreshCw } from "lucide-react";
+import { Copy, Check, ArrowRightLeft, Ruler, RefreshCw } from "lucide-react";
 
 type Unit = 'px' | 'em' | 'rem' | 'pt' | 'percent';
 
@@ -13,7 +13,6 @@ interface ConversionResult {
   percent: number;
 }
 
-const BASE_SIZE = 16; // Default browser font size in px
 const PT_TO_PX = 1.333; // 1pt = 1.333px
 
 export default function FontSizeConverter() {
@@ -22,29 +21,29 @@ export default function FontSizeConverter() {
   const [baseSize, setBaseSize] = useState<number>(16);
   const [copied, setCopied] = useState<string | null>(null);
 
-  const convertToPx = (value: number, unit: Unit): number => {
-    switch (unit) {
-      case 'px': return value;
-      case 'em': return value * baseSize;
-      case 'rem': return value * baseSize;
-      case 'pt': return value * PT_TO_PX;
-      case 'percent': return (value / 100) * baseSize;
-      default: return value;
-    }
-  };
-
-  const convertFromPx = (pxValue: number): ConversionResult => {
-    return {
-      px: pxValue,
-      em: pxValue / baseSize,
-      rem: pxValue / baseSize,
-      pt: pxValue / PT_TO_PX,
-      percent: (pxValue / baseSize) * 100
-    };
-  };
-
   // Compute result directly during render using useMemo
   const result = useMemo(() => {
+    const convertToPx = (value: number, unit: Unit): number => {
+      switch (unit) {
+        case 'px': return value;
+        case 'em': return value * baseSize;
+        case 'rem': return value * baseSize;
+        case 'pt': return value * PT_TO_PX;
+        case 'percent': return (value / 100) * baseSize;
+        default: return value;
+      }
+    };
+
+    const convertFromPx = (pxValue: number): ConversionResult => {
+      return {
+        px: pxValue,
+        em: pxValue / baseSize,
+        rem: pxValue / baseSize,
+        pt: pxValue / PT_TO_PX,
+        percent: (pxValue / baseSize) * 100
+      };
+    };
+
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
       return null;
@@ -84,7 +83,7 @@ export default function FontSizeConverter() {
         <div className="p-8 md:p-12 space-y-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 bg-gradient-to-br from-cyan-500 to-blue-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-cyan-200">
+              <div className="h-12 w-12 bg-linear-to-br from-cyan-500 to-blue-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-cyan-200">
                 <Ruler className="h-6 w-6" />
               </div>
               <div>
@@ -110,7 +109,7 @@ export default function FontSizeConverter() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Enter font size..."
-                  className="relative w-full h-20 px-8 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-cyan-500/10 transition-all font-black text-4xl text-slate-700 shadow-inner placeholder:text-slate-300 text-center"
+                  className="relative w-full h-20 px-8 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-cyan-500/10 transition-all font-black text-4xl text-slate-700 shadow-inner placeholder:text-slate-300 text-center"
                 />
               </div>
             </div>
@@ -157,7 +156,7 @@ export default function FontSizeConverter() {
                   type="number"
                   value={baseSize}
                   onChange={(e) => setBaseSize(Number(e.target.value))}
-                  className="w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-cyan-500/10 transition-all font-bold text-slate-700 text-center shadow-inner"
+                  className="w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-cyan-500/10 transition-all font-bold text-slate-700 text-center shadow-inner"
                 />
                 <span className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 font-bold">px</span>
               </div>
@@ -204,7 +203,7 @@ export default function FontSizeConverter() {
                     <button
                       key={item.unit}
                       onClick={() => handleCopy(formatValue(value, item.unit), item.unit)}
-                      className="relative bg-slate-50/50 rounded-[24px] p-6 border border-slate-100 hover:border-cyan-200 hover:bg-white transition-all group text-left"
+                      className="relative bg-slate-50/50 rounded-3xl p-6 border border-slate-100 hover:border-cyan-200 hover:bg-white transition-all group text-left"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[10px] font-black text-cyan-600 uppercase tracking-wider">{item.label}</span>
@@ -228,7 +227,7 @@ export default function FontSizeConverter() {
           <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-50">
             <button
               onClick={() => { setInputValue("16"); setFromUnit("px"); setBaseSize(16); }}
-              className="flex-1 h-16 bg-slate-900 text-white rounded-[24px] hover:bg-cyan-600 transition-all font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95"
+              className="flex-1 h-16 bg-slate-900 text-white rounded-3xl hover:bg-cyan-600 transition-all font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95"
             >
               <RefreshCw className="h-5 w-5" />
               RESET CONVERTER

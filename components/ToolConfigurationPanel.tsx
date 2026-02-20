@@ -1,30 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { 
-  Settings, 
-  Sliders, 
-  Zap, 
-  Cpu, 
-  Database, 
-  Network, 
+import {
+  Settings,
+
+  Zap,
+  Cpu,
+
+  Network,
   Shield,
-  Palette,
-  Code,
+
   Globe,
-  BarChart3,
-  Users,
-  Bell,
+
   Save,
   RotateCcw,
-  Eye,
-  EyeOff,
-  Lock,
-  Unlock,
-  Star,
+
   TrendingUp,
-  AlertTriangle,
-  CheckCircle,
+
   XCircle
 } from "lucide-react";
 
@@ -57,12 +49,6 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
   const [config, setConfig] = useState<ToolConfig | null>(null);
   const [activeTab, setActiveTab] = useState("general");
   const [isSaving, setIsSaving] = useState(false);
-  const [showAdvanced, setShowAdvanced] = useState(false);
-
-  useEffect(() => {
-    // Load tool configuration
-    loadToolConfig(toolId);
-  }, [toolId]);
 
   const loadToolConfig = async (id: string) => {
     // Simulate API call
@@ -95,6 +81,11 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
     };
     setConfig(mockConfig);
   };
+
+  useEffect(() => {
+    // Load tool configuration
+    loadToolConfig(toolId);
+  }, [toolId]);
 
   const updateSetting = (key: string, value: any) => {
     if (!config) return;
@@ -145,7 +136,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
 
   if (!config) {
     return (
-      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[200] p-4">
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-200 p-4">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full">
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
@@ -164,12 +155,12 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
   ];
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[200] p-4">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-200 p-4">
       <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="h-12 w-12 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center text-white">
+            <div className="h-12 w-12 bg-linear-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center text-white">
               <Settings className="h-6 w-6" />
             </div>
             <div>
@@ -177,7 +168,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
               <p className="text-sm text-slate-500">{config.name}</p>
             </div>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors"
           >
@@ -193,11 +184,10 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-6 py-4 text-sm font-bold transition-all ${
-                  activeTab === tab.id
+                className={`flex items-center gap-2 px-6 py-4 text-sm font-bold transition-all ${activeTab === tab.id
                     ? "text-blue-600 border-b-2 border-blue-600 bg-blue-50"
                     : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-                }`}
+                  }`}
               >
                 <Icon className="h-4 w-4" />
                 {tab.label}
@@ -216,7 +206,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                   <input
                     type="text"
                     value={config.name}
-                    onChange={(e) => setConfig({...config, name: e.target.value})}
+                    onChange={(e) => setConfig({ ...config, name: e.target.value })}
                     className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
@@ -224,7 +214,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                   <label className="block text-sm font-bold text-slate-700 mb-2">Category</label>
                   <select
                     value={config.category}
-                    onChange={(e) => setConfig({...config, category: e.target.value})}
+                    onChange={(e) => setConfig({ ...config, category: e.target.value })}
                     className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="calculators">Calculators</option>
@@ -292,7 +282,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
 
           {activeTab === "performance" && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
+              <div className="bg-linear-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
                 <div className="flex items-center gap-3 mb-4">
                   <TrendingUp className="h-5 w-5 text-green-600" />
                   <h3 className="font-black text-green-900">Performance Metrics</h3>
@@ -326,19 +316,19 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                     label="Cache Results"
                     description="Store frequently used results for faster access"
                     enabled={true}
-                    onChange={() => {}}
+                    onChange={() => { }}
                   />
                   <SettingToggle
                     label="Preload Data"
                     description="Load data in background for instant access"
                     enabled={false}
-                    onChange={() => {}}
+                    onChange={() => { }}
                   />
                   <SettingToggle
                     label="Memory Optimization"
                     description="Reduce memory usage at cost of slight performance"
                     enabled={true}
-                    onChange={() => {}}
+                    onChange={() => { }}
                   />
                 </div>
               </div>
@@ -347,7 +337,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
 
           {activeTab === "security" && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-2xl border border-red-200">
+              <div className="bg-linear-to-r from-red-50 to-orange-50 p-6 rounded-2xl border border-red-200">
                 <div className="flex items-center gap-3 mb-4">
                   <Shield className="h-5 w-5 text-red-600" />
                   <h3 className="font-black text-red-900">Security Configuration</h3>
@@ -396,7 +386,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
 
           {activeTab === "integrations" && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
+              <div className="bg-linear-to-r from-blue-50 to-indigo-50 p-6 rounded-2xl border border-blue-200">
                 <div className="flex items-center gap-3 mb-4">
                   <Network className="h-5 w-5 text-blue-600" />
                   <h3 className="font-black text-blue-900">Connected Services</h3>
@@ -439,7 +429,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
 
           {activeTab === "advanced" && (
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-200">
+              <div className="bg-linear-to-r from-purple-50 to-pink-50 p-6 rounded-2xl border border-purple-200">
                 <div className="flex items-center gap-3 mb-4">
                   <Cpu className="h-5 w-5 text-purple-600" />
                   <h3 className="font-black text-purple-900">Advanced Settings</h3>
@@ -454,7 +444,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                       Generate API Key
                     </button>
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <div>
                       <div className="font-bold text-sm">Webhook Integration</div>
@@ -471,7 +461,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                     label="Debug Mode"
                     description="Enable detailed logging for troubleshooting"
                     enabled={false}
-                    onChange={() => {}}
+                    onChange={() => { }}
                   />
                 </div>
               </div>
@@ -524,10 +514,10 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
   );
 }
 
-function SettingToggle({ label, description, enabled, onChange }: { 
-  label: string; 
-  description: string; 
-  enabled: boolean; 
+function SettingToggle({ label, description, enabled, onChange }: {
+  label: string;
+  description: string;
+  enabled: boolean;
   onChange: (value: boolean) => void;
 }) {
   return (
@@ -538,23 +528,21 @@ function SettingToggle({ label, description, enabled, onChange }: {
       </div>
       <button
         onClick={() => onChange(!enabled)}
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-          enabled ? "bg-blue-600" : "bg-slate-300"
-        }`}
+        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${enabled ? "bg-blue-600" : "bg-slate-300"
+          }`}
       >
         <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            enabled ? "translate-x-6" : "translate-x-1"
-          }`}
+          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${enabled ? "translate-x-6" : "translate-x-1"
+            }`}
         />
       </button>
     </div>
   );
 }
 
-function PerformanceSlider({ label, value, onChange, color }: { 
-  label: string; 
-  value: number; 
+function PerformanceSlider({ label, value, onChange, color }: {
+  label: string;
+  value: number;
   onChange: (value: number) => void;
   color: string;
 }) {

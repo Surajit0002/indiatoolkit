@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { HardDrive, ArrowRightLeft, Hash } from "lucide-react";
+import { HardDrive } from "lucide-react";
 
 const UNITS = [
   { label: "Bytes (B)", value: "B" },

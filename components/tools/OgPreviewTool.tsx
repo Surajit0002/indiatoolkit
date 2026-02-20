@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Share2, Link as LinkIcon, Eye, Globe } from "lucide-react";
+import { Share2, Globe } from "lucide-react";
 
 export default function OgPreviewTool() {
   const [data, setData] = useState({

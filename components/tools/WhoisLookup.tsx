@@ -1,11 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Info, Calendar, ShieldCheck, Building, Globe } from "lucide-react";
+import { Search, Calendar, ShieldCheck, Building, Globe } from "lucide-react";
+
+interface WhoisEvent {
+  eventAction: string;
+  eventDate: string;
+}
+
+interface WhoisNameserver {
+  ldhName: string;
+}
+
+interface WhoisEntity {
+  vcardArray?: [string, (string | string[])[]];
+}
+
+interface WhoisData {
+  ldhName: string;
+  status?: string[];
+  events?: WhoisEvent[];
+  entities?: WhoisEntity[];
+  nameservers?: WhoisNameserver[];
+}
 
 export default function WhoisLookup() {
   const [domain, setDomain] = useState("");
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<WhoisData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -24,7 +45,7 @@ export default function WhoisLookup() {
       
       const result = await response.json();
       setData(result);
-    } catch (err) {
+    } catch {
       setError("WHOIS data not available for this domain via RDAP. Try a commercial service.");
     } finally {
       setIsLoading(false);
@@ -32,7 +53,7 @@ export default function WhoisLookup() {
   };
 
   const getEventDate = (name: string) => {
-    const event = data?.events?.find((e: any) => e.eventAction === name);
+    const event = data?.events?.find((e) => e.eventAction === name);
     return event ? new Date(event.eventDate).toLocaleDateString() : "N/A";
   };
 
@@ -77,13 +98,13 @@ export default function WhoisLookup() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <WhoisCard icon={<Calendar className="h-5 w-5" />} label="Registration Date" value={getEventDate('registration')} />
             <WhoisCard icon={<ShieldCheck className="h-5 w-5" />} label="Expiration Date" value={getEventDate('expiration')} />
-            <WhoisCard icon={<Building className="h-5 w-5" />} label="Registrar" value={data.entities?.[0]?.vcardArray?.[1]?.find((v: any) => v[0] === 'fn')?.[3] || "Protected"} />
-            <WhoisCard icon={<Globe className="h-5 w-5" />} label="Nameservers" value={data.nameservers?.map((ns: any) => ns.ldhName).join(', ') || "N/A"} />
+            <WhoisCard icon={<Building className="h-5 w-5" />} label="Registrar" value={data.entities?.[0]?.vcardArray?.[1]?.find((v) => Array.isArray(v) && v[0] === 'fn')?.[3] as string || "Protected"} />
+            <WhoisCard icon={<Globe className="h-5 w-5" />} label="Nameservers" value={data.nameservers?.map((ns) => ns.ldhName).join(', ') || "N/A"} />
           </div>
 
           <div className="glass-card p-6">
              <h3 className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6">Technical Details (RDAP)</h3>
-             <pre className="text-[10px] font-mono bg-gray-50 p-4 rounded-[10px] overflow-auto max-h-[300px] text-gray-600">
+             <pre className="text-[10px] font-mono bg-gray-50 p-4 rounded-[10px] overflow-auto max-h-75 text-gray-600">
                  {JSON.stringify(data, null, 2)}
              </pre>
           </div>

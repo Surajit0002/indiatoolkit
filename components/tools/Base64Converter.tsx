@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Trash2, ArrowRightLeft, Check } from "lucide-react";
+import { Copy, ArrowRightLeft, Check } from "lucide-react";
 
 export default function Base64Converter() {
   const [input, setInput] = useState("");

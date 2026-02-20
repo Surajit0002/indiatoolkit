@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Code, Upload, Copy, Check, FileText } from "lucide-react";
+import { Upload, Copy, Check } from "lucide-react";
 
 export default function CsvToJson() {
   const [csvData, setCsvData] = useState("");
@@ -30,7 +30,7 @@ export default function CsvToJson() {
       });
       
       setJsonData(JSON.stringify(result, null, 2));
-    } catch (e) {
+    } catch {
       setJsonData("Error: Invalid CSV format");
     }
   };

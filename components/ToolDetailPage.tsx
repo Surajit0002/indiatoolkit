@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdvancedTool, getToolById, getRelatedTools } from '../data/advancedTools';
 import * as Icons from 'lucide-react';
-import { ArrowLeft, Brain, Zap, Users, TrendingUp, Star, Share2, Bookmark, Play, Settings } from 'lucide-react';
+import { ArrowLeft, Brain, Star, Share2, Bookmark, Play, Settings } from 'lucide-react';
 import Link from 'next/link';
 
 interface ToolDetailPageProps {
@@ -55,7 +55,7 @@ export default function ToolDetailPage({ toolId }: ToolDetailPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100">
       {/* Header */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -85,7 +85,7 @@ export default function ToolDetailPage({ toolId }: ToolDetailPageProps) {
           </div>
 
           {/* Tool Header Card */}
-          <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white">
+          <div className="bg-linear-to-r from-slate-900 to-slate-800 rounded-2xl p-6 text-white">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <div 
@@ -143,7 +143,7 @@ export default function ToolDetailPage({ toolId }: ToolDetailPageProps) {
                 ].map((tab) => (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                    onClick={() => setActiveTab(tab.id as 'overview' | 'features' | 'performance' | 'integrations')}
                     className={`flex items-center gap-2 px-6 py-4 font-medium transition-colors ${
                       activeTab === tab.id
                         ? 'text-blue-600 border-b-2 border-blue-600'
@@ -201,7 +201,7 @@ export default function ToolDetailPage({ toolId }: ToolDetailPageProps) {
                     <div className="space-y-3">
                       {tool.features.map((feature, index) => (
                         <div key={index} className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
-                          <div className="h-6 w-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="h-6 w-6 bg-blue-500 rounded-full flex items-center justify-center shrink-0 mt-0.5">
                             <Icons.Check className="h-4 w-4 text-white" />
                           </div>
                           <div>

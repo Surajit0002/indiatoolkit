@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileText, CheckCircle, AlertTriangle, Copy, RefreshCw, Sparkles, X, ChevronRight, Info } from "lucide-react";
+import { FileText, CheckCircle, RefreshCw, Sparkles, ChevronRight, Info } from "lucide-react";
 
 interface GrammarIssue {
   id: string;

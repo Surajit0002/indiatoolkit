@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { RefreshCw, Send, Copy, Check, Loader2, RotateCcw, Zap, Terminal } from "lucide-react";
+import { RefreshCw, Copy, Check, Loader2, RotateCcw, Zap, Terminal } from "lucide-react";
 import { useAi } from "@/hooks/useAi";
 import AiModelSelector from "@/components/ui/AiModelSelector";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FilePlus, Upload, ArrowRight, Loader2, Info, FileText, X, GripVertical } from "lucide-react";
+import { FilePlus, Upload, Loader2, Info, FileText, X, GripVertical } from "lucide-react";
 
 export default function MergePdf() {
   const [files, setFiles] = useState<File[]>([]);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Copy, Check, Type, RefreshCw, Terminal, Code, Sliders } from "lucide-react";
+import { Copy, Check, RefreshCw, Terminal, Code } from "lucide-react";
 
 type AsciiStyle = 'standard' | 'big' | 'small' | 'block' | 'rounded' | 'slant' | 'script' | 'doom';
 
@@ -24,9 +24,8 @@ const asciiPresets: AsciiPreset[] = [
 ];
 
 // Simplified text to ASCII art conversion
-const textToAscii = (text: string, style: AsciiStyle): string => {
-  const chars = asciiPresets.find(p => p.id === style)?.chars || ' .:-=+*#%@';
-  
+const textToAscii = (text: string): string => {
+
   // Simple mapping for demonstration
   const letterPatterns: Record<string, string[]> = {
     'A': [
@@ -340,7 +339,7 @@ export default function TextToAsciiArt() {
   const [copied, setCopied] = useState(false);
   const [copiedRaw, setCopiedRaw] = useState(false);
 
-  const asciiArt = useMemo(() => textToAscii(text, style), [text, style]);
+  const asciiArt = useMemo(() => textToAscii(text), [text]);
 
   const handleCopy = (type: string) => {
     if (type === 'art') {
@@ -458,8 +457,8 @@ export default function TextToAsciiArt() {
               onClick={() => handleCopy('raw')}
               className="h-16 px-8 bg-slate-100 text-slate-700 rounded-[24px] hover:bg-slate-200 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
             >
-              <Code className="h-6 w-6" />
-              COPY TEXT
+              {copiedRaw ? <Check className="h-6 w-6 text-emerald-400" /> : <Code className="h-6 w-6" />}
+              {copiedRaw ? "TEXT COPIED!" : "COPY TEXT"}
             </button>
             <button
               onClick={() => setText("ASCII")}

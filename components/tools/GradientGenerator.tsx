@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, Copy, Check, RefreshCw, Settings, ArrowRight } from "lucide-react";
+import { Plus, Trash2, Copy, Check, RefreshCw, Settings } from "lucide-react";
 
 interface GradientStop {
   id: string;

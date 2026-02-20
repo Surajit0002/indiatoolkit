@@ -82,7 +82,7 @@ export default function AiBackgroundRemover() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-emerald-500 to-teal-600 rounded-2xl mb-4 shadow-lg">
             <Scissors className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">AI Background Remover</h2>
@@ -184,7 +184,7 @@ export default function AiBackgroundRemover() {
                             </div>
                             <div className="relative">
                               <div className="h-24 w-24 rounded-xl overflow-hidden bg-white border border-slate-200">
-                                <div className="h-full w-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
+                                <div className="h-full w-full bg-linear-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
                                   <Image className="h-8 w-8 text-white opacity-50" />
                                 </div>
                               </div>
