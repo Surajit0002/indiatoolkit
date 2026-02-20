@@ -8,8 +8,8 @@ import {
   Download, 
   Circle,
   Bell,
-  Tag,
-  MessageCircle
+  Tag
+  
 } from "lucide-react";
 
 type BadgeStyle = "circle" | "pill" | "dot" | "ribbon" | "notification";

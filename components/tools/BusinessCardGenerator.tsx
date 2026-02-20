@@ -14,7 +14,7 @@ export default function BusinessCardGenerator() {
   const [cardStyle, setCardStyle] = useState<"modern" | "classic" | "creative" | "minimal">("modern");
   const [primaryColor, setPrimaryColor] = useState("#1E3A5F");
   const [accentColor, setAccentColor] = useState("#3B82F6");
-  const [textColor, setTextColor] = useState("#ffffff");
+
   const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
 

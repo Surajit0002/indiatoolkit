@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Star, ThumbsUp, MessageSquare, X, Send } from "lucide-react";
+import { Star, ThumbsUp, X, Send } from "lucide-react";
 
 interface FeedbackRatingProps {
   toolSlug: string;

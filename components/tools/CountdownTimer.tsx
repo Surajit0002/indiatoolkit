@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, RotateCcw, Bell, Hourglass, Settings2 } from "lucide-react";
+import { Play, Pause, RotateCcw, Bell, Hourglass } from "lucide-react";
 
 export default function CountdownTimer() {
   const [hours, setHours] = useState(0);
@@ -11,8 +11,7 @@ export default function CountdownTimer() {
   const [isRunning, setIsRunning] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
+  
   const playAlarm = () => {
     // Basic beep using Web Audio API if no audio file is provided
     try {
@@ -173,7 +172,7 @@ function TimeInput({ label, value, onChange, max }: { label: string, value: numb
   );
 }
 
-function PresetButton({ label, seconds, onClick }: { label: string, seconds: number, onClick: () => void }) {
+function PresetButton({ label, onClick }: { label: string, seconds: number, onClick: () => void }) {
   return (
     <button
       onClick={onClick}

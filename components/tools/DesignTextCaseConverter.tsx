@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Copy, Check, Type, Trash2, AlignLeft, Palette, Eye, Sliders } from "lucide-react";
 
 type CaseType = 'upper' | 'lower' | 'title' | 'sentence' | 'camel' | 'snake' | 'kebab' | 'constant' | 'swap';
@@ -30,7 +30,6 @@ export default function DesignTextCaseConverter() {
   const [previewMode, setPreviewMode] = useState<"single" | "compare">("single");
   const [compareCase] = useState<CaseType>("upper");
   const [fontSize, setFontSize] = useState(24);
-  const [showGuidelines, setShowGuidelines] = useState(true);
 
   const convertCase = (inputText: string, caseType: CaseType): string => {
     switch (caseType) {

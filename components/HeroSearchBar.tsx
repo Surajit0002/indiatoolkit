@@ -46,9 +46,14 @@ export default function HeroSearchBar() {
 
   // Load search history
   useEffect(() => {
-    const history = localStorage.getItem('searchHistory');
-    if (history) {
-      setSearchHistory(JSON.parse(history));
+    try {
+      const history = localStorage.getItem('searchHistory');
+      if (history) {
+        setSearchHistory(JSON.parse(history));
+      }
+    } catch (_err) {
+       
+      setSearchHistory([]);
     }
   }, []);
 
@@ -64,10 +69,10 @@ export default function HeroSearchBar() {
   // Search effect
   useEffect(() => {
     if (query.length >= 1) {
-      setIsSearching(true);
       const searchResults = fuse.search(query);
-      const filtered = searchResults.slice(0, 8).map((result: any) => result.item);
+      const filtered = searchResults.slice(0, 8).map((result: { item: typeof tools[0] }) => result.item);
       setResults(filtered);
+      setIsSearching(false);
       setActiveIndex(-1);
     } else {
       setIsSearching(false);
@@ -282,7 +287,7 @@ export default function HeroSearchBar() {
                     <div className="flex items-center gap-2">
                       <Sparkles className="h-4 w-4 text-green-500" />
                       <span className="text-xs font-bold text-slate-700 uppercase tracking-wide">
-                        {results.length} Results for "{query}"
+                        {results.length} Results for &quot;{query}&quot;
                       </span>
                     </div>
                     <div className="flex items-center gap-1 text-[10px] text-slate-400">
@@ -356,7 +361,7 @@ export default function HeroSearchBar() {
                       </div>
                       <h3 className="text-lg font-bold text-slate-700 mb-2">No results found</h3>
                       <p className="text-sm text-slate-500 mb-4">
-                        We couldn't find any tools matching "{query}"
+                        We couldn&apos;t find any tools matching &quot;{query}&quot;
                       </p>
                       <button
                         onClick={clearSearch}
@@ -410,7 +415,7 @@ export default function HeroSearchBar() {
                         <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">Popular Tools</span>
                       </div>
                       <div className="space-y-1">
-                        {popularTools.slice(0, 4).map((tool: typeof tools[0], index: number) => {
+                        {popularTools.slice(0, 4).map((tool: typeof tools[0]) => {
                           const category = getCategoryBySlug(tool.category);
                           return (
                             <Link

@@ -51,11 +51,11 @@ export default function ModernSearchBar() {
   // Search effect
   useEffect(() => {
     if (query.length >= 2) {
-      setIsSearching(true);
       const searchResults = fuse.search(query);
-      const filtered = searchResults.slice(0, 6).map((result) => result.item);
+      const filtered = searchResults.slice(0, 6).map((result: { item: typeof tools[0] }) => result.item);
       const timeoutId = setTimeout(() => {
         setResults(filtered);
+        setIsSearching(false);
         setActiveIndex(-1);
       }, 0);
       return () => clearTimeout(timeoutId);
@@ -200,7 +200,7 @@ export default function ModernSearchBar() {
             // Results
             <div className="py-2">
               <div className="px-4 py-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
-                {results.length} Results for "{query}"
+                {results.length} Results for &quot;{query}&quot;
               </div>
               <div className="space-y-1 px-2">
                 {results.map((tool, index) => (
@@ -264,7 +264,7 @@ export default function ModernSearchBar() {
               <Search className="h-12 w-12 mx-auto mb-3 text-slate-300" />
               <h3 className="text-lg font-bold text-slate-700 mb-2">No results found</h3>
               <p className="text-sm text-slate-500 mb-4">
-                We couldn't find any tools matching "{query}"
+                We couldn&apos;t find any tools matching &quot;{query}&quot;
               </p>
               <button
                 onClick={() => {

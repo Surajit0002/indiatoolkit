@@ -117,7 +117,7 @@ export default function ColorPaletteGenerator() {
         break;
 
       case "triadic":
-        [0, 120, 240].forEach((offset, i) => {
+        [0, 120, 240].forEach((offset) => {
           const newHsl = { ...hsl, h: (hsl.h + offset) % 360 };
           const newRgb = hslToRgb(newHsl.h, newHsl.s, newHsl.l);
           const hex = rgbToHex(newRgb.r, newRgb.g, newRgb.b);
@@ -128,7 +128,7 @@ export default function ColorPaletteGenerator() {
           });
         });
         // Add variations
-        [-20, 20].forEach((offset, i) => {
+        [-20, 20].forEach((offset) => {
           const newHsl = { ...hsl, h: (hsl.h + offset) % 360, s: Math.max(0, hsl.s - 10) };
           const newRgb = hslToRgb(newHsl.h, newHsl.s, newHsl.l);
           const hex = rgbToHex(newRgb.r, newRgb.g, newRgb.b);

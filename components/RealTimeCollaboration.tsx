@@ -9,9 +9,6 @@ import {
   UserPlus,
   Settings,
   Zap,
-  Star,
-  Clock,
-  Globe,
   Lock,
   Unlock
 } from 'lucide-react';
@@ -38,7 +35,7 @@ interface SharedTool {
   id: string;
   name: string;
   category: string;
-  config: any;
+  config: Record<string, string | number | boolean>;
   owner: string;
   collaborators: string[];
   createdAt: Date;

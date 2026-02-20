@@ -27,7 +27,7 @@ interface FontPairing {
 
 export default function AiTypographyGenerator() {
   const [mood, setMood] = useState("Modern & Clean");
-  const [useSerif, setUseSerif] = useState(false);
+
   const [isGenerating, setIsGenerating] = useState(false);
   const [pairings, setPairings] = useState<FontPairing[]>([]);
   const [copiedId, setCopiedId] = useState<number | null>(null);

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Copy, Check, RefreshCw } from "lucide-react";
+import { useState } from "react";
+import { Copy, Check } from "lucide-react";
 
 export default function ColorConverter() {
   const [hex, setHex] = useState("#3B82F6");

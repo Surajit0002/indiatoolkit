@@ -25,7 +25,7 @@ interface ToolConfig {
   name: string;
   category: string;
   enabled: boolean;
-  settings: Record<string, any>;
+  settings: Record<string, string | number | boolean>;
   performance: {
     speed: number;
     accuracy: number;
@@ -87,7 +87,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
     loadToolConfig(toolId);
   }, [toolId]);
 
-  const updateSetting = (key: string, value: any) => {
+  const updateSetting = (key: string, value: string | number | boolean) => {
     if (!config) return;
     setConfig({
       ...config,

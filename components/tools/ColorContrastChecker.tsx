@@ -63,11 +63,6 @@ export default function ColorContrastChecker() {
 
   const result = calculateContrast(foreground, background);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(text);
-    setTimeout(() => setCopied(null), 2000);
-  };
 
   const getWCAGStatus = (pass: boolean) => pass ? (
     <span className="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg text-xs font-semibold">

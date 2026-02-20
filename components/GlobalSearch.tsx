@@ -35,16 +35,18 @@ export default function GlobalSearch() {
 
   useEffect(() => {
     if (query.length > 1) {
-      const fuseResults = fuse.search(query);
-      const filtered = fuseResults.slice(0, 6).map(result => result.item);
-      setResults(filtered);
-      setIsOpen(true);
-      setActiveIndex(-1);
+      setTimeout(() => {
+        const fuseResults = fuse.search(query);
+        const filtered = fuseResults.slice(0, 6).map((result: { item: typeof tools[0] }) => result.item);
+        setResults(filtered);
+        setIsOpen(true);
+        setActiveIndex(-1);
+      }, 0);
     } else {
       setResults([]);
       setIsOpen(false);
     }
-  }, [query]);
+  }, [query, fuse]);
 
   // Keyboard navigation
   useEffect(() => {

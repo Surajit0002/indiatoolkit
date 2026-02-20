@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { 
   Shapes, 
   Copy, 
@@ -110,7 +110,7 @@ export default function IconSvgGenerator() {
   };
 
   const generateSvgCode = () => {
-    const { size, fillColor, strokeColor, strokeWidth } = config;
+    const { size} = config;
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size * 2} ${size * 2}" xmlns="http://www.w3.org/2000/svg">
   ${getShapePath()}
 </svg>`;

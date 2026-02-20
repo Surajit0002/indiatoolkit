@@ -344,7 +344,7 @@ export default function DynamicToolRenderer({
                       </span>
                     </div>
                     <span>
-                      Updated {new Date(tool.lastUpdated || Date.now()).toLocaleDateString()}
+                      Updated {new Date(tool.lastUpdated || 0).toLocaleDateString()}
                     </span>
                   </div>
                   

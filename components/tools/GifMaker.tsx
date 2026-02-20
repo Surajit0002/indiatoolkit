@@ -4,9 +4,9 @@ import { useState } from "react";
 import { 
   Copy, 
   Check, 
-  Image, 
+
   Film, 
-  Layers, 
+
   Clock,
   Trash2,
   Plus,
