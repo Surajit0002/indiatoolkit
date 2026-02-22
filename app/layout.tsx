@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Script from "next/script";
-
+import { Analytics } from "@vercel/analytics/next"
 const inter = Inter({ 
   subsets: ["latin"],
   display: "swap",
