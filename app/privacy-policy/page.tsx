@@ -23,7 +23,7 @@ export default function PrivacyPage() {
               <h2 className="text-2xl font-black text-gray-900 tracking-tight">2. Browser Storage</h2>
               <p>
                 We use local storage and cookies to remember your preferences and provide 
-                features like "Favorite Tools" or "Recent History". This data stays on your 
+                features like &ldquo;Favorite Tools&rdquo; or &ldquo;Recent History&rdquo;. This data stays on your 
                 device unless you clear your browser data.
               </p>
             </section>

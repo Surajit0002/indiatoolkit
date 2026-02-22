@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, Suspense } from "react";
+import React, { useState, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
@@ -16,7 +16,6 @@ import {
   Search,
   Grid,
   List,
-  Star,
   ArrowRight,
   Zap,
   Crown,
@@ -24,7 +23,6 @@ import {
   X,
   Sparkles,
   TrendingUp,
-  Clock,
   Filter,
 } from "lucide-react";
 
@@ -102,7 +100,7 @@ function ToolsContent() {
     }
 
     return tools;
-  }, [allTools, searchTerm, selectedCategory, sortBy]);
+  }, [allTools, searchTerm, selectedCategory, sortBy, categories]);
 
   // Get category info
   const getCategoryInfo = (categorySlug: string) => {
@@ -147,7 +145,7 @@ function ToolsContent() {
                 <>
                   <span className="text-slate-900">Search Results for </span>
                   <span className="bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 bg-clip-text text-transparent">
-                    "{urlQuery}"
+                    &ldquo;{urlQuery}&rdquo;
                   </span>
                 </>
               ) : (
@@ -269,7 +267,7 @@ function ToolsContent() {
               {/* Sort */}
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'popular' | 'name' | 'newest')}
                 className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-green-500 cursor-pointer hover:border-green-300 transition-colors"
               >
                 <option value="popular">🔥 Most Popular</option>
@@ -424,7 +422,7 @@ function ToolsContent() {
               </div>
               <h3 className="text-2xl font-black text-slate-700 mb-3 animate-fade-in-up delay-100">No Tools Found</h3>
               <p className="text-slate-500 font-medium mb-8 max-w-md mx-auto animate-fade-in-up delay-200">
-                We couldn't find any tools matching your search. Try different keywords or browse all categories.
+                We couldn&apos;t find any tools matching your search. Try different keywords or browse all categories.
               </p>
               <div className="flex flex-wrap justify-center gap-4 animate-fade-in-up delay-300">
                 <button
@@ -477,7 +475,7 @@ function ToolsContent() {
                 Need a Custom Tool?
               </h2>
               <p className="text-lg text-green-100 mb-10 max-w-xl mx-auto font-medium">
-                We're constantly adding new tools to help you work smarter. Have a suggestion? Let us know and we'll build it for you!
+                We&apos;re constantly adding new tools to help you work smarter. Have a suggestion? Let us know and we&apos;ll build it for you!
               </p>
               <Link
                 href="/contact"

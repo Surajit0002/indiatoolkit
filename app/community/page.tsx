@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Users, MessageCircle, Calendar, Star, Heart, Trophy, Award, Target, TrendingUp, Activity, Zap, Globe, Download, Upload, Copy, Check, AlertTriangle, Info, HelpCircle, Lightbulb, Wrench, ThumbsUp, Award as AwardIcon, Trophy as TrophyIcon, Sparkles, Rocket, Flame, Cloud, Sun, Moon, CloudRain, CloudSnow, Wind, Mountain, HeartPulse, Smartphone, Camera, Video, Mic, Speaker, Gamepad2, Joystick, Ship, Car, Train, Plane, Anchor, Compass, Ruler, Square, Triangle, Circle, Search, Eye } from 'lucide-react';
+import { Users, MessageCircle, Calendar, Heart, Check, ThumbsUp, Award as AwardIcon, Trophy as TrophyIcon, Sparkles, Wrench, Lightbulb, Search, Eye } from 'lucide-react';
 
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = React.useState('discussions');

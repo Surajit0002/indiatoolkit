@@ -19,7 +19,7 @@ export default function FAQPage() {
     },
     {
       q: "How can I request a new tool?",
-      a: "We love tool suggestions! Please use our contact page or join our community Discord to suggest new features or tools you'd like to see on the platform."
+      a: "We love tool suggestions! Please use our contact page or join our community Discord to suggest new features or tools you&apos;d like to see on the platform."
     },
     {
       q: "Can I use these tools for commercial work?",

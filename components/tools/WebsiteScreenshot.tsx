@@ -41,7 +41,7 @@ export default function WebsiteScreenshot() {
         link.href = URL.createObjectURL(blob);
         link.download = `screenshot-${new Date().getTime()}.jpg`;
         link.click();
-    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (_e) {  
         window.open(screenshotUrl, '_blank');
     }
   };

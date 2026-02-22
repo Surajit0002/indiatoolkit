@@ -1,28 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import { 
-  ArrowRight, Star, Zap, Shield, Search, TrendingUp, Sparkles, 
-  Calculator, Shuffle, FileText, Code, Globe, Heart, Download, 
-  Clock, Weight, Ruler, Thermometer, DollarSign, Text, Activity, 
-  BarChart3, Monitor, Smartphone, Cloud, Mail, Lock, Key, Eye, 
-  EyeOff, Gift, Shield as ShieldIcon, Calendar, CreditCard, Building, 
-  Building2, Crown, ChartBar, Map, Palette, Newspaper, CalendarDays, 
-  Briefcase, Handshake, BookText, GraduationCap, CircleHelp, 
-  MessageCircle, GalleryHorizontalEnd, HelpCircle, FileText as FileTextIcon, 
-  ChartBar as ChartBarIcon, Grid, Layers, Brain, ArrowRightLeft, Braces, 
-  Table, CheckCircle, ChevronRight, ChevronDown, Play, Target, Users, Award, 
-  Rocket, Lightbulb, Fingerprint, Globe2, Smartphone as SmartphoneIcon,
+  ArrowRight, Star, Zap, Search, TrendingUp, Sparkles, 
+  Calculator, FileText, Code, Globe, Download, 
+  Clock, Weight, Ruler, Thermometer, DollarSign, Text, 
+  Smartphone, Cloud, Mail, Lock, Key, Eye, 
+  Shield as ShieldIcon, Palette, Briefcase, BookText, GraduationCap, CircleHelp, 
+  MessageCircle, FileText as FileTextIcon, Grid, Layers, Brain, ArrowRightLeft, Braces, 
+  Table, CheckCircle, ChevronRight, ChevronDown, Users, Award, 
+  Rocket, Lightbulb, Globe2, Smartphone as SmartphoneIcon,
   Database, Cpu, Server, HardDrive, Wifi, Battery, Signal,
   Megaphone, Bug, Terminal, FileCode, Scissors, Copy, Clipboard,
   Move, RotateCcw, Upload, DownloadCloud, Share2, Bookmark,
   Tag, Filter, SortAsc, Layout, Box, Hexagon, Octagon,
   Circle, Square, Triangle, Diamond, Star as StarIcon, Heart as HeartIcon,
   RefreshCw, Video, GitCompare, Binary, Link as LinkIcon,
-  LucideIcon, Wrench, Folder, PenTool, FileJson, Image,
-  Type, Sliders, MousePointer2, Maximize2, Crop,
-  RotateCw, FlipHorizontal, FlipVertical, Download as DownloadIcon,
-  ImagePlus, Palette as PaletteIcon, Brush, Pen, Eraser, Stamp, Sparkles as SparklesIcon, Wand2, Layers as LayersIcon, Grid3X3,
-  Frame, Columns, Rows, Scan, Focus, Zap as ZapIcon,
+  LucideIcon, Wrench, Folder, PenTool, FileJson, Image
 } from "lucide-react";
 
 // Helper to render Lucide icons
@@ -32,10 +25,6 @@ function Icon({ icon: IconComponent }: { icon: LucideIcon }) {
 
 function IconSmall({ icon: IconComponent }: { icon: LucideIcon }) {
   return <IconComponent className="h-5 w-5" />;
-}
-
-function IconSmaller({ icon: IconComponent }: { icon: LucideIcon }) {
-  return <IconComponent className="h-4 w-4" />;
 }
 
 import { getPopularTools, getAllCategories, getRecentTools } from "@/lib/utils";
@@ -103,22 +92,9 @@ function getCategoryIcon(iconName: string): LucideIcon {
 }
 
 // Dynamic imports for performance
-const ToolCard = dynamic(() => import("@/components/ToolCard"), {
-  loading: () => <div className="h-48 bg-slate-100 rounded-2xl animate-pulse"></div>
-});
-
 const ModernSearchBar = dynamic(() => import("@/components/ModernSearchBar"), {
   loading: () => <div className="h-16 bg-slate-100 rounded-2xl animate-pulse"></div>
 });
-
-// Animated Counter Component
-function AnimatedCounter({ value, suffix = "" }: { value: string; suffix?: string }) {
-  return (
-    <span className="font-black text-3xl md:text-4xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
-      {value}{suffix}
-    </span>
-  );
-}
 
 // Feature Card Component
 function FeatureCard({ 
@@ -128,7 +104,7 @@ function FeatureCard({
   gradient, 
   delay 
 }: { 
-  icon: any; 
+  icon: LucideIcon; 
   title: string; 
   description: string; 
   gradient: string;
@@ -159,7 +135,7 @@ function ToolShowcaseCard({
 }: { 
   name: string; 
   description: string; 
-  icon: any; 
+  icon: LucideIcon; 
   color: string; 
   slug: string;
   badge?: string;
@@ -219,7 +195,7 @@ function TestimonialCard({
           <Star key={i} className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-200'}`} />
         ))}
       </div>
-      <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">"{content}"</p>
+      <p className="text-sm text-slate-600 font-medium leading-relaxed mb-4">&ldquo;{content}&rdquo;</p>
       <div className="flex items-center gap-3">
         <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white font-bold">
           {name.charAt(0)}
@@ -228,21 +204,6 @@ function TestimonialCard({
           <h4 className="text-sm font-bold text-slate-900">{name}</h4>
           <p className="text-xs text-slate-500">{role}</p>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// Stats Counter
-function StatItem({ value, label, icon: Icon }: { value: string; label: string; icon: any }) {
-  return (
-    <div className="flex items-center gap-3">
-      <div className="h-10 w-10 rounded-lg bg-white/20 flex items-center justify-center">
-        <Icon className="h-5 w-5 text-white" />
-      </div>
-      <div>
-        <div className="text-2xl font-black text-white">{value}</div>
-        <div className="text-xs font-medium text-white/70 uppercase tracking-wide">{label}</div>
       </div>
     </div>
   );
@@ -269,9 +230,10 @@ function FloatingShape({ className, delay }: { className: string; delay: string 
 }
 
 export default function Home() {
-  const popularTools = getPopularTools();
-  const categories = getAllCategories();
-  const recentTools = getRecentTools();
+  // Data for potential future use - keeping for reference
+  const _popularTools = getPopularTools();
+        const categories = getAllCategories();
+        const _recentTools = getRecentTools();
 
   return (
     <div className="flex flex-col gap-0">
@@ -311,7 +273,7 @@ export default function Home() {
                 <div className="absolute top-0 left-0 h-2.5 w-2.5 rounded-full bg-green-500"></div>
               </div>
               <span className="text-[10px] font-black uppercase tracking-[0.25em] text-green-700">
-                ✦ India's #1 Toolkit ✦
+                ✦ India&apos;s #1 Toolkit ✦
               </span>
             </div>
             
@@ -327,7 +289,7 @@ export default function Home() {
             
             {/* Subtitle */}
             <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed animate-fade-in-up delay-200">
-              India's most comprehensive online toolkit. 
+              India&apos;s most comprehensive online toolkit. 
               <span className="text-green-600 font-bold"> 500+ professional tools</span> for creators, developers & students. 
               Fast, secure & completely free.
             </p>
@@ -941,7 +903,7 @@ export default function Home() {
             <TestimonialCard
               name="Anita Patel"
               role="Content Creator"
-              content="Best free toolkit I've ever found. The image compressor and caption generator are game-changers!"
+              content="Best free toolkit I&apos;ve ever found. The image compressor and caption generator are game-changers!"
               rating={5}
             />
           </div>

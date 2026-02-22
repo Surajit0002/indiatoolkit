@@ -13,6 +13,26 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Allow unused variables that start with underscore
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
+  {
+    files: ["components/tools/**/*.tsx", "app/profile/ProfileClient.tsx"],
+    rules: {
+      // Disable img element warning for image processing tools that need direct img access
+      "@next/next/no-img-element": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

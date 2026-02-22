@@ -3,16 +3,7 @@
 import { useState } from "react";
 import { Square, Upload, Download, Loader2, Image as ImageIcon, X } from "lucide-react";
 
-const BORDER_STYLES = [
-  { name: "Solid", value: "solid" },
-  { name: "Dashed", value: "dashed" },
-  { name: "Dotted", value: "dotted" },
-  { name: "Double", value: "double" },
-  { name: "Groove", value: "groove" },
-  { name: "Ridge", value: "ridge" },
-  { name: "Inset", value: "inset" },
-  { name: "Outset", value: "outset" },
-];
+
 
 const PRESET_COLORS = [
   { name: "White", value: "#ffffff" },
@@ -34,7 +25,7 @@ export default function ImageBorderAdder() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [borderWidth, setBorderWidth] = useState(20);
   const [borderColor, setBorderColor] = useState("#ffffff");
-  const [borderStyle, setBorderStyle] = useState("solid");
+  const [_borderStyle, _setBorderStyle] = useState("solid");
   const [isDragging, setIsDragging] = useState(false);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

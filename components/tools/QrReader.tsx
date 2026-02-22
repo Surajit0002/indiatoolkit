@@ -44,7 +44,7 @@ export default function QrReader() {
       } else {
         setError("Could not find a valid QR code in this image.");
       }
-    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (_err) {  
       setError("Failed to process image. Please try again.");
     } finally {
       setIsLoading(false);

@@ -19,7 +19,7 @@ export default function BrochureDesigner() {
   const [accentColor, setAccentColor] = useState("#3B82F6");
   const [brochureStyle, setBrochureStyle] = useState<"tri-fold" | "bi-fold" | "z-fold">("tri-fold");
   const [copied, setCopied] = useState(false);
-  const canvasRef = useRef<HTMLDivElement>(null);
+  const _canvasRef = useRef<HTMLDivElement>(null);
 
   const brochureStyles = [
     { id: "tri-fold", name: "Tri-Fold", description: "Standard 3-panel brochure" },

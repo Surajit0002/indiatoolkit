@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Settings,
 
@@ -45,46 +45,54 @@ interface ConfigurationPanelProps {
   onClose: () => void;
 }
 
+// Helper function to create mock config
+const createMockConfig = (id: string): ToolConfig => ({
+  id: id,
+  name: "Advanced Calculator",
+  category: "calculators",
+  enabled: true,
+  settings: {
+    precision: 10,
+    theme: "dark",
+    autoSave: true,
+    notifications: true,
+    language: "en",
+    currency: "USD",
+    dateFormat: "MM/DD/YYYY"
+  },
+  performance: {
+    speed: 95,
+    accuracy: 99,
+    reliability: 98
+  },
+  security: {
+    encryption: true,
+    authentication: true,
+    auditTrail: false
+  },
+  integrations: ["Google Drive", "Dropbox", "Slack"],
+  lastUpdated: new Date().toISOString()
+});
+
 export default function ToolConfigurationPanel({ toolId, onClose }: ConfigurationPanelProps) {
-  const [config, setConfig] = useState<ToolConfig | null>(null);
   const [activeTab, setActiveTab] = useState("general");
   const [isSaving, setIsSaving] = useState(false);
+  
+  // Use ref to track previous toolId for updates
+  const prevToolIdRef = useRef(toolId);
+  
+  // Use useState with lazy initialization for config
+  const [config, setConfig] = useState<ToolConfig>(() => createMockConfig(toolId));
 
-  const loadToolConfig = async (id: string) => {
-    // Simulate API call
-    const mockConfig: ToolConfig = {
-      id: id,
-      name: "Advanced Calculator",
-      category: "calculators",
-      enabled: true,
-      settings: {
-        precision: 10,
-        theme: "dark",
-        autoSave: true,
-        notifications: true,
-        language: "en",
-        currency: "USD",
-        dateFormat: "MM/DD/YYYY"
-      },
-      performance: {
-        speed: 95,
-        accuracy: 99,
-        reliability: 98
-      },
-      security: {
-        encryption: true,
-        authentication: true,
-        auditTrail: false
-      },
-      integrations: ["Google Drive", "Dropbox", "Slack"],
-      lastUpdated: new Date().toISOString()
-    };
-    setConfig(mockConfig);
-  };
-
+  // Update config when toolId changes using a ref to track changes
   useEffect(() => {
-    // Load tool configuration
-    loadToolConfig(toolId);
+    if (prevToolIdRef.current !== toolId) {
+      prevToolIdRef.current = toolId;
+      // Use requestAnimationFrame to defer state update and avoid cascading renders
+      requestAnimationFrame(() => {
+        setConfig(createMockConfig(toolId));
+      });
+    }
   }, [toolId]);
 
   const updateSetting = (key: string, value: string | number | boolean) => {
@@ -130,7 +138,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
 
   const resetToDefaults = () => {
     if (config) {
-      loadToolConfig(config.id);
+      setConfig(createMockConfig(config.id));
     }
   };
 
@@ -230,13 +238,13 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                 <SettingToggle
                   label="Auto Save"
                   description="Automatically save your work"
-                  enabled={config.settings.autoSave}
+                  enabled={Boolean(config.settings.autoSave)}
                   onChange={(value) => updateSetting("autoSave", value)}
                 />
                 <SettingToggle
                   label="Notifications"
                   description="Enable system notifications"
-                  enabled={config.settings.notifications}
+                  enabled={Boolean(config.settings.notifications)}
                   onChange={(value) => updateSetting("notifications", value)}
                 />
                 <SettingToggle
@@ -251,7 +259,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Language</label>
                   <select
-                    value={config.settings.language}
+                    value={String(config.settings.language)}
                     onChange={(e) => updateSetting("language", e.target.value)}
                     className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
@@ -265,7 +273,7 @@ export default function ToolConfigurationPanel({ toolId, onClose }: Configuratio
                 <div>
                   <label className="block text-sm font-bold text-slate-700 mb-2">Currency</label>
                   <select
-                    value={config.settings.currency}
+                    value={String(config.settings.currency)}
                     onChange={(e) => updateSetting("currency", e.target.value)}
                     className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >

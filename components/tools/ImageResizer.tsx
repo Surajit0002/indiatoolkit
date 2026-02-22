@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Maximize, Upload, Download, Loader2, Image as ImageIcon, Link } from "lucide-react";
 
 export default function ImageResizer() {

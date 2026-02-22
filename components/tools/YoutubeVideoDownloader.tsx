@@ -23,7 +23,7 @@ export default function YoutubeVideoDownloader() {
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [selectedQuality, setSelectedQuality] = useState<VideoQuality>(videoQualities[1]);
   const [isCopied, setIsCopied] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [videoInfo, setVideoInfo] = useState<{ title: string; duration: string; views: string } | null>(null);
 

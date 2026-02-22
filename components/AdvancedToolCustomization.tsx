@@ -26,8 +26,8 @@ interface CustomizationOption {
   name: string;
   type: 'color' | 'text' | 'number' | 'boolean' | 'select' | 'range' | 'font' | 'layout' | 'theme';
   category: string;
-  defaultValue: any;
-  currentValue: any;
+  defaultValue: string | number | boolean;
+  currentValue: string | number | boolean;
   options?: { label: string; value: string }[];
   min?: number;
   max?: number;
@@ -39,8 +39,8 @@ interface CustomizationOption {
 
 interface ToolCustomizationProps {
   toolId: string;
-  onCustomizationChange: (config: Record<string, any>) => void;
-  currentConfig: Record<string, any>;
+  onCustomizationChange: (config: Record<string, string | number | boolean>) => void;
+  currentConfig: Record<string, string | number | boolean>;
   showAdvanced?: boolean;
 }
 
@@ -62,13 +62,7 @@ export default function AdvancedToolCustomization({
   const [customizationOptions, setCustomizationOptions] = useState<CustomizationOption[]>([]);
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(showAdvanced);
   const [previewMode, setPreviewMode] = useState(false);
-  const [savedConfigs, setSavedConfigs] = useState<Record<string, any>[]>([]);
-
-  // Initialize customization options based on tool type
-  useEffect(() => {
-    const options = getCustomizationOptionsForTool(toolId);
-    setCustomizationOptions(options);
-  }, [toolId]);
+  const [savedConfigs, setSavedConfigs] = useState<(Record<string, string | number | boolean> & { id: string; name: string; createdAt: string })[]>([]);
 
   const getCustomizationOptionsForTool = (toolId: string): CustomizationOption[] => {
     const baseOptions: CustomizationOption[] = [
@@ -277,7 +271,14 @@ export default function AdvancedToolCustomization({
     }
   };
 
-  const handleOptionChange = (optionId: string, value: any) => {
+  // Initialize customization options when toolId changes
+  useEffect(() => {
+    const options = getCustomizationOptionsForTool(toolId);
+    setCustomizationOptions(options);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [toolId]);
+
+  const handleOptionChange = (optionId: string, value: string | number | boolean) => {
     const updatedOptions = customizationOptions.map(option => 
       option.id === optionId 
         ? { ...option, currentValue: value }
@@ -289,7 +290,7 @@ export default function AdvancedToolCustomization({
     const newConfig = updatedOptions.reduce((acc, option) => {
       acc[option.id] = option.currentValue;
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, string | number | boolean>);
     
     onCustomizationChange(newConfig);
   };
@@ -305,7 +306,7 @@ export default function AdvancedToolCustomization({
     const defaultConfig = resetOptions.reduce((acc, option) => {
       acc[option.id] = option.defaultValue;
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, string | number | boolean>);
     
     onCustomizationChange(defaultConfig);
   };
@@ -314,7 +315,7 @@ export default function AdvancedToolCustomization({
     const config = customizationOptions.reduce((acc, option) => {
       acc[option.id] = option.currentValue;
       return acc;
-    }, {} as Record<string, any>);
+    }, {} as Record<string, string | number | boolean>);
     
     const newSavedConfig = {
       ...config,
@@ -326,7 +327,7 @@ export default function AdvancedToolCustomization({
     setSavedConfigs([...savedConfigs, newSavedConfig]);
   };
 
-  const loadConfig = (config: Record<string, any>) => {
+  const loadConfig = (config: Record<string, string | number | boolean>) => {
     const updatedOptions = customizationOptions.map(option => ({
       ...option,
       currentValue: config[option.id] ?? option.defaultValue
@@ -458,13 +459,13 @@ export default function AdvancedToolCustomization({
                           <div className="flex items-center gap-3">
                             <input
                               type="color"
-                              value={option.currentValue}
+                              value={option.currentValue as string}
                               onChange={(e) => handleOptionChange(option.id, e.target.value)}
                               className="h-10 w-16 rounded-lg border border-slate-300 cursor-pointer"
                             />
                             <input
                               type="text"
-                              value={option.currentValue}
+                              value={option.currentValue as string}
                               onChange={(e) => handleOptionChange(option.id, e.target.value)}
                               className="flex-1 px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono"
                               placeholder="#000000"
@@ -474,7 +475,7 @@ export default function AdvancedToolCustomization({
                         
                         {option.type === 'select' && option.options && (
                           <select
-                            value={option.currentValue}
+                            value={option.currentValue as string}
                             onChange={(e) => handleOptionChange(option.id, e.target.value)}
                             className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
                           >
@@ -493,7 +494,7 @@ export default function AdvancedToolCustomization({
                               min={option.min}
                               max={option.max}
                               step={option.step}
-                              value={option.currentValue}
+                              value={option.currentValue as number}
                               onChange={(e) => handleOptionChange(option.id, Number(e.target.value))}
                               className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider"
                             />
@@ -509,7 +510,7 @@ export default function AdvancedToolCustomization({
                             <div className="relative">
                               <input
                                 type="checkbox"
-                                checked={option.currentValue}
+                                checked={option.currentValue as boolean}
                                 onChange={(e) => handleOptionChange(option.id, e.target.checked)}
                                 className="sr-only"
                               />
@@ -529,17 +530,17 @@ export default function AdvancedToolCustomization({
                         {option.type === 'text' && (
                           <input
                             type="text"
-                            value={option.currentValue}
+                            value={option.currentValue as string}
                             onChange={(e) => handleOptionChange(option.id, e.target.value)}
                             className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm"
-                            placeholder={option.defaultValue}
+                            placeholder={String(option.defaultValue)}
                           />
                         )}
                         
                         {option.type === 'number' && (
                           <input
                             type="number"
-                            value={option.currentValue}
+                            value={option.currentValue as number}
                             onChange={(e) => handleOptionChange(option.id, Number(e.target.value))}
                             min={option.min}
                             max={option.max}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Scissors, Upload, RefreshCw, Download, CheckCircle, Image, X } from "lucide-react";
+import { Scissors, Upload, RefreshCw, Download, CheckCircle, Image as ImageIcon, X } from "lucide-react";
 
 interface ProcessedImage {
   id: number;
@@ -185,7 +185,7 @@ export default function AiBackgroundRemover() {
                             <div className="relative">
                               <div className="h-24 w-24 rounded-xl overflow-hidden bg-white border border-slate-200">
                                 <div className="h-full w-full bg-linear-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
-                                  <Image className="h-8 w-8 text-white opacity-50" />
+                                  <ImageIcon className="h-8 w-8 text-white opacity-50" />
                                 </div>
                               </div>
                               <p className="text-xs text-center mt-1 text-slate-500">

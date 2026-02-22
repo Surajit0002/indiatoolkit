@@ -7,11 +7,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { categories } from "../data/categories";
 import { ToolCategory } from "../types/tool";
 
+interface EnhancedCategory extends ToolCategory {
+  toolCount: number;
+  popularity: number;
+  isNew: boolean;
+  isTrending: boolean;
+  lastUpdated: Date;
+  featuredTools: Array<{
+    id: string;
+    name: string;
+    description: string;
+    isNew: boolean;
+  }>;
+}
+
+type SortOption = "name" | "popularity" | "recent";
+
 interface DynamicToolCategoriesProps {
   className?: string;
   showAll?: boolean;
   maxItems?: number;
-  onCategorySelect?: (category: ToolCategory) => void;
+  onCategorySelect?: (category: EnhancedCategory) => void;
 }
 
 export default function DynamicToolCategories({
@@ -24,10 +40,11 @@ export default function DynamicToolCategories({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState<"name" | "popularity" | "recent">("name");
+  const [sortBy, setSortBy] = useState<SortOption>("name");
 
-  // Enhanced categories with dynamic data
-  const enhancedCategories = useMemo(() => {
+  // Enhanced categories with dynamic data - using useState with lazy initialization
+  // to avoid calling impure functions during render
+  const [enhancedCategories] = useState<EnhancedCategory[]>(() => {
     return categories.map(cat => ({
       ...cat,
       toolCount: Math.floor(Math.random() * 50) + 10, // Simulated tool count
@@ -42,7 +59,7 @@ export default function DynamicToolCategories({
         isNew: Math.random() > 0.8
       }))
     }));
-  }, []);
+  });
 
   // Filtered and sorted categories
   const filteredCategories = useMemo(() => {
@@ -78,7 +95,7 @@ export default function DynamicToolCategories({
     return () => clearTimeout(timer);
   }, []);
 
-  const handleCategoryClick = (category: any) => {
+  const handleCategoryClick = (category: EnhancedCategory) => {
     setSelectedCategory(category.id);
     onCategorySelect?.(category);
   };
@@ -125,7 +142,7 @@ export default function DynamicToolCategories({
           
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
+            onChange={(e) => setSortBy(e.target.value as SortOption)}
             className="px-3 py-2 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           >
             <option value="name">Sort by Name</option>
@@ -228,7 +245,7 @@ export default function DynamicToolCategories({
                       <div className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                         Featured Tools
                       </div>
-                      {cat.featuredTools.map((tool, toolIndex) => (
+                      {cat.featuredTools.map((tool) => (
                         <div 
                           key={tool.id} 
                           className="flex items-center justify-between text-xs p-2 bg-slate-50 rounded-lg"

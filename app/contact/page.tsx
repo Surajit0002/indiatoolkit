@@ -79,7 +79,7 @@ export default function ContactPage() {
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Message</label>
-                <textarea rows={6} className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-600 outline-none transition-all resize-none" placeholder="Tell us what's on your mind..."></textarea>
+                <textarea rows={6} className="w-full px-6 py-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-blue-600 outline-none transition-all resize-none" placeholder="Tell us what&apos;s on your mind..."></textarea>
               </div>
               <button className="w-full py-5 bg-blue-600 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all flex items-center justify-center gap-3">
                 Send Message <Send className="h-4 w-4" />
@@ -92,7 +92,7 @@ export default function ContactPage() {
   );
 }
 
-function ContactInfo({ icon, title, detail, sub }: { icon: any, title: string, detail: string, sub: string }) {
+function ContactInfo({ icon, title, detail, sub }: { icon: React.ReactNode, title: string, detail: string, sub: string }) {
   return (
     <div className="flex gap-6 items-start">
       <div className="p-4 bg-white rounded-2xl border border-gray-100 text-blue-600 shadow-sm">

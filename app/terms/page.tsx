@@ -30,7 +30,7 @@ export default function TermsPage() {
             <section className="space-y-4">
               <h2 className="text-2xl font-black text-gray-900 tracking-tight">3. Disclaimer of Warranties</h2>
               <p>
-                The tools are provided "as is" without warranty of any kind. While we strive 
+                The tools are provided &ldquo;as is&rdquo; without warranty of any kind. While we strive 
                 for accuracy, we are not responsible for any errors in calculations or 
                 conversions produced by our tools.
               </p>

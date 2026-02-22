@@ -37,7 +37,7 @@ export default function SimpleCalculator() {
       setDisplay(String(result));
       setEquation("");
       setLastResult(String(result));
-    } catch (_) {
+    } catch {
       setDisplay("Error");
     }
   };

@@ -30,24 +30,7 @@ export default function PlagiarismChecker() {
     // Simulate API call
     setTimeout(() => {
       // Simulate finding some common phrases (demo purposes)
-      const commonPhrases = [
-        "the",
-        "and",
-        "is",
-        "to",
-        "in",
-        "of",
-        "it",
-        "for",
-        "that",
-        "with",
-        "as",
-        "this",
-        "are",
-        "was",
-        "but",
-        "be",
-      ];
+    
 
 
       // Generate a mock similarity score (10-40% for demo)

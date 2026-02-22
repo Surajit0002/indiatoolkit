@@ -70,7 +70,7 @@ export function advancedSearch(
   query: string,
   filters: SearchFilters = {}
 ): SearchResult[] {
-  const startTime = performance.now();
+ 
   const queryLower = query.toLowerCase().trim();
   
   if (!queryLower) return [];

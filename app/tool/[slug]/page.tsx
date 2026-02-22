@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getToolBySlug, getCategoryBySlug, getAllCategories, getAllTools } from "@/lib/utils";
-import { ChevronRight, Home, Share2, Star, Info, Zap, Sparkles, Layout, ArrowRight, ShieldCheck, Clock, ZapOff } from "lucide-react";
+import { ChevronRight, Home, Star, Info, Zap, Layout, ArrowRight, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 import ToolRenderer from "@/components/ToolRenderer";

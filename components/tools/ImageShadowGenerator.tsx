@@ -24,7 +24,7 @@ export default function ImageShadowGenerator() {
   const [blur, setBlur] = useState(20);
   const [spread, setSpread] = useState(0);
   const [shadowColor, setShadowColor] = useState("rgba(0,0,0,0.3)");
-  const [inset, setInset] = useState(false);
+  const [_inset, _setInset] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

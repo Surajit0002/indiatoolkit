@@ -16,8 +16,6 @@ const IconRenderer = dynamic(
 // Metadata for this page is handled in layout.tsx or use export const metadata in server component
 // This is a client component
 
-const categoriesData = categories;
-
 export default function CategoriesPage() {
   return (
     <div className="bg-slate-50 min-h-screen pb-4 pt-8 relative overflow-hidden">

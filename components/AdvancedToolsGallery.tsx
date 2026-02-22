@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdvancedTool, getPopularTools } from '../data/advancedTools';
 import * as Icons from 'lucide-react';
-import { Search, Filter, Grid, List, Star, TrendingUp, Brain } from 'lucide-react';
+import { Search, Filter, Grid, List, Brain } from 'lucide-react';
 
 interface ToolCardProps {
   tool: AdvancedTool;
@@ -309,7 +309,7 @@ export default function AdvancedToolsGallery() {
             
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as 'popularity' | 'accuracy' | 'usage' | 'name')}
               className="px-3 py-1 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
             >
               <option value="popularity">Sort by Popularity</option>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileArchive, Upload, ArrowRight, Loader2, Info, FileText } from "lucide-react";
+import { FileArchive, Upload, Loader2, Info, FileText } from "lucide-react";
 
 export default function CompressPdf() {
   const [file, setFile] = useState<File | null>(null);

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Mail, User, Lock, ArrowRight } from "lucide-react";
+import { Mail, User, Lock, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
@@ -32,7 +32,7 @@ export default function SignupPage() {
             className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg group"
           >
             <Zap className="h-5 w-5 fill-current" />
-            Quick "Auto" Signup (One-Tap)
+            Quick &ldquo;Auto&rdquo; Signup (One-Tap)
           </button>
         </div>
 

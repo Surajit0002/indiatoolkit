@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Download, Palette, Type, Image, FileText, Check } from "lucide-react";
+import { Copy, Download, Palette, Type, Image as ImageIcon, FileText, Check } from "lucide-react";
 
 export default function BrandStyleGuideGenerator() {
   const [brandName, setBrandName] = useState("");
@@ -247,7 +247,7 @@ ${brandVoice}
 
             <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-100">
               <h3 className="font-bold text-slate-900 flex items-center gap-2 mb-4">
-                <Image className="h-5 w-5 text-indigo-500" />
+                <ImageIcon className="h-5 w-5 text-indigo-500" />
                 Logo & Spacing
               </h3>
               

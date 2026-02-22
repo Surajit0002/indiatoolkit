@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import * as Icons from "lucide-react";
-import { categories } from "../data/categories";
 import { ToolCategory } from "../types/tool";
 
 export default function AdvancedTools() {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isGridView, setIsGridView] = useState(true);
   const [sortBy, setSortBy] = useState<"name" | "popularity" | "newest">("popularity");
@@ -14,7 +12,6 @@ export default function AdvancedTools() {
   const [recentTools, setRecentTools] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState<Record<string, boolean>>({});
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Enhanced categories with subcategories and tools
   const enhancedCategories: (ToolCategory & { 
@@ -218,7 +215,7 @@ export default function AdvancedTools() {
         
         const matchesFilters = Object.keys(selectedFilters).length === 0 || 
                               Object.entries(selectedFilters)
-                                .filter(([_, selected]) => selected)
+                                .filter(([, selected]) => selected)
                                 .some(([filter]) => tool.tags.includes(filter));
         
         return matchesSearch && matchesFilters;
@@ -254,18 +251,6 @@ export default function AdvancedTools() {
     setRecentTools(prev => [toolId, ...prev.filter(id => id !== toolId)].slice(0, 10));
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setActiveCategory(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
       {/* Header */}
@@ -291,7 +276,7 @@ export default function AdvancedTools() {
             <div className="relative">
               <select 
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'popularity' | 'name' | 'newest')}
                 className="appearance-none bg-white border border-slate-200 rounded-xl px-4 py-3 pr-10 text-sm font-bold uppercase tracking-widest text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900"
               >
                 <option value="popularity">POPULARITY</option>

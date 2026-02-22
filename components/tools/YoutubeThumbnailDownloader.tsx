@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Link, Copy, Check, Image, ExternalLink, AlertCircle } from "lucide-react";
+import { Download, Link, Copy, Check, Image as ImageIcon, ExternalLink, AlertCircle } from "lucide-react";
 
 interface ThumbnailQuality {
   label: string;
@@ -23,7 +23,7 @@ export default function YoutubeThumbnailDownloader() {
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [selectedQuality, setSelectedQuality] = useState<ThumbnailQuality>(thumbnailQualities[0]);
   const [isCopied, setIsCopied] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   const extractVideoId = (inputUrl: string): string | null => {
     // Handle various YouTube URL formats
@@ -112,7 +112,7 @@ export default function YoutubeThumbnailDownloader() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-red-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
-            <Image className="h-8 w-8 text-white" />
+            <ImageIcon className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">YouTube Thumbnail Downloader</h2>
           <p className="text-slate-500 font-bold text-sm mt-2">

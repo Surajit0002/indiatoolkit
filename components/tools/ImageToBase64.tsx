@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Upload, Copy, Check, Image as ImageIcon } from "lucide-react";
+import { Upload, Copy, Check } from "lucide-react";
 
 export default function ImageToBase64() {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [_selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [base64, setBase64] = useState<string>("");
   const [copied, setCopied] = useState(false);

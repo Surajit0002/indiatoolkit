@@ -1,4 +1,4 @@
-import { Check, X, Crown, Zap, Star, IndianRupee, Calendar, Users, Award, ArrowRight } from "lucide-react";
+import { Check, Crown, Zap, Star, IndianRupee, Calendar, Users, Award, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata = {
@@ -43,7 +43,7 @@ export default function PricingPage() {
           
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             India Toolkit believes in democratizing access to powerful tools. 
-            That's why everything we offer is completely free for all Indian professionals.
+            That&apos;s why everything we offer is completely free for all Indian professionals.
           </p>
         </section>
 
@@ -86,7 +86,7 @@ export default function PricingPage() {
         {/* Why Free Section */}
         <section className="mb-20">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-slate-900 mb-4">Why We're Completely Free</h2>
+            <h2 className="text-4xl font-black text-slate-900 mb-4">Why We&apos;re Completely Free</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
               Our mission is to empower every Indian professional with world-class tools
             </p>
@@ -97,7 +97,7 @@ export default function PricingPage() {
               <Users className="h-12 w-12 text-green-600 mx-auto mb-4" />
               <h3 className="text-xl font-black text-slate-900 mb-3">Mission Driven</h3>
               <p className="text-slate-600">
-                We're on a mission to democratize access to professional tools across India, 
+                We&apos;re on a mission to democratize access to professional tools across India, 
                 removing financial barriers for students and professionals.
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function PricingPage() {
             
             <h2 className="text-3xl font-black text-slate-900 mb-4">Premium Features Roadmap</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
-              While everything is free today, we're building advanced features for teams and power users
+              While everything is free today, we&apos;re building advanced features for teams and power users
             </p>
           </div>
           
@@ -177,8 +177,8 @@ export default function PricingPage() {
                 ))}
               </div>
               <p className="text-slate-600 mb-4 italic">
-                "As a startup founder in Bangalore, India Toolkit has saved me countless hours. 
-                The GST calculator alone is worth its weight in gold!"
+                &ldquo;As a startup founder in Bangalore, India Toolkit has saved me countless hours. 
+                The GST calculator alone is worth its weight in gold!&rdquo;
               </p>
               <div className="font-bold text-slate-900">Priya Sharma</div>
               <div className="text-sm text-slate-500">Founder, TechStart Bangalore</div>
@@ -191,8 +191,8 @@ export default function PricingPage() {
                 ))}
               </div>
               <p className="text-slate-600 mb-4 italic">
-                "Being a student in Delhi, I can't afford expensive software. 
-                India Toolkit gives me access to professional tools completely free!"
+                &quot;Being a student in Delhi, I can&apos;t afford expensive software. 
+                India Toolkit gives me access to professional tools completely free!&quot;
               </p>
               <div className="font-bold text-slate-900">Rahul Patel</div>
               <div className="text-sm text-slate-500">Engineering Student, Delhi University</div>
@@ -205,8 +205,8 @@ export default function PricingPage() {
                 ))}
               </div>
               <p className="text-slate-600 mb-4 italic">
-                "The currency converter understands rupees perfectly and works offline too. 
-                Perfect for my freelance work across different clients."
+                &ldquo;The currency converter understands rupees perfectly and works offline too. 
+                Perfect for my freelance work across different clients.&rdquo;
               </p>
               <div className="font-bold text-slate-900">Anjali Desai</div>
               <div className="text-sm text-slate-500">Freelance Designer, Mumbai</div>
@@ -226,7 +226,7 @@ export default function PricingPage() {
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-green-600 font-black rounded-xl hover:bg-green-50 transition-all text-lg"
           >
             <Zap className="h-5 w-5" />
-            Get Started - It's Free!
+            Get Started - It&apos;s Free!
           </Link>
         </section>
       </div>

@@ -188,7 +188,7 @@ export default function ModernSearchBar() {
             <div className="p-8 text-center">
               <Sparkles className="h-12 w-12 mx-auto mb-3 text-slate-300" />
               <p className="text-slate-500 font-medium">Start typing to search for tools...</p>
-              <p className="text-slate-400 text-sm mt-1">Try "image", "convert", "calculator", etc.</p>
+              <p className="text-slate-400 text-sm mt-1">Try &quot;image&quot;, &quot;convert&quot;, &quot;calculator&quot;, etc.</p>
             </div>
           ) : isSearching && results.length === 0 ? (
             // Loading state

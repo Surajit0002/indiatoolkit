@@ -88,7 +88,7 @@ export default function TypographyScaleGenerator() {
     css += `:root {\n`;
     css += `  /* Font Sizes */\n`;
     
-    scaleSteps.forEach((step, index) => {
+    scaleSteps.forEach((step) => {
       css += `  --font-size-${step.label.toLowerCase().replace(/[0-9]/g, '')}: ${step.rem};\n`;
     });
     

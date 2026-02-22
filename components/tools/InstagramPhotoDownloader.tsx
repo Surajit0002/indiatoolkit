@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Link, Copy, Check, Image, Loader2, AlertCircle, Instagram, Heart } from "lucide-react";
+import { Download, Link, Copy, Check, Image as ImageIcon, Loader2, AlertCircle, Instagram, Heart } from "lucide-react";
 
 interface QualityOption {
   label: string;
@@ -71,7 +71,7 @@ export default function InstagramPhotoDownloader() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
-            <Image className="h-8 w-8 text-white" />
+            <ImageIcon className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Instagram Photo Downloader</h2>
           <p className="text-slate-500 font-bold text-sm mt-2">Download Instagram photos in high quality</p>
@@ -103,7 +103,7 @@ export default function InstagramPhotoDownloader() {
                   <span className="text-sm text-slate-500">@{postInfo.username}</span>
                 </div>
                 <div className="aspect-square bg-slate-200 rounded-xl flex items-center justify-center">
-                  <Image className="h-16 w-16 text-slate-500" />
+                  <ImageIcon className="h-16 w-16 text-slate-500" />
                 </div>
                 <div className="mt-4 flex items-center gap-4 text-sm text-slate-500">
                   <span className="flex items-center gap-1"><Heart className="h-4 w-4" /> {postInfo.likes}</span>
@@ -136,13 +136,13 @@ export default function InstagramPhotoDownloader() {
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
-            <div className="flex items-center gap-3"><div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center"><Image className="h-5 w-5 text-pink-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">Original Quality</h4><p className="text-xs text-slate-500">Full resolution</p></div></div>
+            <div className="flex items-center gap-3"><div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center"><ImageIcon className="h-5 w-5 text-pink-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">Original Quality</h4><p className="text-xs text-slate-500">Full resolution</p></div></div>
           </div>
           <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
             <div className="flex items-center gap-3"><div className="h-10 w-10 bg-purple-100 rounded-xl flex items-center justify-center"><Download className="h-5 w-5 text-purple-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">Fast Download</h4><p className="text-xs text-slate-500">Instant saving</p></div></div>
           </div>
           <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
-            <div className="flex items-center gap-3"><div className="h-10 w-10 bg-orange-100 rounded-xl flex items-center justify-center"><Image className="h-5 w-5 text-orange-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">All Formats</h4><p className="text-xs text-slate-500">Square, portrait</p></div></div>
+            <div className="flex items-center gap-3"><div className="h-10 w-10 bg-orange-100 rounded-xl flex items-center justify-center"><ImageIcon className="h-5 w-5 text-orange-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">All Formats</h4><p className="text-xs text-slate-500">Square, portrait</p></div></div>
           </div>
         </div>
       </div>

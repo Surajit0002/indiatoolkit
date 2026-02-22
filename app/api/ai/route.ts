@@ -90,7 +90,7 @@ function getSystemPrompt(toolId: string): string {
 }
 
 // Mock responses for fallback when API is unavailable
-function getMockResponse(toolId: string, prompt: string, model: string): string {
+function getMockResponse(toolId: string, prompt: string, _model: string): string {
   const mockResponses: Record<string, string> = {
     "ai-text-generator": `Here is professionally crafted content based on your request:\n\n${prompt}\n\nI've structured this content to be engaging, clear, and impactful. The tone is professional yet approachable, making it suitable for various contexts including business communications, marketing materials, or personal projects.\n\nKey elements included:\n- Clear opening that captures attention\n- Well-organized main content\n- Compelling conclusion with call-to-action\n\nFeel free to request adjustments to tone, length, or style.`,
     

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Link, Copy, Check, User, Loader2, AlertCircle, Maximize, Image } from "lucide-react";
+import { Download, Link, Copy, Check, User, Loader2, AlertCircle, Maximize, Image as ImageIcon } from "lucide-react";
 
 interface SizeOption {
   label: string;
@@ -114,7 +114,7 @@ export default function InstagramProfilePictureDownloader() {
                       </div>
                     </div>
                     <div className="absolute -bottom-1 -right-1 h-8 w-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                      <Image className="h-4 w-4 text-white" />
+                      <ImageIcon className="h-4 w-4 text-white" />
                     </div>
                   </div>
                   <div className="flex-1">
@@ -171,7 +171,7 @@ export default function InstagramProfilePictureDownloader() {
             <div className="flex items-center gap-3"><div className="h-10 w-10 bg-purple-100 rounded-xl flex items-center justify-center"><User className="h-5 w-5 text-purple-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">HD Quality</h4><p className="text-xs text-slate-500">Up to 320px</p></div></div>
           </div>
           <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
-            <div className="flex items-center gap-3"><div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center"><Image className="h-5 w-5 text-pink-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">Any Profile</h4><p className="text-xs text-slate-500">Public accounts</p></div></div>
+            <div className="flex items-center gap-3"><div className="h-10 w-10 bg-pink-100 rounded-xl flex items-center justify-center"><ImageIcon className="h-5 w-5 text-pink-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">Any Profile</h4><p className="text-xs text-slate-500">Public accounts</p></div></div>
           </div>
           <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
             <div className="flex items-center gap-3"><div className="h-10 w-10 bg-orange-100 rounded-xl flex items-center justify-center"><Download className="h-5 w-5 text-orange-600" /></div><div><h4 className="font-bold text-slate-800 text-sm">Instant Download</h4><p className="text-xs text-slate-500">Quick and easy</p></div></div>

@@ -22,7 +22,7 @@ export default function ImageCropper() {
   const [aspectRatio, setAspectRatio] = useState<number | null>(1);
   const [cropArea, setCropArea] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const _canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +71,7 @@ export default function ImageCropper() {
       const scale = Math.min(maxPreviewSize / img.width, maxPreviewSize / img.height);
       
       const displayWidth = img.width * scale;
-      const displayHeight = img.height * scale;
+      const _displayHeight = img.height * scale;
 
       const cropWidth = Math.min(cropArea.width || displayWidth, displayWidth);
       const cropHeight = aspectRatio 

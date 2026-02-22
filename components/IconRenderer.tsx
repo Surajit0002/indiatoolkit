@@ -10,6 +10,7 @@ interface IconRendererProps {
 
 export default function IconRenderer({ icon, className = "h-5 w-5" }: IconRendererProps) {
   // Try to find the icon in lucide-react
-  const IconComponent = (Icons as Record<string, unknown>)[icon] || Icons.HelpCircle;
+  const IconsRecord = Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>;
+  const IconComponent = IconsRecord[icon] || Icons.HelpCircle;
   return <IconComponent className={className} />
 }

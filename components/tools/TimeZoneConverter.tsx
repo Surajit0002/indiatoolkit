@@ -18,7 +18,7 @@ export default function TimeZoneConverter() {
         second: "2-digit",
         hour12: true,
       });
-    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (_e) {  
       return "Invalid Time";
     }
   };
@@ -33,7 +33,7 @@ export default function TimeZoneConverter() {
         month: "long",
         day: "numeric",
       });
-    } catch (_e) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (_e) {  
       return "";
     }
   };

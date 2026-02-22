@@ -64,7 +64,7 @@ export async function PUT(
       message: 'Tool updated successfully'
     });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to update tool' },
       { status: 500 }

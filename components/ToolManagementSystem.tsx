@@ -27,7 +27,7 @@ interface ToolManagementSystemProps {
 }
 
 export default function ToolManagementSystem({ userId, onToolSelect }: ToolManagementSystemProps) {
-  const [tools, setTools] = useState<Tool[]>([
+  const [tools] = useState<Tool[]>([
     ...getAllDynamicTools() as unknown as Tool[],
     ...advancedTools as unknown as Tool[]
   ]);

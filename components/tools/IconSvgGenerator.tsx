@@ -117,7 +117,7 @@ export default function IconSvgGenerator() {
   };
 
   const generateCssCode = () => {
-    const { shape, size, fillColor, strokeColor, strokeWidth, rotation } = config;
+    const { shape, size, fillColor } = config;
     
     switch (shape) {
       case "circle":

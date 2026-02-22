@@ -15,7 +15,7 @@ export default function ImageWatermark() {
   const [watermarkPreview, setWatermarkPreview] = useState<string | null>(null);
   
   const [opacity, setOpacity] = useState(0.5);
-  const [position, setPosition] = useState("center");
+  const [position, _setPosition] = useState("center");
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

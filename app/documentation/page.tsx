@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { BookOpen, Search, Filter, Grid, List, Code, Shield, Award, Trophy, Heart, Star, Zap, Flame, Cloud, Sun, Moon, CloudRain, CloudSnow, ThumbsUp, GraduationCap, Wrench, FileCode, AlertTriangle, Rocket } from 'lucide-react';
+import { BookOpen, Search, Grid, List, Code, Shield, Zap, Flame, ThumbsUp, GraduationCap, Wrench, FileCode, AlertTriangle, Rocket } from 'lucide-react';
 
 export default function DocumentationPage() {
   const [searchTerm, setSearchTerm] = React.useState('');

@@ -10,7 +10,7 @@ import {
   Scale,
   RotateCw,
   Box,
-  Grid,
+  
   Square,
   Circle
 } from "lucide-react";
@@ -111,8 +111,7 @@ export default function HoverEffectGenerator() {
     const { effectType, duration, easing, translateY, scale, rotate, boxShadow, borderColor, borderWidth, borderRadius, backgroundColor, textColor, underlineColor, underlineWidth } = config;
 
     let hoverStyles = "";
-    const baseStyles = "";
-
+    
     switch (effectType) {
       case "lift":
         hoverStyles = `transform: translateY(${translateY}px) scale(${scale}); box-shadow: ${boxShadow};`;

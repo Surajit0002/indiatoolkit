@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { User, Settings, History as HistoryIcon, Clock, Trash2, ExternalLink, Calendar, Filter, Download } from "lucide-react";
+import { User, Settings, History as HistoryIcon, Clock, Trash2, ExternalLink, Calendar, Download } from "lucide-react";
 import Link from "next/link";
-import { tools } from "@/data/tools";
 import { useHistory, HistoryItem } from "@/hooks/useUserData";
 
 function DashboardLink({ href, icon, label, active = false }: { href: string, icon: React.ReactNode, label: string, active?: boolean }) {

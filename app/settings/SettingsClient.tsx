@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Settings as SettingsIcon, Bell, Shield, Palette, Download, Upload, Trash2, Check, Moon, Sun, Monitor, Eye, Volume2, Lock, Database } from "lucide-react";
+import { Settings as SettingsIcon, Bell, Shield, Palette, Download, Upload, Trash2, Check, Moon, Sun, Monitor, Eye, Lock, Database } from "lucide-react";
 
 interface Settings {
   theme: "light" | "dark" | "system";
@@ -22,35 +22,45 @@ interface Settings {
   };
 }
 
+const defaultSettings: Settings = {
+  theme: "system",
+  notifications: {
+    email: true,
+    push: true,
+    toolUpdates: true,
+    weeklyDigest: false,
+  },
+  privacy: {
+    shareUsageData: false,
+    allowAnalytics: true,
+  },
+  accessibility: {
+    highContrast: false,
+    reducedMotion: false,
+    fontSize: "medium",
+  },
+};
+
+// Helper function to load settings from localStorage
+const loadSavedSettings = (): Settings => {
+  if (typeof window === 'undefined') return defaultSettings;
+  try {
+    const savedSettings = localStorage.getItem("userSettings");
+    if (savedSettings) {
+      return { ...defaultSettings, ...JSON.parse(savedSettings) };
+    }
+  } catch {
+    // Ignore parsing errors
+  }
+  return defaultSettings;
+};
+
 export default function SettingsClient() {
-  const [settings, setSettings] = useState<Settings>({
-    theme: "system",
-    notifications: {
-      email: true,
-      push: true,
-      toolUpdates: true,
-      weeklyDigest: false,
-    },
-    privacy: {
-      shareUsageData: false,
-      allowAnalytics: true,
-    },
-    accessibility: {
-      highContrast: false,
-      reducedMotion: false,
-      fontSize: "medium",
-    },
-  });
+  // Use lazy initialization for settings state
+  const [settings, setSettings] = useState<Settings>(() => loadSavedSettings());
 
   const [activeTab, setActiveTab] = useState("appearance");
   const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    const savedSettings = localStorage.getItem("userSettings");
-    if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
-    }
-  }, []);
 
   useEffect(() => {
     // Apply theme

@@ -74,7 +74,7 @@ export default function FadeTransitionGenerator() {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line react-hooks/purity
+   
   const animationName = `transition-${Date.now()}`;
 
   const generateKeyframes = () => {
@@ -154,7 +154,7 @@ export default function FadeTransitionGenerator() {
   useEffect(() => {
     if (isPlaying && elementRef.current) {
       elementRef.current.style.animation = "none";
-      elementRef.current.offsetHeight;
+      void elementRef.current.offsetHeight;
       elementRef.current.style.animation = `${animationName} ${config.duration}s ${config.easing} ${config.delay}s both`;
       
       setTimeout(() => {
@@ -173,6 +173,7 @@ export default function FadeTransitionGenerator() {
     return () => {
       document.head.removeChild(styleSheet);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config, animationName]);
 
   const generateCssCode = () => {
@@ -189,25 +190,6 @@ export default function FadeTransitionGenerator() {
 @keyframes ${animationName} {
 ${generateKeyframes().replace(`@keyframes ${animationName} {`, "").trim()}
 }`;
-  };
-
-  const generateTailwindCode = () => {
-    return `/* Add to your CSS */
-${generateKeyframes()}
-
-/* Usage classes */
-.animate-enter {
-  animation: ${animationName} ${config.duration}s ${config.easing} ${config.delay}s both;
-}
-
-.animate-leave {
-  animation: ${animationName} ${config.duration}s ${config.easing} ${config.delay}s both reverse;
-}
-
-/* Or use inline styles */
-<div style="animation: ${animationName} ${config.duration}s ${config.easing} ${config.delay}s both">
-  Content
-</div>`;
   };
 
   const generateReactCode = () => {

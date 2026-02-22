@@ -7,7 +7,7 @@ export default function EpochConverter() {
   const getInitialTime = () => Math.floor(Date.now() / 1000);
   const [now, setNow] = useState(getInitialTime);
   const [timestamp, setTimestamp] = useState(getInitialTime().toString());
-  const [dateStr, setDateStr] = useState("");
+
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { LifeBuoy, MessageCircle, Mail, Phone, HelpCircle, FileText, Shield, Zap, Globe, Download, Upload, Copy, Check, AlertTriangle, Info, Lightbulb, Wrench, Activity, Search } from 'lucide-react';
+import { LifeBuoy, MessageCircle, Mail, Phone, HelpCircle, FileText, Lightbulb, Wrench, Activity, Search } from 'lucide-react';
 
 export default function SupportPage() {
   const [activeTab, setActiveTab] = React.useState('help-center');
@@ -40,7 +40,7 @@ export default function SupportPage() {
             Support Center
           </h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
-            We're here to help you succeed. Get answers to your questions and connect with our support team.
+            We&apos;re here to help you succeed. Get answers to your questions and connect with our support team.
           </p>
         </div>
       </section>

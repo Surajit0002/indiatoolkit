@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AdvancedTool, getPopularTools, getAITools, getRealTimeTools, searchTools } from '../data/advancedTools';
 import * as Icons from 'lucide-react';
-import { Search, Zap, Brain, TrendingUp, Filter, Grid } from 'lucide-react';
+import { Search, Zap, Brain, TrendingUp, Grid } from 'lucide-react';
 
 export default function AdvancedToolsDashboard() {
   const [activeTab, setActiveTab] = useState<'popular' | 'ai' | 'realtime' | 'all'>('popular');
@@ -40,16 +40,6 @@ export default function AdvancedToolsDashboard() {
 
     loadTools();
   }, [activeTab, searchQuery]);
-
-  const getTabIcon = (tab: string) => {
-    switch (tab) {
-      case 'popular': return <TrendingUp className="h-4 w-4" />;
-      case 'ai': return <Brain className="h-4 w-4" />;
-      case 'realtime': return <Zap className="h-4 w-4" />;
-      case 'all': return <Grid className="h-4 w-4" />;
-      default: return <Grid className="h-4 w-4" />;
-    }
-  };
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
@@ -101,7 +91,7 @@ export default function AdvancedToolsDashboard() {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
+                onClick={() => setActiveTab(tab.id as 'popular' | 'ai' | 'realtime' | 'all')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
                   activeTab === tab.id
                     ? 'bg-blue-600 text-white shadow-md'

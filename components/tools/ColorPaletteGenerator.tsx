@@ -171,7 +171,7 @@ export default function ColorPaletteGenerator() {
           }
         ];
         // Add shades
-        [0.7, 0.85, 1.15].forEach((factor, i) => {
+        [0.7, 0.85, 1.15].forEach((factor) => {
           const newL = Math.max(10, Math.min(95, hsl.l * factor));
           const newRgb = hslToRgb(hsl.h, hsl.s, newL);
           const hex = rgbToHex(newRgb.r, newRgb.g, newRgb.b);
@@ -188,8 +188,8 @@ export default function ColorPaletteGenerator() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     generatePalette();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseColor, paletteType]);
 
   const copyToClipboard = (text: string, index: number) => {

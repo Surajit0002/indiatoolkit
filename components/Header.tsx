@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Menu, User, X, ChevronDown, Zap, Star, Settings, LogOut, ArrowRight, ChevronRight,  FileText, Brain, TrendingUp,  ArrowUpRight, Grid, Calculator, Image, FileText as FileTextIcon, Code,  Globe, Search as SearchIcon, Database as DbIcon, Sparkles as SparklesIcon, Palette } from "lucide-react";
+import { Search, Menu, User, X, ChevronDown, Zap, Star, Settings, LogOut, ArrowRight, ChevronRight, FileText, Brain, TrendingUp, ArrowUpRight, Grid, Calculator, Image, FileText as FileTextIcon, Code, Globe, Database as DbIcon, Palette } from "lucide-react";
 import * as Icons from "lucide-react";
 import React, { useState, useEffect } from "react";
 import GlobalSearch from "./GlobalSearch";

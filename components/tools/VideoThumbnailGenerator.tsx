@@ -4,7 +4,7 @@ import { useState } from "react";
 import { 
   Copy, 
   Check, 
-  Image, 
+  Image as ImageIcon, 
   Layout,
   Star,
   Clock,
@@ -335,7 +335,7 @@ export default function VideoThumbnailGenerator() {
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-3">
             <div className="p-3 bg-red-100 rounded-2xl">
-              <Image className="h-6 w-6 text-red-600" />
+              <ImageIcon className="h-6 w-6 text-red-600" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900">Video Thumbnail Generator</h2>
           </div>

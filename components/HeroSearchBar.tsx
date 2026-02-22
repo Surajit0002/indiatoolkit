@@ -10,11 +10,8 @@ import Fuse from "fuse.js";
 
 export default function HeroSearchBar() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<typeof tools>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
   
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,18 +41,16 @@ export default function HeroSearchBar() {
     []
   );
 
-  // Load search history
-  useEffect(() => {
+  // Load search history with lazy initialization
+  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
     try {
       const history = localStorage.getItem('searchHistory');
-      if (history) {
-        setSearchHistory(JSON.parse(history));
-      }
-    } catch (_err) {
-       
-      setSearchHistory([]);
+      return history ? JSON.parse(history) : [];
+    } catch {
+      return [];
     }
-  }, []);
+  });
 
   // Save search to history
   const saveToHistory = useCallback((searchTerm: string) => {
@@ -66,19 +61,23 @@ export default function HeroSearchBar() {
     }
   }, [searchHistory]);
 
-  // Search effect
-  useEffect(() => {
+  // Use useMemo for derived search results instead of useEffect with setState
+  const results = useMemo(() => {
     if (query.length >= 1) {
       const searchResults = fuse.search(query);
-      const filtered = searchResults.slice(0, 8).map((result: { item: typeof tools[0] }) => result.item);
-      setResults(filtered);
-      setIsSearching(false);
-      setActiveIndex(-1);
-    } else {
-      setIsSearching(false);
-      setResults([]);
+      return searchResults.slice(0, 8).map((result: { item: typeof tools[0] }) => result.item);
     }
+    return [];
   }, [query, fuse]);
+
+  // Derive isSearching from query length
+  const isSearching = query.length >= 1;
+
+  // Handle query change - also resets activeIndex
+  const handleQueryChange = useCallback((newQuery: string) => {
+    setQuery(newQuery);
+    setActiveIndex(-1);
+  }, []);
 
   // Handle modal open/close
   const openModal = useCallback(() => {
@@ -87,11 +86,8 @@ export default function HeroSearchBar() {
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
-    setQuery("");
-    setResults([]);
-    setIsSearching(false);
-    setActiveIndex(-1);
-  }, []);
+    handleQueryChange("");
+  }, [handleQueryChange]);
 
   // Handle input focus
   const handleFocus = useCallback(() => {
@@ -107,11 +103,9 @@ export default function HeroSearchBar() {
 
   // Clear search
   const clearSearch = useCallback(() => {
-    setQuery("");
-    setResults([]);
-    setIsSearching(false);
+    handleQueryChange("");
     inputRef.current?.focus();
-  }, []);
+  }, [handleQueryChange]);
 
   // Handle result click
   const handleResultClick = useCallback((tool: typeof tools[0]) => {
@@ -223,7 +217,7 @@ export default function HeroSearchBar() {
                 ref={inputRef}
                 type="text"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => handleQueryChange(e.target.value)}
                 onFocus={handleFocus}
                 placeholder="Search 500+ tools..."
                 className="flex-1 px-4 text-lg font-semibold text-slate-700 placeholder:text-slate-400 focus:outline-none cursor-pointer"
@@ -258,7 +252,7 @@ export default function HeroSearchBar() {
                   ref={inputRef}
                   type="text"
                   value={query}
-                  onChange={(e) => setQuery(e.target.value)}
+                  onChange={(e) => handleQueryChange(e.target.value)}
                   placeholder="Search 500+ tools..."
                   className="flex-1 bg-transparent text-white text-lg font-semibold placeholder:text-slate-400 focus:outline-none"
                   autoFocus
@@ -456,7 +450,7 @@ export default function HeroSearchBar() {
                           {searchHistory.slice(0, 5).map((item, index) => (
                             <button
                               key={index}
-                              onClick={() => setQuery(item)}
+                              onClick={() => handleQueryChange(item)}
                               className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 text-xs font-semibold text-slate-600 hover:bg-green-100 hover:text-green-700 transition-colors text-left"
                             >
                               <Clock className="h-3 w-3" />

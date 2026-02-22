@@ -13,7 +13,7 @@ interface ImageMetadata {
 }
 
 export default function ImageMetadataViewer() {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [_selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [metadata, setMetadata] = useState<ImageMetadata | null>(null);
 

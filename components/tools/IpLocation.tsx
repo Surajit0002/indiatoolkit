@@ -41,7 +41,7 @@ export default function IpLocation() {
         setData(result);
         if (!ip) setQuery(result.ip);
       }
-    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (_err) {  
       setError("Failed to fetch location data");
     } finally {
       setIsLoading(false);

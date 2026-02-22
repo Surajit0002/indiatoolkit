@@ -45,7 +45,7 @@ export default function HttpHeaders() {
       } else {
           throw new Error();
       }
-    } catch (err) {
+    } catch {
       setError("Failed to fetch headers. The site might be blocking requests.");
     } finally {
       setIsLoading(false);

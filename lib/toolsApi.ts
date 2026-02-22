@@ -257,7 +257,7 @@ export class ToolsApi {
   }
 
   // Get user's favorite tools
-  static getUserFavoriteTools(userId: string): Tool[] {
+  static getUserFavoriteTools(_userId: string): Tool[] {
     // In real implementation, this would query user's favorites
     return this.getTrendingTools(8);
   }

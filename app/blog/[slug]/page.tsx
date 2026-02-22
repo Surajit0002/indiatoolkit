@@ -1,6 +1,5 @@
-import { Calendar, User, Clock, ArrowLeft, Share2, MessageCircle } from "lucide-react";
+import { Clock, ArrowLeft, Share2, MessageCircle } from "lucide-react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -117,7 +116,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   );
 }
 
-function RelatedToolLink({ title, icon }: { title: string, icon: any }) {
+function RelatedToolLink({ title, icon }: { title: string, icon: React.ReactNode }) {
   return (
     <div className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-blue-600 transition-all cursor-pointer group shadow-sm">
        <div className="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">

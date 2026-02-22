@@ -1,28 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   Sparkles, 
-  Zap, 
   Brain, 
   Cpu, 
   Database, 
-  Network, 
   TrendingUp,
-  Settings,
   Play,
-  Pause,
   RotateCcw,
   Download,
-  Upload,
   Share2,
   Heart,
   Star,
-  Clock,
-  Users,
-  Globe,
-  Lock,
-  Unlock
+  Clock
 } from "lucide-react";
 
 interface AIToolConfig {
@@ -45,7 +36,7 @@ interface ToolParameter {
   name: string;
   type: 'text' | 'number' | 'boolean' | 'select' | 'file' | 'range';
   required: boolean;
-  defaultValue?: any;
+  defaultValue?: string | number | boolean;
   options?: string[];
   min?: number;
   max?: number;
@@ -54,13 +45,28 @@ interface ToolParameter {
   description?: string;
 }
 
+interface ProcessingResultData {
+  summary?: string;
+  insights?: string[];
+  recommendations?: string[];
+  [key: string]: string | number | boolean | string[] | undefined;
+}
+
 interface ProcessingResult {
   success: boolean;
-  data?: any;
+  data?: ProcessingResultData;
   error?: string;
   processingTime: number;
   tokensUsed?: number;
   cost?: number;
+}
+
+interface HistoryItem {
+  toolId: string;
+  toolName: string;
+  parameters: Record<string, string | number | boolean>;
+  result: ProcessingResult;
+  timestamp: string;
 }
 
 const AI_TOOLS: AIToolConfig[] = [
@@ -173,16 +179,16 @@ const AI_TOOLS: AIToolConfig[] = [
 
 export default function AIToolEngine() {
   const [selectedTool, setSelectedTool] = useState<AIToolConfig | null>(null);
-  const [parameters, setParameters] = useState<Record<string, any>>({});
+  const [parameters, setParameters] = useState<Record<string, string | number | boolean>>({});
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState<ProcessingResult | null>(null);
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [favorites, setFavorites] = useState<string[]>([]);
 
   // Initialize parameters with default values
   useEffect(() => {
     if (selectedTool) {
-      const defaults: Record<string, any> = {};
+      const defaults: Record<string, string | number | boolean> = {};
       selectedTool.parameters.forEach(param => {
         if (param.defaultValue !== undefined) {
           defaults[param.id] = param.defaultValue;
@@ -192,7 +198,7 @@ export default function AIToolEngine() {
     }
   }, [selectedTool]);
 
-  const handleParameterChange = (paramId: string, value: any) => {
+  const handleParameterChange = (paramId: string, value: string | number | boolean) => {
     setParameters(prev => ({
       ...prev,
       [paramId]: value
@@ -245,7 +251,7 @@ export default function AIToolEngine() {
       
       setHistory(prev => [historyItem, ...prev.slice(0, 9)]); // Keep last 10 items
       
-    } catch (error) {
+    } catch {
       setResult({
         success: false,
         error: "Processing failed. Please try again.",
@@ -260,7 +266,7 @@ export default function AIToolEngine() {
     setParameters({});
     setResult(null);
     if (selectedTool) {
-      const defaults: Record<string, any> = {};
+      const defaults: Record<string, string | number | boolean> = {};
       selectedTool.parameters.forEach(param => {
         if (param.defaultValue !== undefined) {
           defaults[param.id] = param.defaultValue;
@@ -279,13 +285,13 @@ export default function AIToolEngine() {
   };
 
   const renderParameterInput = (param: ToolParameter) => {
-    const value = parameters[param.id] || "";
+    const value = parameters[param.id] ?? "";
     
     switch (param.type) {
       case "text":
         return (
           <textarea
-            value={value}
+            value={String(value)}
             onChange={(e) => handleParameterChange(param.id, e.target.value)}
             placeholder={param.placeholder}
             className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
@@ -296,7 +302,7 @@ export default function AIToolEngine() {
       case "select":
         return (
           <select
-            value={value}
+            value={String(value)}
             onChange={(e) => handleParameterChange(param.id, e.target.value)}
             className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
@@ -329,7 +335,7 @@ export default function AIToolEngine() {
               min={param.min}
               max={param.max}
               step={param.step}
-              value={value}
+              value={Number(value)}
               onChange={(e) => handleParameterChange(param.id, parseFloat(e.target.value))}
               className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
             />
@@ -341,7 +347,7 @@ export default function AIToolEngine() {
         return (
           <input
             type={param.type}
-            value={value}
+            value={String(value)}
             onChange={(e) => handleParameterChange(param.id, e.target.value)}
             placeholder={param.placeholder}
             className="w-full p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"

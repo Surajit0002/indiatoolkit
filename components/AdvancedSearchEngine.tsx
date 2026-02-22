@@ -1,79 +1,38 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
-import { 
-  Search, 
-  X, 
-  Zap, 
-  ArrowRight, 
-  Filter,
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import {
+  Search,
+  X,
+  Zap,
+  ArrowRight,
   Sliders,
   TrendingUp,
   Clock,
   Star,
   Users,
   Globe,
-  Tag,
-  Database,
-  Settings,
-  History,
-  Bookmark,
-  Sparkles,
-  Target,
-  Lightbulb,
   BarChart3,
-  Zap as Lightning,
   Cpu,
-  Network,
-  Shield,
-  Lock,
-  Eye,
-  EyeOff,
   RefreshCw,
-  Download,
-  Upload,
+  Bookmark,
   Share2,
-  Heart,
-  ThumbsUp,
-  MessageCircle,
-  Bell,
-  Calendar,
-  MapPin,
-  Phone,
-  Mail,
-  LinkIcon,
-  Copy,
-  Check,
-  AlertCircle,
-  Info,
-  HelpCircle,
-  ChevronDown,
-  ChevronUp,
-  ChevronLeft,
-  ChevronRight,
-  MoreHorizontal,
-  Plus,
-  Minus,
-  Maximize2,
-  Minimize2,
-  Grid,
-  List,
-  SortAsc,
-  SortDesc,
-  FilterX,
-  Wand2,
   FileText,
   Briefcase,
+  Sparkles,
   Palette,
   CheckCircle,
-  Image,
+  Image as ImageIcon,
   Type,
-  ShieldCheck
+  Database,
+  Shield,
+  History,
+  List,
+  Grid
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { tools } from "@/data/tools";
 import { categories } from "@/data/categories";
-import { Tool } from "@/types/tool";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -148,16 +107,28 @@ export default function AdvancedSearchEngine() {
     exclude: [],
     include: []
   });
-  const [searchHistory, setSearchHistory] = useState<SearchHistoryItem[]>([]);
+  const [searchHistory, setSearchHistory] = useState<SearchHistoryItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('searchHistory');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [showFilters, setShowFilters] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
-  const [selectedResult, setSelectedResult] = useState<string | null>(null);
-  const [showQuickActions, setShowQuickActions] = useState(false);
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const [trendingSearches, setTrendingSearches] = useState<string[]>([]);
-  const [searchSuggestions, setSearchSuggestions] = useState<string[]>([]);
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const saved = localStorage.getItem('recentSearches');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [searchStats, setSearchStats] = useState({
     totalResults: 0,
     searchTime: 0,
@@ -167,20 +138,8 @@ export default function AdvancedSearchEngine() {
 
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const prevQueryRef = useRef<string>('');
   const router = useRouter();
-
-  // Load search history and preferences
-  useEffect(() => {
-    const savedHistory = localStorage.getItem('searchHistory');
-    const savedPreferences = localStorage.getItem('searchPreferences');
-    const savedRecent = localStorage.getItem('recentSearches');
-    const savedTrending = localStorage.getItem('trendingSearches');
-
-    if (savedHistory) setSearchHistory(JSON.parse(savedHistory));
-    if (savedPreferences) setFilters(JSON.parse(savedPreferences));
-    if (savedRecent) setRecentSearches(JSON.parse(savedRecent));
-    if (savedTrending) setTrendingSearches(JSON.parse(savedTrending));
-  }, []);
 
   // Save search history and preferences
   useEffect(() => {
@@ -190,24 +149,23 @@ export default function AdvancedSearchEngine() {
   }, [searchHistory, filters, recentSearches]);
 
   // Advanced search algorithm
-  const performSearch = useMemo(() => {
-    return (searchQuery: string, currentFilters: SearchFilter): SearchResult[] => {
-      if (!searchQuery.trim()) return [];
+  const performSearch = useCallback((searchQuery: string, currentFilters: SearchFilter): SearchResult[] => {
+    if (!searchQuery.trim()) return [];
+    
+    const startTime = performance.now();
+    const queryLower = searchQuery.toLowerCase();
+    const queryWords = queryLower.split(/\s+/).filter(word => word.length > 0);
+    
+    // Enhanced matching algorithm
+    const matchedResults: SearchResult[] = [];
+    
+    // Search in tools
+    tools.forEach(tool => {
+      let relevanceScore = 0;
+      const matches: string[] = [];
       
-      const startTime = performance.now();
-      const queryLower = searchQuery.toLowerCase();
-      const queryWords = queryLower.split(/\s+/).filter(word => word.length > 0);
-      
-      // Enhanced matching algorithm
-      const matchedResults: SearchResult[] = [];
-      
-      // Search in tools
-      tools.forEach(tool => {
-        let relevanceScore = 0;
-        const matches: string[] = [];
-        
-        // Title matching (highest weight)
-        if (currentFilters.searchIn.includes('title')) {
+      // Title matching (highest weight)
+      if (currentFilters.searchIn.includes('title')) {
           const titleLower = tool.name.toLowerCase();
           if (titleLower.includes(queryLower)) {
             relevanceScore += 100;
@@ -435,19 +393,25 @@ export default function AdvancedSearchEngine() {
       });
       
       return matchedResults.slice(0, 20); // Limit results
-    };
-  }, []);
+  }, [router]);
 
   // Real-time search with debouncing
   useEffect(() => {
+    // Update the ref to track the current query
+    prevQueryRef.current = query;
+    
     if (query.length < 2) {
-      setResults([]);
-      setIsOpen(false);
-      return;
+      // Only clear if we had a valid query before — defer to avoid
+      // calling setState synchronously inside the effect body.
+      const clearId = setTimeout(() => {
+        setResults([]);
+        setIsOpen(false);
+      }, 0);
+      return () => clearTimeout(clearId);
     }
     
-    setIsLoading(true);
     const timeoutId = setTimeout(() => {
+      setIsLoading(true);
       const searchResults = performSearch(query, filters);
       setResults(searchResults);
       setIsOpen(true);
@@ -465,10 +429,10 @@ export default function AdvancedSearchEngine() {
     return () => clearTimeout(timeoutId);
   }, [query, filters, performSearch]);
 
-  // Generate search suggestions
-  useEffect(() => {
+  // Generate search suggestions (derived state)
+  const searchSuggestions = useMemo(() => {
     if (query.length > 0) {
-      const suggestions = [
+      return [
         `${query} tool`,
         `${query} calculator`,
         `${query} converter`,
@@ -476,10 +440,8 @@ export default function AdvancedSearchEngine() {
         `${query} online`,
         `${query} free`
       ].slice(0, 5);
-      setSearchSuggestions(suggestions);
-    } else {
-      setSearchSuggestions([]);
     }
+    return [];
   }, [query]);
 
   // Click outside handler
@@ -489,7 +451,6 @@ export default function AdvancedSearchEngine() {
         setIsOpen(false);
         setShowFilters(false);
         setShowHistory(false);
-        setShowQuickActions(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -524,14 +485,14 @@ export default function AdvancedSearchEngine() {
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  const clearSearch = () => {
+  const clearSearch = useCallback(() => {
     setQuery("");
     setResults([]);
     setIsOpen(false);
     inputRef.current?.focus();
-  };
+  }, []);
 
-  const handleResultClick = (result: SearchResult) => {
+  const handleResultClick = useCallback((result: SearchResult) => {
     setIsOpen(false);
     setQuery("");
     
@@ -555,7 +516,7 @@ export default function AdvancedSearchEngine() {
         router.push(`/category/${result.id}`);
         break;
     }
-  };
+  }, [query, results.length, filters, router]);
 
   const toggleFilter = (filterType: keyof SearchFilter, value: string) => {
     setFilters(prev => {
@@ -582,7 +543,7 @@ export default function AdvancedSearchEngine() {
         RefreshCw: <RefreshCw className={className} />,
         Type: <Type className={className} />,
         Code: <Cpu className={className} />,
-        Image: <Image className={className} />,
+        Image: <ImageIcon className={className} />,
         FileText: <FileText className={className} />,
         ShieldCheck: <Shield className={className} />,
         Globe: <Globe className={className} />,
@@ -737,10 +698,9 @@ export default function AdvancedSearchEngine() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => {
-            setIsSearchFocused(true);
             if (query.length > 1) setIsOpen(true);
           }}
-          onBlur={() => setIsSearchFocused(false)}
+          onBlur={() => {}}
           placeholder="Search 100+ tools, categories, and features..."
           aria-label="Advanced search"
           className="relative w-full h-12 pl-11 pr-24 rounded-[16px] border border-slate-200/50 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-600/5 shadow-inner text-[10px] transition-all font-black uppercase tracking-widest placeholder:text-slate-400 placeholder:normal-case placeholder:font-bold"
@@ -847,7 +807,7 @@ export default function AdvancedSearchEngine() {
                       </label>
                       <select 
                         value={filters.sortBy}
-                        onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as any }))}
+                        onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as 'relevance' | 'popularity' | 'rating' | 'newest' | 'trending' }))}
                         className="w-full text-[10px] font-bold uppercase tracking-widest bg-white border border-slate-200 rounded-lg px-3 py-2"
                       >
                         <option value="relevance">Relevance</option>
@@ -984,7 +944,7 @@ export default function AdvancedSearchEngine() {
               <div className="p-4 border-t border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] font-bold text-slate-500">
-                    Found what you're looking for?
+                    Found what you&apos;re looking for?
                   </span>
                   <button className="text-[9px] font-black text-blue-600 hover:text-blue-700 uppercase tracking-widest">
                     Save Search

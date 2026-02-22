@@ -52,7 +52,7 @@ export default function RealTimeCollaboration() {
   const [isSharing, setIsSharing] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [collaborators, setCollaborators] = useState<Collaborator[]>(() => {
+  const [collaborators] = useState<Collaborator[]>(() => {
     const now = Date.now();
     return [
       {
@@ -133,18 +133,7 @@ export default function RealTimeCollaboration() {
     }
   };
 
-  const addCollaborator = (email: string) => {
-    // Simulate adding collaborator
-    const newCollaborator: Collaborator = {
-      id: Date.now().toString(),
-      name: email.split('@')[0],
-      avatar: email.substring(0, 2).toUpperCase(),
-      role: 'viewer',
-      lastActive: new Date(),
-      color: `#${Math.floor(Math.random()*16777215).toString(16)}`
-    };
-    setCollaborators([...collaborators, newCollaborator]);
-  };
+
 
   const updatePermissions = (toolId: string, permission: keyof SharedTool['permissions'], value: boolean) => {
     setSharedTools(sharedTools.map(tool => 

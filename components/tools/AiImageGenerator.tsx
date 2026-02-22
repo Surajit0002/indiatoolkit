@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Image, Copy, Download, RefreshCw, Sparkles, Palette, Wand2, Maximize2 } from "lucide-react";
+import { Image as ImageIcon, Copy, Download, RefreshCw, Sparkles, Palette, Wand2, Maximize2 } from "lucide-react";
 
 const artStyles = [
   "Realistic",
@@ -95,7 +95,7 @@ export default function AiImageGenerator() {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-purple-500 to-pink-600 rounded-2xl mb-4 shadow-lg">
-            <Image className="h-8 w-8 text-white" />
+            <ImageIcon className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">AI Image Generator</h2>
           <p className="text-slate-500 font-bold text-sm mt-2">

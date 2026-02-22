@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Upload, Check, Image as ImageIcon, Palette, Download, Copy } from "lucide-react";
+import { Upload, Check, Palette, Download, Copy } from "lucide-react";
 
 interface ExtractedColor {
   hex: string;

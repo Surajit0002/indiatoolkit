@@ -6,7 +6,7 @@ import { Edit3, Hash, Calendar, ArrowRight, Copy, Check } from "lucide-react";
 export default function FileRenameTool() {
   const [prefix, setPrefix] = useState("");
   const [suffix, setSuffix] = useState("");
-  const [startingIndex, setStartingIndex] = useState(1);
+  const [startingIndex] = useState(1);
   const [includeDate, setIncludeDate] = useState(false);
   const [replaceFrom, setReplaceFrom] = useState("");
   const [replaceTo, setReplaceTo] = useState("");

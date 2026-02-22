@@ -33,7 +33,7 @@ export default function GridSystemGenerator() {
   };
 
   const generateCSS = () => {
-    const colWidth = calculateColumnWidth();
+   
     return `/* Grid System - ${config.columns}-Column */
 :root {
   --grid-columns: ${config.columns};

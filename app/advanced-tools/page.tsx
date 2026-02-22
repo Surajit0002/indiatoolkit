@@ -1,21 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { 
   Search, 
-  Grid, 
-  Zap, 
   Star, 
   Users, 
   TrendingUp, 
-  Filter,
   ChevronDown,
   Play,
   Share2,
   Heart,
   Clock,
-  BarChart3,
   Sparkles,
   ArrowRight,
   Crown,
@@ -23,14 +19,12 @@ import {
   Lightbulb,
 } from "lucide-react";
 import { advancedTools } from "../../data/advancedTools";
-import { categories } from "../../data/categories";
 import Header from "../../components/Header";
 
 export default function AdvancedToolsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("popular");
-  const [viewMode, setViewMode] = useState("grid");
 
   const filteredTools = advancedTools
     .filter(tool => {
@@ -153,9 +147,6 @@ export default function AdvancedToolsPage() {
                 className="appearance-none w-full pl-4 pr-10 py-4 bg-white border-2 border-slate-200 rounded-2xl focus:border-green-500 focus:outline-none transition-all font-medium shadow-sm hover:shadow-md cursor-pointer"
               >
                 <option value="all">All Categories</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
                 <option value="ai-ml">AI & Machine Learning</option>
                 <option value="data-science">Data Science</option>
                 <option value="enterprise">Enterprise</option>

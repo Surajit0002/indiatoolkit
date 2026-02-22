@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, Zap, Star, Users, TrendingUp, Code, Brain, Database, Globe, Shield } from "lucide-react";
+import { ArrowRight, Zap, Star, Users, TrendingUp, Code, Brain, Database, Shield } from "lucide-react";
 import { advancedTools } from "../../data/advancedTools";
 
 export default function ToolsShowcasePage() {

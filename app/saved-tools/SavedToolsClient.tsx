@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { Search, Filter, Grid, List, Trash2, ExternalLink, Star, Heart, Clock } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { Search, Grid, List, Trash2, ExternalLink, Heart, Clock } from "lucide-react";
 import Link from "next/link";
 
 interface SavedTool {
@@ -15,24 +15,29 @@ interface SavedTool {
   lastUsed?: string;
 }
 
+// Helper function to load saved tools from localStorage
+const loadSavedTools = (): SavedTool[] => {
+  if (typeof window === 'undefined') return [];
+  try {
+    const saved = localStorage.getItem("savedTools");
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch {
+    // Ignore parsing errors
+  }
+  return [];
+};
+
 export default function SavedToolsClient() {
-  const [savedTools, setSavedTools] = useState<SavedTool[]>([]);
-  const [filteredTools, setFilteredTools] = useState<SavedTool[]>([]);
+  const [savedTools, setSavedTools] = useState<SavedTool[]>(() => loadSavedTools());
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState<"recent" | "name" | "usage">("recent");
 
-  useEffect(() => {
-    const saved = localStorage.getItem("savedTools");
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      setSavedTools(parsed);
-      setFilteredTools(parsed);
-    }
-  }, []);
-
-  useEffect(() => {
+  // Use useMemo for derived filtered tools instead of useEffect with setState
+  const filteredTools = useMemo(() => {
     let result = [...savedTools];
 
     // Apply search filter
@@ -61,7 +66,7 @@ export default function SavedToolsClient() {
       }
     });
 
-    setFilteredTools(result);
+    return result;
   }, [savedTools, searchQuery, categoryFilter, sortBy]);
 
   const removeTool = (toolId: string) => {

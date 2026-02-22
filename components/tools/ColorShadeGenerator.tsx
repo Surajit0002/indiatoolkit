@@ -101,8 +101,8 @@ export default function ColorShadeGenerator() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     generateShades();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [baseColor]);
 
   const copyToClipboard = (text: string, index: number) => {

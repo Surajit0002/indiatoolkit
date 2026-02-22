@@ -1,26 +1,22 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
-import { ToolConfig, ToolCategory } from "../types/tool";
+import React, { useState, useMemo } from "react";
+import { ToolConfig } from "../types/tool";
 import { tools } from "../data/tools";
 import { categories } from "../data/categories";
 import { 
-  Search, 
-  Filter, 
   Grid, 
   List, 
   Star, 
   Zap, 
-  Clock, 
   TrendingUp,
   Settings,
-  Share2,
-  Download,
   Copy,
   Check,
-  ChevronDown,
-  SlidersHorizontal
+  ChevronDown
 } from "lucide-react";
+
+type SortOption = "name" | "popularity" | "newest" | "featured";
 
 interface DynamicToolRendererProps {
   category?: string;
@@ -39,17 +35,18 @@ export default function DynamicToolRenderer({
   filters = {} 
 }: DynamicToolRendererProps) {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState<"name" | "popularity" | "newest" | "featured">("featured");
+  const [sortBy, setSortBy] = useState<SortOption>("featured");
   const [selectedCategory, setSelectedCategory] = useState<string>(category || "all");
   const [copiedTool, setCopiedTool] = useState<string | null>(null);
 
-  // Combine all tools from categories
-  const allTools = useMemo(() => {
+  // Combine all tools from categories - using useState with lazy initialization
+  // to avoid calling impure functions during render
+  const [allTools] = useState<ToolConfig[]>(() => {
     const allToolsList: ToolConfig[] = [...tools];
     
     // Add category tools
     categories.forEach(cat => {
-      tools.push({
+      allToolsList.push({
         id: cat.id,
         slug: cat.slug,
         name: cat.name,
@@ -80,8 +77,8 @@ export default function DynamicToolRenderer({
       });
     });
     
-    return tools;
-  }, []);
+    return allToolsList;
+  });
 
   // Filter tools based on criteria
   const filteredTools = useMemo(() => {
@@ -125,8 +122,10 @@ export default function DynamicToolRenderer({
         result.sort((a, b) => (b.usageCount || 0) - (a.usageCount || 0));
         break;
       case "newest":
+        // Use a stable reference date instead of Date.now() during render
+        const fallbackDate = new Date(0).getTime();
         result.sort((a, b) => 
-          new Date(b.lastUpdated || Date.now()).getTime() - new Date(a.lastUpdated || Date.now()).getTime()
+          new Date(b.lastUpdated || fallbackDate).getTime() - new Date(a.lastUpdated || fallbackDate).getTime()
         );
         break;
       case "featured":
@@ -202,7 +201,7 @@ export default function DynamicToolRenderer({
             <div className="relative">
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
                 className="appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-10 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-slate-500"
               >
                 <option value="featured">Featured First</option>

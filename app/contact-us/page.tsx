@@ -106,7 +106,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   id="subject"
-                  placeholder="What's this regarding?"
+                  placeholder="What&apos;s this regarding?"
                   className="w-full pl-10 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-green-500 transition-colors"
                 />
               </div>

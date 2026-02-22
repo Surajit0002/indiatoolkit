@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { User, Camera, Mail, Phone, MapPin, Calendar, Edit3, Save, X, Check } from "lucide-react";
 
 interface UserProfile {
@@ -13,28 +13,36 @@ interface UserProfile {
   bio: string;
 }
 
-export default function ProfileClient() {
-  const [profile, setProfile] = useState<UserProfile>({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    joinDate: "2024-01-15",
-    avatar: "",
-    bio: "Full-stack developer passionate about building amazing tools"
-  });
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedProfile, setEditedProfile] = useState<UserProfile>(profile);
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+const defaultProfile: UserProfile = {
+  name: "John Doe",
+  email: "john.doe@example.com",
+  phone: "+1 (555) 123-4567",
+  location: "San Francisco, CA",
+  joinDate: "2024-01-15",
+  avatar: "",
+  bio: "Full-stack developer passionate about building amazing tools"
+};
 
-  useEffect(() => {
+// Helper function to load profile from localStorage
+const loadSavedProfile = (): UserProfile => {
+  if (typeof window === 'undefined') return defaultProfile;
+  try {
     const savedProfile = localStorage.getItem("userProfile");
     if (savedProfile) {
-      const parsed = JSON.parse(savedProfile);
-      setProfile(parsed);
-      setEditedProfile(parsed);
+      return JSON.parse(savedProfile);
     }
-  }, []);
+  } catch {
+    // Ignore parsing errors
+  }
+  return defaultProfile;
+};
+
+export default function ProfileClient() {
+  // Use lazy initialization for profile state
+  const [profile, setProfile] = useState<UserProfile>(() => loadSavedProfile());
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedProfile, setEditedProfile] = useState<UserProfile>(() => loadSavedProfile());
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   const handleSave = () => {
     setProfile(editedProfile);

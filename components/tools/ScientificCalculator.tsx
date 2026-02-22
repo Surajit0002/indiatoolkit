@@ -67,7 +67,7 @@ export default function ScientificCalculator() {
       const result = new Function(`return ${fullEquation.replace(/×/g, "*").replace(/÷/g, "/")}`)();
       setDisplay(String(result));
       setEquation("");
-    } catch (_) {
+    } catch {
       setDisplay("Error");
     }
   };

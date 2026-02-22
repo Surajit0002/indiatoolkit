@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Upload, Copy, Check, Image as ImageIcon } from "lucide-react";
+import { Upload, Copy, Check } from "lucide-react";
 
 export default function ImageColorPicker() {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [_selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [pickedColor, setPickedColor] = useState({ hex: "#FFFFFF", rgb: "rgb(255, 255, 255)", hsl: "hsl(0, 0%, 100%)" });
   const [copied, setCopied] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const _canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

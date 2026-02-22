@@ -13,8 +13,7 @@ interface ContrastResult {
 export default function ColorContrastChecker() {
   const [foreground, setForeground] = useState("#000000");
   const [background, setBackground] = useState("#FFFFFF");
-  const [copied, setCopied] = useState<string | null>(null);
-
+  
   const hexToRgb = (hex: string) => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {

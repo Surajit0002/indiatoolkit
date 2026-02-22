@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { 
   Sparkles, 
   TrendingUp, 
@@ -9,7 +9,7 @@ import {
   Zap,
   Star,
   ChevronRight,
- 
+  
   Search,
   Settings
 } from "lucide-react";
@@ -28,15 +28,11 @@ export default function SmartToolRecommendations({
   userPreferences, 
   onToolSelect 
 }: RecommendationEngineProps) {
-  const [recommendations, setRecommendations] = useState<AdvancedTool[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState('trending');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Recommendation algorithm
-  const generateRecommendations = () => {
-    setLoading(true);
-    
+  // Use useMemo for derived recommendations instead of useEffect with setState
+  const recommendations = useMemo(() => {
     // Base recommendation pool
     let pool = [...advancedTools];
     
@@ -76,13 +72,11 @@ export default function SmartToolRecommendations({
     }
     
     // Limit results
-    setRecommendations(pool.slice(0, 12));
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    generateRecommendations();
+    return pool.slice(0, 12);
   }, [userPreferences, activeFilter, searchQuery]);
+
+  // Loading is only true on initial mount when recommendations are empty
+  const loading = useMemo(() => recommendations.length === 0, [recommendations.length]);
 
   const getRecommendationScore = (tool: AdvancedTool): number => {
     let score = 0;

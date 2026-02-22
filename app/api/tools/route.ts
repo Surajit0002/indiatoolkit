@@ -92,7 +92,7 @@ export async function POST(request: Request) {
       message: 'Tool created successfully'
     });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to create tool' },
       { status: 500 }

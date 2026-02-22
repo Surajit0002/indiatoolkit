@@ -54,7 +54,7 @@ export default function WebsiteStatus() {
           url: targetUrl
         });
       }
-    } catch (_err) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (_err) {  
       setError("Failed to reach the website. It might be down or blocking requests.");
     } finally {
       setIsLoading(false);

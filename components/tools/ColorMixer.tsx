@@ -228,7 +228,7 @@ export default function ColorMixer() {
 
               {/* Color Bars */}
               <div className="flex h-12 rounded-xl overflow-hidden mt-6">
-                {colors.map((color, index) => (
+                {colors.map((color) => (
                   <div
                     key={color.id}
                     className="flex-1 transition-all duration-300"

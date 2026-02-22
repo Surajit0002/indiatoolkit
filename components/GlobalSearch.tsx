@@ -1,52 +1,46 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Search, X, Zap, ArrowRight, Grid, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { tools } from "@/data/tools";
-import { Tool } from "@/types/tool";
 import { getCategoryBySlug } from "@/lib/utils";
 import Link from "next/link";
 import Fuse from "fuse.js";
 
 export default function GlobalSearch() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Tool[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(-1);
+  const [activeIndex, setActiveIndex] = useState(0);
   const searchRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   // Prepare tools data with flattened keywords for search
-  const toolsWithKeywords = tools.map(tool => ({
+  const toolsWithKeywords = useMemo(() => tools.map(tool => ({
     ...tool,
     keywords: tool.seo.keywords?.join(' ') || ''
-  }));
+  })), []);
 
-  // Initialize Fuse.js for fuzzy search
-  const fuse = new Fuse(toolsWithKeywords, {
+  // Initialize Fuse.js for fuzzy search - wrapped in useMemo
+  const fuse = useMemo(() => new Fuse(toolsWithKeywords, {
     keys: ['name', 'description', 'category', 'keywords'],
     includeScore: true,
     threshold: 0.3,
     minMatchCharLength: 2,
     shouldSort: true,
     findAllMatches: true,
-  });
+  }), [toolsWithKeywords]);
 
-  useEffect(() => {
+  // Use useMemo for derived search results instead of useEffect with setState
+  const results = useMemo(() => {
     if (query.length > 1) {
-      setTimeout(() => {
-        const fuseResults = fuse.search(query);
-        const filtered = fuseResults.slice(0, 6).map((result: { item: typeof tools[0] }) => result.item);
-        setResults(filtered);
-        setIsOpen(true);
-        setActiveIndex(-1);
-      }, 0);
-    } else {
-      setResults([]);
-      setIsOpen(false);
+      const fuseResults = fuse.search(query);
+      return fuseResults.slice(0, 6).map((result: { item: typeof tools[0] }) => result.item);
     }
+    return [];
   }, [query, fuse]);
+
+  // Derive isOpen state from query and results
+  const isOpen = query.length > 1 && results.length > 0;
 
   // Keyboard navigation
   useEffect(() => {
@@ -63,10 +57,11 @@ export default function GlobalSearch() {
         e.preventDefault();
         const selectedTool = results[activeIndex];
         router.push(`/tool/${selectedTool.slug}`);
-        setIsOpen(false);
         setQuery("");
+        setActiveIndex(0);
       } else if (e.key === 'Escape') {
-        setIsOpen(false);
+        setQuery("");
+        setActiveIndex(0);
       }
     };
 
@@ -77,7 +72,8 @@ export default function GlobalSearch() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        setQuery("");
+        setActiveIndex(0);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -94,6 +90,12 @@ export default function GlobalSearch() {
     );
   };
 
+  // Helper to close search
+  const closeSearch = () => {
+    setQuery("");
+    setActiveIndex(0);
+  };
+
   return (
     <div className="relative w-full" ref={searchRef}>
       {/* Search Input */}
@@ -104,14 +106,13 @@ export default function GlobalSearch() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => query.length > 1 && setIsOpen(true)}
           placeholder="Search tools..."
           aria-label="Search for tools"
           className="relative w-full h-10 pl-11 pr-10 rounded-xl border border-slate-200 bg-white text-xs font-bold text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 transition-all shadow-sm"
         />
         {query && (
           <button 
-            onClick={() => { setQuery(""); setIsOpen(false); }}
+            onClick={closeSearch}
             className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-all z-10"
           >
             <X className="h-4 w-4" />
@@ -139,7 +140,7 @@ export default function GlobalSearch() {
                   <Link
                     key={tool.id}
                     href={`/tool/${tool.slug}`}
-                    onClick={() => { setIsOpen(false); setQuery(""); }}
+                    onClick={closeSearch}
                     className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${
                       index === activeIndex ? 'bg-green-50 ring-1 ring-green-200' : 'hover:bg-slate-50'
                     }`}
@@ -175,7 +176,7 @@ export default function GlobalSearch() {
           <div className="px-4 py-3 bg-slate-50 border-t border-slate-100">
             <Link
               href="/tools"
-              onClick={() => { setIsOpen(false); setQuery(""); }}
+              onClick={closeSearch}
               className="flex items-center justify-center gap-2 w-full py-2.5 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-wide hover:bg-green-600 transition-all"
             >
               <Grid className="h-4 w-4" />
