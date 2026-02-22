@@ -30,7 +30,6 @@ export default function QrGenerator() {
   }, [text, color, bgColor, errorLevel]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     generateQrCode();
   }, [generateQrCode]);
 

@@ -97,7 +97,6 @@ export default function TaxSavingPlanner() {
     const sectionInfo = taxSections.find(s => s.section === section);
     if (sectionInfo) {
       setDeductions([...deductions, {
-        // eslint-disable-next-line react-hooks/purity
         id: String(Date.now()),
         section,
         name: sectionInfo.name,

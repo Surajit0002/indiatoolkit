@@ -33,7 +33,6 @@ export default function BrowserInfo() {
   }
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInfo({
       browser: getBrowserName(),
       version: navigator.appVersion,
