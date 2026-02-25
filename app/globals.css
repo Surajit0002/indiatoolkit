@@ -4,6 +4,15 @@
    MOBILE-FIRST RESPONSIVE UTILITIES
    ======================================== */
 
+/* Prevent body scroll when menu/modal is open - only overflow hidden, no position fixed */
+body.menu-open {
+  overflow: hidden;
+}
+
+body.search-open {
+  overflow: hidden;
+}
+
 /* Safe area insets for notched devices */
 .safe-area-inset {
   padding-left: env(safe-area-inset-left);
@@ -288,6 +297,164 @@
 
 .animate-bounce-subtle {
   animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Additional animations for DynamicToolGrid */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes grow-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-slide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out forwards;
+}
+
+.animate-grow-in {
+  animation: grow-in 0.4s ease-out forwards;
+}
+
+.animate-fade-slide {
+  animation: fade-slide 0.3s ease-out forwards;
+}
+
+/* Scale on active for touch */
+.active\:scale-98:active {
+  transform: scale(0.98);
+}
+
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
+/* Tool card type-specific animations */
+.animate-upload {
+  animation: bounce-subtle 1.5s ease-in-out infinite;
+}
+
+/* Masonry layout support */
+.columns-1 {
+  column-count: 1;
+}
+
+.columns-2 {
+  column-count: 2;
+}
+
+.columns-3 {
+  column-count: 3;
+}
+
+.columns-4 {
+  column-count: 4;
+}
+
+.columns-5 {
+  column-count: 5;
+}
+
+.break-inside-avoid {
+  break-inside: avoid;
+}
+
+/* Comparison bar animation */
+@keyframes comparison-slide-up {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.animate-comparison-slide-up {
+  animation: comparison-slide-up 0.3s ease-out forwards;
+}
+
+/* Quick actions fade in */
+@keyframes quick-actions-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-quick-actions {
+  animation: quick-actions-in 0.2s ease-out forwards;
 }
 
 /* Animation delay utilities */
@@ -619,4 +786,221 @@ h1, h2, h3, h4, h5, h6 {
     size: auto;
     margin: 20mm;
   }
+}
+
+/* ========================================
+   SLIDE MENU & SEARCH DROPDOWN ANIMATIONS
+   ======================================== */
+
+/* Slide menu backdrop animation */
+.slide-menu-backdrop {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.slide-menu-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Slide menu panel animation */
+.slide-menu-panel {
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-menu-panel.open {
+  transform: translateX(0);
+}
+
+/* Search dropdown animation */
+.search-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95) translateY(-10px);
+  transition: all 0.2s ease-out;
+}
+
+.search-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+/* Profile dropdown animation */
+.profile-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95) translateY(-5px);
+  transition: all 0.2s ease-out;
+}
+
+.profile-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+/* Smooth scale animation for buttons */
+.btn-scale {
+  transition: transform 0.15s ease-out;
+}
+
+.btn-scale:active {
+  transform: scale(0.95);
+}
+
+/* Touch feedback for mobile */
+@media (hover: none) {
+  .touch-feedback {
+    transition: background-color 0.15s ease-out, transform 0.15s ease-out;
+  }
+  
+  .touch-feedback:active {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(0.98);
+  }
+}
+
+/* Slide menu item animation */
+.slide-menu-item {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideMenuItem 0.3s ease-out forwards;
+}
+
+@keyframes slideMenuItem {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Staggered animation for menu items */
+.slide-menu-item:nth-child(1) { animation-delay: 0.05s; }
+.slide-menu-item:nth-child(2) { animation-delay: 0.1s; }
+.slide-menu-item:nth-child(3) { animation-delay: 0.15s; }
+.slide-menu-item:nth-child(4) { animation-delay: 0.2s; }
+.slide-menu-item:nth-child(5) { animation-delay: 0.25s; }
+.slide-menu-item:nth-child(6) { animation-delay: 0.3s; }
+.slide-menu-item:nth-child(7) { animation-delay: 0.35s; }
+.slide-menu-item:nth-child(8) { animation-delay: 0.4s; }
+
+/* Search result item hover effect */
+.search-result-item {
+  transition: background-color 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.search-result-item:hover {
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.search-result-item:active {
+  transform: scale(0.98);
+}
+
+/* Dark mode support for slide menu */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-slide-menu {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+  }
+}
+
+/* Safe area padding for notched devices */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Smooth scroll for menu content */
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Menu section divider */
+.menu-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e2e8f0 20%, #e2e8f0 80%, transparent);
+  margin: 1rem 0;
+}
+
+/* Menu section header */
+.menu-section-header {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  padding: 0 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Enhanced touch target for mobile */
+@media (max-width: 768px) {
+  .touch-target-lg {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Ripple effect for buttons */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease-out, height 0.3s ease-out;
+}
+
+.ripple:active::after {
+  width: 200%;
+  height: 200%;
+}
+
+/* Focus visible for accessibility */
+.focus-visible:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* Skip to content link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  z-index: 100;
+  transition: top 0.3s ease-out;
+}
+
+.skip-link:focus {
+  top: 0;
 }

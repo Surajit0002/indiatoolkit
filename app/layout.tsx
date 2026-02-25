@@ -134,7 +134,7 @@ export default function RootLayout({
         className={`${inter.className} antialiased min-h-screen bg-linear-to-br from-slate-50 to-green-50`}
       >
         <Header />
-        <main className="pt-16 bg-linear-to-br from-slate-50 to-green-50 min-h-screen">
+        <main className="pt-16 lg:pt-16 bg-linear-to-br from-slate-50 to-green-50 min-h-screen pb-20 lg:pb-0">
           {children}
         </main>
         <Analytics />

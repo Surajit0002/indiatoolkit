@@ -210,7 +210,7 @@ export default function HeroSearchBar() {
       {/* Hero Search Input */}
       <div className="relative w-full max-w-3xl mx-auto" ref={searchRef}>
         <div className="relative group">
-          <div className="relative bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden transition-all duration-300 focus-within:ring-4 focus-within:ring-green-500/20 focus-within:border-green-400">
+          <div className="relative bg-white rounded-2xl shadow-lg border border-slate-200 transition-all duration-300 focus-within:ring-4 focus-within:ring-green-500/20 focus-within:border-green-400">
             <div className="flex items-center px-5 py-4">
               <Search className="h-6 w-6 text-slate-400 group-focus-within:text-green-500 transition-colors" />
               <input
