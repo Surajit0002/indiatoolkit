@@ -75,7 +75,7 @@ export default function PlagiarismChecker() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-orange-500 to-red-600 rounded-2xl mb-4 shadow-lg">
             <Search className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Plagiarism Checker</h2>
@@ -114,7 +114,7 @@ export default function PlagiarismChecker() {
             <button
               onClick={checkPlagiarism}
               disabled={!text.trim() || isChecking}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold flex items-center gap-2 hover:from-orange-600 hover:to-red-700 transition-all shadow-lg shadow-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 rounded-xl bg-linear-to-r from-orange-500 to-red-600 text-white font-bold flex items-center gap-2 hover:from-orange-600 hover:to-red-700 transition-all shadow-lg shadow-orange-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isChecking ? (
                 <>

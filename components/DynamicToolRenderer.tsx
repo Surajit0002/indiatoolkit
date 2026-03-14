@@ -369,7 +369,7 @@ export default function DynamicToolRenderer({
                 {/* List View */}
                 <div className="flex items-center gap-4 flex-1">
                   <div 
-                    className="h-12 w-12 rounded-xl flex items-center justify-center text-white flex-shrink-0"
+                    className="h-12 w-12 rounded-xl flex items-center justify-center text-white shrink-0"
                     style={{ backgroundColor: getCategoryColor(tool.category) }}
                   >
                     <div className="text-lg font-black">

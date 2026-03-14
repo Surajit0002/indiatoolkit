@@ -408,7 +408,7 @@ ${product.benefits ? `Why Choose ${product.productName}:\n${product.benefits}` :
           </h4>
           <ul className="text-sm text-amber-800 space-y-2">
             <li>• Focus on benefits, not just features</li>
-            <li>• Use power words like "exclusive," "premium," "guaranteed"</li>
+            <li>• Use power words like &quot;exclusive,&quot; &quot;premium,&quot; &quot;guaranteed&quot;</li>
             <li>• Include social proof when available</li>
             <li>• Add a clear call-to-action</li>
             <li>• Optimize for relevant search keywords</li>

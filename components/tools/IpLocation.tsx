@@ -110,7 +110,7 @@ export default function IpLocation() {
           </div>
 
           <div className="lg:col-span-2">
-            <div className="glass-card h-full min-h-[400px] overflow-hidden relative">
+            <div className="glass-card h-full min-h-100 overflow-hidden relative">
                 {/* Mock Map View using OpenStreetMap Static Image or Iframe */}
                 <iframe
                     title="Map"

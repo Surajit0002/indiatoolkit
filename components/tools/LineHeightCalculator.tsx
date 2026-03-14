@@ -70,7 +70,7 @@ line-height: ${lineHeight};`;
         <div className="p-8 md:p-12 space-y-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-emerald-200">
+              <div className="h-12 w-12 bg-linear-to-br from-emerald-500 to-teal-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-emerald-200">
                 <AlignJustify className="h-6 w-6" />
               </div>
               <div>
@@ -142,14 +142,14 @@ line-height: ${lineHeight};`;
               <select
                 value={fontFamily}
                 onChange={(e) => setFontFamily(e.target.value)}
-                className="w-full h-14 px-4 bg-slate-50 rounded-[24px] font-bold text-sm border border-slate-100"
+                className="w-full h-14 px-4 bg-slate-50 rounded-3xl font-bold text-sm border border-slate-100"
               >
                 {fontOptions.map((font) => (
                   <option key={font.value} value={font.value}>{font.label}</option>
                 ))}
               </select>
 
-              <div className="bg-emerald-50 rounded-[16px] p-4 border border-emerald-100">
+              <div className="bg-emerald-50 rounded-2xl p-4 border border-emerald-100">
                 <div className="text-[9px] text-emerald-600 font-bold uppercase tracking-wider mb-2">Calculated</div>
                 <div className="text-2xl font-black text-emerald-700">{calculatedLineHeightPx.toFixed(1)}px</div>
                 <div className="text-[9px] text-emerald-500">total line height</div>
@@ -188,7 +188,7 @@ line-height: ${lineHeight};`;
               </div>
             </div>
 
-            <div className="bg-slate-50 rounded-[24px] p-8 border border-slate-100">
+            <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100">
               <textarea
                 value={previewText}
                 onChange={(e) => setPreviewText(e.target.value)}
@@ -216,7 +216,7 @@ line-height: ${lineHeight};`;
               </div>
               
               <div className="relative">
-                <pre className="bg-slate-900 rounded-[24px] p-6 overflow-x-auto">
+                <pre className="bg-slate-900 rounded-3xl p-6 overflow-x-auto">
                   <code className="text-emerald-400 font-mono text-sm">{generateCSS()}</code>
                 </pre>
                 <button
@@ -233,7 +233,7 @@ line-height: ${lineHeight};`;
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Readability Score</label>
               </div>
               
-              <div className="bg-white rounded-[24px] p-6 border border-slate-100">
+              <div className="bg-white rounded-3xl p-6 border border-slate-100">
                 <div className="flex items-center justify-center mb-4">
                   <div className="relative w-32 h-16">
                     <svg className="w-full h-full transform -rotate-90">
@@ -273,7 +273,7 @@ line-height: ${lineHeight};`;
           <div className="flex gap-4 pt-6 border-t border-slate-50">
             <button
               onClick={() => { setLineHeight(1.5); setFontSize(16); }}
-              className="h-16 px-8 bg-slate-100 text-slate-400 rounded-[24px] hover:bg-red-50 hover:text-red-600 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
+              className="h-16 px-8 bg-slate-100 text-slate-400 rounded-3xl hover:bg-red-50 hover:text-red-600 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
             >
               <RefreshCw className="h-6 w-6" />
               RESET

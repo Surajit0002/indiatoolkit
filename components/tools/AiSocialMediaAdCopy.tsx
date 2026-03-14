@@ -453,7 +453,7 @@ ${hashtags}
             <li>• Use A/B testing for headlines</li>
             <li>• Include social proof when possible</li>
             <li>• Match ad copy to landing page content</li>
-            <li>• Use power words: "Free," "New," "Limited," "Exclusive"</li>
+            <li>• Use power words: &quot;Free,&quot; &quot;New,&quot; &quot;Limited,&quot; &quot;Exclusive&quot;</li>
             <li>• Keep character limits in mind for each platform</li>
           </ul>
         </div>

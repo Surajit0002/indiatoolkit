@@ -491,7 +491,7 @@ ${generateCssCode()}
         {/* Preview */}
         <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Preview</h3>
-          <div className="flex items-center justify-center min-h-[200px] bg-gray-50 rounded-2xl p-8">
+          <div className="flex items-center justify-center min-h-50 bg-gray-50 rounded-2xl p-8">
             {renderPreview()}
           </div>
         </div>

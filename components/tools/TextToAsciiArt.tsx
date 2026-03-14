@@ -359,7 +359,7 @@ export default function TextToAsciiArt() {
         <div className="p-8 md:p-12 space-y-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 bg-gradient-to-br from-slate-700 to-slate-900 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-slate-300">
+              <div className="h-12 w-12 bg-linear-to-br from-slate-700 to-slate-900 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-slate-300">
                 <Terminal className="h-6 w-6" />
               </div>
               <div>
@@ -384,7 +384,7 @@ export default function TextToAsciiArt() {
                 value={text}
                 onChange={(e) => setText(e.target.value.toUpperCase().replace(/[^A-Z0-9 ]/g, ''))}
                 placeholder="Enter text..."
-                className="relative w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-slate-500/10 transition-all font-bold text-slate-700 shadow-inner placeholder:text-slate-300 text-center tracking-[0.5em]"
+                className="relative w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-slate-500/10 transition-all font-bold text-slate-700 shadow-inner placeholder:text-slate-300 text-center tracking-[0.5em]"
                 maxLength={10}
               />
             </div>
@@ -401,7 +401,7 @@ export default function TextToAsciiArt() {
               <select
                 value={style}
                 onChange={(e) => setStyle(e.target.value as AsciiStyle)}
-                className="w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-slate-500/10 transition-all font-bold text-slate-700 shadow-inner"
+                className="w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-slate-500/10 transition-all font-bold text-slate-700 shadow-inner"
               >
                 {asciiPresets.map((preset) => (
                   <option key={preset.id} value={preset.id}>{preset.label} - {preset.description}</option>
@@ -419,7 +419,7 @@ export default function TextToAsciiArt() {
               </div>
             </div>
             
-            <div className="bg-slate-900 rounded-[24px] p-8 overflow-x-auto border border-slate-700">
+            <div className="bg-slate-900 rounded-3xl p-8 overflow-x-auto border border-slate-700">
               <pre className="text-emerald-400 font-mono text-sm leading-none whitespace-pre">
                 {asciiArt}
               </pre>
@@ -431,7 +431,7 @@ export default function TextToAsciiArt() {
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Character Set</label>
             </div>
             
-            <div className="bg-slate-50 rounded-[24px] p-6 border border-slate-100">
+            <div className="bg-slate-50 rounded-3xl p-6 border border-slate-100">
               <div className="text-center">
                 <span className="text-2xl font-black text-slate-700 tracking-widest">
                   {asciiPresets.find(p => p.id === style)?.chars}
@@ -448,21 +448,21 @@ export default function TextToAsciiArt() {
           <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-50">
             <button
               onClick={() => handleCopy('art')}
-              className="flex-1 h-16 bg-slate-900 text-white rounded-[24px] hover:bg-emerald-600 transition-all font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95"
+              className="flex-1 h-16 bg-slate-900 text-white rounded-3xl hover:bg-emerald-600 transition-all font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95"
             >
               {copied ? <Check className="h-5 w-5 text-emerald-400" /> : <Copy className="h-5 w-5" />}
               {copied ? "ART COPIED!" : "COPY ASCII ART"}
             </button>
             <button
               onClick={() => handleCopy('raw')}
-              className="h-16 px-8 bg-slate-100 text-slate-700 rounded-[24px] hover:bg-slate-200 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
+              className="h-16 px-8 bg-slate-100 text-slate-700 rounded-3xl hover:bg-slate-200 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
             >
               {copiedRaw ? <Check className="h-6 w-6 text-emerald-400" /> : <Code className="h-6 w-6" />}
               {copiedRaw ? "TEXT COPIED!" : "COPY TEXT"}
             </button>
             <button
               onClick={() => setText("ASCII")}
-              className="h-16 px-8 bg-slate-100 text-slate-400 rounded-[24px] hover:bg-red-50 hover:text-red-600 transition-all shadow-sm active:scale-95"
+              className="h-16 px-8 bg-slate-100 text-slate-400 rounded-3xl hover:bg-red-50 hover:text-red-600 transition-all shadow-sm active:scale-95"
             >
               <RefreshCw className="h-6 w-6" />
             </button>

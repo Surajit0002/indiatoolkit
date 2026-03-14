@@ -65,7 +65,7 @@ export default function QrReader() {
         <div className="space-y-6">
           <div className="glass-card p-8 border-dashed border-2 flex flex-col items-center justify-center text-center">
             {preview ? (
-              <div className="relative w-full aspect-square max-w-[300px] mb-6 rounded-[10px] overflow-hidden group">
+              <div className="relative w-full aspect-square max-w-75 mb-6 rounded-[10px] overflow-hidden group">
                 <img src={preview} alt="Preview" className="w-full h-full object-contain" />
                 <button 
                     onClick={() => {setFile(null); setPreview(null); setResult(null);}}

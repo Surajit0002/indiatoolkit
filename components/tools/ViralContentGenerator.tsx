@@ -170,7 +170,7 @@ export default function ViralContentGenerator() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-pink-500 to-rose-600 rounded-2xl mb-4 shadow-lg">
             <TrendingUp className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Viral Content Generator</h2>
@@ -261,7 +261,7 @@ export default function ViralContentGenerator() {
               <button
                 onClick={generateIdeas}
                 disabled={!data.topic.trim() || isGenerating}
-                className="flex-1 h-14 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-rose-700 transition-all shadow-lg shadow-pink-100 disabled:opacity-50"
+                className="flex-1 h-14 bg-linear-to-r from-pink-500 to-rose-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-pink-600 hover:to-rose-700 transition-all shadow-lg shadow-pink-100 disabled:opacity-50"
               >
                 {isGenerating ? (
                   <>
@@ -287,7 +287,7 @@ export default function ViralContentGenerator() {
 
           {/* Results */}
           {ideas && (
-            <div className="p-6 bg-gradient-to-br from-pink-50 to-rose-50 border-t border-pink-100">
+            <div className="p-6 bg-linear-to-br from-pink-50 to-rose-50 border-t border-pink-100">
               {/* Hook */}
               <div className="mb-6 p-5 bg-white rounded-2xl border border-pink-100">
                 <span className="text-xs font-bold text-pink-600 uppercase tracking-widest">Viral Hook</span>

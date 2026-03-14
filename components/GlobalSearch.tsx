@@ -100,7 +100,7 @@ export default function GlobalSearch() {
     <div className="relative w-full" ref={searchRef}>
       {/* Search Input */}
       <div className="relative group">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-500 rounded-xl blur opacity-0 group-focus-within:opacity-30 transition-all duration-500"></div>
+        <div className="absolute -inset-0.5 bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 rounded-xl blur opacity-0 group-focus-within:opacity-30 transition-all duration-500"></div>
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-all z-10" />
         <input
           type="text"

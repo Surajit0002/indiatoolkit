@@ -1,103 +1,234 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Sparkles, Copy, RefreshCw, Heart, Zap } from "lucide-react";
-
-interface StoryData {
-  genre: string;
-  topic: string;
-  tone: string;
-  length: string;
-  audience: string;
-  language: string;
-}
+import { BookOpen, Sparkles, Wand2, Heart, MessageSquare, Zap } from "lucide-react";
+import AiChatInterface from "@/components/ai/AiChatInterface";
 
 const genres = ["Fantasy", "Romance", "Thriller", "Comedy", "Drama", "Sci-Fi", "Mystery", "Horror", "Adventure", "Moral/Fable"];
 const tones = ["Heartwarming", "Dark", "Humorous", "Inspiring", "Suspenseful", "Romantic", "Educational"];
 const lengths = ["Short (500 words)", "Medium (1000 words)", "Long (2000 words)", "Series (5000+ words)"];
 const audiences = ["Children", "Teens", "Adults", "All Ages"];
 
+const systemPrompt = `You are an expert creative writer for Omnitools AI Tools. Your task is to generate engaging, original stories based on user prompts.
+
+When writing stories, always include:
+1. A compelling hook/opening that grabs attention
+2. Well-developed characters with distinct personalities
+3. Vivid descriptions and sensory details
+4. A clear plot with beginning, middle, and end
+5. Dialogue that reveals character and advances the story
+6. Emotional depth appropriate to the genre and tone
+7. A satisfying conclusion
+
+Consider the following elements when generating:
+- Genre conventions and expectations
+- Target audience appropriateness
+- Tone consistency throughout
+- Pacing and narrative flow
+- Show don't tell approach
+- Use of literary devices where appropriate
+
+Generate stories that are creative, engaging, and well-structured.`;
+
 export default function AiStoryGenerator() {
-  const [story, setStory] = useState<StoryData>({
+  const [useChatMode, setUseChatMode] = useState(true);
+
+  const buildStoryPrompt = (params: {
+    genre: string;
+    topic: string;
+    tone: string;
+    length: string;
+    audience: string;
+  }) => {
+    return `Write a ${params.length.toLowerCase()} ${params.genre.toLowerCase()} story with the following details:
+- Theme/Topic: ${params.topic}
+- Tone: ${params.tone}
+- Target Audience: ${params.audience}
+
+Please create a compelling, well-structured story with vivid descriptions, engaging characters, and a satisfying narrative arc.`;
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+              <BookOpen className="h-8 w-8" />
+            </div>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold">AI Story Generator</h1>
+              <p className="text-indigo-100 mt-1">Create captivating stories with AI-powered creativity</p>
+            </div>
+          </div>
+          
+          {/* Mode Toggle */}
+          <div className="flex items-center gap-4 mt-6">
+            <span className="text-sm text-indigo-100">Mode:</span>
+            <div className="flex bg-white/10 rounded-xl p-1 backdrop-blur-sm">
+              <button
+                onClick={() => setUseChatMode(true)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  useChatMode 
+                    ? "bg-white text-indigo-600 shadow-lg" 
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                <MessageSquare className="w-4 h-4 inline mr-2" />
+                Chat Mode
+              </button>
+              <button
+                onClick={() => setUseChatMode(false)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  !useChatMode 
+                    ? "bg-white text-indigo-600 shadow-lg" 
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                <Wand2 className="w-4 h-4 inline mr-2" />
+                Form Mode
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {useChatMode ? (
+          /* Chat Mode */
+          <div className="max-w-4xl mx-auto">
+            <AiChatInterface
+              toolId="ai-story-generator"
+              toolName="AI Story Generator"
+              systemPrompt={systemPrompt}
+              placeholder="Describe your story idea, e.g., 'Write a heartwarming story about a boy who discovers a magical creature in his grandmother's garden...'"
+            />
+          </div>
+        ) : (
+          /* Form Mode - Enhanced Version */
+          <FormMode 
+            genres={genres} 
+            tones={tones} 
+            lengths={lengths} 
+            audiences={audiences}
+            buildPrompt={buildStoryPrompt}
+          />
+        )}
+
+        {/* Feature Cards */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl border border-cyan-100">
+            <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mb-4">
+              <Zap className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-lg font-bold text-cyan-800 mb-2">Instant Inspiration</h3>
+            <p className="text-sm text-cyan-700">
+              Get creative story ideas instantly. Describe your vision and watch it come to life with AI.
+            </p>
+          </div>
+          
+          <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl border border-purple-100">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-4">
+              <Sparkles className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-lg font-bold text-purple-800 mb-2">Multiple Genres</h3>
+            <p className="text-sm text-purple-700">
+              Explore fantasy, romance, thriller, sci-fi, and more. Every genre brings unique storytelling magic.
+            </p>
+          </div>
+          
+          <div className="p-6 bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl border border-indigo-100">
+            <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center mb-4">
+              <Heart className="h-6 w-6 text-white" />
+            </div>
+            <h3 className="text-lg font-bold text-indigo-800 mb-2">Creative Freedom</h3>
+            <p className="text-sm text-indigo-700">
+              Use AI-generated stories as inspiration. Build upon ideas, modify themes, and create your masterpiece.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Form Mode Component
+function FormMode({ 
+  genres, 
+  tones, 
+  lengths, 
+  audiences,
+  buildPrompt 
+}: { 
+  genres: string[]; 
+  tones: string[]; 
+  lengths: string[];
+  audiences: string[];
+  buildPrompt: (params: {
+    genre: string;
+    topic: string;
+    tone: string;
+    length: string;
+    audience: string;
+  }) => string;
+}) {
+
+  const [params, setParams] = useState<{
+    genre: string;
+    topic: string;
+    tone: string;
+    length: string;
+    audience: string;
+  }>({
     genre: "Fantasy",
     topic: "",
     tone: "Inspiring",
     length: "Medium (1000 words)",
-    audience: "Adults",
-    language: "English"
+    audience: "Adults"
   });
-
   const [generatedStory, setGeneratedStory] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const updateField = (field: keyof StoryData, value: string) => {
-    setStory({ ...story, [field]: value });
-  };
-
   const generateStory = async () => {
-    if (!story.topic.trim()) return;
-
+    if (!params.topic.trim()) return;
     setIsGenerating(true);
 
-    setTimeout(() => {
-      const storyTemplates: Record<string, string> = {
-        "Fantasy": `In a world where ${story.topic} was considered impossible, one young protagonist dared to dream differently. 
-        
-        Maya had always been different. While others saw limitations, she saw possibilities. The ancient texts spoke of the Forbidden Valley where the legendary flowers grew - flowers that could grant eternal happiness to whoever possessed them.
-        
-        "No one has ever returned from the Forbidden Valley," the elders warned. But Maya knew that every legend began with someone who refused to accept the status quo.
-        
-        As she embarked on her journey, Maya encountered mystical creatures who tested her resolve. A wise old dragon demanded she solve an impossible riddle. A mischievous fairy tried to lead her astray. A silent monk offered cryptic guidance.
-        
-        Through trials and tribulations, Maya discovered that the true magic wasn't in the flowers at all - it was within herself all along. The journey of a thousand miles begins with a single step, and her step changed everything.
-        
-        ${story.tone === "Heartwarming" ? "In the end, Maya returned not just with the flowers, but with wisdom that transformed her entire village." : ""}
-        ${story.tone === "Dark" ? "But victory came at a terrible cost, and Maya learned that some magic demands sacrifice." : ""}
-        ${story.tone === "Humorous" ? "And if you're wondering about the flowers? Turns out they were just dandelions. Really pretty dandelions." : ""}`,
-        
-        "Romance": `When ${story.topic} brought them together, neither expected to find love.
-        
-        Arjun was a successful architect focused on his career. Priya was a traveling journalist who never stayed in one place for too long. They met by chance at a small café in Goa, both seeking shelter from the sudden rain.
-        
-        "This seat taken?" she asked.
-        "It is now," he replied, not knowing these simple words would change his life.
-        
-        Over the next few days, as rain kept them confined to the café, they discovered shared dreams, hidden fears, and an unexpected connection.
-        
-        But Priya had a flight to catch. She always had a flight to catch.
-        
-        ${story.tone === "Heartwarming" ? "Sometimes love means learning to stay. Sometimes it means learning to take someone with you." : ""}
-        ${story.tone === "Suspenseful" ? "But their love had secrets - ones that threatened to tear them apart forever." : ""}`,
-        
-        "Thriller": `The clock was ticking. Every second brought them closer to disaster.
-        
-        Detective Rahul had 48 hours to solve the case of ${story.topic} before it was too late. The city was counting on him, but someone within the department was working against him.
-        
-        "Trust no one," his partner warned before disappearing.
-        
-        Clues led him through the dark underbelly of the city - abandoned warehouses, secret meetings, double-crosses at every turn.
-        
-        ${story.tone === "Suspenseful" ? "Just when he thought he had all the answers, Rahul realized he had been the pawn all along." : ""}
-        ${story.tone === "Dark" ? "The truth was more horrifying than any lie he had ever believed." : ""}`
-      };
+    try {
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: buildPrompt(params),
+          toolId: "ai-story-generator",
+          systemPrompt
+        })
+      });
 
-      const titleOptions = {
-        "Fantasy": ["The Impossible Dream", "Magic Within", "The Forbidden Valley", "A Thousand Miles"],
-        "Romance": ["Written in the Rain", "Flight or Stay", "A Chance Meeting", "Coffee and Chaos"],
-        "Thriller": ["The Ticking Clock", "48 Hours", "Trust No One", "The Double Cross"],
-        "default": ["The Unexpected Journey", "A Tale of Triumph", "When Worlds Collide", "Beyond the Horizon"]
-      };
-
-      const storyContent = storyTemplates[story.genre] || storyTemplates["default"];
-      const templateTitles = titleOptions[story.genre as keyof typeof titleOptions] || titleOptions["default"];
-      const generatedTitle = templateTitles[Math.floor(Math.random() * templateTitles.length)];
-
-      setTitle(generatedTitle);
-      setGeneratedStory(storyContent);
+      const data = await response.json();
+      setGeneratedStory(data.text);
+      
+      // Generate a title
+      const titleResponse = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: `Generate a compelling title for this story: ${data.text.substring(0, 500)}... Just return the title, nothing else.`,
+          toolId: "ai-story-generator",
+          systemPrompt: "You are a creative writer. Generate engaging titles."
+        })
+      });
+      
+      const titleData = await titleResponse.json();
+      setTitle(titleData.text.replace(/[""]/g, ""));
+    } catch (error) {
+      console.error("Error generating story:", error);
+    } finally {
       setIsGenerating(false);
-    }, 2500);
+    }
   };
 
   const copyStory = () => {
@@ -109,217 +240,170 @@ export default function AiStoryGenerator() {
 
   const downloadStory = () => {
     if (!generatedStory) return;
-
     const blob = new Blob([`${title}\n\n${generatedStory}`], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${story.genre.toLowerCase()}-story-${Date.now()}.txt`;
+    link.download = `${params.genre.toLowerCase()}-story-${Date.now()}.txt`;
     link.click();
     URL.revokeObjectURL(url);
   };
 
-  const resetForm = () => {
-    setStory({
-      genre: "Fantasy",
-      topic: "",
-      tone: "Inspiring",
-      length: "Medium (1000 words)",
-      audience: "Adults",
-      language: "English"
-    });
-    setGeneratedStory(null);
-    setTitle(null);
+  type StoryParams = {
+    genre: string;
+    topic: string;
+    tone: string;
+    length: string;
+    audience: string;
+  };
+
+  const updateField = (field: keyof StoryParams, value: string) => {
+    setParams((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
-    <div className="p-6 md:p-8 space-y-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
-            <BookOpen className="h-8 w-8 text-white" />
+    <div className="max-w-4xl mx-auto">
+      {/* Input Form */}
+      <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
+        <div className="p-6 space-y-6">
+          {/* Genre & Topic */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Genre
+              </label>
+              <select
+                value={params.genre}
+                onChange={(e) => updateField("genre", e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none font-medium bg-white"
+              >
+                {genres.map((g) => (
+                  <option key={g} value={g}>{g}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Story Theme/Topic
+              </label>
+              <input
+                type="text"
+                value={params.topic}
+                onChange={(e) => updateField("topic", e.target.value)}
+                placeholder="e.g., overcoming fear, finding love, magical adventure"
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none font-medium"
+              />
+            </div>
           </div>
-          <h2 className="text-2xl font-black text-slate-900 uppercase italic">AI Story Generator</h2>
-          <p className="text-slate-500 font-bold text-sm mt-2">
-            Create captivating stories with AI
-          </p>
+
+          {/* Options Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Tone
+              </label>
+              <select
+                value={params.tone}
+                onChange={(e) => updateField("tone", e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none font-medium bg-white"
+              >
+                {tones.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Length
+              </label>
+              <select
+                value={params.length}
+                onChange={(e) => updateField("length", e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none font-medium bg-white"
+              >
+                {lengths.map((l) => (
+                  <option key={l} value={l}>{l}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                Audience
+              </label>
+              <select
+                value={params.audience}
+                onChange={(e) => updateField("audience", e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none font-medium bg-white"
+              >
+                {audiences.map((a) => (
+                  <option key={a} value={a}>{a}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Generate Button */}
+          <button
+            onClick={generateStory}
+            disabled={!params.topic.trim() || isGenerating}
+            className="w-full h-14 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg shadow-indigo-500/25 disabled:opacity-50"
+          >
+            {isGenerating ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Generating your story...
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-5 w-5" />
+                Generate Story
+              </>
+            )}
+          </button>
         </div>
 
-        {/* Input Form */}
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden">
-          <div className="p-6 space-y-6">
-            {/* Genre & Topic */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-                  Genre
-                </label>
-                <select
-                  value={story.genre}
-                  onChange={(e) => updateField("genre", e.target.value)}
-                  className="w-full p-4 rounded-2xl border-2 border-slate-200 focus:border-cyan-500 focus:outline-none font-medium"
-                >
-                  {genres.map((g) => (
-                    <option key={g} value={g}>{g}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-                  Story Theme/Topic
-                </label>
-                <input
-                  type="text"
-                  value={story.topic}
-                  onChange={(e) => updateField("topic", e.target.value)}
-                  placeholder="e.g., overcoming fear, finding love"
-                  className="w-full p-4 rounded-2xl border-2 border-slate-200 focus:border-cyan-500 focus:outline-none font-medium"
-                />
-              </div>
-            </div>
-
-            {/* Options Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-                  Tone
-                </label>
-                <select
-                  value={story.tone}
-                  onChange={(e) => updateField("tone", e.target.value)}
-                  className="w-full p-4 rounded-2xl border-2 border-slate-200 focus:border-cyan-500 focus:outline-none font-medium"
-                >
-                  {tones.map((t) => (
-                    <option key={t} value={t}>{t}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-                  Length
-                </label>
-                <select
-                  value={story.length}
-                  onChange={(e) => updateField("length", e.target.value)}
-                  className="w-full p-4 rounded-2xl border-2 border-slate-200 focus:border-cyan-500 focus:outline-none font-medium"
-                >
-                  {lengths.map((l) => (
-                    <option key={l} value={l}>{l}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
-                  Audience
-                </label>
-                <select
-                  value={story.audience}
-                  onChange={(e) => updateField("audience", e.target.value)}
-                  className="w-full p-4 rounded-2xl border-2 border-slate-200 focus:border-cyan-500 focus:outline-none font-medium"
-                >
-                  {audiences.map((a) => (
-                    <option key={a} value={a}>{a}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            {/* Generate Button */}
-            <div className="flex gap-4">
-              <button
-                onClick={generateStory}
-                disabled={!story.topic.trim() || isGenerating}
-                className="flex-1 h-14 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg shadow-cyan-100 disabled:opacity-50"
-              >
-                {isGenerating ? (
-                  <>
-                    <RefreshCw className="h-5 w-5 animate-spin" />
-                    Writing...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="h-5 w-5" />
-                    Generate Story
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={resetForm}
-                className="px-6 h-14 rounded-2xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-all"
-              >
-                Reset
-              </button>
-            </div>
-          </div>
-
-          {/* Results */}
-          {generatedStory && (
-            <div className="p-6 bg-gradient-to-br from-cyan-50 to-blue-50 border-t border-cyan-100">
-              {/* Title */}
+        {/* Results */}
+        {generatedStory && (
+          <div className="p-6 bg-gradient-to-br from-indigo-50 to-purple-50 border-t border-indigo-100">
+            {/* Title */}
+            {title && (
               <div className="text-center mb-4">
                 <h3 className="text-2xl font-black text-slate-900">{title}</h3>
-                <p className="text-xs text-cyan-600 uppercase tracking-widest mt-1">
-                  A {story.genre} Story • {story.tone} Tone
+                <p className="text-sm text-indigo-600 mt-1">
+                  A {params.genre} Story • {params.tone} Tone • {params.audience}
                 </p>
               </div>
+            )}
 
-              {/* Story Content */}
-              <div className="bg-white rounded-2xl p-6 border border-cyan-100 mb-4">
-                <div className="prose prose-slate max-w-none">
-                  {generatedStory.split("\n\n").map((paragraph, i) => (
-                    <p key={i} className="mb-4 text-slate-700 leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-4">
-                <button
-                  onClick={copyStory}
-                  className="flex-1 h-12 bg-cyan-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-cyan-700 transition-all"
-                >
-                  {copied ? <Heart className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
-                  {copied ? "Copied!" : "Copy Story"}
-                </button>
-                <button
-                  onClick={downloadStory}
-                  className="flex-1 h-12 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all"
-                >
-                  Download
-                </button>
+            {/* Story Content */}
+            <div className="bg-white rounded-2xl p-6 border border-indigo-100 mb-4 max-h-96 overflow-y-auto">
+              <div className="prose prose-slate max-w-none">
+                {generatedStory.split("\n\n").map((paragraph, i) => (
+                  <p key={i} className="mb-4 text-slate-700 leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </div>
-          )}
-        </div>
 
-        {/* Info Cards */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 bg-cyan-50 rounded-2xl border border-cyan-100">
-            <Zap className="h-8 w-8 text-cyan-600 mb-3" />
-            <h3 className="font-bold text-cyan-800 mb-2">Instant Inspiration</h3>
-            <p className="text-sm text-cyan-700">
-              Get creative story ideas instantly based on your chosen genre and theme.
-            </p>
+            {/* Actions */}
+            <div className="flex gap-4">
+              <button
+                onClick={copyStory}
+                className="flex-1 h-12 bg-indigo-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-indigo-700 transition-all"
+              >
+                {copied ? <Heart className="h-5 w-5" /> : <MessageSquare className="h-5 w-5" />}
+                {copied ? "Copied!" : "Copy Story"}
+              </button>
+              <button
+                onClick={downloadStory}
+                className="flex-1 h-12 bg-purple-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-purple-700 transition-all"
+              >
+                Download
+              </button>
+            </div>
           </div>
-          <div className="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-            <BookOpen className="h-8 w-8 text-blue-600 mb-3" />
-            <h3 className="font-bold text-blue-800 mb-2">Multiple Genres</h3>
-            <p className="text-sm text-blue-700">
-              Explore different storytelling styles from fantasy to thriller and more.
-            </p>
-          </div>
-          <div className="p-6 bg-indigo-50 rounded-2xl border border-indigo-100">
-            <Sparkles className="h-8 w-8 text-indigo-600 mb-3" />
-            <h3 className="font-bold text-indigo-800 mb-2">Creative Freedom</h3>
-            <p className="text-sm text-indigo-700">
-              Use AI-generated stories as a starting point for your own creativity.
-            </p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ export default function UrlEncoder() {
   return (
     <div className="p-6 md:p-8 space-y-8">
       <div className="flex justify-center">
-        <div className="bg-gray-100 p-1.5 rounded-[2rem] flex gap-1">
+        <div className="bg-gray-100 p-1.5 rounded-3xl flex gap-1">
           <button 
             onClick={() => setMode("encode")}
             className={`px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest transition-all ${mode === "encode" ? "bg-white text-blue-600 shadow-sm" : "text-gray-400 hover:text-gray-600"}`}

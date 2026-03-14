@@ -170,7 +170,7 @@ export default function ModernSearchBar() {
   }, [isOpen, results, activeIndex, handleResultClick]);
 
   return (
-    <div className="relative w-full max-w-[800px] mx-auto" ref={wrapperRef}>
+    <div className="relative w-full max-w-200 mx-auto" ref={wrapperRef}>
       {/* Search Input - Premium SaaS Style */}
       <div className={`
         relative bg-white rounded-2xl shadow-sm border transition-all duration-200 overflow-visible
@@ -216,7 +216,7 @@ export default function ModernSearchBar() {
       {isOpen && (
         <div 
           ref={dropdownRef}
-          className="absolute top-full left-0 right-0 mt-1 bg-white rounded-b-2xl shadow-xl border border-t-0 border-slate-200 z-[99999] overflow-visible"
+          className="absolute top-full left-0 right-0 mt-1 bg-white rounded-b-2xl shadow-xl border border-t-0 border-slate-200 z-9999 overflow-visible"
           style={{ clipPath: 'none' }}
         >
           {/* Category Tabs */}
@@ -237,7 +237,7 @@ export default function ModernSearchBar() {
           </div>
 
           {/* Content */}
-          <div className="max-h-[400px] overflow-y-auto">
+          <div className="max-h-100 overflow-y-auto">
             {query.length < 1 ? (
               // Trending Tools
               <div className="p-4">

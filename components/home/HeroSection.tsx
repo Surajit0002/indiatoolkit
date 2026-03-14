@@ -15,14 +15,16 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-[85vh] flex items-center pt-28 pb-16 overflow-visible">
       {/* Dynamic Gradient Background with animated shapes */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-slate-50 via-white to-white"></div>
       
-      {/* Animated background shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-green-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-20 left-1/4 w-64 h-64 bg-blue-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      {/* Hero Background Image */}
+      <div className="absolute w-full h-full top-0 left-0 overflow-hidden inset-0">
+        <img 
+          src="/image/hero-background.png" 
+          alt="Hero Background" 
+          className="w-full h-full object-cover"
+        />
       </div>
+ 
 
       <div className="container px-4 relative z-[60]">
         <div className="max-w-4xl mx-auto text-center">
@@ -34,7 +36,7 @@ export default function HeroSection() {
           
           {/* Main Title with gradient text */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
-            Find the <span className="bg-gradient-to-r from-green-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">Perfect Tool</span>
+            Find the <span className="bg-linear-to-r from-green-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">Perfect Tool</span>
             <br className="hidden sm:block" />
             For Any Task
           </h1>

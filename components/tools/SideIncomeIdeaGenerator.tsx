@@ -156,7 +156,7 @@ export default function SideIncomeIdeaGenerator() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center h-16 w-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center h-16 w-16 bg-linear-to-br from-amber-500 to-orange-600 rounded-2xl mb-4 shadow-lg">
             <Lightbulb className="h-8 w-8 text-white" />
           </div>
           <h2 className="text-2xl font-black text-slate-900 uppercase italic">Side Income Idea Generator</h2>
@@ -265,7 +265,7 @@ export default function SideIncomeIdeaGenerator() {
               <button
                 onClick={generateIdeas}
                 disabled={isGenerating}
-                className="flex-1 h-14 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-amber-600 hover:to-orange-700 transition-all shadow-lg shadow-amber-100 disabled:opacity-50"
+                className="flex-1 h-14 bg-linear-to-r from-amber-500 to-orange-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:from-amber-600 hover:to-orange-700 transition-all shadow-lg shadow-amber-100 disabled:opacity-50"
               >
                 {isGenerating ? (
                   <>
@@ -291,7 +291,7 @@ export default function SideIncomeIdeaGenerator() {
 
           {/* Results */}
           {ideas.length > 0 && (
-            <div className="p-6 bg-gradient-to-br from-amber-50 to-orange-50 border-t border-amber-100">
+            <div className="p-6 bg-linear-to-br from-amber-50 to-orange-50 border-t border-amber-100">
               <div className="mb-6 p-4 bg-white rounded-2xl border border-amber-100">
                 <div className="flex items-center justify-between">
                   <div>

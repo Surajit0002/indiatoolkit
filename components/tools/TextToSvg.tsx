@@ -104,7 +104,7 @@ export default function TextToSvg() {
         <div className="p-8 md:p-12 space-y-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-amber-200">
+              <div className="h-12 w-12 bg-linear-to-br from-amber-500 to-orange-600 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-amber-200">
                 <Type className="h-6 w-6" />
               </div>
               <div>
@@ -129,7 +129,7 @@ export default function TextToSvg() {
                 value={text}
                 onChange={(e) => setText(e.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
                 placeholder="Enter text..."
-                className="relative w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all font-bold text-slate-700 shadow-inner placeholder:text-slate-300 text-center tracking-[0.5em]"
+                className="relative w-full h-14 px-6 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all font-bold text-slate-700 shadow-inner placeholder:text-slate-300 text-center tracking-[0.5em]"
                 maxLength={12}
               />
             </div>
@@ -150,7 +150,7 @@ export default function TextToSvg() {
                     type="number"
                     value={fontSize}
                     onChange={(e) => setFontSize(Number(e.target.value))}
-                    className="w-full h-14 px-4 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all font-bold text-slate-700 text-center shadow-inner"
+                    className="w-full h-14 px-4 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all font-bold text-slate-700 text-center shadow-inner"
                   />
                 </div>
                 <div className="space-y-2">
@@ -159,7 +159,7 @@ export default function TextToSvg() {
                     type="number"
                     value={strokeWidth}
                     onChange={(e) => setStrokeWidth(Number(e.target.value))}
-                    className="w-full h-14 px-4 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all font-bold text-slate-700 text-center shadow-inner"
+                    className="w-full h-14 px-4 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all font-bold text-slate-700 text-center shadow-inner"
                     step={0.5}
                     min={0.5}
                     max={10}
@@ -171,7 +171,7 @@ export default function TextToSvg() {
                     type="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
-                    className="w-full h-14 px-2 bg-slate-50/50 border border-slate-100 rounded-[24px] focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all shadow-inner cursor-pointer"
+                    className="w-full h-14 px-2 bg-slate-50/50 border border-slate-100 rounded-3xl focus:outline-none focus:bg-white focus:ring-4 focus:ring-amber-500/10 transition-all shadow-inner cursor-pointer"
                   />
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function TextToSvg() {
             </div>
             
             <div 
-              className="bg-white rounded-[24px] border-2 border-dashed border-slate-200 p-12 flex items-center justify-center min-h-[200px]"
+              className="bg-white rounded-3xl border-2 border-dashed border-slate-200 p-12 flex items-center justify-center min-h-50"
               dangerouslySetInnerHTML={{ __html: svgCode.replace('stroke="currentColor"', `stroke="${color}"`) }}
               style={{ color: color }}
             />
@@ -204,7 +204,7 @@ export default function TextToSvg() {
             </div>
             
             <div className="relative">
-              <pre className="bg-slate-900 rounded-[24px] p-6 overflow-x-auto max-h-48 text-xs">
+              <pre className="bg-slate-900 rounded-3xl p-6 overflow-x-auto max-h-48 text-xs">
                 <code className="text-emerald-400 font-mono">{svgCode}</code>
               </pre>
               <button
@@ -219,21 +219,21 @@ export default function TextToSvg() {
           <div className="flex flex-wrap gap-4 pt-6 border-t border-slate-50">
             <button
               onClick={() => handleCopy(svgCode, 'svg')}
-              className="flex-1 h-16 bg-slate-900 text-white rounded-[24px] hover:bg-amber-600 transition-all font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95"
+              className="flex-1 h-16 bg-slate-900 text-white rounded-3xl hover:bg-amber-600 transition-all font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl active:scale-95"
             >
               {svgCopied ? <Check className="h-5 w-5 text-emerald-400" /> : <Code className="h-5 w-5" />}
               {svgCopied ? "COPIED TO CLIPBOARD" : "COPY SVG CODE"}
             </button>
             <button
               onClick={handleDownload}
-              className="h-16 px-8 bg-slate-100 text-slate-700 rounded-[24px] hover:bg-amber-50 hover:text-amber-600 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
+              className="h-16 px-8 bg-slate-100 text-slate-700 rounded-3xl hover:bg-amber-50 hover:text-amber-600 transition-all shadow-sm active:scale-95 flex items-center justify-center gap-3 font-black uppercase tracking-widest"
             >
               <Download className="h-6 w-6" />
               DOWNLOAD SVG
             </button>
             <button
               onClick={() => { setText("HELLO"); setFontSize(72); }}
-              className="h-16 px-8 bg-slate-100 text-slate-400 rounded-[24px] hover:bg-red-50 hover:text-red-600 transition-all shadow-sm active:scale-95"
+              className="h-16 px-8 bg-slate-100 text-slate-400 rounded-3xl hover:bg-red-50 hover:text-red-600 transition-all shadow-sm active:scale-95"
             >
               <RefreshCw className="h-6 w-6" />
             </button>
