@@ -10,6 +10,10 @@ interface ToolUsage {
   lastUsed: string;
   firstUsed: string;
   dailyUsage: Record<string, number>;
+  clicks24h?: number;
+  clicks7d?: number;
+  trendingScore?: number;
+  isTrending?: boolean;
 }
 
 interface ToolClickEvent {
@@ -146,7 +150,7 @@ class ToolAnalytics {
       // Calculate 24h clicks
       let clicks24h = 0;
       let clicks7d = 0;
-      let clicksAllTime = tool.clicks;
+      const clicksAllTime = tool.clicks;
 
       for (const [date, count] of Object.entries(tool.dailyUsage)) {
         if (date >= yesterdayStr) {
@@ -179,10 +183,10 @@ class ToolAnalytics {
 
     // Sort by trending score, then by 24h clicks
     return tools
-      .sort((a: any, b: any) => {
+      .sort((a, b) => {
         if (a.isTrending && !b.isTrending) return -1;
         if (!a.isTrending && b.isTrending) return 1;
-        return b.trendingScore - a.trendingScore;
+        return b.trendingScore! - a.trendingScore!;
       })
       .slice(0, limit);
   }
@@ -246,8 +250,8 @@ class ToolAnalytics {
     return scoredTools.slice(0, limit).map(item => item.tool);
   }
 
-  private sendToServer(event: ToolClickEvent) {
-    // Optional: Send analytics to server for aggregation
+  private sendToServer(_event: ToolClickEvent) {
+    // Optional: Send analytics to server for persistent tracking
     // In production, implement with fetch/API
     if (process.env.NODE_ENV === 'production') {
       // Implementation would go here

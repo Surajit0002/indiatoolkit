@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Sparkles, Copy, RefreshCw, Download, Users, Zap, Send } from "lucide-react";
+import { Mail, Sparkles, Copy, RefreshCw, Download, Users, Zap } from "lucide-react";
 
 interface NewsletterData {
   topic: string;

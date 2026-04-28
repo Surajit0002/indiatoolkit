@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { TrendingUp } from "lucide-react";
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
-import { FadeIn, SlideIn, ScaleIn, StaggerContainer, StaggerItem, AnimatedButton, AnimatedCounter } from "@/components/ui/AnimatedComponents";
+import { FadeIn, ScaleIn, StaggerContainer, StaggerItem, AnimatedButton, AnimatedCounter } from "@/components/ui/AnimatedComponents";
 
 export default function CompoundInterestCalculator() {
   const [principal, setPrincipal] = useState("10000");

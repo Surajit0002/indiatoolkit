@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Copy, Check, Palette } from "lucide-react";
-import { FadeIn, ScaleIn, SlideIn, AnimatedButton, IconButton } from "@/components/ui/AnimatedComponents";
+import { FadeIn, ScaleIn, SlideIn, IconButton } from "@/components/ui/AnimatedComponents";
 
 export default function ColorConverter() {
   const [hex, setHex] = useState("#3B82F6");

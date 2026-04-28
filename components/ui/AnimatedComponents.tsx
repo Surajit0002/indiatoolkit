@@ -503,7 +503,7 @@ export function IconButton({
   );
 }
 
-export default {
+export const AnimatedComponents = {
   FadeIn,
   SlideIn,
   ScaleIn,
@@ -521,3 +521,5 @@ export default {
   SectionWrapper,
   IconButton
 };
+
+export default AnimatedComponents;

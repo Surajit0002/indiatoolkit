@@ -74,8 +74,8 @@ export function getPersonalizedRecommendations(recentToolIds: string[], limit: n
   const allToolObjects = tools.map(t => ({ id: t.id, slug: t.slug, category: t.category, tags: t.tags || [] }));
   const recommendations = toolAnalytics.getPersonalizedRecommendations(allToolObjects, limit);
   return recommendations.map(t => {
-    // t might be ToolUsage (has toolId) or Tool-like object (has id)
-    const toolId = (t as any).toolId || (t as any).id;
+    // t can be either ToolUsage (has toolId) or Tool-like (has id)
+    const toolId = 'toolId' in t ? t.toolId : t.id;
     return tools.find(tool => tool.id === toolId);
   }).filter(Boolean);
 }

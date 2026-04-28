@@ -363,14 +363,13 @@ function PaletteGenerator({ onCopy, copiedColor }: { onCopy: (text: string) => v
 }
 
 // ==================== CONTRAST CHECKER ====================
-function ContrastChecker({ onCopy, copiedColor }: { onCopy: (text: string) => void; copiedColor: string | null }) {
+function ContrastChecker({ onCopy: _onCopy, copiedColor: _copiedColor }: { onCopy: (text: string) => void; copiedColor: string | null }) {
   const [foreground, setForeground] = useState("#000000");
   const [background, setBackground] = useState("#ffffff");
   
   const ratio = getContrastRatio(foreground, background);
   const wcagAA = ratio >= 4.5;
   const wcagAAA = ratio >= 7;
-  const wcagAALarge = ratio >= 3;
 
   return (
     <div className="space-y-6">
@@ -819,7 +818,7 @@ function RandomColorGenerator({ onCopy, copiedColor }: { onCopy: (text: string) 
 }
 
 // ==================== COLOR NAME FINDER ====================
-function ColorNameFinder({ onCopy, copiedColor }: { onCopy: (text: string) => void; copiedColor: string | null }) {
+function ColorNameFinder({ onCopy: _onCopy, copiedColor: _copiedColor }: { onCopy: (text: string) => void; copiedColor: string | null }) {
   const [color, setColor] = useState("#ff6b6b");
   
   const colorName = getColorName(color);

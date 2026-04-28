@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Gift, Bolt, Lock, CheckCircle } from 'lucide-react';
+import { Shield, Gift, Bolt, Lock } from 'lucide-react';
 
 interface TrustSignalsProps {
   variant?: 'full' | 'compact' | 'minimal';

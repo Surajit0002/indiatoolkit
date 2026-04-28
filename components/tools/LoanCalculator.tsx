@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Banknote, Calendar, CreditCard, TrendingUp } from "lucide-react";
-import { FadeIn, SlideIn, ScaleIn, StaggerContainer, StaggerItem, AnimatedButton, ResultPanel, AnimatedCounter } from "@/components/ui/AnimatedComponents";
+import { StaggerContainer, StaggerItem, AnimatedButton, ResultPanel, ScaleIn, AnimatedCounter } from "@/components/ui/AnimatedComponents";
 
 export default function LoanCalculator() {
   const [amount, setAmount] = useState("");

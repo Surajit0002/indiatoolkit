@@ -230,22 +230,21 @@ We hope this guide has provided valuable insights into ${blog.topic}.`;
               placeholder="Describe your blog post, e.g., 'Write an SEO-optimized how-to guide about digital marketing for small businesses...'"
             />
           </div>
-        ) : (
-          /* Form Mode */
-          <FormMode 
-            blog={blog}
-            updateField={updateField}
-            generateBlog={generateBlog}
-            generatedBlog={generatedBlog}
-            isGenerating={isGenerating}
-            copied={copied}
-            apiError={apiError}
-            wordCount={wordCount}
-            copyBlog={copyBlog}
-            downloadBlog={downloadBlog}
-            getFallbackBlog={getFallbackBlog}
-          />
-        )}
+         ) : (
+           /* Form Mode */
+           <FormMode 
+             blog={blog}
+             updateField={updateField}
+             generateBlog={generateBlog}
+             generatedBlog={generatedBlog}
+             isGenerating={isGenerating}
+             copied={copied}
+             apiError={apiError}
+             wordCount={wordCount}
+             copyBlog={copyBlog}
+             downloadBlog={downloadBlog}
+           />
+         )}
 
         {/* SEO Tips */}
         <div className="mt-12 p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-3xl border border-emerald-100">
@@ -278,7 +277,6 @@ function FormMode({
   wordCount,
   copyBlog,
   downloadBlog,
-  getFallbackBlog
 }: { 
   blog: BlogData;
   updateField: (field: keyof BlogData, value: string) => void;
@@ -290,16 +288,7 @@ function FormMode({
   wordCount: number;
   copyBlog: () => void;
   downloadBlog: () => void;
-  getFallbackBlog: () => string;
 }) {
-  const blogTypes = [
-    "How-To Guide", "Listicle", "Opinion Piece", "Tutorial", "Review",
-    "Comparison", "Case Study", "News/Announcement", "Interview", "Thought Leadership"
-  ];
-  const tones = ["Professional", "Conversational", "Informative", "Inspiring", "Humorous", "Technical", "Casual"];
-  const lengths = ["Short (500-800 words)", "Medium (800-1500 words)", "Long (1500-2500 words)", "Comprehensive (2500+ words)"];
-  const audiences = ["General Public", "Beginners", "Intermediate Users", "Experts", "Business Professionals", "Students", "Tech Enthusiasts"];
-
   const resetForm = () => {
     updateField("topic", "");
     updateField("title", "");

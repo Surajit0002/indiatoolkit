@@ -2,6 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { Zap } from 'lucide-react';
 
 // Dynamic import for ModernSearchBar to maintain performance
@@ -18,10 +19,12 @@ export default function HeroSection() {
       
       {/* Hero Background Image */}
       <div className="absolute w-full h-full top-0 left-0 overflow-hidden inset-0">
-        <img 
+        <Image 
           src="/image/hero-background.png" 
           alt="Hero Background" 
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
         />
       </div>
  

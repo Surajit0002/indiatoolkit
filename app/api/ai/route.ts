@@ -6,13 +6,7 @@ const DEFAULT_MODEL = "qwen/qwen3-4b:free";
 const FALLBACK_MODEL = "z-ai/glm-4.5-air:free";
 const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
-// Available models for user selection
-const AVAILABLE_MODELS = [
-  { id: "qwen/qwen3-4b:free", name: "Qwen 3 4B", provider: "Qwen" },
-  { id: "z-ai/glm-4.5-air:free", name: "GLM-4.5 Air", provider: "Zhipu AI" },
-  { id: "google/gemma-3n-e4b-it:free", name: "Gemma 3N", provider: "Google" },
-  { id: "deepseek/deepseek-chat:free", name: "DeepSeek Chat", provider: "DeepSeek" }
-];
+
 
 export async function POST(req: Request) {
   try {

@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { BookOpen, Sparkles, Wand2, Target, Users, Clock, Download, MessageSquare, Book } from "lucide-react";
+import { BookOpen, Sparkles, Wand2, Target, Users, Clock, Download, MessageSquare } from "lucide-react";
 import AiChatInterface from "@/components/ai/AiChatInterface";
 
 const levels = ["Beginner", "Intermediate", "Advanced", "All Levels"];
 const durations = ["1-2 hours", "4-6 hours", "8-12 hours", "20+ hours"];
 const formats = ["Video Course", "Text/Article Course", "Mixed (Video + Text)", "Interactive Course", "Workshop Series"];
-const languages = ["English", "Hindi", "Tamil", "Telugu", "Bengali", "Marathi"];
 
 const systemPrompt = `You are an expert instructional designer for Omnitools AI Tools. Your task is to create comprehensive, well-structured course curricula.
 
@@ -38,13 +37,11 @@ export default function AiCourseGenerator() {
     duration: string;
     audience: string;
     format: string;
-    language: string;
   }) => {
     return `Create a complete ${params.level.toLowerCase()} course curriculum for "${params.topic}" with the following specifications:
 - Duration: ${params.duration}
 - Target Audience: ${params.audience}
 - Course Format: ${params.format}
-- Language: ${params.language}
 
 Please include:
 1. Course title
@@ -117,17 +114,16 @@ Structure the curriculum in a clear, organized format with module numbers and le
               placeholder="Describe your course idea, e.g., 'Create a comprehensive course on digital marketing for beginners covering social media, SEO, and content marketing...'"
             />
           </div>
-        ) : (
-          /* Form Mode */
-          <FormMode 
-            levels={levels}
-            durations={durations}
-            formats={formats}
-            languages={languages}
-            buildPrompt={buildCoursePrompt}
-            systemPrompt={systemPrompt}
-          />
-        )}
+         ) : (
+           /* Form Mode */
+           <FormMode 
+             levels={levels}
+             durations={durations}
+             formats={formats}
+             buildPrompt={buildCoursePrompt}
+             systemPrompt={systemPrompt}
+           />
+         )}
 
         {/* Feature Cards */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -173,21 +169,18 @@ interface CourseParams {
   duration: string;
   audience: string;
   format: string;
-  language: string;
 }
 
 function FormMode({ 
   levels, 
   durations, 
   formats,
-  languages,
   buildPrompt,
   systemPrompt
 }: { 
   levels: string[];
   durations: string[];
   formats: string[];
-  languages: string[];
   buildPrompt: (params: CourseParams) => string;
   systemPrompt: string;
 }) {
@@ -196,8 +189,7 @@ function FormMode({
     level: "Beginner",
     duration: "4-6 hours",
     audience: "Students",
-    format: "Video Course",
-    language: "English"
+    format: "Video Course"
   });
   const [generatedCourse, setGeneratedCourse] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);

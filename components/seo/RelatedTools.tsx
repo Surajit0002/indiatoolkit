@@ -5,24 +5,22 @@ import { ChevronRight, Star } from "lucide-react";
 import { Tool } from "@/types/tool";
 import * as Icons from "lucide-react";
 
-interface RelatedToolsProps {
-  currentToolId: string;
-  currentCategory: string;
-  tags?: string[];
-  limit?: number;
-}
-
 /**
  * RelatedTools Component
  * Displays related tools based on category and tags for internal linking
  * Helps with SEO by creating contextual internal links
  */
 export function RelatedTools({
-  currentToolId,
+  currentToolId: _currentToolId,
   currentCategory,
-  tags = [],
-  limit = 6,
-}: RelatedToolsProps) {
+  tags: _tags = [],
+  limit: _limit = 6,
+}: {
+  currentToolId: string;
+  currentCategory: string;
+  tags?: string[];
+  limit?: number;
+}) {
   // This will be populated by the parent component or fetched from data
   // For now, we'll accept tools as a prop
   return (

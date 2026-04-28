@@ -9,7 +9,7 @@ export interface GeneratedMetadata {
   keywords: string[];
   h1: string;
   h2: string;
-  structuredData: any[];
+  structuredData: Array<Record<string, unknown>>;
 }
 
 // High CTR Title Patterns
@@ -195,7 +195,7 @@ function generateH2(tool: Tool): string {
   return h2Options[Math.floor(Math.random() * h2Options.length)];
 }
 
-function generateStructuredData(tool: Tool): any[] {
+function generateStructuredData(tool: Tool): Array<Record<string, unknown>> {
   const baseUrl = `https://indiatoolkit.in/tool/${tool.slug}`;
   
   const softwareSchema = {
@@ -236,7 +236,7 @@ function generateStructuredData(tool: Tool): any[] {
   return [softwareSchema, faqSchema, howToSchema].filter(Boolean);
 }
 
-function generateFAQItems(tool: Tool): any[] {
+function generateFAQItems(tool: Tool): Array<{ '@type': 'Question'; name: string; acceptedAnswer: { '@type': 'Answer'; text: string } }> {
   const faqs = tool.faqs || [];
   const generalFAQs = [
     {
@@ -269,8 +269,8 @@ function generateFAQItems(tool: Tool): any[] {
   }));
 }
 
-function generateHowToSteps(tool: Tool): any[] {
-  const stepsByType: Record<string, any[]> = {
+function generateHowToSteps(tool: Tool): Array<{ '@type': 'HowToStep'; position: number; name: string; text: string }> {
+  const stepsByType: Record<string, Array<{ name: string; text: string }>> = {
     calculator: [
       { name: 'Enter Values', text: 'Input your numbers in the provided fields' },
       { name: 'Configure Options', text: 'Select calculation settings if needed' },

@@ -81,7 +81,7 @@ export default function PersonalizedRecommendations({ allTools, currentToolId }:
             <div className="mb-10">
               <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Recent Tools</h3>
               <div className="flex flex-wrap gap-3">
-                {recentTools.slice(0, 5).map((recent, index) => {
+                {recentTools.slice(0, 5).map((recent) => {
                   const tool = allTools.find(t => t.id === recent.toolId);
                   if (!tool) return null;
                   
@@ -192,9 +192,9 @@ export default function PersonalizedRecommendations({ allTools, currentToolId }:
                         <p className="text-xs font-bold text-slate-700 line-clamp-1">
                           {tool.name}
                         </p>
-                        <p className="text-xs text-red-500 font-bold mt-1">
-                          {+(trending as any).clicks24h} today
-                        </p>
+                         <p className="text-xs text-red-500 font-bold mt-1">
+                           {trending.clicks24h || 0} today
+                         </p>
                       </div>
                     </Link>
                   );

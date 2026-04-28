@@ -101,13 +101,15 @@ export default function QrGenerator() {
         <div className="flex flex-col items-center justify-center brutal-card p-4 sm:p-6 md:p-8 bg-white order-1 lg:order-2">
           <div className="relative group mb-4 sm:mb-6 md:mb-8">
             <div className="absolute -inset-1 sm:-inset-2 bg-black rounded-lg sm:rounded-[12px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
-            {qrImageUrl ? (
-              <Image 
-                src={qrImageUrl} 
-                alt="QR Code" 
-                className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 border-2 sm:border-4 border-black rounded-lg sm:rounded-[8px] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
-              />
-            ) : (
+             {qrImageUrl ? (
+               <Image 
+                 src={qrImageUrl} 
+                 alt="QR Code" 
+                 width={400}
+                 height={400}
+                 className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 border-2 sm:border-4 border-black rounded-lg sm:rounded-[8px] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sm:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+               />
+             ) : (
               <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 flex items-center justify-center border-2 sm:border-4 border-dashed border-black rounded-lg sm:rounded-[8px]">
                 <QrCode className="h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 animate-pulse" />
               </div>

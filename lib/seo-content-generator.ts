@@ -140,7 +140,7 @@ function generateKeywords(toolName: string, category: string, toolType: string):
   return Array.from(keywords);
 }
 
-function generateSemanticKeywords(category: string, toolType: string): string[] {
+function generateSemanticKeywords(category: string, _toolType: string): string[] {
   const semanticMap: Record<string, string[]> = {
     converter: ['convert files', 'file format conversion', 'batch processing', 'output formats'],
     calculator: ['calculations', 'math operations', 'formulas', 'numeric analysis'],
