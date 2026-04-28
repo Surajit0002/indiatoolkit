@@ -1,4 +1,5 @@
 import React from "react";
+import MostPopularTools from "@/components/home/MostPopularTools";
 
 // Import all home page sections as components
 import HeroSection from "@/components/home/HeroSection";
@@ -17,12 +18,24 @@ import TrustSecuritySection from "@/components/home/TrustSecuritySection";
 import NewsletterSection from "@/components/home/NewsletterSection";
 import FAQSection from "@/components/home/FAQSection";
 import CTASection from "@/components/home/CTASection";
+import DynamicBreadcrumb from "@/components/DynamicBreadcrumb";
 
 export default function Home() {
   return (
     <div className="flex flex-col gap-0">
+      {/* Breadcrumb */}
+      <div className="container px-4 mx-auto py-3">
+        <DynamicBreadcrumb 
+          items={[{ label: "Home", href: "/" }]} 
+          variant="minimal"
+        />
+      </div>
+
       {/* Hero Section - Main landing with ModernSearchBar */}
       <HeroSection />
+
+      {/* Most Popular Tools - High CTR section */}
+      <MostPopularTools />
 
       {/* Featured Tools Showcase */}
       <FeaturedToolsSection />

@@ -7,7 +7,7 @@ import * as Icons from "lucide-react";
 
 interface RelatedToolsProps {
   currentToolId: string;
-  category: string;
+  currentCategory: string;
   tags?: string[];
   limit?: number;
 }
@@ -18,16 +18,44 @@ interface RelatedToolsProps {
  * Helps with SEO by creating contextual internal links
  */
 export function RelatedTools({
-
-  category,
-
+  currentToolId,
+  currentCategory,
+  tags = [],
   limit = 6,
 }: RelatedToolsProps) {
-  // This would typically fetch from an API or use a context
-  // For now, we'll use a placeholder that can be enhanced later
-  const relatedTools: Tool[] = [];
+  // This will be populated by the parent component or fetched from data
+  // For now, we'll accept tools as a prop
+  return (
+    <section className="mt-12 pt-8 border-t border-slate-200">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-xl font-bold text-slate-900">Related Tools</h2>
+        <Link
+          href={`/category/${currentCategory}`}
+          className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+        >
+          View all <ChevronRight className="h-4 w-4" />
+        </Link>
+      </div>
+      <p className="text-slate-500 text-sm">
+        Loading related tools...
+      </p>
+    </section>
+  );
+}
 
-  if (relatedTools.length === 0) {
+/**
+ * RelatedToolsList - Server component version that accepts tools directly
+ */
+export function RelatedToolsList({
+  tools,
+  category,
+  limit = 6,
+}: {
+  tools: Tool[];
+  category: string;
+  limit?: number;
+}) {
+  if (!tools || tools.length === 0) {
     return null;
   }
 
@@ -44,7 +72,7 @@ export function RelatedTools({
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {relatedTools.slice(0, limit).map((tool) => {
+        {tools.slice(0, limit).map((tool) => {
           // @ts-expect-error - Dynamic icon access
           const ToolIcon = Icons[tool.icon] || Icons.Wrench;
 
@@ -106,3 +134,4 @@ export function ToolCardMini({ tool }: { tool: Tool }) {
     </Link>
   );
 }
+

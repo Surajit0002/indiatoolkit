@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { tools } from "../data/tools";
 import { categories } from "../data/categories";
+import { toolAnalytics } from "@/lib/analytics/tool-analytics";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -57,4 +58,35 @@ export function getToolsBySearch(query: string) {
     tool.description.toLowerCase().includes(searchTerm) ||
     tool.category.toLowerCase().includes(searchTerm)
   );
+}
+
+export function getTrendingTools(limit: number = 10) {
+  const trending = toolAnalytics.getTrendingTools(limit);
+  return trending.map(t => tools.find(tool => tool.id === t.toolId)).filter(Boolean);
+}
+
+export function getPopularToolsByUsage(limit: number = 10) {
+  const popular = toolAnalytics.getPopularTools(limit);
+  return popular.map(t => tools.find(tool => tool.id === t.toolId)).filter(Boolean);
+}
+
+export function getPersonalizedRecommendations(recentToolIds: string[], limit: number = 6) {
+  const allToolObjects = tools.map(t => ({ id: t.id, slug: t.slug, category: t.category, tags: t.tags || [] }));
+  const recommendations = toolAnalytics.getPersonalizedRecommendations(allToolObjects, limit);
+  return recommendations.map(t => {
+    // t might be ToolUsage (has toolId) or Tool-like object (has id)
+    const toolId = (t as any).toolId || (t as any).id;
+    return tools.find(tool => tool.id === toolId);
+  }).filter(Boolean);
+}
+
+export function trackToolUsage(toolId: string, toolSlug: string) {
+  const event = {
+    toolId,
+    toolSlug,
+    timestamp: new Date().toISOString(),
+    userAgent: typeof window !== 'undefined' ? navigator.userAgent : undefined,
+    referrer: typeof window !== 'undefined' ? document.referrer : undefined,
+  };
+  toolAnalytics.trackToolClick(event);
 }

@@ -34,33 +34,14 @@ export default function HeroSection() {
             <span className="text-sm font-semibold text-green-700">India&apos;s #1 Free Toolkit</span>
           </div>
           
-          {/* Main Title with gradient text */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
-            Find the <span className="bg-linear-to-r from-green-600 via-emerald-500 to-teal-500 bg-clip-text text-transparent">Perfect Tool</span>
-            <br className="hidden sm:block" />
-            For Any Task
-          </h1>
-          
-          {/* Subtitle */}
-          <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-xl mx-auto leading-relaxed">
-            Search from <span className="font-bold text-slate-700">500+ free tools</span> for converters, calculators, AI utilities, and more.
-          </p>
+     
 
           {/* Search Bar - Main Focus (Preserved as-is) */}
           <div className="mb-10 px-2 relative z-[100]">
             <ModernSearchBar />
           </div>
 
-          {/* Quick Stats - Mobile responsive */}
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 text-sm text-slate-500">
-            <span className="font-bold text-slate-800 text-base">500+</span><span className="hidden sm:inline">Tools</span><span className="sm:hidden">Tools</span>
-            <span className="text-slate-300">•</span>
-            <span className="font-bold text-slate-800 text-base">25+</span><span>Categories</span>
-            <span className="text-slate-300 hidden sm:inline">•</span>
-            <span className="font-bold text-slate-800 text-base">1M+</span><span>Users</span>
-            <span className="text-slate-300">•</span>
-            <span className="text-green-600 font-bold">100% Free</span>
-          </div>
+
         </div>
       </div>
     </section>
