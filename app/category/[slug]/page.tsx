@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getCategoryBySlug, getToolsByCategory, getAllTools } from "@/lib/utils";
 import Link from "next/link";
 import { ArrowRight, Grid, List } from "lucide-react";
-import { useState } from "react";
 import ToolCard from '@/components/ToolCard';
 
 interface PageProps {
